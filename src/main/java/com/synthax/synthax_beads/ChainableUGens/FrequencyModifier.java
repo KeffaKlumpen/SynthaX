@@ -6,6 +6,9 @@
 
 package com.synthax.synthax_beads.ChainableUGens;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Slider;
+import javafx.scene.input.DragEvent;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Mult;
@@ -20,6 +23,8 @@ import net.beadsproject.beads.ugens.WavePlayer;
         ///// FM Oscillator END private UGen output; //Add or Mult
   */
 public class FrequencyModifier extends ChainableUGen {
+    @FXML private Slider freqSlider;
+
     private WavePlayer freqModulator;
 
     @Override
@@ -27,5 +32,11 @@ public class FrequencyModifier extends ChainableUGen {
         AudioContext ac = AudioContext.getDefaultContext();
         freqModulator = new WavePlayer(ac, 2, Buffer.SINE);
         output = new Mult(ac, 1, freqModulator);
+    }
+
+    @FXML
+    protected void setFreq() {
+        float f = (float)freqSlider.getValue();
+        freqModulator.setFrequency(f);
     }
 }

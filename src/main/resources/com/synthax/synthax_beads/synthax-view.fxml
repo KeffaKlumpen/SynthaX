@@ -11,7 +11,7 @@
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <left>
                 <ScrollPane minWidth="550" minHeight="400" BorderPane.alignment="CENTER">
-                 <fx:include fx:id="oscillatorViews" source="ugen-list-view.fxml" />
+                 <fx:include fx:id="ugenChainView" source="ugen-list-view.fxml" />
              </ScrollPane>
          </left>
          <bottom>

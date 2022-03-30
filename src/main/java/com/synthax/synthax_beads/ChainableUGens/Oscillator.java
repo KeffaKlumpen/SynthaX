@@ -26,19 +26,19 @@ import net.beadsproject.beads.ugens.WavePlayer;
  */
 
 public class Oscillator extends ChainableUGen {
-    @FXML private Slider freqSlider = new Slider();
+    @FXML private Slider freqSlider;
     @FXML private Slider gainSlider;
 
-    private WavePlayer wp;
+    private WavePlayer wavePlayer;
     private Gain gain;
 
     @Override
     public void setup(){
         AudioContext ac = AudioContext.getDefaultContext();
 
-        wp = new WavePlayer(ac, 150f, Buffer.SINE);
+        wavePlayer = new WavePlayer(ac, 150f, Buffer.SINE);
         gain = new Gain(ac, 1, 1f);
-        gain.addInput(wp);
+        gain.addInput(wavePlayer);
         output = new Add(ac, 1, gain);
 
         System.out.println("Setup complete");
@@ -47,8 +47,8 @@ public class Oscillator extends ChainableUGen {
     @FXML
     protected void setFreq() {
         float f = (float)freqSlider.getValue();
-        wp.setFrequency(f);
-        System.out.println("new freq: " + wp.getFrequency());
+        wavePlayer.setFrequency(f);
+        System.out.println("new freq: " + wavePlayer.getFrequency());
     }
 
     @FXML

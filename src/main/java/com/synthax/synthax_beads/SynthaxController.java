@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class SynthaxController {
     @FXML
-    public VBox oscillatorViews;
+    public VBox ugenChainView;
 
     private Synth synth;
 
@@ -46,7 +46,7 @@ public class SynthaxController {
 
             synth.addToChain(oscillator);
 
-            oscillatorViews.getChildren().add(oscillatorView);
+            ugenChainView.getChildren().add(oscillatorView);
         }
         catch (IOException e){
             e.printStackTrace();
@@ -55,11 +55,19 @@ public class SynthaxController {
 
     @FXML
     public void addFM(){
-        // FIXME: 2022-03-30 Make a fxml for FrequencyModifier.. Load stuff, etc.
-        FrequencyModifier fm = new FrequencyModifier();
-        fm.setup();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("freqmodifier-view.fxml"));
+            Node oscillatorView = fxmlLoader.load();
+            FrequencyModifier fm = fxmlLoader.getController();
+            fm.setup();
 
-        synth.addToChain(fm);
+            synth.addToChain(fm);
+
+            ugenChainView.getChildren().add(oscillatorView);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void close(){
