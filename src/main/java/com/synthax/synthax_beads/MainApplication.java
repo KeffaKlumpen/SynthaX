@@ -20,7 +20,7 @@ public class MainApplication extends Application {
         stage.show();
 
         //controller.addOscillator();
-        //controller.addOscillator();
+        //controller.addOscillator(); j
 
         // auto close Synth when we exit window
         stage.setOnCloseRequest(event -> {
