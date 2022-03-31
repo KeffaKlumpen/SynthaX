@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<TitledPane text="Oscillator" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.synthax_beads.ChainableUGens.Oscillator">
+   <content>
+      <BorderPane>
+         <center>
+            <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Oscillator">
+                  <content>
+                    <AnchorPane>
+                           <children>
+                              <ChoiceBox layoutX="21.0" layoutY="37.0" prefWidth="150.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="37.0" />
+                              <Label layoutX="21.0" layoutY="14.0" text="Waveform" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="14.0" />
+                               <Label layoutX="21.0" layoutY="113.0" text="Freq" />
+                               <Slider fx:id="freqSlider" blockIncrement="1" layoutX="21.0" layoutY="131.0" max="5000" min="20" onDragDone="#setFreq" onMouseClicked="#setFreq" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="ASDR">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="259.0" layoutY="121.0" text="Tab 2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font size="34.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="LFO">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label alignment="CENTER" layoutX="259.0" layoutY="121.0" text="Tab 3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font size="34.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </center>
+         <top>
+            <AnchorPane BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="7.0" layoutY="1.0" text="Preset: " AnchorPane.leftAnchor="7.0" />
+                  <ComboBox layoutX="61.0" layoutY="-3.0" promptText="No Preset*" AnchorPane.leftAnchor="61.0" />
+                  <RadioButton fx:id="bypass" mnemonicParsing="false" selected="false" AnchorPane.rightAnchor="0.0" />
+                  <Label layoutX="17.0" layoutY="11.0" text="Bypass" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+         </top>
+         <right>
+            <VBox alignment="BOTTOM_CENTER" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                   <Label text="Gain" />
+                   <Slider fx:id="gainSlider" blockIncrement="0.1" max="1" min="0" onDragDone="#setGain" onMouseClicked="#setGain" />
+               </children>
+            </VBox>
+         </right>
+      </BorderPane>
+   </content>
+</TitledPane>
