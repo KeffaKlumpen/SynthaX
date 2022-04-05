@@ -1,12 +1,7 @@
-/*
-  Author: Joel Eriksson Sinclair
-  ID: ai7892
-  Study program: Sys 21h
-*/
+package com.synthax.SynthaX;
 
-package com.synthax.synthax_beads;
-
-import com.synthax.synthax_beads.ChainableUGens.ChainableUGen;
+import com.synthax.SynthaX.ChainableUGens.ChainableUGen;
+import com.synthax.SynthaX.ChainableUGens.Oscillator;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
 import net.beadsproject.beads.ugens.*;
@@ -98,7 +93,8 @@ public class Synth {
         masterGainGlide.setValue(0f);
     }
 
-    public void close(){
-        ac.stop();
+    public void removeOscillator(Oscillator osc) {
+        //remove oscillator and connect ugens in chain
     }
+
 }

@@ -4,11 +4,10 @@
   Study program: Sys 21h
 */
 
-package com.synthax.synthax_beads.ChainableUGens;
+package com.synthax.SynthaX.ChainableUGens;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
-import javafx.scene.input.DragEvent;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Mult;

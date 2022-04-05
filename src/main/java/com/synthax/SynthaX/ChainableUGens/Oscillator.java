@@ -1,10 +1,5 @@
-/*
-  Author: Joel Eriksson Sinclair
-  ID: ai7892
-  Study program: Sys 21h
-*/
 
-package com.synthax.synthax_beads.ChainableUGens;
+package com.synthax.SynthaX.ChainableUGens;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;

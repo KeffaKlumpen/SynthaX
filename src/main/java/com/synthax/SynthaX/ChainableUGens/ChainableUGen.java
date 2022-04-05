@@ -4,7 +4,7 @@
   Study program: Sys 21h
 */
 
-package com.synthax.synthax_beads.ChainableUGens;
+package com.synthax.SynthaX.ChainableUGens;
 
 import net.beadsproject.beads.core.UGen;
 
