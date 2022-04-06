@@ -103,19 +103,19 @@ public class Synth {
             case 'C' -> {
                 masterGainGlide.setValue(.2f);
                 for (ChainableUGen u : ugens) {
-                    u.setNote(261.63f);
+                    u.playSound(261.63f);
                 }
             }
             case 'D' -> {
                 masterGainGlide.setValue(.2f);
                 for (ChainableUGen u : ugens) {
-                    u.setNote(293.66f);
+                    u.playSound(293.66f);
                 }
             }
             case 'E' -> {
                 masterGainGlide.setValue(.2f);
                 for (ChainableUGen u : ugens) {
-                    u.setNote(329.63f);
+                    u.playSound(329.63f);
                 }
             }
         }

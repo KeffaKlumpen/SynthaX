@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TitledPane?>
@@ -23,10 +24,12 @@
                   <content>
                     <AnchorPane>
                            <children>
-                              <ChoiceBox layoutX="21.0" layoutY="37.0" prefWidth="150.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="37.0" />
+                              <ChoiceBox fx:id="waveFormChoiceBox" layoutX="21.0" layoutY="37.0" prefWidth="150.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="37.0" />
                               <Label layoutX="21.0" layoutY="14.0" text="Waveform" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="14.0" />
-                               <Label layoutX="21.0" layoutY="113.0" text="Freq" />
-                               <Slider fx:id="freqSlider" blockIncrement="1" layoutX="21.0" layoutY="131.0" max="5000" min="20" onDragDone="#setFreq" onMouseClicked="#setFreq" />
+                               <Label layoutX="21.0" layoutY="113.0" text="Detune" />
+                               <Slider fx:id="sliderDetune" blockIncrement="1" layoutX="21.0" layoutY="131.0" majorTickUnit="10.0" max="50.0" min="-50.0" showTickLabels="true" showTickMarks="true" />
+                              <Label layoutX="213.0" layoutY="14.0" text="Octave" />
+                              <Spinner fx:id="octaveSpinner" layoutX="213.0" layoutY="37.0" prefHeight="25.0" prefWidth="74.0" />
                            </children>
                         </AnchorPane>
                   </content>

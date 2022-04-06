@@ -20,5 +20,6 @@ public abstract class ChainableUGen {
         output.clearInputConnections();
         output.addInput(input);
     }
-    public abstract void setNote(float hertz);
+
+    public abstract void playSound(float frequency);
 }
