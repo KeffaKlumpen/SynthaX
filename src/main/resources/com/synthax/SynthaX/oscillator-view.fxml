@@ -36,15 +36,23 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                <Tab text="ASDR">
+                <Tab text="ADSR">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Label alignment="CENTER" layoutX="259.0" layoutY="121.0" text="Tab 2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label alignment="CENTER" layoutX="259.0" layoutY="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font size="34.0" />
                                  </font>
                               </Label>
+                              <Slider fx:id="sliderAttack" layoutX="45.0" layoutY="20.0" max="9000.0" orientation="VERTICAL" prefHeight="115.0" prefWidth="14.0" />
+                              <Slider fx:id="sliderDecay" layoutX="104.0" layoutY="20.0" max="86000.0" orientation="VERTICAL" prefHeight="115.0" prefWidth="14.0" />
+                              <Slider fx:id="sliderSustain" layoutX="167.0" layoutY="20.0" max="1.0" orientation="VERTICAL" prefHeight="115.0" value="100.0" />
+                              <Slider fx:id="sliderRelease" layoutX="236.0" layoutY="20.0" max="46000.0" orientation="VERTICAL" prefHeight="115.0" />
+                              <Label layoutX="38.0" layoutY="149.0" text="Attack" />
+                              <Label layoutX="97.0" layoutY="149.0" text="Decay" />
+                              <Label layoutX="160.0" layoutY="149.0" text="Sustain" />
+                              <Label layoutX="229.0" layoutY="149.0" text="Release" />
                            </children>
                         </AnchorPane>
                   </content>

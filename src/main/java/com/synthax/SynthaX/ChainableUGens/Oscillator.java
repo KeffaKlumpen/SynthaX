@@ -40,9 +40,14 @@ public class Oscillator extends ChainableUGen implements Initializable {
     @FXML private ChoiceBox<Waveforms> waveFormChoiceBox;
     @FXML private Spinner<String> octaveSpinner;
     @FXML private RadioButton btnBypass;
+    @FXML private Slider sliderAttack;
+    @FXML private Slider sliderDecay;
+    @FXML private Slider sliderSustain;
+    @FXML private Slider sliderRelease;
 
     private WavePlayer wavePlayer;
     private Gain gain;
+    private ADSR adsr;
 
     private String octaveOperand = "8'";
     private float detuneCent;
@@ -52,7 +57,10 @@ public class Oscillator extends ChainableUGen implements Initializable {
         AudioContext ac = AudioContext.getDefaultContext();
 
         wavePlayer = new WavePlayer(ac, 150f, Buffer.SINE);
-        gain = new Gain(ac, 1, 1f);
+
+        adsr = new ADSR(ac);
+
+        gain = new Gain(ac, 1, adsr.getEnvelope()); //getenvelope
         gain.addInput(wavePlayer);
         output = new Add(ac, 1, gain);
     }
@@ -71,7 +79,11 @@ public class Oscillator extends ChainableUGen implements Initializable {
     public void playSound(float frequency) {
         frequency = checkOctave(frequency);
         frequency = checkDetune(frequency);
+        adsr.getEnvelope().addSegment(gain.getValue(), 4000);
+        adsr.getEnvelope().addSegment(gain.getValue() / 2, 10000);
         wavePlayer.setFrequency(frequency);
+
+        //adsr.envelop();
     }
 
     /**
@@ -160,7 +172,9 @@ public class Oscillator extends ChainableUGen implements Initializable {
         sliderGain.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                gain.setGain(t1.floatValue() / 100);
+                float newGain = t1.floatValue() / 100;
+                gain.setGain(newGain);
+                adsr.setPeakGain(newGain);
             }
         });
 
@@ -168,6 +182,27 @@ public class Oscillator extends ChainableUGen implements Initializable {
             @Override
             public void handle(ActionEvent actionEvent) {
                 bypassOscillator(btnBypass.isSelected());
+            }
+        });
+
+        sliderAttack.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                adsr.setAttackValue(t1.floatValue());
+            }
+        });
+
+        sliderDecay.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                adsr.setDecayValue(t1.floatValue());
+            }
+        });
+
+        sliderSustain.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                adsr.setSustainValue(t1.floatValue());
             }
         });
     }
