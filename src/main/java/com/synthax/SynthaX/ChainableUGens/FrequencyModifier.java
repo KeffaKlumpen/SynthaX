@@ -34,7 +34,7 @@ public class FrequencyModifier extends ChainableUGen {
     }
 
     @Override
-    public void setNote(float hertz) {
+    public void playSound(float frequency) {
 
     }
 
