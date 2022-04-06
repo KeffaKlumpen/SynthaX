@@ -9,10 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Slider;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.*;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Add;
@@ -39,9 +36,10 @@ import java.util.ResourceBundle;
 
 public class Oscillator extends ChainableUGen implements Initializable {
     @FXML private Slider sliderDetune;
-    @FXML private Slider gainSlider;
+    @FXML private Slider sliderGain;
     @FXML private ChoiceBox<Waveforms> waveFormChoiceBox;
     @FXML private Spinner<String> octaveSpinner;
+    @FXML private RadioButton btnBypass;
 
     private WavePlayer wavePlayer;
     private Gain gain;
@@ -57,18 +55,32 @@ public class Oscillator extends ChainableUGen implements Initializable {
         gain = new Gain(ac, 1, 1f);
         gain.addInput(wavePlayer);
         output = new Add(ac, 1, gain);
-
-        System.out.println("Setup complete");
     }
 
+    public void bypassOscillator(boolean b) {
+        wavePlayer.pause(b);
+    }
+
+    /**
+     * Calls methods checkOctave and checkDetune to alter the frequency before playing it
+     * @param frequency of the note, provided by input method
+     * @author Viktor Lenberg
+     * @author Teodor Wegestål
+     */
     @Override
     public void playSound(float frequency) {
         frequency = checkOctave(frequency);
         frequency = checkDetune(frequency);
-
         wavePlayer.setFrequency(frequency);
     }
 
+    /**
+     * Alters the frequency to the selected octave
+     * @param frequency of the note, provided by input method
+     * @return altered frequency
+     * @author Viktor Lenberg
+     * @author Teodor Wegestål
+     */
     public float checkOctave(float frequency) {
         switch (octaveOperand) {
             case "2'" -> {
@@ -90,19 +102,32 @@ public class Oscillator extends ChainableUGen implements Initializable {
         return frequency;
     }
 
+    /**
+     * Alters the frequency to the correct cent value
+     * @param frequency of the note, provided by input method
+     * @return the detuned frequency
+     * @author Viktor Lenberg
+     * @author Teodor Wegestål
+     */
     public float checkDetune(float frequency) {
         return (float)(frequency * (Math.pow(2, (detuneCent/1200))));
     }
-
-    @FXML
-    protected void setGain() {
-        gain.setGain((float)gainSlider.getValue());
-    }
-
+    /**
+     * Sets the selected waveform
+     * @param wf waveform to be set
+     * @author Viktor Lenberg
+     * @author Teodor Wegestål
+     */
     public void setWaveform(Waveforms wf) {
         wavePlayer.setBuffer(wf.getBuffer());
     }
 
+    /**
+     * initialize-method for the oscillator class
+     * Sets values and adds listeners to GUI components
+     * @author Teodor Wegestål
+     * @author Viktor Lenberg
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         waveFormChoiceBox.setItems(FXCollections.observableArrayList(Waveforms.values()));
@@ -129,7 +154,20 @@ public class Oscillator extends ChainableUGen implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 detuneCent = t1.floatValue();
-                System.out.println("Detune was set to: " + detuneCent);
+            }
+        });
+
+        sliderGain.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                gain.setGain(t1.floatValue() / 100);
+            }
+        });
+
+        btnBypass.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                bypassOscillator(btnBypass.isSelected());
             }
         });
     }

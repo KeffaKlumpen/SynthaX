@@ -30,6 +30,8 @@
                                <Slider fx:id="sliderDetune" blockIncrement="1" layoutX="21.0" layoutY="131.0" majorTickUnit="10.0" max="50.0" min="-50.0" showTickLabels="true" showTickMarks="true" />
                               <Label layoutX="213.0" layoutY="14.0" text="Octave" />
                               <Spinner fx:id="octaveSpinner" layoutX="213.0" layoutY="37.0" prefHeight="25.0" prefWidth="74.0" />
+                               <Label layoutX="282.0" layoutY="108.0" text="Gain" />
+                               <Slider fx:id="sliderGain" blockIncrement="1.0" layoutX="284.0" layoutY="126.0" majorTickUnit="10.0" min="0" prefHeight="38.0" prefWidth="118.0" showTickLabels="true" showTickMarks="true" value="20.0" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -68,18 +70,13 @@
                <children>
                   <Label layoutX="7.0" layoutY="1.0" text="Preset: " AnchorPane.leftAnchor="7.0" />
                   <ComboBox layoutX="61.0" layoutY="-3.0" promptText="No Preset*" AnchorPane.leftAnchor="61.0" />
-                  <RadioButton fx:id="bypass" mnemonicParsing="false" selected="false" AnchorPane.rightAnchor="0.0" />
+                  <RadioButton fx:id="btnBypass" mnemonicParsing="false" selected="false" AnchorPane.rightAnchor="0.0" />
                   <Label layoutX="17.0" layoutY="11.0" text="Bypass" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
          </top>
          <right>
-            <VBox alignment="BOTTOM_CENTER" prefWidth="100.0" BorderPane.alignment="CENTER">
-               <children>
-                   <Label text="Gain" />
-                   <Slider fx:id="gainSlider" blockIncrement="0.1" max="1" min="0" onDragDone="#setGain" onMouseClicked="#setGain" />
-               </children>
-            </VBox>
+            <VBox alignment="BOTTOM_CENTER" prefWidth="100.0" BorderPane.alignment="CENTER" />
          </right>
       </BorderPane>
    </content>

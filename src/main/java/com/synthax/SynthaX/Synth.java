@@ -96,7 +96,7 @@ public class Synth {
     public void removeOscillator(Oscillator osc) {
         //remove oscillator and connect ugens in chain
     }
-
+    //Testmetod för att kunna spela olika toner
     public void playNote(char c) {
 
         switch (c) {
