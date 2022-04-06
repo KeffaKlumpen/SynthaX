@@ -33,6 +33,11 @@ public class FrequencyModifier extends ChainableUGen {
         output = new Mult(ac, 1, freqModulator);
     }
 
+    @Override
+    public void setNote(float hertz) {
+
+    }
+
     @FXML
     protected void setFreq() {
         float f = (float)freqSlider.getValue();

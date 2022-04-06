@@ -97,4 +97,27 @@ public class Synth {
         //remove oscillator and connect ugens in chain
     }
 
+    public void playNote(char c) {
+
+        switch (c) {
+            case 'C' -> {
+                masterGainGlide.setValue(.2f);
+                for (ChainableUGen u : ugens) {
+                    u.setNote(261.63f);
+                }
+            }
+            case 'D' -> {
+                masterGainGlide.setValue(.2f);
+                for (ChainableUGen u : ugens) {
+                    u.setNote(293.66f);
+                }
+            }
+            case 'E' -> {
+                masterGainGlide.setValue(.2f);
+                for (ChainableUGen u : ugens) {
+                    u.setNote(329.63f);
+                }
+            }
+        }
+    }
 }

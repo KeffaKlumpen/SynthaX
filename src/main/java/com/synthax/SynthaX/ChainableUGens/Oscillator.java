@@ -2,12 +2,16 @@
 package com.synthax.SynthaX.ChainableUGens;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Add;
 import net.beadsproject.beads.ugens.Gain;
 import net.beadsproject.beads.ugens.WavePlayer;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  *      ///// OSC 1
@@ -44,6 +48,10 @@ public class Oscillator extends ChainableUGen {
         float f = (float)freqSlider.getValue();
         wavePlayer.setFrequency(f);
         System.out.println("new freq: " + wavePlayer.getFrequency());
+    }
+    @Override
+    public void setNote(float hertz) {
+        wavePlayer.setFrequency(hertz);
     }
 
     @FXML

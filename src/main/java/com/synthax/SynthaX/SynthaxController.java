@@ -62,6 +62,12 @@ public class SynthaxController implements Initializable {
         mainPane.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.K) {
                 synth.keyPressed();
+            } else if (event.getCode() == KeyCode.A) {
+                synth.playNote('C');
+            } else if (event.getCode() == KeyCode.S) {
+                synth.playNote('D');
+            } else if (event.getCode() == KeyCode.D) {
+                synth.playNote('E');
             }
         });
         mainPane.setOnKeyReleased(event -> {
