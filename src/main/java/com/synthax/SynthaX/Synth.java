@@ -96,5 +96,4 @@ public class Synth {
     public void removeOscillator(Oscillator osc) {
         //remove oscillator and connect ugens in chain
     }
-
 }
