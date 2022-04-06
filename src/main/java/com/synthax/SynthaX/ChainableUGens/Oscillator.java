@@ -1,6 +1,7 @@
 
 package com.synthax.SynthaX.ChainableUGens;
 
+import com.synthax.SynthaX.Waveforms;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
@@ -30,6 +31,7 @@ public class Oscillator extends ChainableUGen {
 
     private WavePlayer wavePlayer;
     private Gain gain;
+    private Buffer buffer;
 
     @Override
     public void setup(){
@@ -57,5 +59,9 @@ public class Oscillator extends ChainableUGen {
     @FXML
     protected void setGain() {
         gain.setGain((float)gainSlider.getValue());
+    }
+
+    public void setWaveform(Waveforms wf) {
+        wavePlayer.setBuffer(wf.getBuffer());
     }
 }
