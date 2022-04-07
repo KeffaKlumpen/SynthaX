@@ -39,6 +39,7 @@ public class Oscillator extends ChainableUGen implements Initializable {
     @FXML private Slider sliderGain;
     @FXML private ChoiceBox<Waveforms> waveFormChoiceBox;
     @FXML private Spinner<String> octaveSpinner;
+    @FXML private Button btnRemoveOscillator;
     @FXML private RadioButton btnBypass;
     @FXML private Slider sliderAttack;
     @FXML private Slider sliderDecay;
