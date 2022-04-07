@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
@@ -37,6 +38,7 @@ public class SynthaxController implements Initializable {
     @FXML private Slider sliderSustain;
     @FXML private Slider sliderRelease;
     @FXML private Slider sliderMasterGain;
+    @FXML private LineChart lineChartMain;
     private Synth synth;
     private boolean playin;
 
@@ -88,6 +90,7 @@ public class SynthaxController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         knob2.getStyleClass().add("knob");
         knob2.setOnMouseDragged(new Knob(knob2));
+        //lineChartMain.getStyleClass().add("lineChartMain");
         mainPane.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.K) {
                 synth.keyPressed();
