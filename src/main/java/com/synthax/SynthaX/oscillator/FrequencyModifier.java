@@ -4,11 +4,13 @@
   Study program: Sys 21h
 */
 
-package com.synthax.SynthaX.ChainableUGens;
+package com.synthax.SynthaX.oscillator;
+
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import net.beadsproject.beads.core.AudioContext;
+import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Mult;
 import net.beadsproject.beads.ugens.WavePlayer;
@@ -21,19 +23,27 @@ import net.beadsproject.beads.ugens.WavePlayer;
         // "freqMod" is the output of this FM Osc effect.
         ///// FM Oscillator END private UGen output; //Add or Mult
   */
-public class FrequencyModifier extends ChainableUGen {
+public class FrequencyModifier  {
     @FXML private Slider freqSlider;
 
     private WavePlayer freqModulator;
+    protected UGen output;
 
-    @Override
     public void setup(){
         AudioContext ac = AudioContext.getDefaultContext();
         freqModulator = new WavePlayer(ac, 2, Buffer.SINE);
         output = new Mult(ac, 1, freqModulator);
     }
 
-    @Override
+    public void setInput(UGen input){
+        output.clearInputConnections();
+        output.addInput(input);
+    }
+
+    public UGen getOutput(){
+        return output;
+    }
+
     public void playSound(float frequency) {
 
     }

@@ -1,8 +1,12 @@
 package com.synthax.SynthaX;
 
-import com.synthax.SynthaX.ChainableUGens.Oscillator;
+
+
 import com.synthax.SynthaX.controls.Knob;
 import javafx.event.EventHandler;
+
+import com.synthax.SynthaX.oscillator.Oscillator;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,6 +21,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SynthaxController implements Initializable {
 
@@ -32,11 +37,15 @@ public class SynthaxController implements Initializable {
     @FXML private Slider sliderMasterGain;
     private Synth synth;
     private boolean playin;
+
     private double rotation = 0;
     private double y = 0.0;
 
     @FXML private Button knob2 = new Button();
 
+
+
+    private final AtomicBoolean keyHeld = new AtomicBoolean(false);
 
 
     public SynthaxController() {
@@ -81,14 +90,24 @@ public class SynthaxController implements Initializable {
             if (event.getCode() == KeyCode.K) {
                 synth.keyPressed();
             } else if (event.getCode() == KeyCode.A) {
-                synth.playNote('C');
+                if (keyHeld.compareAndSet(false, true)) {
+                    synth.setFrequency('C');
+                    synth.keyPressed();
+                }
             } else if (event.getCode() == KeyCode.S) {
-                synth.playNote('D');
+                if (keyHeld.compareAndSet(false, true)) {
+                    synth.setFrequency('D');
+                    synth.keyPressed();
+                }
             } else if (event.getCode() == KeyCode.D) {
-                synth.playNote('E');
+                if (keyHeld.compareAndSet(false, true)) {
+                    synth.setFrequency('E');
+                    synth.keyPressed();
+                }
             }
         });
         mainPane.setOnKeyReleased(event -> {
+            keyHeld.set(false);
             synth.keyReleased();
         });
         knob.setOnMouseDragged(new EventHandler<MouseEvent>() {

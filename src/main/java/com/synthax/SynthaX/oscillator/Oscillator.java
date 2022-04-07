@@ -1,6 +1,8 @@
 
-package com.synthax.SynthaX.ChainableUGens;
+package com.synthax.SynthaX.oscillator;
 
+
+import com.synthax.SynthaX.ADSR;
 import com.synthax.SynthaX.Waveforms;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import net.beadsproject.beads.core.AudioContext;
+import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Add;
 import net.beadsproject.beads.ugens.Gain;
@@ -34,7 +37,7 @@ import java.util.ResourceBundle;
  * @author Joel Eriksson Sinclair
  */
 
-public class Oscillator extends ChainableUGen implements Initializable {
+public class Oscillator implements Initializable {
     @FXML private Slider sliderDetune;
     @FXML private Slider sliderGain;
     @FXML private ChoiceBox<Waveforms> waveFormChoiceBox;
@@ -47,23 +50,33 @@ public class Oscillator extends ChainableUGen implements Initializable {
     @FXML private Slider sliderRelease;
 
     private WavePlayer wavePlayer;
+    protected UGen output;
     private Gain gain;
     private ADSR adsr;
 
     private String octaveOperand = "8'";
     private float detuneCent;
 
-    @Override
     public void setup(){
         AudioContext ac = AudioContext.getDefaultContext();
 
-        wavePlayer = new WavePlayer(ac, 150f, Buffer.SINE);
-
         adsr = new ADSR(ac);
 
-        gain = new Gain(ac, 1, adsr.getEnvelope()); //getenvelope
+        wavePlayer = new WavePlayer(ac, 150f, Buffer.SINE);
+
+
+        gain = new Gain(ac, 1, 0.2f);
         gain.addInput(wavePlayer);
         output = new Add(ac, 1, gain);
+    }
+
+    public void setInput(UGen input){
+        output.clearInputConnections();
+        output.addInput(input);
+    }
+
+    public UGen getOutput(){
+        return output;
     }
 
     public void bypassOscillator(boolean b) {
@@ -76,12 +89,10 @@ public class Oscillator extends ChainableUGen implements Initializable {
      * @author Viktor Lenberg
      * @author Teodor Wegestål
      */
-    @Override
-    public void playSound(float frequency) {
+
+    public void setFrequency(float frequency) {
         frequency = checkOctave(frequency);
         frequency = checkDetune(frequency);
-        adsr.getEnvelope().addSegment(gain.getValue(), 4000);
-        adsr.getEnvelope().addSegment(gain.getValue() / 2, 10000);
         wavePlayer.setFrequency(frequency);
 
         //adsr.envelop();

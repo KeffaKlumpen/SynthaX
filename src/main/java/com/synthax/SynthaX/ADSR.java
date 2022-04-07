@@ -1,4 +1,4 @@
-package com.synthax.SynthaX.ChainableUGens;
+package com.synthax.SynthaX;
 
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.ugens.Envelope;
@@ -9,17 +9,21 @@ public class ADSR {
     private float decayValue;
     private float sustainValue = 1;
     private float releaseValue;
-    private float peakGain = 0.2f;
+    private float peakGain = 0.5f;
 
     public ADSR (AudioContext ac) {
-        envelope = new Envelope(ac, 0.2f);
+        envelope = new Envelope(ac, 0.0f);
     }
 
-    public void envelop() {
-        envelope.addSegment(peakGain, attackValue); //attack
-        envelope.addSegment(peakGain * sustainValue, decayValue); //sustain
+    public void attackDecay() {
+        envelope.clear();
+        envelope.addSegment(peakGain, attackValue);
+        envelope.addSegment(sustainValue, decayValue);
+    }
 
-        //envelope.addSegment(0.0f, releaseValue); denna sats måste ligga nån annanstans, hur gör vi när vi släoper en tangent?
+    public void release() {
+        envelope.clear();
+        envelope.addSegment(0.0f, releaseValue);
     }
 
     public void setAttackValue(float attackValue) {
