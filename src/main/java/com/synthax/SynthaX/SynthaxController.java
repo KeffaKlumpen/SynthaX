@@ -1,6 +1,7 @@
 package com.synthax.SynthaX;
 
 import com.synthax.SynthaX.ChainableUGens.Oscillator;
+import com.synthax.SynthaX.controls.Knob;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,8 +26,11 @@ public class SynthaxController implements Initializable {
     @FXML private Button knob = new Button();
     private Synth synth;
     private boolean playin;
-    private double rotation = 0.0;
+    private double rotation = 0;
     private double y = 0.0;
+
+    @FXML private Button knob2 = new Button();
+
 
 
     public SynthaxController() {
@@ -65,6 +69,8 @@ public class SynthaxController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        knob2.getStyleClass().add("knob");
+        knob2.setOnMouseDragged(new Knob(knob2));
         mainPane.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.K) {
                 synth.keyPressed();
@@ -97,6 +103,7 @@ public class SynthaxController implements Initializable {
 
                 if (rotation >= 300 && rotation < 315) {
                     knob.setRotate(301);
+                    rotation = 301;
                 } else if (rotation >= 315 && rotation < 340) {
                     knob.setRotate(328);
                 } else if (rotation >= 340 || rotation < 8) {

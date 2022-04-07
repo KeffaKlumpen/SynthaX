@@ -1,9 +1,24 @@
+.knob:focused {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+        -fx-background-insets: 0, 1, 2;
+}
+.knob {
+-fx-background-radius: 5em;
+-fx-background-image: url("Images/cykelskylt.png");
+    -fx-background-size: 45px 45px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+-fx-min-width: 45px;
+-fx-min-height: 45px;
+-fx-max-width: 45px;
+-fx-max-height: 45px;
+}
 #knob:focused {
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
         -fx-background-insets: 0, 1, 2;
 }
 #knob {
--fx-background-radius: 5em;
+-fx-background-radius: 10em;
 -fx-background-image: url("Images/cykelskylt.png");
     -fx-background-size: 45px 45px;
     -fx-background-repeat: no-repeat;
