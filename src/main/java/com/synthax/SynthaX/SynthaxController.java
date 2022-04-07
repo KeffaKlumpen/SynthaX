@@ -1,6 +1,7 @@
 package com.synthax.SynthaX;
 
 import com.synthax.SynthaX.ChainableUGens.Oscillator;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +24,7 @@ public class SynthaxController implements Initializable {
     @FXML private Button btnPlay;
     @FXML private AnchorPane mainPane = new AnchorPane();
     @FXML private Button knob = new Button();
-    private Synth synth;
+    private final Synth synth;
     private boolean playin;
     private double rotation = 0.0;
     private double y = 0.0;

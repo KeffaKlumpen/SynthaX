@@ -1,7 +1,7 @@
 package com.synthax.SynthaX;
 
-import com.synthax.SynthaX.ChainableUGens.ChainableUGen;
 import com.synthax.SynthaX.ChainableUGens.Oscillator;
+import com.synthax.controller.OscillatorManager;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
 import net.beadsproject.beads.ugens.*;
