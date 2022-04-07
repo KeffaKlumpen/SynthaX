@@ -28,3 +28,7 @@
 -fx-max-width: 45px;
 -fx-max-height: 45px;
 }
+
+.lineChartMain {
+-fx-tick-mark-visible;
+}
