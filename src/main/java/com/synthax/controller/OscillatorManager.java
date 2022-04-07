@@ -19,7 +19,11 @@ import java.util.ArrayList;
 public class OscillatorManager {
     private final ArrayList<Oscillator> oscillators = new ArrayList<>();
 
-    private final Gain output = new Gain(1, 1f);
+    private final Gain output;
+
+    public OscillatorManager(){
+        output = new Gain(1, 1f);
+    }
 
     /**
      * Adds an oscillator to the end of the chain.
@@ -27,16 +31,6 @@ public class OscillatorManager {
      * @author Joel Eriksson Sinclair
      */
     public void addOscillator(Oscillator osc){
-        /*
-        if(oscillators.size() > 0){
-            Oscillator prev = oscillators.get(oscillators.size() - 1);
-            osc.setInput(prev.getOutput());
-        }
-
-        output.clearInputConnections();
-        output.addInput(osc.getOutput());
-         */
-
         oscillators.add(osc);
         setupInOuts(osc);
 
@@ -49,6 +43,44 @@ public class OscillatorManager {
         Oscillator osc2 = oscillators.get(to);
 
         System.err.println("NOT IMPLEMENTED YET");
+    }
+
+
+    /**
+     * Remove the specified Oscillator from the chain. Link up any neighbouring Oscillators correctly.
+     * @param osc Oscillator to be removed
+     * @author Joel Eriksson Sinclair
+     */
+    public void removeOscillator(Oscillator osc){
+        int index = oscillators.indexOf(osc);
+
+        if(index < 0 || index >= oscillators.size()){
+            return;
+        }
+
+        oscillators.remove(index);
+
+        int previous = index - 1;
+
+        // This can cause some overlap, setting the same thing multiple times... Shit's dumb
+        if(oscillators.size() > 0){
+            if(previous >= 0){
+                setupInOuts(oscillators.get(previous));
+            }
+            setupInOuts(oscillators.get(index));
+        }
+        else {
+            output.clearInputConnections();
+        }
+    }
+
+    /**
+     * Make all the oscillators play a frequency.
+     */
+    public void playFrequency(float frequency){
+        for (Oscillator osc : oscillators) {
+            osc.playSound(frequency);
+        }
     }
 
     /**
@@ -73,66 +105,13 @@ public class OscillatorManager {
 
         // output
         // If we are the last oscillator, or has next.
-        UGen output = oscillator.getOutput();
+        UGen oscOutput = oscillator.getOutput();
         if(index == oscillators.size() - 1){
             output.clearInputConnections();
-            output.addInput(output);
+            output.addInput(oscOutput);
         }
         else {
             oscillators.get(index + 1).setInput(output);
-        }
-    }
-
-    /**
-     * Remove the specified Oscillator from the chain. Link up any neighbouring Oscillators correctly.
-     * @param osc Oscillator to be removed
-     * @author Joel Eriksson Sinclair
-     */
-    public void removeOscillator(Oscillator osc){
-        int index = oscillators.indexOf(osc);
-
-        if(index < 0 || index >= oscillators.size()){
-            return;
-        }
-
-        oscillators.remove(index);
-
-        int previous = index - 1;
-        //int next = index + 1;
-
-        // This can cause some overlap, setting the same thing multiple times..
-        setupInOuts(oscillators.get(previous));
-        setupInOuts(oscillators.get(index));
-
-        /*
-        Oscillator target = null;
-        if(next < oscillators.size()){
-            target = oscillators.get(next);
-        }
-
-        UGen input = null;
-        if(previous >= 0){
-            input = oscillators.get(previous).getOutput();
-        }
-
-        if(target != null){
-            target.setInput(input);
-        }
-        else {
-            output.clearInputConnections();
-            output.addInput(input);
-        }
-         */
-    }
-
-    /**
-     * Remove the Oscillator at the specified index from the chain. Link up any neighbouring Oscillators correctly.
-     * @param index Index of Oscillator to be removed.
-     * @author Joel Eriksson Sinclair
-     */
-    public void removeOscillator(int index){
-        if(index >= 0 && index < oscillators.size()){
-            removeOscillator(oscillators.get(index));
         }
     }
 
