@@ -13,6 +13,7 @@ public class Synth {
     private Gain masterGain;
     private Glide masterGainGlide;
     private ADSR adsr;
+    private LFO lfo;
 
     /**
      Rubrikerna OSC 1, FM Oscillator och OSC 2 kan bli fristående JavaFX.Controller klasser.
@@ -30,8 +31,9 @@ public class Synth {
         AudioContext.setDefaultContext(ac);
         masterGainGlide = new Glide(ac, 0.0f, 10.0f);
         adsr = new ADSR(ac);
-        //masterGain = new Gain(ac, 1, masterGainGlide);
         masterGain = new Gain(ac, 1, adsr.getEnvelope());
+
+        lfo = new LFO(ac);
 
 
         /*
@@ -99,8 +101,8 @@ public class Synth {
         adsr.release();
     }
 
-    public void setPeakGain(float gainValue) {
-        adsr.setPeakGain(gainValue);
+    public ADSR getADSR() {
+        return adsr;
     }
 
     public void removeOscillator(Oscillator osc) {

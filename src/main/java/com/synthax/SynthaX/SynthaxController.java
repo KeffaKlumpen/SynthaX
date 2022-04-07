@@ -3,6 +3,8 @@ package com.synthax.SynthaX;
 
 
 import com.synthax.SynthaX.controls.Knob;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 
 import com.synthax.SynthaX.oscillator.Oscillator;
@@ -152,6 +154,41 @@ public class SynthaxController implements Initializable {
                 } else  {
                     knob.setRotate(238);
                 }
+            }
+        });
+
+        sliderAttack.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                synth.getADSR().setAttackValue(t1.floatValue());
+            }
+        });
+
+        sliderDecay.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                synth.getADSR().setDecayValue(t1.floatValue());
+            }
+        });
+
+        sliderSustain.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                synth.getADSR().setSustainValue(t1.floatValue());
+            }
+        });
+
+        sliderRelease.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                synth.getADSR().setReleaseValue(t1.floatValue());
+            }
+        });
+
+        sliderMasterGain.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                synth.getADSR().setPeakGain(t1.floatValue());
             }
         });
     }
