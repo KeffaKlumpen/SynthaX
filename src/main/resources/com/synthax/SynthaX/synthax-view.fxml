@@ -37,9 +37,10 @@
       <Label layoutX="15.0" layoutY="95.0" text="Presets:" />
       <Button fx:id="knob" layoutX="299.0" layoutY="36.0" maxHeight="80.0" maxWidth="93.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="93.0" stylesheets="@skins.css" />
       <Button fx:id="knob2" layoutX="810.0" layoutY="297.0" mnemonicParsing="false" styleClass="knob" stylesheets="@skins.css" />
-      <Slider layoutX="965.0" layoutY="384.0" orientation="VERTICAL" />
-      <Slider layoutX="1045.0" layoutY="385.0" orientation="VERTICAL" />
-      <Slider layoutX="1119.0" layoutY="384.0" orientation="VERTICAL" />
-      <Slider layoutX="1191.0" layoutY="385.0" orientation="VERTICAL" />
+      <Slider fx:id="sliderAttack" blockIncrement="0.1" layoutX="965.0" layoutY="384.0" max="1.0" minorTickCount="0" orientation="VERTICAL" />
+      <Slider fx:id="sliderDecay" blockIncrement="0.1" layoutX="1045.0" layoutY="385.0" max="1.0" orientation="VERTICAL" />
+      <Slider fx:id="sliderSustain" blockIncrement="0.1" layoutX="1119.0" layoutY="384.0" max="1.0" orientation="VERTICAL" value="1.0" />
+      <Slider fx:id="sliderRelease" blockIncrement="0.1" layoutX="1191.0" layoutY="385.0" max="1.0" orientation="VERTICAL" />
+      <Slider fx:id="sliderMasterGain" blockIncrement="0.1" layoutX="926.0" layoutY="663.0" max="1.0" prefHeight="17.0" prefWidth="301.0" />
    </children>
 </AnchorPane>

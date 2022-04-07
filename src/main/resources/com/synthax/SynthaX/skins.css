@@ -4,7 +4,7 @@
 }
 .knob {
 -fx-background-radius: 5em;
--fx-background-image: url("Images/cykelskylt.png");
+-fx-background-image: url("Images/knob-main.png");
     -fx-background-size: 45px 45px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
