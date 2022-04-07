@@ -86,7 +86,11 @@
             </AnchorPane>
          </top>
          <right>
-            <VBox alignment="BOTTOM_CENTER" prefWidth="100.0" BorderPane.alignment="CENTER" />
+            <VBox alignment="BOTTOM_CENTER" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnMoveUp" mnemonicParsing="false" text="^" />
+                  <Button fx:id="btnMoveDown" mnemonicParsing="false" rotate="180.0" text="^" />
+               </children></VBox>
          </right>
       </BorderPane>
    </content>

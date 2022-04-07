@@ -42,12 +42,16 @@ public class SynthaxController implements Initializable {
             Oscillator oscillator = fxmlLoader.getController();
 
             synth.addOscillator(oscillator);
-            oscillator.getBtnRemoveOscillator().setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    synth.removeOscillator(oscillator);
-                    oscillatorChainView.getChildren().remove(oscillatorView);
-                }
+            oscillator.getBtnRemoveOscillator().setOnAction(event -> {
+                synth.removeOscillator(oscillator);
+                oscillatorChainView.getChildren().remove(oscillatorView);
+            });
+
+            oscillator.getBtnMoveDown().setOnAction(event -> {
+                synth.moveOscillatorDown(oscillator);
+            });
+            oscillator.getBtnMoveUp().setOnAction(event -> {
+                synth.moveOscillatorUp(oscillator);
             });
 
             oscillatorChainView.getChildren().add(oscillatorView);

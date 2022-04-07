@@ -36,6 +36,8 @@ import java.util.ResourceBundle;
  */
 
 public class Oscillator implements Initializable {
+    @FXML private Button btnMoveDown;
+    @FXML private Button btnMoveUp;
     @FXML private Slider sliderDetune;
     @FXML private Slider sliderGain;
     @FXML private ChoiceBox<Waveforms> waveFormChoiceBox;
@@ -236,5 +238,29 @@ public class Oscillator implements Initializable {
      */
     public Button getBtnRemoveOscillator() {
         return btnRemoveOscillator;
+    }
+
+    /**
+     * @return
+     * @author Joel Eriksson Sinclair
+     */
+    public Button getBtnMoveDown(){
+        return btnMoveDown;
+    }
+
+    /**
+     * @return
+     * @author Joel Eriksson Sinclair
+     */
+    public Button getBtnMoveUp(){
+        return btnMoveUp;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Oscillator{");
+        sb.append("waveForm=").append(waveFormChoiceBox.getValue());
+        sb.append('}');
+        return sb.toString();
     }
 }

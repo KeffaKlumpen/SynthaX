@@ -32,12 +32,38 @@ public class Synth {
         ac.start();
     }
 
+    /**
+     * @param oscillator
+     * @author Joel Eriksson Sinclair
+     */
+    public void moveOscillatorUp(Oscillator oscillator){
+        oscillatorManager.moveOscillatorUp(oscillator);
+    }
+
+    /**
+     * @param oscillator
+     * @author Joel Eriksson Sinclair
+     */
+    public void moveOscillatorDown(Oscillator oscillator){
+        oscillatorManager.moveOscillatorDown(oscillator);
+    }
+
+    /**
+     *
+     * @param oscillator
+     * @author Joel Eriksson Sinclair
+     */
     public void addOscillator(Oscillator oscillator){
         oscillatorManager.addOscillator(oscillator);
     }
 
-    public void removeOscillator(Oscillator osc) {
-        oscillatorManager.removeOscillator(osc);
+    /**
+     *
+     * @param oscillator
+     * @author Joel Eriksson Sinclair
+     */
+    public void removeOscillator(Oscillator oscillator) {
+        oscillatorManager.removeOscillator(oscillator);
     }
 
     public void keyPressed(){

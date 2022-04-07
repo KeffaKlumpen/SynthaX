@@ -122,4 +122,38 @@ public class OscillatorManager {
     public Gain getOutput(){
         return output;
     }
+
+    public void moveOscillatorUp(Oscillator oscillator) {
+        int index = oscillators.indexOf(oscillator);
+        if(index < 0){
+            return;
+        }
+
+        if(index == oscillators.size() - 1){
+            return;
+        }
+
+        Oscillator nextOsc = oscillators.get(index + 1);
+        oscillators.add(index, nextOsc);
+        oscillators.remove(index + 2);
+
+        System.out.println(oscillators);
+    }
+
+    public void moveOscillatorDown(Oscillator oscillator) {
+        int index = oscillators.indexOf(oscillator);
+        if(index < 0){
+            return;
+        }
+
+        if(index == 0){
+            return;
+        }
+
+        Oscillator prevOsc = oscillators.get(index - 1);
+        oscillators.add(index + 1, prevOsc);
+        oscillators.remove(index - 1);
+
+        System.out.println(oscillators);
+    }
 }
