@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -80,6 +81,7 @@
                   <ComboBox layoutX="61.0" layoutY="-3.0" promptText="No Preset*" AnchorPane.leftAnchor="61.0" />
                   <RadioButton fx:id="btnBypass" mnemonicParsing="false" selected="false" AnchorPane.rightAnchor="0.0" />
                   <Label layoutX="17.0" layoutY="11.0" text="Bypass" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" />
+                  <Button fx:id="btnRemoveOscillator" layoutX="180.0" layoutY="-3.0" mnemonicParsing="false" text="Remove Oscillator" />
                </children>
             </AnchorPane>
          </top>
