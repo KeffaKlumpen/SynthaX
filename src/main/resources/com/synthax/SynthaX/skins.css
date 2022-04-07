@@ -30,5 +30,5 @@
 }
 
 .lineChartMain {
--fx-tick-mark-visible;
+-fx-tick-mark-visible: false;
 }

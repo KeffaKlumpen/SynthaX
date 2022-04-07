@@ -17,7 +17,11 @@ public class Knob implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent mouseEvent) {
-        boolean b = lastMousePos - mouseEvent.getScreenY() > 0;
+        double a = lastMousePos - mouseEvent.getScreenY();
+        if (a == 0) {
+            mouseEvent.consume();
+        }
+        boolean b = lastMousePos - mouseEvent.getScreenY() < 0;
         lastMousePos = mouseEvent.getScreenY();
 
         if (!b && knobValue != 11) {
@@ -26,11 +30,11 @@ public class Knob implements EventHandler<MouseEvent> {
             rotation = rotation - 2;
         }
 
-        if (rotation == 30) {
+        if (rotation == 16) {
             knob.setRotate(knob.getRotate() + 25);
             knobValue++;
             rotation = 0;
-        } else if (rotation == -30) {
+        } else if (rotation == -16) {
             knob.setRotate(knob.getRotate() - 25);
             knobValue--;
             rotation = 0;
