@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import net.beadsproject.beads.core.AudioContext;
+import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Add;
 import net.beadsproject.beads.ugens.Gain;
@@ -34,7 +35,7 @@ import java.util.ResourceBundle;
  * @author Joel Eriksson Sinclair
  */
 
-public class Oscillator extends ChainableUGen implements Initializable {
+public class Oscillator implements Initializable {
     @FXML private Slider sliderDetune;
     @FXML private Slider sliderGain;
     @FXML private ChoiceBox<Waveforms> waveFormChoiceBox;
@@ -49,12 +50,12 @@ public class Oscillator extends ChainableUGen implements Initializable {
     private WavePlayer wavePlayer;
     private Gain gain;
     private ADSR adsr;
+    private UGen output;
 
     private String octaveOperand = "8'";
     private float detuneCent;
 
-    @Override
-    public void setup(){
+    public Oscillator(){
         AudioContext ac = AudioContext.getDefaultContext();
 
         wavePlayer = new WavePlayer(ac, 150f, Buffer.SINE);
@@ -76,12 +77,12 @@ public class Oscillator extends ChainableUGen implements Initializable {
      * @author Viktor Lenberg
      * @author Teodor Wegestål
      */
-    @Override
     public void playSound(float frequency) {
         frequency = checkOctave(frequency);
         frequency = checkDetune(frequency);
         adsr.getEnvelope().addSegment(gain.getValue(), 4000);
         adsr.getEnvelope().addSegment(gain.getValue() / 2, 10000);
+
         wavePlayer.setFrequency(frequency);
 
         //adsr.envelop();
@@ -206,5 +207,34 @@ public class Oscillator extends ChainableUGen implements Initializable {
                 adsr.setSustainValue(t1.floatValue());
             }
         });
+    }
+
+    /**
+     * Returns the UGen with the combined output from the oscillator and any input.
+     * @return Add, Mult, Division, Subtract UGen
+     * @author Joel Eriksson Sinclair
+     */
+    public UGen getOutput(){
+        return output;
+    }
+
+    /**
+     * Sets a given UGen to be the UGen to be combined with the Oscillator.
+     * @param input The UGen to be combined with the Oscillator
+     * @author Joel Eriksson Sinclair
+     */
+    public void setInput(UGen input){
+        output.clearInputConnections();
+        if(input != null){
+            output.addInput(input);
+        }
+    }
+
+    /**
+     * @return The button responsible for removing the oscillator.
+     * @author Joel Eriksson Sinclair
+     */
+    public Button getBtnRemoveOscillator() {
+        return btnRemoveOscillator;
     }
 }
