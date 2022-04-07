@@ -1,7 +1,7 @@
 package com.synthax.SynthaX;
 
-import com.synthax.SynthaX.ChainableUGens.ChainableUGen;
-import com.synthax.SynthaX.ChainableUGens.Oscillator;
+
+import com.synthax.SynthaX.oscillator.Oscillator;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
 import net.beadsproject.beads.ugens.*;
@@ -12,6 +12,7 @@ public class Synth {
     private AudioContext ac;
     private Gain masterGain;
     private Glide masterGainGlide;
+    private ADSR adsr;
 
     /**
      Rubrikerna OSC 1, FM Oscillator och OSC 2 kan bli fristående JavaFX.Controller klasser.
@@ -28,7 +29,10 @@ public class Synth {
         ac = new AudioContext(jsaio);
         AudioContext.setDefaultContext(ac);
         masterGainGlide = new Glide(ac, 0.0f, 10.0f);
-        masterGain = new Gain(ac, 1, masterGainGlide);
+        adsr = new ADSR(ac);
+        //masterGain = new Gain(ac, 1, masterGainGlide);
+        masterGain = new Gain(ac, 1, adsr.getEnvelope());
+
 
         /*
         ///// OSC 1
@@ -65,57 +69,60 @@ public class Synth {
         ac.start();
     }
 
-    private ArrayList<ChainableUGen> ugens = new ArrayList<>();
+    private ArrayList<Oscillator> ugens = new ArrayList<>();
 
-    public void addToChain(ChainableUGen newUGen){
+    public void addToChain(Oscillator newOscillator){
         // Adding it to the end of the list for now..
 
         if(ugens.size() > 0){
-            ChainableUGen prev = ugens.get(ugens.size() - 1);
-            newUGen.setInput(prev.getOutput());
+            Oscillator prev = ugens.get(ugens.size() - 1);
+            newOscillator.setInput(prev.getOutput());
         }
 
         masterGain.clearInputConnections();
-        masterGain.addInput(newUGen.getOutput());
+        masterGain.addInput(newOscillator.getOutput());
 
-        ugens.add(newUGen);
+        ugens.add(newOscillator);
 
-        System.out.println("Added " + newUGen + " to Synth!");
+        System.out.println("Added " + newOscillator + " to Synth!");
     }
 
     public void keyPressed(){
         System.out.println("Synth down");
-        masterGainGlide.setValue(.2f);
+        //masterGainGlide.setValue(.5f);
+        adsr.attackDecay();
     }
 
     public void keyReleased(){
         System.out.println("Synth up");
-        masterGainGlide.setValue(0f);
+        //masterGainGlide.setValue(0f);
+        adsr.release();
+    }
+
+    public void setPeakGain(float gainValue) {
+        adsr.setPeakGain(gainValue);
     }
 
     public void removeOscillator(Oscillator osc) {
         //remove oscillator and connect ugens in chain
     }
     //Testmetod för att kunna spela olika toner
-    public void playNote(char c) {
+    public void setFrequency(char c) {
 
         switch (c) {
             case 'C' -> {
-                masterGainGlide.setValue(.2f);
-                for (ChainableUGen u : ugens) {
-                    u.playSound(261.63f);
+                for (Oscillator o : ugens) {
+                    o.setFrequency(261.63f);
                 }
             }
             case 'D' -> {
-                masterGainGlide.setValue(.2f);
-                for (ChainableUGen u : ugens) {
-                    u.playSound(293.66f);
+                for (Oscillator o : ugens) {
+                    o.setFrequency(293.66f);
                 }
             }
             case 'E' -> {
-                masterGainGlide.setValue(.2f);
-                for (ChainableUGen u : ugens) {
-                    u.playSound(329.63f);
+                for (Oscillator o : ugens) {
+                    o.setFrequency(329.63f);
                 }
             }
         }

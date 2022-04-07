@@ -3,7 +3,7 @@
   ID: ai7892
   Study program: Sys 21h
 */
-
+/*
 package com.synthax.SynthaX.ChainableUGens;
 
 import net.beadsproject.beads.core.UGen;
@@ -23,3 +23,4 @@ public abstract class ChainableUGen {
 
     public abstract void playSound(float frequency);
 }
+*/

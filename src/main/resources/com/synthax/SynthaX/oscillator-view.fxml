@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TitledPane text="Oscillator" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.SynthaX.ChainableUGens.Oscillator">
+<TitledPane text="Oscillator" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.SynthaX.oscillator.Oscillator">
    <content>
       <BorderPane>
          <center>

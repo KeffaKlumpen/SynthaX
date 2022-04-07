@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TitledPane text="Frequency Modifier" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.SynthaX.ChainableUGens.FrequencyModifier">
+<TitledPane text="Frequency Modifier" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.SynthaX.oscillator.FrequencyModifier">
    <content>
       <BorderPane>
          <center>
