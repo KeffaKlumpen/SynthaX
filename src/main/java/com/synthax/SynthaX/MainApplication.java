@@ -12,6 +12,7 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("synthax-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(getClass().getResource("skins.css").toExternalForm());
         SynthaxController controller = fxmlLoader.getController();
         stage.setTitle("Synthax");
         stage.setScene(scene);
