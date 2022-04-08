@@ -35,51 +35,21 @@ public class OscillatorManager {
     }
 
     /**
-     * Adds an oscillator to the end of the chain.
-     * @param osc Oscillator to be added
-     * @author Joel Eriksson Sinclair
-     */
-    public void addOscillator(Oscillator osc){
-        oscillators.add(osc);
-        setupInOuts(osc);
-
-        System.out.println("Added " + osc + " to Synth!");
-    }
-
-    /**
-     * Remove the specified Oscillator from the chain. Link up any neighbouring Oscillators correctly.
-     * @param osc Oscillator to be removed
-     * @author Joel Eriksson Sinclair
-     */
-    public void removeOscillator(Oscillator osc){
-        int index = oscillators.indexOf(osc);
-
-        if(index < 0 || index >= oscillators.size()){
-            return;
-        }
-
-        oscillators.remove(index);
-
-        int previous = index - 1;
-
-        // This can cause some overlap, setting the same thing multiple times... Shit's dumb
-        if(oscillators.size() > 0){
-            if(previous >= 0){
-                setupInOuts(oscillators.get(previous));
-            }
-            setupInOuts(oscillators.get(index));
-        }
-        else {
-            output.clearInputConnections();
-        }
-    }
-
-    /**
      * Make all the oscillators play a frequency.
+     * @return The voice index
      */
     public void playFrequency(float frequency){
         for (Oscillator osc : oscillators) {
-            osc.setFrequency(frequency);
+            osc.playFrequency(frequency);
+        }
+    }
+
+    public void releaseAllVoices(){
+        for (Oscillator osc : oscillators) {
+            int voiceCount = osc.getVoiceCount();
+            for (int i = 0; i < voiceCount; i++) {
+                osc.stopVoice(i);
+            }
         }
     }
 
@@ -127,6 +97,53 @@ public class OscillatorManager {
         return output;
     }
 
+
+
+    //region List Managing
+    /**
+     * Adds an oscillator to the end of the chain.
+     * @param osc Oscillator to be added
+     * @author Joel Eriksson Sinclair
+     */
+    public void addOscillator(Oscillator osc){
+        oscillators.add(osc);
+        setupInOuts(osc);
+
+        System.out.println("Added " + osc + " to Synth!");
+    }
+
+    /**
+     * Remove the specified Oscillator from the chain. Link up any neighbouring Oscillators correctly.
+     * @param osc Oscillator to be removed
+     * @author Joel Eriksson Sinclair
+     */
+    public void removeOscillator(Oscillator osc){
+        int index = oscillators.indexOf(osc);
+
+        if(index < 0 || index >= oscillators.size()){
+            return;
+        }
+
+        oscillators.remove(index);
+
+        int previous = index - 1;
+
+        // This can cause some overlap, setting the same thing multiple times... Shit's dumb
+        if(oscillators.size() > 0){
+            if(previous >= 0){
+                setupInOuts(oscillators.get(previous));
+            }
+            setupInOuts(oscillators.get(index));
+        }
+        else {
+            output.clearInputConnections();
+        }
+    }
+
+    /**
+     * @param oscillator
+     * @author Joel Eriksson Sinclair
+     */
     public void moveOscillatorDown(Oscillator oscillator) {
         int index = oscillators.indexOf(oscillator);
         if(index < 0){
@@ -148,6 +165,10 @@ public class OscillatorManager {
         System.out.println(oscillators);
     }
 
+    /**
+     * @param oscillator
+     * @author Joel Eriksson Sinclair
+     */
     public void moveOscillatorUp(Oscillator oscillator) {
         int index = oscillators.indexOf(oscillator);
         if(index < 0){
@@ -168,6 +189,9 @@ public class OscillatorManager {
         System.out.println(oscillators);
     }
 
+    //endregion
+
+    //region Stupid debugging
     /**
      * Prints out the inputs of all oscillators.
      */
@@ -187,7 +211,7 @@ public class OscillatorManager {
      */
     class DebugThread extends Thread{
 
-        private long sleepTime;
+        private final long sleepTime;
 
         public DebugThread(long sleepTime){
             this.sleepTime = sleepTime;
@@ -205,4 +229,5 @@ public class OscillatorManager {
             }
         }
     }
+    //endregion
 }

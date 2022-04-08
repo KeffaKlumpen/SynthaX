@@ -4,10 +4,10 @@ package com.synthax.SynthaX;
 
 import com.synthax.SynthaX.controls.Knob;
 
+import com.synthax.model.ADSRValues;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 import com.synthax.SynthaX.oscillator.Oscillator;
@@ -45,7 +45,6 @@ public class SynthaxController implements Initializable {
 
     private final Synth synth;
 
-    private boolean playin;
     private double rotation = 0.0;
     private double y = 0.0;
 
@@ -75,9 +74,11 @@ public class SynthaxController implements Initializable {
 
             oscillator.getBtnMoveDown().setOnAction(event -> {
                 synth.moveOscillatorDown(oscillator);
+                //TODO: Update GUI to represent the new osc-list order.
             });
             oscillator.getBtnMoveUp().setOnAction(event -> {
                 synth.moveOscillatorUp(oscillator);
+                //TODO: Update GUI to represent the new osc-list order.
             });
 
             oscillatorChainView.getChildren().add(oscillatorView);
@@ -89,12 +90,7 @@ public class SynthaxController implements Initializable {
 
     @FXML
     public void onActionPlay() {
-        if (!playin) {
-            synth.keyPressed();
-        } else {
-            synth.keyReleased();
-        }
-        playin = !playin;
+        System.out.println("use A,S,D keys to play!");
     }
 
     @Override
@@ -103,28 +99,24 @@ public class SynthaxController implements Initializable {
         knob2.setOnMouseDragged(new Knob(knob2));
         //lineChartMain.getStyleClass().add("lineChartMain");
         mainPane.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.K) {
-                synth.keyPressed();
-            } else if (event.getCode() == KeyCode.A) {
+            if (event.getCode() == KeyCode.A) {
                 if (keyHeld.compareAndSet(false, true)) {
-                    synth.setFrequency('C');
-                    synth.keyPressed();
+                    synth.playNote('C');
                 }
             } else if (event.getCode() == KeyCode.S) {
                 if (keyHeld.compareAndSet(false, true)) {
-                    synth.setFrequency('D');
-                    synth.keyPressed();
+                    synth.playNote('D');
                 }
             } else if (event.getCode() == KeyCode.D) {
                 if (keyHeld.compareAndSet(false, true)) {
-                    synth.setFrequency('E');
-                    synth.keyPressed();
+                    synth.playNote('E');
                 }
             }
         });
         mainPane.setOnKeyReleased(event -> {
             keyHeld.set(false);
-            synth.keyReleased();
+            //synth.releaseVoice();
+            synth.releaseAllVoices();
         });
         knob.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
@@ -174,35 +166,35 @@ public class SynthaxController implements Initializable {
         sliderAttack.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                synth.getADSR().setAttackValue(t1.floatValue());
+                ADSRValues.setAttackValue(t1.floatValue());
             }
         });
 
         sliderDecay.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                synth.getADSR().setDecayValue(t1.floatValue());
+                ADSRValues.setDecayValue(t1.floatValue());
             }
         });
 
         sliderSustain.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                synth.getADSR().setSustainValue(t1.floatValue());
+                ADSRValues.setSustainValue(t1.floatValue());
             }
         });
 
         sliderRelease.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                synth.getADSR().setReleaseValue(t1.floatValue());
+                ADSRValues.setReleaseValue(t1.floatValue());
             }
         });
 
         sliderMasterGain.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                synth.getADSR().setPeakGain(t1.floatValue());
+                synth.setMasterGain(t1.floatValue());
             }
         });
     }

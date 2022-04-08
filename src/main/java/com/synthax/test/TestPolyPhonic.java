@@ -18,20 +18,19 @@ import java.util.Scanner;
 
 public class TestPolyPhonic {
 
-    OscillatorPolyWrapper[] oscillators;
+    Oscillator[] oscillators;
 
     TestPolyPhonic(){
-
         JavaSoundAudioIO jsaio = new JavaSoundAudioIO(512);
         AudioContext ac = new AudioContext(jsaio);
         AudioContext.setDefaultContext(ac);
 
         Gain masterGain = new Gain(ac, 1, 1f);
 
-        oscillators = new OscillatorPolyWrapper[3];
+        oscillators = new Oscillator[3];
         for (int i = 0; i < 3; i++) {
             Buffer waveBuf = i == 0 ? Buffer.SINE : i == 1 ? Buffer.SAW : Buffer.TRIANGLE;
-            OscillatorPolyWrapper polyOsc = new OscillatorPolyWrapper(waveBuf);
+            Oscillator polyOsc = new Oscillator(waveBuf);
             masterGain.addInput(polyOsc.getOutput());
             oscillators[i] = polyOsc;
         }
@@ -88,11 +87,11 @@ public class TestPolyPhonic {
         new TestPolyPhonic();
     }
 
-    class OscillatorPolyWrapper {
+    class Oscillator {
         private final int voiceCount = 8;
         private int currentVoice = 0;
 
-        private final Oscillator[] voices;
+        private final Voice[] voices;
 
         public Gain getOutput() {
             return output;
@@ -100,12 +99,12 @@ public class TestPolyPhonic {
 
         private final Gain output;
 
-        public OscillatorPolyWrapper(Buffer waveBuf){
+        public Oscillator(Buffer waveBuf){
             output = new Gain(1, 1f);
 
-            voices = new Oscillator[voiceCount];
+            voices = new Voice[voiceCount];
             for (int i = 0; i < voiceCount; i++) {
-                Oscillator osc = new Oscillator(waveBuf);
+                Voice osc = new Voice(waveBuf);
                 output.addInput(osc.getOutput());
                 printInputs(output, "polyOutput");
                 voices[i] = osc;
@@ -134,14 +133,14 @@ public class TestPolyPhonic {
         /**
          * THIS IS THE ACTUAL PLAYING OSCILLATOR
          */
-        class Oscillator {
+        class Voice {
             private final WavePlayer wp;
             private final Gain output;
             private final Envelope gainEnv;
 
             private static float maxGain = .2f;
 
-            public Oscillator(Buffer waveBuf){
+            public Voice(Buffer waveBuf){
                 wp = new WavePlayer(0f, waveBuf);
                 gainEnv = new Envelope();
                 output = new Gain(1, gainEnv);

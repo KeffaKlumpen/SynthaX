@@ -1,10 +1,9 @@
 
 package com.synthax.SynthaX.oscillator;
 
-
-import com.synthax.SynthaX.ADSR;
 import com.synthax.SynthaX.Waveforms;
 import com.synthax.controller.OscillatorManager;
+import com.synthax.model.ADSRValues;
 import com.synthax.model.CombineMode;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -14,27 +13,16 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Add;
 import net.beadsproject.beads.ugens.Gain;
 import net.beadsproject.beads.ugens.Mult;
-import net.beadsproject.beads.ugens.WavePlayer;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- *      ///// OSC 1
- *         WavePlayer osc1wp = new WavePlayer(ac, 150.f, Buffer.SINE);
- *         Gain gain1 = new Gain(ac, 1, 1f);
- *         gain1.addInput(osc1wp);
- *         // "osc1" represents the output from this first Oscillator.
- *         Add osc1 = new Add(ac, 1, gain1);
- *         //osc1.addInput(??) --- since osc1 is the first in the line, we do not add any input here
- *      ///// OSC 1 END
- *
  * @author Viktor Lenberg
  * @author Teodor Wegestål
  * @author Joel Eriksson Sinclair
@@ -55,33 +43,37 @@ public class Oscillator implements Initializable {
     @FXML private Slider sliderSustain;
     @FXML private Slider sliderRelease;
 
-    private final AudioContext ac;
-    private WavePlayer wavePlayer;
-    private Gain gain;
-    private ADSR adsr;
-    private UGen output; //Add or Mult
+    private final OscillatorVoice[] voices;
+    private final int voiceCount = 16;
+    private int currentVoice = 0;
+    private final Gain voiceOutput;
+    private UGen output;
 
     private String octaveOperand = "8'";
     private float detuneCent;
 
     /**
      * Setup internal chain structure.
+     * @author Joel Eriksson Sinclair
      */
     public Oscillator(){
-        ac = AudioContext.getDefaultContext();
+        voiceOutput = new Gain(1, 1f);
 
-        wavePlayer = new WavePlayer(ac, 150f, Buffer.SINE);
+        voices = new OscillatorVoice[voiceCount];
+        for (int i = 0; i < voiceCount; i++) {
+            OscillatorVoice voice = new OscillatorVoice(Buffer.SINE);
+            voiceOutput.addInput(voice.getOutput());
+            voices[i] = voice;
+        }
 
-        adsr = new ADSR(ac);
-
-        gain = new Gain(ac, 1, adsr.getEnvelope()); //getenvelope
-        gain.addInput(wavePlayer);
-        output = new Add(ac, 1, gain);
+        output = new Add(1, voiceOutput); // set this to GUI value..
     }
 
     // FIXME: 2022-04-07 Bypassing an Mult Oscillator makes it so no sound reaches the output. (Multiplying with the 0-buffer).
     public void bypassOscillator(boolean b) {
-        wavePlayer.pause(b);
+        for (int i = 0; i < voiceCount; i++) {
+            voices[i].bypass(b);
+        }
     }
 
     /**
@@ -89,63 +81,47 @@ public class Oscillator implements Initializable {
      * @param frequency of the note, provided by input method
      * @author Viktor Lenberg
      * @author Teodor Wegestål
+     * @author Joel Eriksson Sinclair
      */
-    public void setFrequency(float frequency) {
-        frequency = checkOctave(frequency);
-        frequency = checkDetune(frequency);
-        wavePlayer.setFrequency(frequency);
+    public void playFrequency(float frequency) {
+        System.out.println("playing: " + currentVoice);
 
-        //adsr.envelop();
+        frequency = applyOctaveOffset(frequency);
+        frequency = applyDetuning(frequency);
+
+        voices[currentVoice++].playFreq(frequency, 1f, ADSRValues.getAttackValue(), ADSRValues.getSustainValue(), ADSRValues.getDecayValue());
+        currentVoice = currentVoice % voiceCount;
     }
 
     /**
-     * Alters the frequency to the selected octave
-     * @param frequency of the note, provided by input method
-     * @return altered frequency
-     * @author Viktor Lenberg
-     * @author Teodor Wegestål
+     * @param voiceIndex
+     * @author Joel Eriksson Sinclair
      */
-    public float checkOctave(float frequency) {
-        switch (octaveOperand) {
-            case "2'" -> {
-                return frequency / 4;
-            }
-            case "4'" -> {
-                return frequency / 2;
-            }
-            case "8'" -> {
-                return frequency;
-            }
-            case "16'" -> {
-                return frequency * 2;
-            }
-            case "32'" -> {
-                return  frequency * 4;
-            }
-        }
-        return frequency;
+    public void stopVoice(int voiceIndex){
+        voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
     }
 
-    /**
-     * Alters the frequency to the correct cent value
-     * @param frequency of the note, provided by input method
-     * @return the detuned frequency
-     * @author Viktor Lenberg
-     * @author Teodor Wegestål
-     */
-    public float checkDetune(float frequency) {
-        return (float)(frequency * (Math.pow(2, (detuneCent/1200))));
-    }
     /**
      * Sets the selected waveform
      * @param wf waveform to be set
      * @author Viktor Lenberg
      * @author Teodor Wegestål
+     * @author Joel Eriksson Sinclair
      */
     public void setWaveform(Waveforms wf) {
-        wavePlayer.setBuffer(wf.getBuffer());
+        for (int i = 0; i < voiceCount; i++) {
+            voices[i].setWavePlayerBuffer(wf.getBuffer());
+        }
     }
 
+    /**
+     * @author Joel Eriksson Sinclair
+     */
+    public int getVoiceCount(){
+        return voiceCount;
+    }
+
+    //region CombineMode Output
     /**
      * @author Joel Eriksson Sinclair
      */
@@ -154,10 +130,10 @@ public class Oscillator implements Initializable {
 
         switch (combineMode){
             case ADD -> {
-                newOutput = new Add(ac, 1, gain);
+                newOutput = new Add(1, voiceOutput);
             }
             case MULT -> {
-                newOutput = new Mult(ac, 1, gain);
+                newOutput = new Mult(1, voiceOutput);
             }
         }
         if(newOutput != null){
@@ -167,10 +143,34 @@ public class Oscillator implements Initializable {
     }
 
     /**
+     * Returns the UGen with the combined output from the oscillator and any input.
+     * @return Add, Mult, Division, Subtract UGen
+     * @author Joel Eriksson Sinclair
+     */
+    public UGen getOutput(){
+        return output;
+    }
+
+    /**
+     * Sets a given UGen to be the UGen to be combined with the Oscillator.
+     * @param input The UGen to be combined with the Oscillator
+     * @author Joel Eriksson Sinclair
+     */
+    public void setInput(UGen input){
+        output.clearInputConnections();
+        if(input != null){
+            output.addInput(input);
+        }
+    }
+    //endregion
+
+    //region GUI stuff
+    /**
      * initialize-method for the oscillator class
      * Sets values and adds listeners to GUI components
      * @author Teodor Wegestål
      * @author Viktor Lenberg
+     * @author Joel Eriksson Sinclair
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -209,8 +209,7 @@ public class Oscillator implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 float newGain = t1.floatValue() / 100;
-                gain.setGain(newGain);
-                adsr.setPeakGain(newGain);
+                voiceOutput.setGain(newGain);
             }
         });
 
@@ -221,6 +220,8 @@ public class Oscillator implements Initializable {
             }
         });
 
+        /// This is if we want per-oscillator ADSR.. Which we don't right now
+        /*
         sliderAttack.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
@@ -241,29 +242,7 @@ public class Oscillator implements Initializable {
                 adsr.setSustainValue(t1.floatValue());
             }
         });
-    }
-
-
-
-    /**
-     * Returns the UGen with the combined output from the oscillator and any input.
-     * @return Add, Mult, Division, Subtract UGen
-     * @author Joel Eriksson Sinclair
-     */
-    public UGen getOutput(){
-        return output;
-    }
-
-    /**
-     * Sets a given UGen to be the UGen to be combined with the Oscillator.
-     * @param input The UGen to be combined with the Oscillator
-     * @author Joel Eriksson Sinclair
-     */
-    public void setInput(UGen input){
-        output.clearInputConnections();
-        if(input != null){
-            output.addInput(input);
-        }
+         */
     }
 
     /**
@@ -290,6 +269,52 @@ public class Oscillator implements Initializable {
         return btnMoveUp;
     }
 
+    //endregion
+
+    //region frequency-altering-helpers
+    /**
+     * Alters the frequency to the selected octave
+     * @param frequency of the note, provided by input method
+     * @return altered frequency
+     * @author Viktor Lenberg
+     * @author Teodor Wegestål
+     */
+    public float applyOctaveOffset(float frequency) {
+        switch (octaveOperand) {
+            case "2'" -> {
+                return frequency / 4;
+            }
+            case "4'" -> {
+                return frequency / 2;
+            }
+            case "8'" -> {
+                return frequency;
+            }
+            case "16'" -> {
+                return frequency * 2;
+            }
+            case "32'" -> {
+                return  frequency * 4;
+            }
+        }
+        return frequency;
+    }
+
+    /**
+     * Alters the frequency to the correct cent value
+     * @param frequency of the note, provided by input method
+     * @return the detuned frequency
+     * @author Viktor Lenberg
+     * @author Teodor Wegestål
+     */
+    public float applyDetuning(float frequency) {
+        return (float)(frequency * (Math.pow(2, (detuneCent/1200))));
+    }
+    //endregion
+
+    /**
+     * @author Joel Eriksson Sinclair
+     */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Oscillator{");

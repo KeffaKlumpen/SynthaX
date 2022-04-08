@@ -8,8 +8,6 @@ import net.beadsproject.beads.ugens.*;
 
 public class Synth {
     private final Gain masterGain;
-    private final Glide masterGainGlide;
-    private ADSR adsr;
     private LFO lfo;
 
     private final OscillatorManager oscillatorManager;
@@ -23,12 +21,9 @@ public class Synth {
         AudioContext ac = new AudioContext(jsaio);
         AudioContext.setDefaultContext(ac);
 
-        masterGainGlide = new Glide(ac, 0.0f, 10.0f);
-        adsr = new ADSR(ac);
-        masterGain = new Gain(ac, 1, adsr.getEnvelope());
+        masterGain = new Gain(ac, 1, .5f);
 
         lfo = new LFO(ac);
-
 
         oscillatorManager = OscillatorManager.getInstance();
         masterGain.addInput(oscillatorManager.getOutput());
@@ -55,7 +50,6 @@ public class Synth {
     }
 
     /**
-     *
      * @param oscillator
      * @author Joel Eriksson Sinclair
      */
@@ -64,7 +58,6 @@ public class Synth {
     }
 
     /**
-     *
      * @param oscillator
      * @author Joel Eriksson Sinclair
      */
@@ -72,38 +65,31 @@ public class Synth {
         oscillatorManager.removeOscillator(oscillator);
     }
 
-    public void keyPressed(){
-        System.out.println("Synth down");
-        //masterGainGlide.setValue(.5f);
-        adsr.attackDecay();
-    }
-
-    public void keyReleased(){
-        System.out.println("Synth up");
-        //masterGainGlide.setValue(0f);
-        adsr.release();
-    }
-
-    public ADSR getADSR() {
-        return adsr;
-    }
-
-    //Testmetod för att kunna spela olika toner
-    public void setFrequency(char c) {
+    public void playNote(char c) {
 
         switch (c) {
             case 'C' -> {
-                masterGainGlide.setValue(.2f);
                 oscillatorManager.playFrequency(261.63f);
             }
             case 'D' -> {
-                masterGainGlide.setValue(.2f);
                 oscillatorManager.playFrequency(293.66f);
             }
             case 'E' -> {
-                masterGainGlide.setValue(.2f);
                 oscillatorManager.playFrequency(329.63f);
             }
         }
+    }
+
+    public void releaseVoice(int voiceIndex){
+
+    }
+
+    public void releaseAllVoices(){
+        System.out.println("Synth release all voices");
+        oscillatorManager.releaseAllVoices();
+    }
+
+    public void setMasterGain(float gain){
+        masterGain.setGain(gain);
     }
 }
