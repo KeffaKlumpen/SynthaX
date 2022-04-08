@@ -90,6 +90,7 @@ public class SynthaxController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         knob2.getStyleClass().add("knob");
         knob2.setOnMouseDragged(new Knob(knob2));
+
         //lineChartMain.getStyleClass().add("lineChartMain");
         mainPane.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.K) {
@@ -114,50 +115,6 @@ public class SynthaxController implements Initializable {
         mainPane.setOnKeyReleased(event -> {
             keyHeld.set(false);
             synth.keyReleased();
-        });
-        knob.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-
-                boolean b = y - mouseEvent.getScreenY() > 0;
-                y = mouseEvent.getScreenY();
-
-                if (!b) {
-                    if (rotation != 301) {
-                        rotation = (rotation - 2) % 360;
-                    }
-                } else {
-                    if (rotation != 238)
-                        rotation = (rotation + 2) % 360;
-                }
-
-                if (rotation >= 300 && rotation < 315) {
-                    knob.setRotate(301);
-                    rotation = 301;
-                } else if (rotation >= 315 && rotation < 340) {
-                    knob.setRotate(328);
-                } else if (rotation >= 340 || rotation < 8) {
-                    knob.setRotate(355);
-                } else if (rotation >= 8 && rotation < 34) {
-                    knob.setRotate(21);
-                } else if (rotation >= 34 && rotation < 62) {
-                    knob.setRotate(49);
-                } else if (rotation >= 62 && rotation < 88) {
-                    knob.setRotate(76);
-                } else if (rotation >= 88 && rotation < 115) {
-                    knob.setRotate(103);
-                } else if (rotation >= 115 && rotation < 143) {
-                    knob.setRotate(130);
-                } else if (rotation >= 143 && rotation < 160) {
-                    knob.setRotate(157);
-                } else if (rotation >= 160 && rotation < 196) {
-                    knob.setRotate(183);
-                } else if (rotation >= 196 && rotation < 223) {
-                    knob.setRotate(211);
-                } else  {
-                    knob.setRotate(238);
-                }
-            }
         });
 
         sliderAttack.valueProperty().addListener(new ChangeListener<Number>() {

@@ -1,21 +1,28 @@
 package com.synthax.SynthaX.controls;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
 public class Knob implements EventHandler<MouseEvent> {
     private Button knob;
-    private double rotation = 0;
-    private int knobValue = 0;
+    //private double rotation = 0;
+    private double knobValue = 0;
+    private double knobMaxValue = 140;
+    private double knobMinValue = 0;
     private double lastMousePos;
+    private DoubleProperty rotation = new SimpleDoubleProperty(0);
+
     public Knob(Button b) {
         knob = b;
         knob.setRotate(210);
     }
 
 
-    @Override
+    /*@Override
     public void handle(MouseEvent mouseEvent) {
         double a = lastMousePos - mouseEvent.getScreenY();
         if (a == 0) {
@@ -39,5 +46,37 @@ public class Knob implements EventHandler<MouseEvent> {
             knobValue--;
             rotation = 0;
         }
+    }*/
+
+    @Override
+    public void handle(MouseEvent mouseEvent) {
+
+        double mousePos = mouseEvent.getScreenY();
+
+        if (lastMousePos > mousePos && knobValue < knobMaxValue) {
+            rotation.setValue(rotation.getValue() + 2.0);
+            knob.setRotate(knob.getRotate() + 2);
+            knobValue++;
+        } else if (lastMousePos < mousePos && knobValue > knobMinValue){
+            rotation.setValue(rotation.getValue() - 2.0);
+            knob.setRotate(knob.getRotate() - 2);
+            knobValue--;
+        }
+
+        /*if (rotation.getValue() == 16) {
+            knob.setRotate(knob.getRotate() + 25);
+            knobValue++;
+            rotation.setValue(0.0);
+        } else if (rotation.getValue() == -16) {
+            knob.setRotate(knob.getRotate() - 25);
+            knobValue--;
+            rotation.setValue(0.0);
+        }*/
+        lastMousePos = mousePos;
+        System.out.println(knobValue);
+    }
+
+    public DoubleProperty getRotationProperty() {
+        return rotation;
     }
 }
