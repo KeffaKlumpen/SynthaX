@@ -31,7 +31,7 @@ public class OscillatorManager {
 
     private OscillatorManager(){
         output = new Gain(1, 1f);
-        new DebugThread(2000).start();
+        //new DebugThread(2000).start();
     }
 
     /**
