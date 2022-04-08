@@ -33,6 +33,7 @@
                               <Spinner fx:id="octaveSpinner" layoutX="213.0" layoutY="37.0" prefHeight="25.0" prefWidth="74.0" />
                                <Label layoutX="282.0" layoutY="108.0" text="Gain" />
                                <Slider fx:id="sliderGain" blockIncrement="1.0" layoutX="284.0" layoutY="126.0" majorTickUnit="10.0" min="0" prefHeight="38.0" prefWidth="118.0" showTickLabels="true" showTickMarks="true" value="20.0" />
+                              <ChoiceBox fx:id="combineModeChoiceBox" layoutX="21.0" layoutY="77.0" prefWidth="150.0" />
                            </children>
                         </AnchorPane>
                   </content>

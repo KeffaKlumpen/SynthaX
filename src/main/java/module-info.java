@@ -7,5 +7,6 @@ module com.synthax.synthax_beads {
     opens com.synthax.SynthaX to javafx.fxml;
     exports com.synthax.SynthaX;
     exports com.synthax.SynthaX.ChainableUGens;
+    exports com.synthax.model;
     opens com.synthax.SynthaX.ChainableUGens to javafx.fxml;
 }

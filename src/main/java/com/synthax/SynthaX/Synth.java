@@ -24,7 +24,7 @@ public class Synth {
         masterGainGlide = new Glide(ac, 0.0f, 10.0f);
         masterGain = new Gain(ac, 1, masterGainGlide);
 
-        oscillatorManager = new OscillatorManager();
+        oscillatorManager = OscillatorManager.getInstance();
         masterGain.addInput(oscillatorManager.getOutput());
 
         // Send to audio-device
@@ -36,16 +36,16 @@ public class Synth {
      * @param oscillator
      * @author Joel Eriksson Sinclair
      */
-    public void moveOscillatorUp(Oscillator oscillator){
-        oscillatorManager.moveOscillatorUp(oscillator);
+    public void moveOscillatorDown(Oscillator oscillator){
+        oscillatorManager.moveOscillatorDown(oscillator);
     }
 
     /**
      * @param oscillator
      * @author Joel Eriksson Sinclair
      */
-    public void moveOscillatorDown(Oscillator oscillator){
-        oscillatorManager.moveOscillatorDown(oscillator);
+    public void moveOscillatorUp(Oscillator oscillator){
+        oscillatorManager.moveOscillatorUp(oscillator);
     }
 
     /**
@@ -67,12 +67,10 @@ public class Synth {
     }
 
     public void keyPressed(){
-        System.out.println("Synth down");
         masterGainGlide.setValue(.2f);
     }
 
     public void keyReleased(){
-        System.out.println("Synth up");
         masterGainGlide.setValue(0f);
     }
 
