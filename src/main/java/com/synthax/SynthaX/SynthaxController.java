@@ -3,8 +3,11 @@ package com.synthax.SynthaX;
 
 
 import com.synthax.SynthaX.controls.Knob;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 import com.synthax.SynthaX.oscillator.Oscillator;
@@ -39,10 +42,11 @@ public class SynthaxController implements Initializable {
     @FXML private Slider sliderRelease;
     @FXML private Slider sliderMasterGain;
     @FXML private LineChart lineChartMain;
-    private Synth synth;
-    private boolean playin;
 
-    private double rotation = 0;
+    private final Synth synth;
+
+    private boolean playin;
+    private double rotation = 0.0;
     private double y = 0.0;
 
     @FXML private Button knob2 = new Button();
@@ -62,9 +66,15 @@ public class SynthaxController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("oscillator-view.fxml"));
             Node oscillatorView = fxmlLoader.load();
             Oscillator oscillator = fxmlLoader.getController();
-            oscillator.setup();
 
-            synth.addToChain(oscillator);
+            synth.addOscillator(oscillator);
+            oscillator.getBtnRemoveOscillator().setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    synth.removeOscillator(oscillator);
+                    oscillatorChainView.getChildren().remove(oscillatorView);
+                }
+            });
 
             oscillatorChainView.getChildren().add(oscillatorView);
         }
@@ -73,6 +83,7 @@ public class SynthaxController implements Initializable {
         }
     }
 
+    @FXML
     public void onActionPlay() {
         if (!playin) {
             synth.keyPressed();
@@ -80,10 +91,6 @@ public class SynthaxController implements Initializable {
             synth.keyReleased();
         }
         playin = !playin;
-    }
-
-    public void removeOscillator(Oscillator osc) {
-        //remove oscillator from synth and from window
     }
 
     @Override

@@ -50,33 +50,23 @@ public class Oscillator implements Initializable {
     @FXML private Slider sliderRelease;
 
     private WavePlayer wavePlayer;
-    protected UGen output;
     private Gain gain;
     private ADSR adsr;
+    private UGen output;
 
     private String octaveOperand = "8'";
     private float detuneCent;
 
-    public void setup(){
+    public Oscillator(){
         AudioContext ac = AudioContext.getDefaultContext();
-
-        adsr = new ADSR(ac);
 
         wavePlayer = new WavePlayer(ac, 150f, Buffer.SINE);
 
+        adsr = new ADSR(ac);
 
-        gain = new Gain(ac, 1, 0.2f);
+        gain = new Gain(ac, 1, adsr.getEnvelope()); //getenvelope
         gain.addInput(wavePlayer);
         output = new Add(ac, 1, gain);
-    }
-
-    public void setInput(UGen input){
-        output.clearInputConnections();
-        output.addInput(input);
-    }
-
-    public UGen getOutput(){
-        return output;
     }
 
     public void bypassOscillator(boolean b) {
@@ -217,5 +207,34 @@ public class Oscillator implements Initializable {
                 adsr.setSustainValue(t1.floatValue());
             }
         });
+    }
+
+    /**
+     * Returns the UGen with the combined output from the oscillator and any input.
+     * @return Add, Mult, Division, Subtract UGen
+     * @author Joel Eriksson Sinclair
+     */
+    public UGen getOutput(){
+        return output;
+    }
+
+    /**
+     * Sets a given UGen to be the UGen to be combined with the Oscillator.
+     * @param input The UGen to be combined with the Oscillator
+     * @author Joel Eriksson Sinclair
+     */
+    public void setInput(UGen input){
+        output.clearInputConnections();
+        if(input != null){
+            output.addInput(input);
+        }
+    }
+
+    /**
+     * @return The button responsible for removing the oscillator.
+     * @author Joel Eriksson Sinclair
+     */
+    public Button getBtnRemoveOscillator() {
+        return btnRemoveOscillator;
     }
 }
