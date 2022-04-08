@@ -6,7 +6,7 @@
 
 package com.synthax.controller;
 
-import com.synthax.SynthaX.ChainableUGens.Oscillator;
+import com.synthax.SynthaX.oscillator.Oscillator;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.ugens.Gain;
 
@@ -79,7 +79,7 @@ public class OscillatorManager {
      */
     public void playFrequency(float frequency){
         for (Oscillator osc : oscillators) {
-            osc.playSound(frequency);
+            osc.setFrequency(frequency);
         }
     }
 

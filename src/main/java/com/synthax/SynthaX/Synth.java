@@ -1,7 +1,7 @@
 package com.synthax.SynthaX;
 
 import com.synthax.SynthaX.oscillator.Oscillator;
-import com.synthax.SynthaX.OscillatorManager;
+import com.synthax.controller.OscillatorManager;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
 import net.beadsproject.beads.ugens.*;

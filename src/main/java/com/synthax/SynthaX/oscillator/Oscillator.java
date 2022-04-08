@@ -79,7 +79,6 @@ public class Oscillator implements Initializable {
      * @author Viktor Lenberg
      * @author Teodor Wegestål
      */
-
     public void setFrequency(float frequency) {
         frequency = checkOctave(frequency);
         frequency = checkDetune(frequency);
