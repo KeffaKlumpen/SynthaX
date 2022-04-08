@@ -6,8 +6,6 @@ import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
 import net.beadsproject.beads.ugens.*;
 
-import java.util.ArrayList;
-
 public class Synth {
     private final Gain masterGain;
     private final Glide masterGainGlide;
@@ -32,7 +30,7 @@ public class Synth {
         lfo = new LFO(ac);
 
 
-        oscillatorManager = new OscillatorManager();
+        oscillatorManager = OscillatorManager.getInstance();
         masterGain.addInput(oscillatorManager.getOutput());
 
         // Send to audio-device
@@ -40,12 +38,38 @@ public class Synth {
         ac.start();
     }
 
+    /**
+     * @param oscillator
+     * @author Joel Eriksson Sinclair
+     */
+    public void moveOscillatorDown(Oscillator oscillator){
+        oscillatorManager.moveOscillatorDown(oscillator);
+    }
+
+    /**
+     * @param oscillator
+     * @author Joel Eriksson Sinclair
+     */
+    public void moveOscillatorUp(Oscillator oscillator){
+        oscillatorManager.moveOscillatorUp(oscillator);
+    }
+
+    /**
+     *
+     * @param oscillator
+     * @author Joel Eriksson Sinclair
+     */
     public void addOscillator(Oscillator oscillator){
         oscillatorManager.addOscillator(oscillator);
     }
 
-    public void removeOscillator(Oscillator osc) {
-        oscillatorManager.removeOscillator(osc);
+    /**
+     *
+     * @param oscillator
+     * @author Joel Eriksson Sinclair
+     */
+    public void removeOscillator(Oscillator oscillator) {
+        oscillatorManager.removeOscillator(oscillator);
     }
 
     public void keyPressed(){

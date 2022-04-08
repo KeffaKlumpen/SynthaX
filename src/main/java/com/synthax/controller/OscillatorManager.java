@@ -17,12 +17,21 @@ import java.util.ArrayList;
  * @author Joel Eriksson Sinclair
  */
 public class OscillatorManager {
+    private static OscillatorManager instance;
+    public static OscillatorManager getInstance(){
+        if(instance == null){
+            instance = new OscillatorManager();
+        }
+        return instance;
+    }
+
     private final ArrayList<Oscillator> oscillators = new ArrayList<>();
 
     private final Gain output;
 
-    public OscillatorManager(){
+    private OscillatorManager(){
         output = new Gain(1, 1f);
+        new DebugThread(2000).start();
     }
 
     /**
@@ -36,15 +45,6 @@ public class OscillatorManager {
 
         System.out.println("Added " + osc + " to Synth!");
     }
-
-    //TODO:
-    public void moveOscillator(int from, int to){
-        Oscillator osc1 = oscillators.get(from);
-        Oscillator osc2 = oscillators.get(to);
-
-        System.err.println("NOT IMPLEMENTED YET");
-    }
-
 
     /**
      * Remove the specified Oscillator from the chain. Link up any neighbouring Oscillators correctly.
@@ -84,10 +84,10 @@ public class OscillatorManager {
     }
 
     /**
-     * Setup input and output connections for the provided Oscillator object.
+     * Setup input and output connections for the provided Oscillator and it's neighbours.
      * @param oscillator Oscillator to setup
      */
-    private void setupInOuts(Oscillator oscillator){
+    public void setupInOuts(Oscillator oscillator){
         int index = oscillators.indexOf(oscillator);
 
         if(index < 0 || index >= oscillators.size()){
@@ -98,9 +98,11 @@ public class OscillatorManager {
         // if we are the first oscillator, or has previous.
         if(index == 0){
             oscillator.setInput(null);
+            System.out.println("Setting our input to null");
         }
         else {
             oscillator.setInput(oscillators.get(index - 1).getOutput());
+            System.out.println("Setting our input to previous osc.getOutput");
         }
 
         // output
@@ -109,9 +111,11 @@ public class OscillatorManager {
         if(index == oscillators.size() - 1){
             output.clearInputConnections();
             output.addInput(oscOutput);
+            System.out.println("Setting total.Output to our output.");
         }
         else {
-            oscillators.get(index + 1).setInput(output);
+            oscillators.get(index + 1).setInput(oscOutput);
+            System.out.println("Setting nextOsc.input to our output.");
         }
     }
 
@@ -121,5 +125,84 @@ public class OscillatorManager {
      */
     public Gain getOutput(){
         return output;
+    }
+
+    public void moveOscillatorDown(Oscillator oscillator) {
+        int index = oscillators.indexOf(oscillator);
+        if(index < 0){
+            return;
+        }
+
+        if(index == oscillators.size() - 1){
+            return;
+        }
+
+        Oscillator nextOsc = oscillators.get(index + 1);
+        oscillators.add(index, nextOsc);
+        oscillators.remove(index + 2);
+
+        // TODO: We need to re-establish in/outs. Which do we need to update?
+        setupInOuts(oscillator);
+        setupInOuts(nextOsc);
+
+        System.out.println(oscillators);
+    }
+
+    public void moveOscillatorUp(Oscillator oscillator) {
+        int index = oscillators.indexOf(oscillator);
+        if(index < 0){
+            return;
+        }
+
+        if(index == 0){
+            return;
+        }
+
+        Oscillator prevOsc = oscillators.get(index - 1);
+        oscillators.add(index + 1, prevOsc);
+        oscillators.remove(index - 1);
+
+        setupInOuts(oscillator);
+        setupInOuts(prevOsc);
+
+        System.out.println(oscillators);
+    }
+
+    /**
+     * Prints out the inputs of all oscillators.
+     */
+    public void debugPrintOscillatorInputs(){
+        System.out.println("--DEBUG--");
+        for (Oscillator o : oscillators) {
+            System.out.println("-----Osc: " + o);
+            for (UGen u : o.getOutput().getConnectedInputs()) {
+                System.out.println("---has a " + u);
+            }
+        }
+        System.out.println("---END---");
+    }
+
+    /**
+     * Repeatedly print out stuff. TODO: Make this a Util class and pass in a method basically.
+     */
+    class DebugThread extends Thread{
+
+        private long sleepTime;
+
+        public DebugThread(long sleepTime){
+            this.sleepTime = sleepTime;
+        }
+
+        @Override
+        public void run() {
+            while (!isInterrupted()){
+                try {
+                    sleep(sleepTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                debugPrintOscillatorInputs();
+            }
+        }
     }
 }

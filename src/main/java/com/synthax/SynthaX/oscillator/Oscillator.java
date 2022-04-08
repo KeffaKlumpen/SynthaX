@@ -4,6 +4,8 @@ package com.synthax.SynthaX.oscillator;
 
 import com.synthax.SynthaX.ADSR;
 import com.synthax.SynthaX.Waveforms;
+import com.synthax.controller.OscillatorManager;
+import com.synthax.model.CombineMode;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -17,6 +19,7 @@ import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Add;
 import net.beadsproject.beads.ugens.Gain;
+import net.beadsproject.beads.ugens.Mult;
 import net.beadsproject.beads.ugens.WavePlayer;
 
 import java.net.URL;
@@ -38,6 +41,9 @@ import java.util.ResourceBundle;
  */
 
 public class Oscillator implements Initializable {
+    @FXML private ChoiceBox<CombineMode> combineModeChoiceBox;
+    @FXML private Button btnMoveDown;
+    @FXML private Button btnMoveUp;
     @FXML private Slider sliderDetune;
     @FXML private Slider sliderGain;
     @FXML private ChoiceBox<Waveforms> waveFormChoiceBox;
@@ -49,16 +55,20 @@ public class Oscillator implements Initializable {
     @FXML private Slider sliderSustain;
     @FXML private Slider sliderRelease;
 
+    private final AudioContext ac;
     private WavePlayer wavePlayer;
     private Gain gain;
     private ADSR adsr;
-    private UGen output;
+    private UGen output; //Add or Mult
 
     private String octaveOperand = "8'";
     private float detuneCent;
 
+    /**
+     * Setup internal chain structure.
+     */
     public Oscillator(){
-        AudioContext ac = AudioContext.getDefaultContext();
+        ac = AudioContext.getDefaultContext();
 
         wavePlayer = new WavePlayer(ac, 150f, Buffer.SINE);
 
@@ -69,6 +79,7 @@ public class Oscillator implements Initializable {
         output = new Add(ac, 1, gain);
     }
 
+    // FIXME: 2022-04-07 Bypassing an Mult Oscillator makes it so no sound reaches the output. (Multiplying with the 0-buffer).
     public void bypassOscillator(boolean b) {
         wavePlayer.pause(b);
     }
@@ -136,6 +147,26 @@ public class Oscillator implements Initializable {
     }
 
     /**
+     * @author Joel Eriksson Sinclair
+     */
+    public void setOutputType(CombineMode combineMode){
+        UGen newOutput = null;
+
+        switch (combineMode){
+            case ADD -> {
+                newOutput = new Add(ac, 1, gain);
+            }
+            case MULT -> {
+                newOutput = new Mult(ac, 1, gain);
+            }
+        }
+        if(newOutput != null){
+            output = newOutput;
+            OscillatorManager.getInstance().setupInOuts(this);
+        }
+    }
+
+    /**
      * initialize-method for the oscillator class
      * Sets values and adds listeners to GUI components
      * @author Teodor Wegestål
@@ -151,6 +182,10 @@ public class Oscillator implements Initializable {
                 setWaveform(waveFormChoiceBox.getValue());
             }
         });
+
+        combineModeChoiceBox.setItems(FXCollections.observableArrayList(CombineMode.values()));
+        combineModeChoiceBox.setValue(CombineMode.ADD);
+        combineModeChoiceBox.setOnAction(event -> setOutputType(combineModeChoiceBox.getValue()));
 
         String[] octaves = {"2'", "4'", "8'", "16'", "32'"} ;
         SpinnerValueFactory<String> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(octaves));
@@ -208,6 +243,8 @@ public class Oscillator implements Initializable {
         });
     }
 
+
+
     /**
      * Returns the UGen with the combined output from the oscillator and any input.
      * @return Add, Mult, Division, Subtract UGen
@@ -235,5 +272,29 @@ public class Oscillator implements Initializable {
      */
     public Button getBtnRemoveOscillator() {
         return btnRemoveOscillator;
+    }
+
+    /**
+     * @return
+     * @author Joel Eriksson Sinclair
+     */
+    public Button getBtnMoveDown(){
+        return btnMoveDown;
+    }
+
+    /**
+     * @return
+     * @author Joel Eriksson Sinclair
+     */
+    public Button getBtnMoveUp(){
+        return btnMoveUp;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Oscillator{");
+        sb.append("waveForm=").append(waveFormChoiceBox.getValue());
+        sb.append('}');
+        return sb.toString();
     }
 }
