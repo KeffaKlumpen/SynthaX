@@ -14,7 +14,7 @@ public class Knob implements EventHandler<MouseEvent> {
     private double knobMaxValue = 140;
     private double knobMinValue = 0;
     private double lastMousePos;
-    private DoubleProperty rotation = new SimpleDoubleProperty(0);
+    private DoubleProperty rotation = new SimpleDoubleProperty(this,"rotation", 0);
 
     public Knob(Button b) {
         knob = b;
@@ -48,17 +48,25 @@ public class Knob implements EventHandler<MouseEvent> {
         }
     }*/
 
+    /*
+    I controllern:
+    rotation.rotationProperty().addListener( (v, oldValue, newValue) -> {
+        setGain(newValue);
+    }
+
+    Eller bind rotation till en annan DoubleProperty som räknar ut korrekta utvärdet och sätt lyssnaren på denna.
+    */
     @Override
     public void handle(MouseEvent mouseEvent) {
 
         double mousePos = mouseEvent.getScreenY();
 
         if (lastMousePos > mousePos && knobValue < knobMaxValue) {
-            rotation.setValue(rotation.getValue() + 2.0);
+            //rotation.setValue(rotation.getValue() + 2.0);
             knob.setRotate(knob.getRotate() + 2);
             knobValue++;
         } else if (lastMousePos < mousePos && knobValue > knobMinValue){
-            rotation.setValue(rotation.getValue() - 2.0);
+            //rotation.setValue(rotation.getValue() - 2.0);
             knob.setRotate(knob.getRotate() - 2);
             knobValue--;
         }
@@ -76,7 +84,7 @@ public class Knob implements EventHandler<MouseEvent> {
         System.out.println(knobValue);
     }
 
-    public DoubleProperty getRotationProperty() {
+    public DoubleProperty rotationProperty() {
         return rotation;
     }
 }
