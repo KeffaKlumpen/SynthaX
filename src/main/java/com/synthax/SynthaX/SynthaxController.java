@@ -3,6 +3,9 @@ package com.synthax.SynthaX;
 
 
 import com.synthax.SynthaX.controls.Knob;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -89,7 +92,10 @@ public class SynthaxController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         knob2.getStyleClass().add("knob");
-        knob2.setOnMouseDragged(new Knob(knob2));
+        Knob knob2list = new Knob(knob2);
+        knob2.setOnMouseDragged(knob2list);
+
+
 
         //lineChartMain.getStyleClass().add("lineChartMain");
         mainPane.setOnKeyPressed(event -> {

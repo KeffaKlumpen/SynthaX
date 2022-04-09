@@ -3,6 +3,8 @@ package com.synthax.SynthaX.controls;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -19,7 +21,11 @@ public class Knob implements EventHandler<MouseEvent> {
     public Knob(Button b) {
         knob = b;
         knob.setRotate(210);
+        rotation.addListener( (v, oldValue, newValue) -> {
+            System.out.println(newValue.doubleValue());
+        });
     }
+
 
 
     /*@Override
@@ -62,11 +68,11 @@ public class Knob implements EventHandler<MouseEvent> {
         double mousePos = mouseEvent.getScreenY();
 
         if (lastMousePos > mousePos && knobValue < knobMaxValue) {
-            //rotation.setValue(rotation.getValue() + 2.0);
+            rotation.setValue(rotation.getValue() + 2.0);
             knob.setRotate(knob.getRotate() + 2);
             knobValue++;
         } else if (lastMousePos < mousePos && knobValue > knobMinValue){
-            //rotation.setValue(rotation.getValue() - 2.0);
+            rotation.setValue(rotation.getValue() - 2.0);
             knob.setRotate(knob.getRotate() - 2);
             knobValue--;
         }
@@ -81,7 +87,7 @@ public class Knob implements EventHandler<MouseEvent> {
             rotation.setValue(0.0);
         }*/
         lastMousePos = mousePos;
-        System.out.println(knobValue);
+        //System.out.println(knobValue);
     }
 
     public DoubleProperty rotationProperty() {
