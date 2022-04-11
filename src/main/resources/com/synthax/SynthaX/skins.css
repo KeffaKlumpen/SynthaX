@@ -3,15 +3,15 @@
         -fx-background-insets: 0, 1, 2;
 }
 .knob {
--fx-background-radius: 5em;
+-fx-background-radius: 30px;
 -fx-background-image: url("Images/knob-main.png");
-    -fx-background-size: 45px 45px;
+    -fx-background-size: 40px 40px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
--fx-min-width: 45px;
--fx-min-height: 45px;
--fx-max-width: 45px;
--fx-max-height: 45px;
+-fx-min-width: 40px;
+-fx-min-height: 40px;
+-fx-max-width: 40px;
+-fx-max-height: 40px;
 }
 #knob:focused {
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
