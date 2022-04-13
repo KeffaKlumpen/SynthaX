@@ -24,6 +24,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.ToggleSwitch;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,22 +37,19 @@ public class SynthaxController implements Initializable {
     @FXML private Button btnAddOscillator;
     @FXML private Button btnPlay;
     @FXML private AnchorPane mainPane = new AnchorPane();
-    @FXML private Button knob = new Button();
-    @FXML private Label lblKnob = new Label();
     @FXML private Slider sliderAttack;
     @FXML private Slider sliderDecay;
     @FXML private Slider sliderSustain;
     @FXML private Slider sliderRelease;
     @FXML private Slider sliderMasterGain;
     @FXML private LineChart lineChartMain;
-
+    @FXML private Button knob2 = new Button();
     private final Synth synth;
-
     private double rotation = 0.0;
     private double y = 0.0;
 
 
-    @FXML private Button knob2 = new Button();
+
 
 
 
@@ -101,10 +99,9 @@ public class SynthaxController implements Initializable {
         knob2.getStyleClass().add("knob");
         Knob knob2list = new Knob(knob2);
         knob2.setOnMouseDragged(knob2list);
-        lblKnob.textProperty().bind(knob2list.knobStringValueProperty());
         /*knob2list.knobStringValueProperty().addListener( (v, oldValue, newValue) -> {
             System.out.println(newValue);
-            lblKnob.setText(newValue);
+
         });*/
 
 

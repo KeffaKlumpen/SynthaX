@@ -2,6 +2,7 @@ module com.synthax.synthax_beads {
     requires javafx.controls;
     requires javafx.fxml;
     requires beads;
+    requires org.controlsfx.controls;
 
 
     opens com.synthax.SynthaX to javafx.fxml;
