@@ -5,6 +5,7 @@ import com.synthax.SynthaX.Waveforms;
 import com.synthax.controller.OscillatorManager;
 import com.synthax.model.ADSRValues;
 import com.synthax.model.CombineMode;
+import com.synthax.model.OctaveOperands;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,10 +14,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Add;
 import net.beadsproject.beads.ugens.Gain;
+import net.beadsproject.beads.ugens.Glide;
 import net.beadsproject.beads.ugens.Mult;
 
 import java.net.URL;
@@ -35,7 +38,7 @@ public class Oscillator implements Initializable {
     @FXML private Slider sliderDetune;
     @FXML private Slider sliderGain;
     @FXML private ChoiceBox<Waveforms> waveFormChoiceBox;
-    @FXML private Spinner<String> octaveSpinner;
+    @FXML private Spinner<OctaveOperands> octaveSpinner;
     @FXML private Button btnRemoveOscillator;
     @FXML private RadioButton btnBypass;
     @FXML private Slider sliderAttack;
@@ -47,17 +50,22 @@ public class Oscillator implements Initializable {
     private final int voiceCount = 16;
     private int currentVoice = 0;
     private final Gain voiceOutput;
+    private Glide voiceOutputGlide;
     private UGen output;
 
-    private String octaveOperand = "8'";
+    private OctaveOperands octaveOperand = OctaveOperands.EIGHT;
     private float detuneCent;
+
+    boolean isPlaying;
+    private float playedFrequency;
 
     /**
      * Setup internal chain structure.
      * @author Joel Eriksson Sinclair
      */
     public Oscillator(){
-        voiceOutput = new Gain(1, 1f);
+        voiceOutputGlide = new Glide(AudioContext.getDefaultContext(), 1f, 50);
+        voiceOutput = new Gain(1, voiceOutputGlide);
 
         voices = new OscillatorVoice[voiceCount];
         for (int i = 0; i < voiceCount; i++) {
@@ -84,20 +92,24 @@ public class Oscillator implements Initializable {
      * @author Joel Eriksson Sinclair
      */
     public void playFrequency(float frequency) {
+        playedFrequency = frequency;
         System.out.println("playing: " + currentVoice);
+        isPlaying = true;
 
-        frequency = applyOctaveOffset(frequency);
+        frequency = applyOctaveOffset(frequency);   //bryta ut det här till en egen metod, då den behöver kallas på av listeners oxå
         frequency = applyDetuning(frequency);
 
         voices[currentVoice++].playFreq(frequency, 1f, ADSRValues.getAttackValue(), ADSRValues.getSustainValue(), ADSRValues.getDecayValue());
         currentVoice = currentVoice % voiceCount;
     }
 
+
     /**
      * @param voiceIndex
      * @author Joel Eriksson Sinclair
      */
     public void stopVoice(int voiceIndex){
+        isPlaying = false;
         voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
     }
 
@@ -180,6 +192,7 @@ public class Oscillator implements Initializable {
             @Override
             public void handle(ActionEvent actionEvent) {
                 setWaveform(waveFormChoiceBox.getValue());
+
             }
         });
 
@@ -187,21 +200,38 @@ public class Oscillator implements Initializable {
         combineModeChoiceBox.setValue(CombineMode.ADD);
         combineModeChoiceBox.setOnAction(event -> setOutputType(combineModeChoiceBox.getValue()));
 
-        String[] octaves = {"2'", "4'", "8'", "16'", "32'"} ;
-        SpinnerValueFactory<String> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(octaves));
-        valueFactory.setValue("8'");
+        SpinnerValueFactory<OctaveOperands> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(OctaveOperands.values()));
+        valueFactory.setValue(OctaveOperands.EIGHT);
         octaveSpinner.setValueFactory(valueFactory);
-        octaveSpinner.valueProperty().addListener(new ChangeListener<String>() {
+        octaveSpinner.valueProperty().addListener(new ChangeListener<OctaveOperands>() {
             @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+            public void changed(ObservableValue<? extends OctaveOperands> observableValue, OctaveOperands octaveOperands, OctaveOperands t1) {
                 octaveOperand = t1;
+                if (isPlaying) {
+                    float frequency = applyDetuning(playedFrequency);
+                    System.out.println(octaveOperand);
+                    frequency = applyOctaveOffset(frequency);
+                    for (OscillatorVoice voice: voices) {
+                        voice.getWavePlayer().setFrequency(frequency);
+                    }
+                }
             }
         });
 
+        sliderDetune.setMin(-50);
+        sliderDetune.setMax(50);
+        sliderDetune.setValue(0);
         sliderDetune.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 detuneCent = t1.floatValue();
+                if (isPlaying) {
+                    float frequency = applyDetuning(playedFrequency);
+                    frequency = applyOctaveOffset(frequency);
+                    for (OscillatorVoice voice: voices) {
+                        voice.getWavePlayer().setFrequency(frequency);
+                    }
+                }
             }
         });
 
@@ -209,7 +239,7 @@ public class Oscillator implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 float newGain = t1.floatValue() / 100;
-                voiceOutput.setGain(newGain);
+                voiceOutputGlide.setValue(newGain);
             }
         });
 
@@ -281,20 +311,20 @@ public class Oscillator implements Initializable {
      */
     public float applyOctaveOffset(float frequency) {
         switch (octaveOperand) {
-            case "2'" -> {
-                return frequency / 4;
+            case TWO -> {
+                return frequency / OctaveOperands.TWO.getValue();
             }
-            case "4'" -> {
-                return frequency / 2;
+            case FOUR -> {
+                return frequency / OctaveOperands.FOUR.getValue();
             }
-            case "8'" -> {
-                return frequency;
+            case EIGHT -> {
+                return frequency * OctaveOperands.EIGHT.getValue();
             }
-            case "16'" -> {
-                return frequency * 2;
+            case SIXTEEN -> {
+                return frequency * OctaveOperands.SIXTEEN.getValue();
             }
-            case "32'" -> {
-                return  frequency * 4;
+            case THIRTYTWO -> {
+                return  frequency * OctaveOperands.THIRTYTWO.getValue();
             }
         }
         return frequency;
