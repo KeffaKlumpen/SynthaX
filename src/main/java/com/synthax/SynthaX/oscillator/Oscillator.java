@@ -2,6 +2,9 @@
 package com.synthax.SynthaX.oscillator;
 
 import com.synthax.SynthaX.Waveforms;
+import com.synthax.SynthaX.controls.KnobBehavior;
+import com.synthax.SynthaX.controls.KnobBehaviorDetune;
+import com.synthax.SynthaX.controls.KnobBehaviorWave;
 import com.synthax.controller.OscillatorManager;
 import com.synthax.model.ADSRValues;
 import com.synthax.model.CombineMode;
@@ -17,7 +20,10 @@ import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Add;
 import net.beadsproject.beads.ugens.Gain;
+import net.beadsproject.beads.ugens.Glide;
 import net.beadsproject.beads.ugens.Mult;
+import org.controlsfx.control.SegmentedButton;
+import org.controlsfx.control.ToggleSwitch;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,6 +57,24 @@ public class Oscillator implements Initializable {
 
     private String octaveOperand = "8'";
     private float detuneCent;
+
+
+    //NEW GUI COMPONENTS-----------------------------
+    @FXML private SegmentedButton segBtnCombineMode;
+    @FXML private ToggleButton tglBtnCombineAdd;
+    @FXML private ToggleButton tglBtnCombineSub;
+    @FXML private ToggleButton tglBtnCombineMult;
+    @FXML private ToggleSwitch switchBypass;
+    //@FXML private Button btnMoveUp;
+    //@FXML private Button btnMoveDown;
+    @FXML private Button knobGain = new Button();
+    @FXML private Button knobWave = new Button();
+    @FXML private Button knobDetune = new Button();
+    @FXML private Button knobLFOdepth = new Button();
+    @FXML private Button knobLFOrate = new Button();
+    //@FXML private Spinner<String> octaveSpinner;
+
+    //NEW GUI COMPONENTS------------------------------
 
     /**
      * Setup internal chain structure.
@@ -174,6 +198,35 @@ public class Oscillator implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //NEW GUI START-----------------------
+        segBtnCombineMode.getButtons().addAll(tglBtnCombineAdd,tglBtnCombineSub,tglBtnCombineMult);
+
+        KnobBehavior behaviorKnobGain = new KnobBehavior(knobGain);
+        knobGain.setOnMouseDragged(behaviorKnobGain);
+        //Om man vill ha en listener på knobValue:
+        //behaviorKnobGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+        //            KOD HÄR EXEMPELVIS:
+        //            System.out.println(newValue);
+        //});
+        //Om man vill binda ihop knobValue med ex en annan instansvariabel
+        //behaviorKnobGain.knobValueProperty().bind(ANNAN PROPERTY AV SAMMA TYP)
+
+        KnobBehaviorDetune behaviorKnobDetune = new KnobBehaviorDetune(knobDetune);
+        knobGain.setOnMouseDragged(behaviorKnobDetune);
+
+        KnobBehavior behaviorKnobLFOdepth = new KnobBehavior(knobLFOdepth);
+        knobGain.setOnMouseDragged(behaviorKnobLFOdepth);
+
+        KnobBehavior behaviorKnobLFOrate = new KnobBehavior(knobLFOrate);
+        knobGain.setOnMouseDragged(behaviorKnobLFOrate);
+
+        KnobBehaviorWave behaviorKnobWave = new KnobBehaviorWave(knobWave);
+        knobGain.setOnMouseDragged(behaviorKnobWave);
+
+        //NEW GUI END-----------------------------
+
+
+
         waveFormChoiceBox.setItems(FXCollections.observableArrayList(Waveforms.values()));
         waveFormChoiceBox.setValue(Waveforms.SINE);
         waveFormChoiceBox.setOnAction(new EventHandler<ActionEvent>() {

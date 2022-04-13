@@ -1,21 +1,27 @@
 package com.synthax.SynthaX.controls;
 
-import javafx.beans.property.*;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
-public class Knob implements EventHandler<MouseEvent> {
-
+/**
+ * Class that represents the behavior of a rotating Waveform knob.
+ * Rotates the knob organically starting at 0 degrees with the possibility of being rotated
+ * 150 degrees in both ways.
+ * @author Axel Nilsson
+ * @author Luke Eales
+ */
+public class KnobBehaviorDetune implements EventHandler<MouseEvent> {
     private Button knob;
-    private float knobMaxValue = 100;
-    private float knobMinValue = 0;
+    private float knobMaxValue = 50;
+    private float knobMinValue = -50;
     private double lastMousePos;
     private FloatProperty knobValue = new SimpleFloatProperty(this,"rotation", 0);
 
-    public Knob(Button b) {
-        knob = b;
-        knob.setRotate(210);
+    public KnobBehaviorDetune(Button knob) {
+        this.knob = knob;
     }
 
     @Override
@@ -38,5 +44,4 @@ public class Knob implements EventHandler<MouseEvent> {
     public FloatProperty knobValueProperty() {
         return knobValue;
     }
-
 }

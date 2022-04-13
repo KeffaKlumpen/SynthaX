@@ -2,13 +2,11 @@ package com.synthax.SynthaX;
 
 
 
-import com.synthax.SynthaX.controls.Knob;
+import com.synthax.SynthaX.controls.KnobBehavior;
 
 import com.synthax.model.ADSRValues;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-
-import javafx.event.EventHandler;
 
 
 import com.synthax.SynthaX.oscillator.Oscillator;
@@ -19,12 +17,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import org.controlsfx.control.ToggleSwitch;
 
 import java.io.IOException;
 import java.net.URL;
@@ -97,7 +93,7 @@ public class SynthaxController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         knob2.getStyleClass().add("knob");
-        Knob knob2list = new Knob(knob2);
+        KnobBehavior knob2list = new KnobBehavior(knob2);
         knob2.setOnMouseDragged(knob2list);
         /*knob2list.knobStringValueProperty().addListener( (v, oldValue, newValue) -> {
             System.out.println(newValue);
