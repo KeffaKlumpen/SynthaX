@@ -163,6 +163,9 @@ public class SynthaxController implements Initializable {
             }
         });
 
+        sliderAttack.setMax(9000);
+        sliderAttack.setValue(10);
+        sliderAttack.setBlockIncrement(50);
         sliderAttack.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
@@ -170,6 +173,9 @@ public class SynthaxController implements Initializable {
             }
         });
 
+        sliderDecay.setMax(9000);
+        sliderDecay.setValue(10);
+        sliderDecay.setBlockIncrement(50);
         sliderDecay.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
@@ -177,6 +183,9 @@ public class SynthaxController implements Initializable {
             }
         });
 
+        sliderSustain.setMax(1);
+        sliderSustain.setValue(1);
+        sliderSustain.setBlockIncrement(0.1);
         sliderSustain.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
@@ -184,6 +193,9 @@ public class SynthaxController implements Initializable {
             }
         });
 
+        sliderRelease.setMax(9000);
+        sliderRelease.setValue(10);
+        sliderRelease.setBlockIncrement(50);
         sliderRelease.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
@@ -191,6 +203,9 @@ public class SynthaxController implements Initializable {
             }
         });
 
+        sliderMasterGain.setMax(1);
+        sliderMasterGain.setValue(0.5);
+        sliderMasterGain.setBlockIncrement(0.1);
         sliderMasterGain.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
