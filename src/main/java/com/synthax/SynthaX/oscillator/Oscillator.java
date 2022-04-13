@@ -64,7 +64,7 @@ public class Oscillator implements Initializable {
      * @author Joel Eriksson Sinclair
      */
     public Oscillator(){
-        voiceOutputGlide = new Glide(AudioContext.getDefaultContext(), 1f, 50);
+        voiceOutputGlide = new Glide(AudioContext.getDefaultContext(), 0.5f, 50);
         voiceOutput = new Gain(1, voiceOutputGlide);
 
         voices = new OscillatorVoice[voiceCount];
@@ -235,6 +235,8 @@ public class Oscillator implements Initializable {
             }
         });
 
+
+        sliderGain.setValue(50);
         sliderGain.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {

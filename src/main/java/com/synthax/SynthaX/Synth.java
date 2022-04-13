@@ -2,12 +2,14 @@ package com.synthax.SynthaX;
 
 import com.synthax.SynthaX.oscillator.Oscillator;
 import com.synthax.controller.OscillatorManager;
+import com.synthax.model.ADSRValues;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
 import net.beadsproject.beads.ugens.*;
 
 public class Synth {
     private final Gain masterGain;
+    private Glide masterGainGlide;
     private LFO lfo;
 
     private final OscillatorManager oscillatorManager;
@@ -21,7 +23,8 @@ public class Synth {
         AudioContext ac = new AudioContext(jsaio);
         AudioContext.setDefaultContext(ac);
 
-        masterGain = new Gain(ac, 1, .5f);
+        masterGainGlide = new Glide(ac, 0.5f, 50);
+        masterGain = new Gain(ac, 1, masterGainGlide);
 
         lfo = new LFO(ac);
 
@@ -65,19 +68,8 @@ public class Synth {
         oscillatorManager.removeOscillator(oscillator);
     }
 
-    public void playNote(char c) {
-
-        switch (c) {
-            case 'C' -> {
-                oscillatorManager.playFrequency(261.63f);
-            }
-            case 'D' -> {
-                oscillatorManager.playFrequency(293.66f);
-            }
-            case 'E' -> {
-                oscillatorManager.playFrequency(329.63f);
-            }
-        }
+    public void playNote(float frequency) {
+        oscillatorManager.playFrequency(frequency);
     }
 
     public void releaseVoice(int voiceIndex){
@@ -90,6 +82,7 @@ public class Synth {
     }
 
     public void setMasterGain(float gain){
-        masterGain.setGain(gain);
+        masterGainGlide.setValue(gain);
+        ADSRValues.setPeakGain(gain);
     }
 }

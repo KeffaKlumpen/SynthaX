@@ -99,20 +99,61 @@ public class SynthaxController implements Initializable {
         knob2.setOnMouseDragged(new Knob(knob2));
         //lineChartMain.getStyleClass().add("lineChartMain");
         mainPane.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.A) {
+            if (event.getCode() == KeyCode.A) { //C4
                 if (keyHeld.compareAndSet(false, true)) {
-                    synth.playNote('C');
+                    synth.playNote(261.63f);
                 }
-            } else if (event.getCode() == KeyCode.S) {
+            } else if (event.getCode() == KeyCode.W) {  //C#4
                 if (keyHeld.compareAndSet(false, true)) {
-                    synth.playNote('D');
+                    synth.playNote(277.18f);
                 }
-            } else if (event.getCode() == KeyCode.D) {
+            } else if (event.getCode() == KeyCode.S) {  //D4
                 if (keyHeld.compareAndSet(false, true)) {
-                    synth.playNote('E');
+                    synth.playNote(293.66f);
+                }
+            } else if (event.getCode() == KeyCode.E) {  //D#4
+                if (keyHeld.compareAndSet(false, true)) {
+                    synth.playNote(311.13f);
+                }
+            } else if (event.getCode() == KeyCode.D) {  //E4
+                if (keyHeld.compareAndSet(false, true)) {
+                    synth.playNote(329.63f);
+                }
+            } else if (event.getCode() == KeyCode.F) {  //F4
+                if (keyHeld.compareAndSet(false, true)) {
+                    synth.playNote(349.23f);
+                }
+            } else if (event.getCode() == KeyCode.T) {  //F#4
+                if (keyHeld.compareAndSet(false, true)) {
+                    synth.playNote(369.99f);
+                }
+            } else if (event.getCode() == KeyCode.G) {  //G4
+                if (keyHeld.compareAndSet(false, true)) {
+                    synth.playNote(392.00f);
+                }
+            } else if (event.getCode() == KeyCode.Y) {  //G#4
+                if (keyHeld.compareAndSet(false, true)) {
+                    synth.playNote(415.30f);
+                }
+            } else if (event.getCode() == KeyCode.H) {  //A4
+                if (keyHeld.compareAndSet(false, true)) {
+                    synth.playNote(440.00f);
+                }
+            } else if (event.getCode() == KeyCode.U) {  //A#4
+                if (keyHeld.compareAndSet(false, true)) {
+                    synth.playNote(466.16f);
+                }
+            } else if (event.getCode() == KeyCode.J) {  //B4
+                if (keyHeld.compareAndSet(false, true)) {
+                    synth.playNote(493.88f);
+                }
+            } else if (event.getCode() == KeyCode.K) {  //C5
+                if (keyHeld.compareAndSet(false, true)) {
+                    synth.playNote(523.25f);
                 }
             }
         });
+
         mainPane.setOnKeyReleased(event -> {
             keyHeld.set(false);
             //synth.releaseVoice();
