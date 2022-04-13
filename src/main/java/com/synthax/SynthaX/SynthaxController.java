@@ -3,8 +3,13 @@ package com.synthax.SynthaX;
 
 
 import com.synthax.SynthaX.controls.Knob;
+
+import com.synthax.model.ADSRValues;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+
+import javafx.event.EventHandler;
+
 
 import com.synthax.SynthaX.oscillator.Oscillator;
 
@@ -39,10 +44,10 @@ public class SynthaxController implements Initializable {
     @FXML private Slider sliderRelease;
     @FXML private Slider sliderMasterGain;
     @FXML private LineChart lineChartMain;
-    private Synth synth;
-    private boolean playin;
 
-    private double rotation = 0;
+    private final Synth synth;
+
+    private double rotation = 0.0;
     private double y = 0.0;
 
 
@@ -63,9 +68,21 @@ public class SynthaxController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("oscillator-view.fxml"));
             Node oscillatorView = fxmlLoader.load();
             Oscillator oscillator = fxmlLoader.getController();
-            oscillator.setup();
 
-            synth.addToChain(oscillator);
+            synth.addOscillator(oscillator);
+            oscillator.getBtnRemoveOscillator().setOnAction(event -> {
+                synth.removeOscillator(oscillator);
+                oscillatorChainView.getChildren().remove(oscillatorView);
+            });
+
+            oscillator.getBtnMoveDown().setOnAction(event -> {
+                synth.moveOscillatorDown(oscillator);
+                //TODO: Update GUI to represent the new osc-list order.
+            });
+            oscillator.getBtnMoveUp().setOnAction(event -> {
+                synth.moveOscillatorUp(oscillator);
+                //TODO: Update GUI to represent the new osc-list order.
+            });
 
             oscillatorChainView.getChildren().add(oscillatorView);
         }
@@ -74,17 +91,9 @@ public class SynthaxController implements Initializable {
         }
     }
 
+    @FXML
     public void onActionPlay() {
-        if (!playin) {
-            synth.keyPressed();
-        } else {
-            synth.keyReleased();
-        }
-        playin = !playin;
-    }
-
-    public void removeOscillator(Oscillator osc) {
-        //remove oscillator from synth and from window
+        System.out.println("use A,S,D keys to play!");
     }
 
     @Override
@@ -102,62 +111,73 @@ public class SynthaxController implements Initializable {
 
         //lineChartMain.getStyleClass().add("lineChartMain");
         mainPane.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.K) {
-                synth.keyPressed();
-            } else if (event.getCode() == KeyCode.A) {
+            if (event.getCode() == KeyCode.A) {
                 if (keyHeld.compareAndSet(false, true)) {
-                    synth.setFrequency('C');
-                    synth.keyPressed();
+                    synth.playNote('C');
                 }
             } else if (event.getCode() == KeyCode.S) {
                 if (keyHeld.compareAndSet(false, true)) {
-                    synth.setFrequency('D');
-                    synth.keyPressed();
+                    synth.playNote('D');
                 }
             } else if (event.getCode() == KeyCode.D) {
                 if (keyHeld.compareAndSet(false, true)) {
-                    synth.setFrequency('E');
-                    synth.keyPressed();
+                    synth.playNote('E');
                 }
             }
         });
         mainPane.setOnKeyReleased(event -> {
             keyHeld.set(false);
-            synth.keyReleased();
+            //synth.releaseVoice();
+            synth.releaseAllVoices();
         });
 
+        sliderAttack.setMax(9000);
+        sliderAttack.setMin(10);
+        sliderAttack.setBlockIncrement(50);
         sliderAttack.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                synth.getADSR().setAttackValue(t1.floatValue());
+                ADSRValues.setAttackValue(t1.floatValue());
             }
         });
 
+        sliderDecay.setMax(9000);
+        sliderDecay.setMin(10);
+        sliderDecay.setBlockIncrement(50);
         sliderDecay.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                synth.getADSR().setDecayValue(t1.floatValue());
+                ADSRValues.setDecayValue(t1.floatValue());
             }
         });
 
+        sliderSustain.setMax(1);
+        sliderSustain.setValue(1);
+        sliderSustain.setBlockIncrement(0.1);
         sliderSustain.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                synth.getADSR().setSustainValue(t1.floatValue());
+                ADSRValues.setSustainValue(t1.floatValue());
             }
         });
 
+        sliderRelease.setMax(9000);
+        sliderRelease.setMin(10);
+        sliderRelease.setBlockIncrement(50);
         sliderRelease.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                synth.getADSR().setReleaseValue(t1.floatValue());
+                ADSRValues.setReleaseValue(t1.floatValue());
             }
         });
 
+        sliderMasterGain.setMax(1);
+        sliderMasterGain.setValue(0.5);
+        sliderMasterGain.setBlockIncrement(0.1);
         sliderMasterGain.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                synth.getADSR().setPeakGain(t1.floatValue());
+                synth.setMasterGain(t1.floatValue());
             }
         });
     }

@@ -9,5 +9,6 @@ module com.synthax.synthax_beads {
     //exports com.synthax.SynthaX.ChainableUGens;
     //opens com.synthax.SynthaX.ChainableUGens to javafx.fxml;
     exports com.synthax.SynthaX.oscillator;
+    exports com.synthax.model;
     opens com.synthax.SynthaX.oscillator to javafx.fxml;
 }
