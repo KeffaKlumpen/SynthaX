@@ -164,7 +164,7 @@ public class SynthaxController implements Initializable {
         });
 
         sliderAttack.setMax(9000);
-        sliderAttack.setValue(10);
+        sliderAttack.setMin(10);
         sliderAttack.setBlockIncrement(50);
         sliderAttack.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -174,7 +174,7 @@ public class SynthaxController implements Initializable {
         });
 
         sliderDecay.setMax(9000);
-        sliderDecay.setValue(10);
+        sliderDecay.setMin(10);
         sliderDecay.setBlockIncrement(50);
         sliderDecay.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -194,7 +194,7 @@ public class SynthaxController implements Initializable {
         });
 
         sliderRelease.setMax(9000);
-        sliderRelease.setValue(10);
+        sliderRelease.setMin(10);
         sliderRelease.setBlockIncrement(50);
         sliderRelease.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
