@@ -2,6 +2,7 @@ package com.synthax.SynthaX;
 
 import com.synthax.SynthaX.oscillator.Oscillator;
 import com.synthax.controller.OscillatorManager;
+import com.synthax.util.MidiHelpers;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
 import net.beadsproject.beads.ugens.*;
@@ -65,23 +66,24 @@ public class Synth {
         oscillatorManager.removeOscillator(oscillator);
     }
 
-    public void playNote(char c) {
+    /**
+     * Convert keyPress to a midi-message
+     * @param c
+     */
+    public void noteOn(char c) {
+        int midiNote = MidiHelpers.charToMidi(c);
 
-        switch (c) {
-            case 'C' -> {
-                oscillatorManager.playFrequency(261.63f);
-            }
-            case 'D' -> {
-                oscillatorManager.playFrequency(293.66f);
-            }
-            case 'E' -> {
-                oscillatorManager.playFrequency(329.63f);
-            }
-        }
+        oscillatorManager.noteOn(midiNote, 128);
     }
 
-    public void releaseVoice(int voiceIndex){
+    /**
+     * Convert key-release to a midi-message
+     * @param c
+     */
+    public void noteOff(char c){
+        int midiNote = MidiHelpers.charToMidi(c);
 
+        oscillatorManager.noteOff(midiNote);
     }
 
     public void releaseAllVoices(){

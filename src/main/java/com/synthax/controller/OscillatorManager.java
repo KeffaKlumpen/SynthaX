@@ -35,12 +35,24 @@ public class OscillatorManager {
     }
 
     /**
-     * Make all the oscillators play a frequency.
-     * @return The voice index
+     * @param noteNumber
+     * @param velocity
+     * @author Joel Eriksson Sinclair
      */
-    public void playFrequency(float frequency){
+    public void noteOn(int noteNumber, int velocity){
         for (Oscillator osc : oscillators) {
-            osc.playFrequency(frequency);
+            osc.noteOn(noteNumber, velocity);
+        }
+    }
+
+    /**
+     *
+     * @param noteNumber
+     * @author Joel Eriksson Sinclair
+     */
+    public void noteOff(int noteNumber){
+        for (Oscillator osc : oscillators) {
+            osc.noteOff(noteNumber);
         }
     }
 
@@ -56,6 +68,7 @@ public class OscillatorManager {
     /**
      * Setup input and output connections for the provided Oscillator and it's neighbours.
      * @param oscillator Oscillator to setup
+     * @author Joel Eriksson Sinclair
      */
     public void setupInOuts(Oscillator oscillator){
         int index = oscillators.indexOf(oscillator);
@@ -133,7 +146,9 @@ public class OscillatorManager {
             if(previous >= 0){
                 setupInOuts(oscillators.get(previous));
             }
-            setupInOuts(oscillators.get(index));
+            if(index < oscillators.size()){
+                setupInOuts(oscillators.get(index));
+            }
         }
         else {
             output.clearInputConnections();

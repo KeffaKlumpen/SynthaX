@@ -5,6 +5,7 @@ package com.synthax.SynthaX;
 import com.synthax.SynthaX.controls.Knob;
 
 import com.synthax.model.ADSRValues;
+import com.synthax.util.MidiHelpers;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
@@ -20,12 +21,14 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -51,8 +54,11 @@ public class SynthaxController implements Initializable {
     @FXML private Button knob2 = new Button();
 
 
-
-    private final AtomicBoolean keyHeld = new AtomicBoolean(false);
+    private final Map<KeyCode, AtomicBoolean> keyStatus = Map.of(KeyCode.A, new AtomicBoolean(false),
+            KeyCode.S, new AtomicBoolean(false),
+            KeyCode.D, new AtomicBoolean(false),
+            KeyCode.F, new AtomicBoolean(false),
+            KeyCode.G, new AtomicBoolean(false));
 
 
     public SynthaxController() {
@@ -67,18 +73,38 @@ public class SynthaxController implements Initializable {
             Oscillator oscillator = fxmlLoader.getController();
 
             synth.addOscillator(oscillator);
+
             oscillator.getBtnRemoveOscillator().setOnAction(event -> {
                 synth.removeOscillator(oscillator);
                 oscillatorChainView.getChildren().remove(oscillatorView);
             });
-
             oscillator.getBtnMoveDown().setOnAction(event -> {
-                synth.moveOscillatorDown(oscillator);
-                //TODO: Update GUI to represent the new osc-list order.
+                Node[] childList = oscillatorChainView.getChildren().toArray(new Node[0]);
+                int oscIndex = oscillatorChainView.getChildren().indexOf(oscillatorView);
+
+                if(oscIndex < childList.length - 1){
+                    Node nextOsc = childList[oscIndex + 1];
+                    childList[oscIndex + 1] = oscillatorView;
+                    childList[oscIndex] = nextOsc;
+
+                    oscillatorChainView.getChildren().setAll(childList);
+
+                    synth.moveOscillatorDown(oscillator);
+                }
             });
             oscillator.getBtnMoveUp().setOnAction(event -> {
-                synth.moveOscillatorUp(oscillator);
-                //TODO: Update GUI to represent the new osc-list order.
+                Node[] childList = oscillatorChainView.getChildren().toArray(new Node[0]);
+                int oscIndex = oscillatorChainView.getChildren().indexOf(oscillatorView);
+
+                if(oscIndex > 0){
+                    Node prevOsc = childList[oscIndex - 1];
+                    childList[oscIndex - 1] = oscillatorView;
+                    childList[oscIndex] = prevOsc;
+
+                    oscillatorChainView.getChildren().setAll(childList);
+
+                    synth.moveOscillatorUp(oscillator);
+                }
             });
 
             oscillatorChainView.getChildren().add(oscillatorView);
@@ -90,34 +116,46 @@ public class SynthaxController implements Initializable {
 
     @FXML
     public void onActionPlay() {
-        System.out.println("use A,S,D keys to play!");
+        System.out.println("use A,S,D,F,G keys to play!");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        knob2.getStyleClass().add("knob");
-        knob2.setOnMouseDragged(new Knob(knob2));
-        //lineChartMain.getStyleClass().add("lineChartMain");
-        mainPane.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.A) {
-                if (keyHeld.compareAndSet(false, true)) {
-                    synth.playNote('C');
-                }
-            } else if (event.getCode() == KeyCode.S) {
-                if (keyHeld.compareAndSet(false, true)) {
-                    synth.playNote('D');
-                }
-            } else if (event.getCode() == KeyCode.D) {
-                if (keyHeld.compareAndSet(false, true)) {
-                    synth.playNote('E');
+        //region KeyBoard playing
+        mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                KeyCode keyCode = event.getCode();
+                // If it's a valid key, send a noteOn message.
+                if(keyStatus.containsKey(keyCode)){
+                    if(keyStatus.get(keyCode).compareAndSet(false, true)){
+                        char midiChar = MidiHelpers.keyCodeToChar(keyCode);
+                        System.out.println("++++" + midiChar);
+                        synth.noteOn(midiChar);
+                    }
                 }
             }
         });
-        mainPane.setOnKeyReleased(event -> {
-            keyHeld.set(false);
-            //synth.releaseVoice();
-            synth.releaseAllVoices();
+        mainPane.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                KeyCode keyCode = event.getCode();
+                if(keyStatus.containsKey(keyCode)){
+                    if(keyStatus.get(keyCode).compareAndSet(true, false)){
+                        char midiChar = MidiHelpers.keyCodeToChar(keyCode);
+                        System.out.println("----" + midiChar);
+                        synth.noteOff(midiChar);
+                    }
+                }
+            }
         });
+        //endregion
+
+        //region KnobDragging
+        knob2.getStyleClass().add("knob");
+        knob2.setOnMouseDragged(new Knob(knob2));
+        //lineChartMain.getStyleClass().add("lineChartMain");
+
         knob.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -162,7 +200,9 @@ public class SynthaxController implements Initializable {
                 }
             }
         });
+        //endregion
 
+        //region ADSR sliders
         sliderAttack.setMax(9000);
         sliderAttack.setMin(10);
         sliderAttack.setBlockIncrement(50);
@@ -202,6 +242,7 @@ public class SynthaxController implements Initializable {
                 ADSRValues.setReleaseValue(t1.floatValue());
             }
         });
+        //endregion
 
         sliderMasterGain.setMax(1);
         sliderMasterGain.setValue(0.5);

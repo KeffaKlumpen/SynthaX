@@ -5,6 +5,7 @@ import com.synthax.SynthaX.Waveforms;
 import com.synthax.controller.OscillatorManager;
 import com.synthax.model.ADSRValues;
 import com.synthax.model.CombineMode;
+import com.synthax.util.MidiHelpers;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -45,12 +46,14 @@ public class Oscillator implements Initializable {
 
     private final OscillatorVoice[] voices;
     private final int voiceCount = 16;
-    private int currentVoice = 0;
+    private int nextVoice = 0;
     private final Gain voiceOutput;
     private UGen output;
 
     private String octaveOperand = "8'";
     private float detuneCent;
+
+    private final int[] voicePlayingMidi = new int[128];
 
     /**
      * Setup internal chain structure.
@@ -66,31 +69,31 @@ public class Oscillator implements Initializable {
             voices[i] = voice;
         }
 
-        output = new Add(1, voiceOutput); // set this to GUI value..
-    }
-
-    // FIXME: 2022-04-07 Bypassing an Mult Oscillator makes it so no sound reaches the output. (Multiplying with the 0-buffer).
-    public void bypassOscillator(boolean b) {
-        for (int i = 0; i < voiceCount; i++) {
-            voices[i].bypass(b);
-        }
+        output = new Add(1, voiceOutput);
     }
 
     /**
-     * Calls methods checkOctave and checkDetune to alter the frequency before playing it
-     * @param frequency of the note, provided by input method
-     * @author Viktor Lenberg
-     * @author Teodor Wegestål
+     * @param noteNumber Midi-note to be played.
      * @author Joel Eriksson Sinclair
      */
-    public void playFrequency(float frequency) {
-        System.out.println("playing: " + currentVoice);
+    public void noteOn(int noteNumber, int velocity){
+        voicePlayingMidi[noteNumber] = nextVoice; // This only allows 1 voice per note-press..
+        float freq = MidiHelpers.midiToFreq(noteNumber);
 
-        frequency = applyOctaveOffset(frequency);
-        frequency = applyDetuning(frequency);
+        freq = applyOctaveOffset(freq);
+        freq = applyDetuning(freq);
 
-        voices[currentVoice++].playFreq(frequency, 1f, ADSRValues.getAttackValue(), ADSRValues.getSustainValue(), ADSRValues.getDecayValue());
-        currentVoice = currentVoice % voiceCount;
+        voices[nextVoice].playFreq(freq, velocity / 128f, ADSRValues.getAttackValue(), ADSRValues.getSustainValue(), ADSRValues.getDecayValue());
+
+        nextVoice = ++nextVoice % voiceCount;
+    }
+    /**
+     * @param noteNumber Midi-note to be released.
+     * @author Joel Eriksson Sinclair
+     */
+    public void noteOff(int noteNumber){
+        int voiceIndex = voicePlayingMidi[noteNumber];
+        voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
     }
 
     /**
@@ -99,6 +102,14 @@ public class Oscillator implements Initializable {
      */
     public void stopVoice(int voiceIndex){
         voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
+    }
+
+
+    // FIXME: 2022-04-07 Bypassing an Mult Oscillator makes it so no sound reaches the output. (Multiplying with the 0-buffer).
+    public void bypassOscillator(boolean b) {
+        for (int i = 0; i < voiceCount; i++) {
+            voices[i].bypass(b);
+        }
     }
 
     /**
