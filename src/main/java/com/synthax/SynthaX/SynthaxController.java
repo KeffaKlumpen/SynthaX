@@ -68,7 +68,8 @@ public class SynthaxController implements Initializable {
     @FXML
     public void onActionAddOscillator() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("oscillator-view.fxml"));
+            URL fxmlLocation = MainApplication.class.getResource("oscillator/Oscillator-v.fxml");
+            FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
             Node oscillatorView = fxmlLoader.load();
             Oscillator oscillator = fxmlLoader.getController();
 

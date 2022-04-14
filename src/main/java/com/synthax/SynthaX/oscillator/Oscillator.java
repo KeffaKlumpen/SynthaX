@@ -10,14 +10,18 @@ import com.synthax.model.ADSRValues;
 import com.synthax.model.CombineMode;
 import com.synthax.model.OctaveOperands;
 import com.synthax.util.MidiHelpers;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
@@ -38,19 +42,18 @@ import java.util.ResourceBundle;
  */
 
 public class Oscillator implements Initializable {
-    @FXML private ChoiceBox<CombineMode> combineModeChoiceBox;
-    @FXML private Button btnMoveDown;
-    @FXML private Button btnMoveUp;
-    @FXML private Slider sliderDetune;
-    @FXML private Slider sliderGain;
-    @FXML private ChoiceBox<Waveforms> waveFormChoiceBox;
-    @FXML private Spinner<OctaveOperands> octaveSpinner;
-    @FXML private Button btnRemoveOscillator;
-    @FXML private RadioButton btnBypass;
-    @FXML private Slider sliderAttack;
-    @FXML private Slider sliderDecay;
-    @FXML private Slider sliderSustain;
-    @FXML private Slider sliderRelease;
+    //@FXML private ChoiceBox<CombineMode> combineModeChoiceBox;
+    //@FXML private Button btnMoveDown;
+    //@FXML private Button btnMoveUp;
+    //@FXML private Slider sliderDetune;
+    //@FXML private Slider sliderGain;
+    //@FXML private ChoiceBox<Waveforms> waveFormChoiceBox;
+    //@FXML private Spinner<OctaveOperands> octaveSpinner;
+    //@FXML private RadioButton btnBypass;
+    //@FXML private Slider sliderAttack;
+    //@FXML private Slider sliderDecay;
+    //@FXML private Slider sliderSustain;
+    //@FXML private Slider sliderRelease;
 
     private final OscillatorVoice[] voices;
     private final int voiceCount = 16;
@@ -60,7 +63,7 @@ public class Oscillator implements Initializable {
     private UGen output;
 
     private OctaveOperands octaveOperand = OctaveOperands.EIGHT;
-    private float detuneCent;
+    private FloatProperty detuneCent = new SimpleFloatProperty();
 
     private final int[] voicePlayingMidi = new int[128];
 
@@ -69,19 +72,21 @@ public class Oscillator implements Initializable {
 
 
     //NEW GUI COMPONENTS-----------------------------
-    @FXML private SegmentedButton segBtnCombineMode;
+
     @FXML private ToggleButton tglBtnCombineAdd;
     @FXML private ToggleButton tglBtnCombineSub;
     @FXML private ToggleButton tglBtnCombineMult;
-    @FXML private ToggleSwitch switchBypass;
-    //@FXML private Button btnMoveUp;
-    //@FXML private Button btnMoveDown;
+    @FXML private SegmentedButton segBtnCombineMode;
+    @FXML private ToggleSwitch tglSwitchOscillatorOnOff;
+    @FXML private Button btnMoveUp;
+    @FXML private Button btnMoveDown;
+    @FXML private Button btnRemoveOscillator;
     @FXML private Button knobGain = new Button();
     @FXML private Button knobWave = new Button();
     @FXML private Button knobDetune = new Button();
     @FXML private Button knobLFOdepth = new Button();
     @FXML private Button knobLFOrate = new Button();
-    //@FXML private Spinner<String> octaveSpinner;
+    @FXML private Spinner<OctaveOperands> octaveSpinner = new Spinner<>();
 
     //NEW GUI COMPONENTS------------------------------
 
@@ -138,9 +143,9 @@ public class Oscillator implements Initializable {
 
 
     // FIXME: 2022-04-07 Bypassing an Mult Oscillator makes it so no sound reaches the output. (Multiplying with the 0-buffer).
-    public void bypassOscillator(boolean b) {
+    public void bypassOscillator(boolean onOff) {
         for (int i = 0; i < voiceCount; i++) {
-            voices[i].bypass(b);
+            voices[i].bypass(onOff);
         }
     }
 
@@ -218,46 +223,62 @@ public class Oscillator implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //NEW GUI START-----------------------
-        segBtnCombineMode.getButtons().addAll(tglBtnCombineAdd,tglBtnCombineSub,tglBtnCombineMult);
-
-        KnobBehavior behaviorKnobGain = new KnobBehavior(knobGain);
-        knobGain.setOnMouseDragged(behaviorKnobGain);
-        //Om man vill ha en listener på knobValue:
-        //behaviorKnobGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-        //            KOD HÄR EXEMPELVIS:
-        //            System.out.println(newValue);
-        //});
-        //Om man vill binda ihop knobValue med ex en annan instansvariabel
-        //behaviorKnobGain.knobValueProperty().bind(ANNAN PROPERTY AV SAMMA TYP)
-
-        KnobBehaviorDetune behaviorKnobDetune = new KnobBehaviorDetune(knobDetune);
-        knobGain.setOnMouseDragged(behaviorKnobDetune);
-
-        KnobBehavior behaviorKnobLFOdepth = new KnobBehavior(knobLFOdepth);
-        knobGain.setOnMouseDragged(behaviorKnobLFOdepth);
-
-        KnobBehavior behaviorKnobLFOrate = new KnobBehavior(knobLFOrate);
-        knobGain.setOnMouseDragged(behaviorKnobLFOrate);
-
-        KnobBehaviorWave behaviorKnobWave = new KnobBehaviorWave(knobWave);
-        knobGain.setOnMouseDragged(behaviorKnobWave);
-
-        //NEW GUI END-----------------------------
-
-
-
-        waveFormChoiceBox.setItems(FXCollections.observableArrayList(Waveforms.values()));
-        waveFormChoiceBox.setValue(Waveforms.SINE);
-        waveFormChoiceBox.setOnAction(new EventHandler<ActionEvent>() {
+        tglBtnCombineAdd.setSelected(true);
+        segBtnCombineMode.getButtons().addListener(new ListChangeListener<ToggleButton>() {
             @Override
-            public void handle(ActionEvent actionEvent) {
-                setWaveform(waveFormChoiceBox.getValue());
+            public void onChanged(Change<? extends ToggleButton> change) {
+                if (tglBtnCombineAdd.isSelected()) {
+                    setOutputType(CombineMode.ADD);
+                    System.out.println("ADD");
+                } else if (tglBtnCombineMult.isSelected()) {
+                    setOutputType(CombineMode.MULT);
+                    System.out.println("MULT");
+                } /*else {
+                    setOutputType(CombineMode.SUB); INTE IMPLEMENTERAT
+                }*/
             }
         });
 
-        combineModeChoiceBox.setItems(FXCollections.observableArrayList(CombineMode.values()));
-        combineModeChoiceBox.setValue(CombineMode.ADD);
-        combineModeChoiceBox.setOnAction(event -> setOutputType(combineModeChoiceBox.getValue()));
+
+        KnobBehavior behaviorKnobGain = new KnobBehavior(knobGain);
+        knobGain.setOnMouseDragged(behaviorKnobGain);
+        behaviorKnobGain.setValueZero();
+        behaviorKnobGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            voiceOutputGlide.setValue(newValue.floatValue());
+            System.out.println("GAIN " + newValue.floatValue());
+        });
+
+        KnobBehaviorDetune behaviorKnobDetune = new KnobBehaviorDetune(knobDetune);
+        knobDetune.setOnMouseDragged(behaviorKnobDetune);
+        behaviorKnobDetune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //updateFrequency();
+        } );
+        behaviorKnobDetune.knobValueProperty().bind(detuneCent);
+
+        KnobBehavior behaviorKnobLFOdepth = new KnobBehavior(knobLFOdepth);
+        knobLFOdepth.setOnMouseDragged(behaviorKnobLFOdepth);
+        //TODO implementera LFO
+
+        KnobBehavior behaviorKnobLFOrate = new KnobBehavior(knobLFOrate);
+        knobLFOrate.setOnMouseDragged(behaviorKnobLFOrate);
+        //TODO implementera LFO
+
+        KnobBehaviorWave behaviorKnobWave = new KnobBehaviorWave(knobWave);
+        knobWave.setOnMouseDragged(behaviorKnobWave);
+        behaviorKnobWave.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            setWaveform(Waveforms.values()[newValue.intValue()]);
+        });
+        tglSwitchOscillatorOnOff.setSelected(true);
+        tglSwitchOscillatorOnOff.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                boolean onOff = tglSwitchOscillatorOnOff.isSelected();
+                bypassOscillator(onOff);
+            }
+        });
+
+        //NEW GUI END----------------------------
+
 
         SpinnerValueFactory<OctaveOperands> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(OctaveOperands.values()));
         valueFactory.setValue(OctaveOperands.EIGHT);
@@ -269,58 +290,6 @@ public class Oscillator implements Initializable {
                 // TODO: update frequency of waveplayer
             }
         });
-
-        sliderDetune.setMin(-50);
-        sliderDetune.setMax(50);
-        sliderDetune.setValue(0);
-        sliderDetune.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                detuneCent = t1.floatValue();
-                // TODO: update frequency of waveplayer
-            }
-        });
-
-
-        sliderGain.setValue(50);
-        sliderGain.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                float newGain = t1.floatValue() / 100;
-                voiceOutputGlide.setValue(newGain);
-            }
-        });
-
-        btnBypass.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                bypassOscillator(btnBypass.isSelected());
-            }
-        });
-
-        /// This is if we want per-oscillator ADSR.. Which we don't right now
-        /*
-        sliderAttack.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                adsr.setAttackValue(t1.floatValue());
-            }
-        });
-
-        sliderDecay.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                adsr.setDecayValue(t1.floatValue());
-            }
-        });
-
-        sliderSustain.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                adsr.setSustainValue(t1.floatValue());
-            }
-        });
-         */
     }
 
     /**
@@ -386,18 +355,7 @@ public class Oscillator implements Initializable {
      * @author Teodor Wegestål
      */
     public float applyDetuning(float frequency) {
-        return (float)(frequency * (Math.pow(2, (detuneCent/1200))));
+        return (float)(frequency * (Math.pow(2, (detuneCent.floatValue()/1200))));
     }
     //endregion
-
-    /**
-     * @author Joel Eriksson Sinclair
-     */
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Oscillator{");
-        sb.append("waveForm=").append(waveFormChoiceBox.getValue());
-        sb.append('}');
-        return sb.toString();
-    }
 }

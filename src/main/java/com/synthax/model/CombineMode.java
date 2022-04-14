@@ -7,5 +7,5 @@
 package com.synthax.model;
 
 public enum CombineMode {
-    ADD, MULT
+    ADD, MULT, SUB
 }

@@ -23,7 +23,7 @@ public class KnobBehaviorWave implements EventHandler<MouseEvent> {
 
     public KnobBehaviorWave(Button knob) {
         this.knob = knob;
-        knob.setRotate(210);
+        knob.setRotate(225);
     }
 
     @Override

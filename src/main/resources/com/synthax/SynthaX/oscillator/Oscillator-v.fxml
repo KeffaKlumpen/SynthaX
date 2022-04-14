@@ -14,11 +14,12 @@
 <?import org.controlsfx.control.SegmentedButton?>
 <?import org.controlsfx.control.ToggleSwitch?>
 
-<TitledPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="282.0" prefWidth="523.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.SynthaX.oscillator.Oscillator">
+<TitledPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="282.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.SynthaX.oscillator.Oscillator">
    <graphic>
       <ToolBar prefHeight="40.0" prefWidth="561.0">
          <items>
-            <Label prefHeight="17.0" prefWidth="192.0" text="Oscillator" />
+            <Label prefHeight="18.0" prefWidth="56.0" text="Oscillator" />
+            <Button fx:id="btnRemoveOscillator" mnemonicParsing="false" text="Remove" />
             <SegmentedButton fx:id="segBtnCombineMode" prefHeight="26.0" prefWidth="91.0">
                <buttons>
                   <ToggleButton fx:id="tglBtnCombineAdd" mnemonicParsing="false" prefHeight="26.0" prefWidth="35.0" text="+" />
@@ -28,14 +29,14 @@
             </SegmentedButton>
             <Button fx:id="btnMoveUp" mnemonicParsing="false" text="up" />
             <Button fx:id="btnMoveDown" mnemonicParsing="false" text="down" />
-            <ToggleSwitch fx:id="switchBypass" prefHeight="20.0" prefWidth="38.0" />
+            <ToggleSwitch fx:id="tglSwitchOscillatorOnOff" prefHeight="20.0" prefWidth="38.0" />
          </items>
       </ToolBar>
    </graphic>
    <content>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane prefHeight="212.0" prefWidth="187.0">
                <children>
                   <ImageView fitHeight="67.0" fitWidth="66.0" layoutX="84.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -47,7 +48,7 @@
                         <Image url="@../Images/KnobBlackSteps.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="63.0" fitWidth="59.0" layoutX="11.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="63.0" fitWidth="59.0" layoutX="11.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/knobStepsWave.png" />
                      </image>
@@ -60,7 +61,7 @@
                   </Label>
                   <Button fx:id="knobDetune" layoutX="102.0" layoutY="130.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
                   <Button fx:id="knobGain" layoutX="102.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
-                  <Spinner layoutX="14.0" layoutY="130.0" prefHeight="26.0" prefWidth="59.0" />
+                  <Spinner fx:id="octaveSpinner" layoutX="14.0" layoutY="130.0" prefHeight="26.0" prefWidth="59.0" />
                   <Label layoutX="18.0" layoutY="35.0" prefHeight="16.0" prefWidth="48.0" text="Waveform">
                      <font>
                         <Font name="Arial" size="10.0" />
