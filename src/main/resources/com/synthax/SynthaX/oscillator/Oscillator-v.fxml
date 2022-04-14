@@ -14,7 +14,7 @@
 <?import org.controlsfx.control.SegmentedButton?>
 <?import org.controlsfx.control.ToggleSwitch?>
 
-<TitledPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="282.0" prefWidth="523.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.SynthaX.oscillator.Oscillator">
+<TitledPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="282.0" prefWidth="523.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.SynthaX.oscillator.Oscillator">
    <graphic>
       <ToolBar prefHeight="40.0" prefWidth="561.0">
          <items>
@@ -28,7 +28,7 @@
             </SegmentedButton>
             <Button fx:id="btnMoveUp" mnemonicParsing="false" text="up" />
             <Button fx:id="btnMoveDown" mnemonicParsing="false" text="down" />
-            <ToggleSwitch fx:id="switchBypass" prefHeight="20.0" prefWidth="38.0" />
+            <ToggleSwitch fx:id="tglSwitchOscillatorOnOff" prefHeight="20.0" prefWidth="38.0" />
          </items>
       </ToolBar>
    </graphic>
