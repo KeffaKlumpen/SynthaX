@@ -35,8 +35,8 @@ public class OscillatorVoice {
         gainEnv.addSegment(0f, releaseTime);
     }
 
-    public void bypass(boolean b){
-        wavePlayer.pause(b);
+    public void bypass(boolean onOff){
+        wavePlayer.pause(!onOff);
     }
 
     public Gain getOutput() {
