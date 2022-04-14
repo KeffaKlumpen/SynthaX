@@ -42,7 +42,9 @@ public class KnobBehaviorWave implements EventHandler<MouseEvent> {
             snapValue = 0;
         } else if (snapValue == -30) {
             knob.setRotate(knob.getRotate()-90);
-            knobValue.setValue(Math.abs((knobValue.getValue() - 1) % 4));
+            int currKnobValue = knobValue.getValue();
+            currKnobValue = currKnobValue - 1 < 0 ? 3 : currKnobValue - 1;
+            knobValue.setValue(currKnobValue);
             snapValue = 0;
         }
 
