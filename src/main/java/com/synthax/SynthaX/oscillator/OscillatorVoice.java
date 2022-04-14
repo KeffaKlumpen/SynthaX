@@ -43,6 +43,10 @@ public class OscillatorVoice {
         return output;
     }
 
+    public WavePlayer getWavePlayer() {
+        return wavePlayer;
+    }
+
     public void setWavePlayerBuffer(Buffer buffer){
         wavePlayer.setBuffer(buffer);
     }
