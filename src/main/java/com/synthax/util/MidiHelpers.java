@@ -6,6 +6,7 @@
 
 package com.synthax.util;
 
+import com.synthax.model.MidiNote;
 import javafx.scene.input.KeyCode;
 
 /**
@@ -49,22 +50,22 @@ public class MidiHelpers {
         };
     }
 
-    public static char keyCodeToChar(KeyCode keyCode){
+    public static MidiNote keyCodeToMidi(KeyCode keyCode){
         if(keyCode == KeyCode.A){
-            return 'C';
+            return MidiNote.C4;
         }
         else if (keyCode == KeyCode.S){
-            return 'D';
+            return MidiNote.D4;
         }
         else if (keyCode == KeyCode.D){
-            return 'E';
+            return MidiNote.E4;
         }
         else if (keyCode == KeyCode.F){
-            return 'F';
+            return MidiNote.F4;
         }
         else if (keyCode == KeyCode.G){
-            return 'G';
+            return MidiNote.G4;
         }
-        return '?';
+        return MidiNote.getValues()[0];
     }
 }

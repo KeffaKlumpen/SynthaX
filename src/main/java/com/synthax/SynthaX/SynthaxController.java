@@ -1,10 +1,9 @@
 package com.synthax.SynthaX;
 
-
-
 import com.synthax.SynthaX.controls.KnobBehavior;
 
 import com.synthax.model.ADSRValues;
+import com.synthax.model.MidiNote;
 import com.synthax.util.MidiHelpers;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -50,16 +49,11 @@ public class SynthaxController implements Initializable {
     private double rotation = 0.0;
     private double y = 0.0;
 
-
-
-
-
     private final Map<KeyCode, AtomicBoolean> keyStatus = Map.of(KeyCode.A, new AtomicBoolean(false),
             KeyCode.S, new AtomicBoolean(false),
             KeyCode.D, new AtomicBoolean(false),
             KeyCode.F, new AtomicBoolean(false),
             KeyCode.G, new AtomicBoolean(false));
-
 
     public SynthaxController() {
         synth = new Synth();
@@ -129,9 +123,9 @@ public class SynthaxController implements Initializable {
                 // If it's a valid key, send a noteOn message.
                 if(keyStatus.containsKey(keyCode)){
                     if(keyStatus.get(keyCode).compareAndSet(false, true)){
-                        char midiChar = MidiHelpers.keyCodeToChar(keyCode);
-                        System.out.println("++++" + midiChar);
-                        synth.noteOn(midiChar);
+                        MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
+                        System.out.println("++++" + note.name());
+                        synth.noteOn(note, 128);
                     }
                 }
             }
@@ -142,9 +136,9 @@ public class SynthaxController implements Initializable {
                 KeyCode keyCode = event.getCode();
                 if(keyStatus.containsKey(keyCode)){
                     if(keyStatus.get(keyCode).compareAndSet(true, false)){
-                        char midiChar = MidiHelpers.keyCodeToChar(keyCode);
-                        System.out.println("----" + midiChar);
-                        synth.noteOff(midiChar);
+                        MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
+                        System.out.println("----" + note.name());
+                        synth.noteOff(note);
                     }
                 }
             }
