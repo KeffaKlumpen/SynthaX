@@ -2,6 +2,7 @@ package com.synthax.SynthaX;
 
 import com.synthax.SynthaX.oscillator.Oscillator;
 import com.synthax.controller.OscillatorManager;
+import com.synthax.model.MidiNote;
 import com.synthax.util.MidiHelpers;
 import com.synthax.model.ADSRValues;
 import net.beadsproject.beads.core.AudioContext;
@@ -70,22 +71,18 @@ public class Synth {
     }
 
     /**
-     * Convert keyPress to a midi-message
-     * @param c
+     * Forward noteOn message
+     * @param midiNote
      */
-    public void noteOn(char c) {
-        int midiNote = MidiHelpers.charToMidi(c);
-
-        oscillatorManager.noteOn(midiNote, 128);
+    public void noteOn(MidiNote midiNote, int velocity) {
+        oscillatorManager.noteOn(midiNote, velocity);
     }
 
     /**
-     * Convert key-release to a midi-message
-     * @param c
+     * Forward noteOff message
+     * @param midiNote
      */
-    public void noteOff(char c){
-        int midiNote = MidiHelpers.charToMidi(c);
-
+    public void noteOff(MidiNote midiNote){
         oscillatorManager.noteOff(midiNote);
     }
 

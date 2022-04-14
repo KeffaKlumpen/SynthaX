@@ -2,14 +2,11 @@
 package com.synthax.SynthaX.oscillator;
 
 import com.synthax.SynthaX.Waveforms;
-import com.synthax.SynthaX.controls.KnobBehavior;
-import com.synthax.SynthaX.controls.KnobBehaviorDetune;
-import com.synthax.SynthaX.controls.KnobBehaviorWave;
 import com.synthax.controller.OscillatorManager;
 import com.synthax.model.ADSRValues;
 import com.synthax.model.CombineMode;
+import com.synthax.model.MidiNote;
 import com.synthax.model.OctaveOperands;
-import com.synthax.util.MidiHelpers;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -104,27 +101,27 @@ public class Oscillator implements Initializable {
     }
 
     /**
-     * @param noteNumber Midi-note to be played.
+     * @param midiNote Midi-note to be played.
      * @author Joel Eriksson Sinclair
      */
-    public void noteOn(int noteNumber, int velocity){
-        voicePlayingMidi[noteNumber] = nextVoice; // This only allows 1 voice per note-press..
-        float freq = MidiHelpers.midiToFreq(noteNumber);
+    public void noteOn(MidiNote midiNote, int velocity){
+        voicePlayingMidi[midiNote.ordinal()] = nextVoice; // This only allows 1 voice per note-press..
+        float freq = midiNote.getFrequency();
 
         freq = applyOctaveOffset(freq);
         freq = applyDetuning(freq);
 
-        voices[nextVoice].playFreq(freq, velocity / 128f, ADSRValues.getAttackValue(), ADSRValues.getSustainValue(), ADSRValues.getDecayValue());
+        voices[nextVoice].playFreq(freq, (float)(velocity / 127), ADSRValues.getAttackValue(), ADSRValues.getSustainValue(), ADSRValues.getDecayValue());
 
         nextVoice = ++nextVoice % voiceCount;
     }
 
     /**
-     * @param noteNumber Midi-note to be released.
+     * @param midiNote Midi-note to be released.
      * @author Joel Eriksson Sinclair
      */
-    public void noteOff(int noteNumber){
-        int voiceIndex = voicePlayingMidi[noteNumber];
+    public void noteOff(MidiNote midiNote){
+        int voiceIndex = voicePlayingMidi[midiNote.ordinal()];
         voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
     }
 
@@ -218,6 +215,7 @@ public class Oscillator implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //NEW GUI START-----------------------
+        /*
         segBtnCombineMode.getButtons().addAll(tglBtnCombineAdd,tglBtnCombineSub,tglBtnCombineMult);
 
         KnobBehavior behaviorKnobGain = new KnobBehavior(knobGain);
@@ -242,6 +240,7 @@ public class Oscillator implements Initializable {
         KnobBehaviorWave behaviorKnobWave = new KnobBehaviorWave(knobWave);
         knobGain.setOnMouseDragged(behaviorKnobWave);
 
+         */
         //NEW GUI END-----------------------------
 
 

@@ -7,6 +7,7 @@
 package com.synthax.controller;
 
 import com.synthax.SynthaX.oscillator.Oscillator;
+import com.synthax.model.MidiNote;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.ugens.Gain;
 
@@ -35,24 +36,24 @@ public class OscillatorManager {
     }
 
     /**
-     * @param noteNumber
+     * @param midiNote
      * @param velocity
      * @author Joel Eriksson Sinclair
      */
-    public void noteOn(int noteNumber, int velocity){
+    public void noteOn(MidiNote midiNote, int velocity){
         for (Oscillator osc : oscillators) {
-            osc.noteOn(noteNumber, velocity);
+            osc.noteOn(midiNote, velocity);
         }
     }
 
     /**
      *
-     * @param noteNumber
+     * @param midiNote
      * @author Joel Eriksson Sinclair
      */
-    public void noteOff(int noteNumber){
+    public void noteOff(MidiNote midiNote){
         for (Oscillator osc : oscillators) {
-            osc.noteOff(noteNumber);
+            osc.noteOff(midiNote);
         }
     }
 
