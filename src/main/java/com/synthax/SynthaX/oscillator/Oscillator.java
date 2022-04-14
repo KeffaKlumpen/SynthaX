@@ -39,21 +39,11 @@ import java.util.ResourceBundle;
  * @author Viktor Lenberg
  * @author Teodor Wegestål
  * @author Joel Eriksson Sinclair
+ * @author Luke Eales
+ * @author Axel Nilsson
  */
 
 public class Oscillator implements Initializable {
-    //@FXML private ChoiceBox<CombineMode> combineModeChoiceBox;
-    //@FXML private Button btnMoveDown;
-    //@FXML private Button btnMoveUp;
-    //@FXML private Slider sliderDetune;
-    //@FXML private Slider sliderGain;
-    //@FXML private ChoiceBox<Waveforms> waveFormChoiceBox;
-    //@FXML private Spinner<OctaveOperands> octaveSpinner;
-    //@FXML private RadioButton btnBypass;
-    //@FXML private Slider sliderAttack;
-    //@FXML private Slider sliderDecay;
-    //@FXML private Slider sliderSustain;
-    //@FXML private Slider sliderRelease;
 
     private final OscillatorVoice[] voices;
     private final int voiceCount = 16;
@@ -61,17 +51,11 @@ public class Oscillator implements Initializable {
     private final Gain voiceOutput;
     private Glide voiceOutputGlide;
     private UGen output;
-
     private OctaveOperands octaveOperand = OctaveOperands.EIGHT;
     private FloatProperty detuneCent = new SimpleFloatProperty();
-
     private final int[] voicePlayingMidi = new int[128];
-
     boolean isPlaying;
     private float playedFrequency;
-
-
-    //NEW GUI COMPONENTS-----------------------------
 
     @FXML private ToggleButton tglBtnCombineAdd;
     @FXML private ToggleButton tglBtnCombineSub;
@@ -87,8 +71,6 @@ public class Oscillator implements Initializable {
     @FXML private Button knobLFOdepth = new Button();
     @FXML private Button knobLFOrate = new Button();
     @FXML private Spinner<OctaveOperands> octaveSpinner = new Spinner<>();
-
-    //NEW GUI COMPONENTS------------------------------
 
     /**
      * Setup internal chain structure.
@@ -219,10 +201,11 @@ public class Oscillator implements Initializable {
      * @author Teodor Wegestål
      * @author Viktor Lenberg
      * @author Joel Eriksson Sinclair
+     * @author Luke Eales
+     * @author Axel Nilsson
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //NEW GUI START-----------------------
         tglBtnCombineAdd.setSelected(true);
         segBtnCombineMode.getButtons().addListener(new ListChangeListener<ToggleButton>() {
             @Override
@@ -253,7 +236,7 @@ public class Oscillator implements Initializable {
         behaviorKnobDetune.knobValueProperty().addListener((v, oldValue, newValue) -> {
             //updateFrequency();
         } );
-        behaviorKnobDetune.knobValueProperty().bind(detuneCent);
+        detuneCent.bind(behaviorKnobDetune.knobValueProperty());
 
         KnobBehavior behaviorKnobLFOdepth = new KnobBehavior(knobLFOdepth);
         knobLFOdepth.setOnMouseDragged(behaviorKnobLFOdepth);
@@ -276,9 +259,6 @@ public class Oscillator implements Initializable {
                 bypassOscillator(onOff);
             }
         });
-
-        //NEW GUI END----------------------------
-
 
         SpinnerValueFactory<OctaveOperands> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(OctaveOperands.values()));
         valueFactory.setValue(OctaveOperands.EIGHT);
@@ -316,9 +296,6 @@ public class Oscillator implements Initializable {
         return btnMoveUp;
     }
 
-    //endregion
-
-    //region frequency-altering-helpers
     /**
      * Alters the frequency to the selected octave
      * @param frequency of the note, provided by input method
@@ -357,5 +334,4 @@ public class Oscillator implements Initializable {
     public float applyDetuning(float frequency) {
         return (float)(frequency * (Math.pow(2, (detuneCent.floatValue()/1200))));
     }
-    //endregion
 }

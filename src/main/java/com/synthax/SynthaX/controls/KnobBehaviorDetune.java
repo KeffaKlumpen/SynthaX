@@ -18,6 +18,7 @@ public class KnobBehaviorDetune implements EventHandler<MouseEvent> {
     private float knobMaxValue = 50;
     private float knobMinValue = -50;
     private double lastMousePos;
+    private int rotation;
     private FloatProperty knobValue = new SimpleFloatProperty(this,"rotation", 0);
 
     public KnobBehaviorDetune(Button knob) {
@@ -27,17 +28,33 @@ public class KnobBehaviorDetune implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent mouseEvent) {
 
+
         double mousePos = mouseEvent.getScreenY();
 
-        if (lastMousePos > mousePos && knobValue.getValue() < knobMaxValue) {
-            knobValue.setValue(knobValue.getValue() + 1.0);
-            knob.setRotate(knob.getRotate() + 3);
-
-        } else if (lastMousePos < mousePos && knobValue.getValue() > knobMinValue){
-            knobValue.setValue(knobValue.getValue() - 1.0);
-            knob.setRotate(knob.getRotate() - 3);
+        if (lastMousePos > mousePos) {
+            rotation++;
+        } else if (lastMousePos < mousePos) {
+            rotation--;
         }
+        float value = knobValue.getValue();
 
+        if ((rotation > 10 && value < knobMaxValue) && value == 0) {
+            knobValue.setValue(knobValue.getValue() + 1);
+            knob.setRotate(knob.getRotate() + 3);
+            rotation = 0;
+        } else if ((rotation < -10 && value > knobMinValue) && value == 0) {
+            knobValue.setValue(knobValue.getValue() - 1);
+            knob.setRotate(knob.getRotate() - 3);
+            rotation = 0;
+        } else if ((rotation == 1 && value < knobMaxValue) && value != 0) {
+            knobValue.setValue(knobValue.getValue() + 1);
+            knob.setRotate(knob.getRotate() + 3);
+            rotation = 0;
+        } else if ((rotation == -1 && value > knobMinValue) && value != 0) {
+            knobValue.setValue(knobValue.getValue() - 1);
+            knob.setRotate(knob.getRotate() - 3);
+            rotation = 0;
+        }
         lastMousePos = mousePos;
     }
 
