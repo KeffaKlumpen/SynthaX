@@ -12,8 +12,7 @@ public enum Waveforms {
     SINE(Buffer.SINE, 0),
     SQUARE(Buffer.SQUARE, 1),
     SAWTOOTH(Buffer.SAW, 2),
-    TRIANGLE(Buffer.TRIANGLE, 3),
-    NOISE(Buffer.NOISE, -1);
+    TRIANGLE(Buffer.TRIANGLE, 3);
 
     private Buffer buffer;
     private int knobValue;
