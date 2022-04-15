@@ -3,8 +3,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -216,47 +218,49 @@
             <CubicCurve controlX1="-50.0" controlX2="-19.36309814453125" controlY1="-100.0" controlY2="3.0517578125E-5" endX="77.6334228515625" endY="3.0517578125E-5" fill="DODGERBLUE" layoutX="340.0" layoutY="140.0" startX="-81.18505859375" startY="3.0517578125E-5" stroke="BLACK" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="1038.0" layoutY="40.0" prefHeight="117.0" prefWidth="207.0">
+      <AnchorPane layoutX="1038.0" layoutY="42.0" prefHeight="115.0" prefWidth="240.0">
          <children>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="4.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="4.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="20.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@skins.css" />
+            <Button layoutX="20.0" layoutY="81.0" mnemonicParsing="false" styleClass="knob" stylesheets="@skins.css" />
             <Label layoutX="12.0" layoutY="3.0" text="Filter">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <ToggleSwitch layoutX="129.0" layoutY="4.0" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="21.0" layoutY="39.0" text="Cutoff">
+            <ToggleSwitch layoutX="178.0" layoutY="4.0" prefHeight="20.0" prefWidth="30.0" />
+            <Label layoutX="21.0" layoutY="61.0" text="Cutoff">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="59.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="59.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="75.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@skins.css" />
-            <Label layoutX="77.0" layoutY="39.0" text="Cock">
+            <Button layoutX="75.0" layoutY="81.0" mnemonicParsing="false" styleClass="knob" stylesheets="@skins.css" />
+            <Label layoutX="64.0" layoutY="61.0" text="Resonance">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="114.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="114.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="130.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@skins.css" />
-            <Label layoutX="132.0" layoutY="39.0" text="Penis">
+            <Button layoutX="130.0" layoutY="81.0" mnemonicParsing="false" styleClass="knob" stylesheets="@skins.css" />
+            <Label layoutX="124.0" layoutY="61.0" text="Envelope">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
+            <Spinner layoutX="77.0" layoutY="28.0" prefHeight="26.0" prefWidth="77.0" />
+            <Label layoutX="81.0" layoutY="8.0" text="Shape" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="431.0" layoutY="343.0" prefHeight="340.0" prefWidth="578.0">
@@ -584,6 +588,22 @@
                </image>
             </ImageView>
             <Button layoutX="442.0" layoutY="320.0" mnemonicParsing="false" styleClass="knob" stylesheets="@skins.css" />
+            <RadioButton layoutX="64.0" layoutY="181.0" mnemonicParsing="false" />
+            <RadioButton layoutX="119.0" layoutY="180.0" mnemonicParsing="false" />
+            <RadioButton layoutX="174.0" layoutY="181.0" mnemonicParsing="false" />
+            <RadioButton layoutX="229.0" layoutY="181.0" mnemonicParsing="false" />
+            <RadioButton layoutX="284.0" layoutY="181.0" mnemonicParsing="false" />
+            <RadioButton layoutX="339.0" layoutY="181.0" mnemonicParsing="false" />
+            <RadioButton layoutX="394.0" layoutY="181.0" mnemonicParsing="false" />
+            <RadioButton layoutX="449.0" layoutY="181.0" mnemonicParsing="false" />
+            <RadioButton layoutX="64.0" layoutY="355.0" mnemonicParsing="false" />
+            <RadioButton layoutX="119.0" layoutY="354.0" mnemonicParsing="false" />
+            <RadioButton layoutX="174.0" layoutY="355.0" mnemonicParsing="false" />
+            <RadioButton layoutX="229.0" layoutY="355.0" mnemonicParsing="false" />
+            <RadioButton layoutX="284.0" layoutY="355.0" mnemonicParsing="false" />
+            <RadioButton layoutX="339.0" layoutY="355.0" mnemonicParsing="false" />
+            <RadioButton layoutX="394.0" layoutY="355.0" mnemonicParsing="false" />
+            <RadioButton layoutX="449.0" layoutY="355.0" mnemonicParsing="false" />
          </children></AnchorPane>
    </children>
 </AnchorPane>
