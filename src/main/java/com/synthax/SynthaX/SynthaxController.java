@@ -2,6 +2,7 @@ package com.synthax.SynthaX;
 
 import com.synthax.SynthaX.controls.KnobBehavior;
 
+import com.synthax.SynthaX.controls.KnobBehaviorWave;
 import com.synthax.model.ADSRValues;
 import com.synthax.model.MidiNote;
 import com.synthax.util.MidiHelpers;
@@ -48,6 +49,23 @@ public class SynthaxController implements Initializable {
     private final Synth synth;
     private double rotation = 0.0;
     private double y = 0.0;
+
+
+    //new gui components
+    @FXML private Button knobNoiseGain;
+    @FXML private Button knobDelayFeedback;
+    @FXML private Button knobDelayTime;
+    @FXML private Button knobDelayRepeat;
+    @FXML private Button knobReverbSize;
+    @FXML private Button knobReverbDecay;
+    @FXML private Button knobReverbDW;
+    @FXML private Button knobLFODepth;
+    @FXML private Button knobLFORate;
+    @FXML private Button knobLFOWaveForm;
+    @FXML private Button knobFilterCutoff;
+    @FXML private Button knobFilterResonance;
+    @FXML private Button knobFilterEnvelope;
+
 
     private final Map<KeyCode, AtomicBoolean> keyStatus = Map.of(KeyCode.A, new AtomicBoolean(false),
             KeyCode.S, new AtomicBoolean(false),
@@ -116,6 +134,88 @@ public class SynthaxController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        KnobBehavior bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
+        knobNoiseGain.setOnMouseDragged(bKnobNoiseGain);
+        bKnobNoiseGain.setValueZero();
+        bKnobNoiseGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here.
+        });
+
+        KnobBehavior bKnobDelayFeedback = new KnobBehavior(knobDelayFeedback);
+        knobDelayFeedback.setOnMouseDragged(bKnobDelayFeedback);
+        bKnobDelayFeedback.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobDelayTime = new KnobBehavior(knobDelayTime);
+        knobDelayTime.setOnMouseDragged(bKnobDelayTime);
+        bKnobDelayTime.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobDelayRepeat = new KnobBehavior(knobDelayRepeat);
+        knobDelayRepeat.setOnMouseDragged(bKnobDelayRepeat);
+        bKnobDelayRepeat.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobReverbSize = new KnobBehavior(knobReverbSize);
+        knobReverbSize.setOnMouseDragged(bKnobReverbSize);
+        bKnobReverbSize.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobReverbDecay = new KnobBehavior(knobReverbDecay);
+        knobReverbDecay.setOnMouseDragged(bKnobReverbDecay);
+        bKnobReverbDecay.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobReverbDW = new KnobBehavior(knobReverbDW);
+        knobReverbDW.setOnMouseDragged(bKnobReverbDW);
+        bKnobReverbDW.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobLFODepth = new KnobBehavior(knobLFODepth);
+        knobLFODepth.setOnMouseDragged(bKnobLFODepth);
+        bKnobLFODepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobLFORate = new KnobBehavior(knobLFORate);
+        knobLFORate.setOnMouseDragged(bKnobLFORate);
+        bKnobLFORate.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehaviorWave bKnobLFOWaveform = new KnobBehaviorWave(knobLFOWaveForm);
+        knobLFOWaveForm.setOnMouseDragged(bKnobLFOWaveform);
+        bKnobLFOWaveform.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobFilterCutoff = new KnobBehavior(knobFilterCutoff);
+        knobFilterCutoff.setOnMouseDragged(bKnobFilterCutoff);
+        bKnobFilterCutoff.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobFilterResonance = new KnobBehavior(knobFilterResonance);
+        knobFilterResonance.setOnMouseDragged(bKnobFilterResonance);
+        bKnobFilterResonance.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobFilterEnvelope = new KnobBehavior(knobFilterEnvelope);
+        knobFilterEnvelope.setOnMouseDragged(bKnobFilterEnvelope);
+        bKnobFilterEnvelope.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+
+
+
         //region KeyBoard playing
         mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
