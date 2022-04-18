@@ -1,13 +1,14 @@
 package com.synthax.SynthaX;
 
-
-
 import com.synthax.SynthaX.controls.KnobBehavior;
 
 import com.synthax.model.ADSRValues;
+import com.synthax.model.MidiNote;
+import com.synthax.util.MidiHelpers;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
+import javafx.event.EventHandler;
 
 import com.synthax.SynthaX.oscillator.Oscillator;
 
@@ -19,11 +20,14 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -33,6 +37,7 @@ public class SynthaxController implements Initializable {
     @FXML private Button btnAddOscillator;
     @FXML private Button btnPlay;
     @FXML private AnchorPane mainPane = new AnchorPane();
+    @FXML private Button knob = new Button();
     @FXML private Slider sliderAttack;
     @FXML private Slider sliderDecay;
     @FXML private Slider sliderSustain;
@@ -44,13 +49,11 @@ public class SynthaxController implements Initializable {
     private double rotation = 0.0;
     private double y = 0.0;
 
-
-
-
-
-
-    private final AtomicBoolean keyHeld = new AtomicBoolean(false);
-
+    private final Map<KeyCode, AtomicBoolean> keyStatus = Map.of(KeyCode.A, new AtomicBoolean(false),
+            KeyCode.S, new AtomicBoolean(false),
+            KeyCode.D, new AtomicBoolean(false),
+            KeyCode.F, new AtomicBoolean(false),
+            KeyCode.G, new AtomicBoolean(false));
 
     public SynthaxController() {
         synth = new Synth();
@@ -59,23 +62,44 @@ public class SynthaxController implements Initializable {
     @FXML
     public void onActionAddOscillator() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("oscillator-view.fxml"));
+            URL fxmlLocation = MainApplication.class.getResource("oscillator/Oscillator-v.fxml");
+            FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
             Node oscillatorView = fxmlLoader.load();
             Oscillator oscillator = fxmlLoader.getController();
 
             synth.addOscillator(oscillator);
+
             oscillator.getBtnRemoveOscillator().setOnAction(event -> {
                 synth.removeOscillator(oscillator);
                 oscillatorChainView.getChildren().remove(oscillatorView);
             });
-
             oscillator.getBtnMoveDown().setOnAction(event -> {
-                synth.moveOscillatorDown(oscillator);
-                //TODO: Update GUI to represent the new osc-list order.
+                Node[] childList = oscillatorChainView.getChildren().toArray(new Node[0]);
+                int oscIndex = oscillatorChainView.getChildren().indexOf(oscillatorView);
+
+                if(oscIndex < childList.length - 1){
+                    Node nextOsc = childList[oscIndex + 1];
+                    childList[oscIndex + 1] = oscillatorView;
+                    childList[oscIndex] = nextOsc;
+
+                    oscillatorChainView.getChildren().setAll(childList);
+
+                    synth.moveOscillatorDown(oscillator);
+                }
             });
             oscillator.getBtnMoveUp().setOnAction(event -> {
-                synth.moveOscillatorUp(oscillator);
-                //TODO: Update GUI to represent the new osc-list order.
+                Node[] childList = oscillatorChainView.getChildren().toArray(new Node[0]);
+                int oscIndex = oscillatorChainView.getChildren().indexOf(oscillatorView);
+
+                if(oscIndex > 0){
+                    Node prevOsc = childList[oscIndex - 1];
+                    childList[oscIndex - 1] = oscillatorView;
+                    childList[oscIndex] = prevOsc;
+
+                    oscillatorChainView.getChildren().setAll(childList);
+
+                    synth.moveOscillatorUp(oscillator);
+                }
             });
 
             oscillatorChainView.getChildren().add(oscillatorView);
@@ -87,11 +111,42 @@ public class SynthaxController implements Initializable {
 
     @FXML
     public void onActionPlay() {
-        System.out.println("use A,S,D keys to play!");
+        System.out.println("use A,S,D,F,G keys to play!");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //region KeyBoard playing
+        mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                KeyCode keyCode = event.getCode();
+                // If it's a valid key, send a noteOn message.
+                if(keyStatus.containsKey(keyCode)){
+                    if(keyStatus.get(keyCode).compareAndSet(false, true)){
+                        MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
+                        System.out.println("++++" + note.name());
+                        synth.noteOn(note, 128);
+                    }
+                }
+            }
+        });
+        mainPane.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                KeyCode keyCode = event.getCode();
+                if(keyStatus.containsKey(keyCode)){
+                    if(keyStatus.get(keyCode).compareAndSet(true, false)){
+                        MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
+                        System.out.println("----" + note.name());
+                        synth.noteOff(note);
+                    }
+                }
+            }
+        });
+        //endregion
+
+        //region KnobDragging
         knob2.getStyleClass().add("knob");
         KnobBehavior knob2list = new KnobBehavior(knob2);
         knob2.setOnMouseDragged(knob2list);
@@ -103,27 +158,54 @@ public class SynthaxController implements Initializable {
 
 
         //lineChartMain.getStyleClass().add("lineChartMain");
-        mainPane.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.A) {
-                if (keyHeld.compareAndSet(false, true)) {
-                    synth.playNote('C');
+
+        knob.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+                boolean b = y - mouseEvent.getScreenY() > 0;
+                y = mouseEvent.getScreenY();
+
+                if (!b) {
+                    if (rotation != 301) {
+                        rotation = (rotation - 2) % 360;
+                    }
+                } else {
+                    if (rotation != 238)
+                        rotation = (rotation + 2) % 360;
                 }
-            } else if (event.getCode() == KeyCode.S) {
-                if (keyHeld.compareAndSet(false, true)) {
-                    synth.playNote('D');
-                }
-            } else if (event.getCode() == KeyCode.D) {
-                if (keyHeld.compareAndSet(false, true)) {
-                    synth.playNote('E');
+
+                if (rotation >= 300 && rotation < 315) {
+                    knob.setRotate(301);
+                    rotation = 301;
+                } else if (rotation >= 315 && rotation < 340) {
+                    knob.setRotate(328);
+                } else if (rotation >= 340 || rotation < 8) {
+                    knob.setRotate(355);
+                } else if (rotation >= 8 && rotation < 34) {
+                    knob.setRotate(21);
+                } else if (rotation >= 34 && rotation < 62) {
+                    knob.setRotate(49);
+                } else if (rotation >= 62 && rotation < 88) {
+                    knob.setRotate(76);
+                } else if (rotation >= 88 && rotation < 115) {
+                    knob.setRotate(103);
+                } else if (rotation >= 115 && rotation < 143) {
+                    knob.setRotate(130);
+                } else if (rotation >= 143 && rotation < 160) {
+                    knob.setRotate(157);
+                } else if (rotation >= 160 && rotation < 196) {
+                    knob.setRotate(183);
+                } else if (rotation >= 196 && rotation < 223) {
+                    knob.setRotate(211);
+                } else  {
+                    knob.setRotate(238);
                 }
             }
         });
-        mainPane.setOnKeyReleased(event -> {
-            keyHeld.set(false);
-            //synth.releaseVoice();
-            synth.releaseAllVoices();
-        });
+        //endregion
 
+        //region ADSR sliders
         sliderAttack.setMax(9000);
         sliderAttack.setMin(10);
         sliderAttack.setBlockIncrement(50);
@@ -163,6 +245,7 @@ public class SynthaxController implements Initializable {
                 ADSRValues.setReleaseValue(t1.floatValue());
             }
         });
+        //endregion
 
         sliderMasterGain.setMax(1);
         sliderMasterGain.setValue(0.5);

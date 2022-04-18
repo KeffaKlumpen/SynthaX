@@ -12,11 +12,11 @@ package com.synthax.model;
  * @author Joel Eriksson Sinclair
  */
 public class ADSRValues {
-    private static float attackValue = 200;
-    private static float decayValue = 200;
-    private static float sustainValue = 0.5f;
-    private static float releaseValue = 500;
-    private static float peakGain = 1f;
+    private static float attackValue = 10;
+    private static float decayValue = 10;
+    private static float sustainValue = 1f;
+    private static float releaseValue = 10;
+    private static float peakGain = 0.05f;
 
     public static float getAttackValue() {
         return attackValue;

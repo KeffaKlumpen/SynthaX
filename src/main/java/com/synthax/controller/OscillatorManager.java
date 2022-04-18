@@ -7,6 +7,7 @@
 package com.synthax.controller;
 
 import com.synthax.SynthaX.oscillator.Oscillator;
+import com.synthax.model.MidiNote;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.ugens.Gain;
 
@@ -35,12 +36,24 @@ public class OscillatorManager {
     }
 
     /**
-     * Make all the oscillators play a frequency.
-     * @return The voice index
+     * @param midiNote
+     * @param velocity
+     * @author Joel Eriksson Sinclair
      */
-    public void playFrequency(float frequency){
+    public void noteOn(MidiNote midiNote, int velocity){
         for (Oscillator osc : oscillators) {
-            osc.playFrequency(frequency);
+            osc.noteOn(midiNote, velocity);
+        }
+    }
+
+    /**
+     *
+     * @param midiNote
+     * @author Joel Eriksson Sinclair
+     */
+    public void noteOff(MidiNote midiNote){
+        for (Oscillator osc : oscillators) {
+            osc.noteOff(midiNote);
         }
     }
 
@@ -56,6 +69,7 @@ public class OscillatorManager {
     /**
      * Setup input and output connections for the provided Oscillator and it's neighbours.
      * @param oscillator Oscillator to setup
+     * @author Joel Eriksson Sinclair
      */
     public void setupInOuts(Oscillator oscillator){
         int index = oscillators.indexOf(oscillator);
@@ -133,7 +147,9 @@ public class OscillatorManager {
             if(previous >= 0){
                 setupInOuts(oscillators.get(previous));
             }
-            setupInOuts(oscillators.get(index));
+            if(index < oscillators.size()){
+                setupInOuts(oscillators.get(index));
+            }
         }
         else {
             output.clearInputConnections();

@@ -8,14 +8,20 @@ import com.synthax.SynthaX.controls.KnobBehaviorWave;
 import com.synthax.controller.OscillatorManager;
 import com.synthax.model.ADSRValues;
 import com.synthax.model.CombineMode;
+import com.synthax.model.MidiNote;
+import com.synthax.model.OctaveOperands;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
+import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Add;
@@ -32,56 +38,44 @@ import java.util.ResourceBundle;
  * @author Viktor Lenberg
  * @author Teodor Wegestål
  * @author Joel Eriksson Sinclair
+ * @author Luke Eales
+ * @author Axel Nilsson
  */
 
 public class Oscillator implements Initializable {
-    @FXML private ChoiceBox<CombineMode> combineModeChoiceBox;
-    @FXML private Button btnMoveDown;
-    @FXML private Button btnMoveUp;
-    @FXML private Slider sliderDetune;
-    @FXML private Slider sliderGain;
-    @FXML private ChoiceBox<Waveforms> waveFormChoiceBox;
-    @FXML private Spinner<String> octaveSpinner;
-    @FXML private Button btnRemoveOscillator;
-    @FXML private RadioButton btnBypass;
-    @FXML private Slider sliderAttack;
-    @FXML private Slider sliderDecay;
-    @FXML private Slider sliderSustain;
-    @FXML private Slider sliderRelease;
 
     private final OscillatorVoice[] voices;
     private final int voiceCount = 16;
-    private int currentVoice = 0;
+    private int nextVoice = 0;
     private final Gain voiceOutput;
+    private Glide voiceOutputGlide;
     private UGen output;
+    private OctaveOperands octaveOperand = OctaveOperands.EIGHT;
+    private FloatProperty detuneCent = new SimpleFloatProperty();
+    private final int[] voicePlayingMidi = new int[128];
 
-    private String octaveOperand = "8'";
-    private float detuneCent;
-
-
-    //NEW GUI COMPONENTS-----------------------------
-    @FXML private SegmentedButton segBtnCombineMode;
     @FXML private ToggleButton tglBtnCombineAdd;
     @FXML private ToggleButton tglBtnCombineSub;
     @FXML private ToggleButton tglBtnCombineMult;
-    @FXML private ToggleSwitch switchBypass;
-    //@FXML private Button btnMoveUp;
-    //@FXML private Button btnMoveDown;
+    @FXML private SegmentedButton segBtnCombineMode;
+    @FXML private ToggleSwitch tglSwitchOscillatorOnOff;
+    @FXML private Button btnMoveUp;
+    @FXML private Button btnMoveDown;
+    @FXML private Button btnRemoveOscillator;
     @FXML private Button knobGain = new Button();
     @FXML private Button knobWave = new Button();
     @FXML private Button knobDetune = new Button();
     @FXML private Button knobLFOdepth = new Button();
     @FXML private Button knobLFOrate = new Button();
-    //@FXML private Spinner<String> octaveSpinner;
-
-    //NEW GUI COMPONENTS------------------------------
+    @FXML private Spinner<OctaveOperands> octaveSpinner = new Spinner<>();
 
     /**
      * Setup internal chain structure.
      * @author Joel Eriksson Sinclair
      */
     public Oscillator(){
-        voiceOutput = new Gain(1, 1f);
+        voiceOutputGlide = new Glide(AudioContext.getDefaultContext(), 0.5f, 50);
+        voiceOutput = new Gain(1, voiceOutputGlide);
 
         voices = new OscillatorVoice[voiceCount];
         for (int i = 0; i < voiceCount; i++) {
@@ -90,31 +84,32 @@ public class Oscillator implements Initializable {
             voices[i] = voice;
         }
 
-        output = new Add(1, voiceOutput); // set this to GUI value..
-    }
-
-    // FIXME: 2022-04-07 Bypassing an Mult Oscillator makes it so no sound reaches the output. (Multiplying with the 0-buffer).
-    public void bypassOscillator(boolean b) {
-        for (int i = 0; i < voiceCount; i++) {
-            voices[i].bypass(b);
-        }
+        output = new Add(1, voiceOutput);
     }
 
     /**
-     * Calls methods checkOctave and checkDetune to alter the frequency before playing it
-     * @param frequency of the note, provided by input method
-     * @author Viktor Lenberg
-     * @author Teodor Wegestål
+     * @param midiNote Midi-note to be played.
      * @author Joel Eriksson Sinclair
      */
-    public void playFrequency(float frequency) {
-        System.out.println("playing: " + currentVoice);
+    public void noteOn(MidiNote midiNote, int velocity){
+        voicePlayingMidi[midiNote.ordinal()] = nextVoice; // This only allows 1 voice per note-press..
+        float freq = midiNote.getFrequency();
 
-        frequency = applyOctaveOffset(frequency);
-        frequency = applyDetuning(frequency);
+        freq = applyOctaveOffset(freq);
+        freq = applyDetuning(freq);
 
-        voices[currentVoice++].playFreq(frequency, 1f, ADSRValues.getAttackValue(), ADSRValues.getSustainValue(), ADSRValues.getDecayValue());
-        currentVoice = currentVoice % voiceCount;
+        voices[nextVoice].playFreq(freq, (float)(velocity / 127), ADSRValues.getAttackValue(), ADSRValues.getSustainValue(), ADSRValues.getDecayValue());
+
+        nextVoice = ++nextVoice % voiceCount;
+    }
+
+    /**
+     * @param midiNote Midi-note to be released.
+     * @author Joel Eriksson Sinclair
+     */
+    public void noteOff(MidiNote midiNote){
+        int voiceIndex = voicePlayingMidi[midiNote.ordinal()];
+        voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
     }
 
     /**
@@ -123,6 +118,14 @@ public class Oscillator implements Initializable {
      */
     public void stopVoice(int voiceIndex){
         voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
+    }
+
+
+    // FIXME: 2022-04-07 Bypassing an Mult Oscillator makes it so no sound reaches the output. (Multiplying with the 0-buffer).
+    public void bypassOscillator(boolean onOff) {
+        for (int i = 0; i < voiceCount; i++) {
+            voices[i].bypass(onOff);
+        }
     }
 
     /**
@@ -195,107 +198,75 @@ public class Oscillator implements Initializable {
      * @author Teodor Wegestål
      * @author Viktor Lenberg
      * @author Joel Eriksson Sinclair
+     * @author Luke Eales
+     * @author Axel Nilsson
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //NEW GUI START-----------------------
-        segBtnCombineMode.getButtons().addAll(tglBtnCombineAdd,tglBtnCombineSub,tglBtnCombineMult);
+        tglBtnCombineAdd.setSelected(true);
+        segBtnCombineMode.getButtons().addListener(new ListChangeListener<ToggleButton>() {
+            @Override
+            public void onChanged(Change<? extends ToggleButton> change) {
+                if (tglBtnCombineAdd.isSelected()) {
+                    setOutputType(CombineMode.ADD);
+                    System.out.println("ADD");
+                } else if (tglBtnCombineMult.isSelected()) {
+                    setOutputType(CombineMode.MULT);
+                    System.out.println("MULT");
+                } /*else {
+                    setOutputType(CombineMode.SUB); INTE IMPLEMENTERAT
+                }*/
+            }
+        });
+
 
         KnobBehavior behaviorKnobGain = new KnobBehavior(knobGain);
         knobGain.setOnMouseDragged(behaviorKnobGain);
-        //Om man vill ha en listener på knobValue:
-        //behaviorKnobGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-        //            KOD HÄR EXEMPELVIS:
-        //            System.out.println(newValue);
-        //});
-        //Om man vill binda ihop knobValue med ex en annan instansvariabel
-        //behaviorKnobGain.knobValueProperty().bind(ANNAN PROPERTY AV SAMMA TYP)
+        behaviorKnobGain.setValueZero();
+        behaviorKnobGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            voiceOutputGlide.setValue(newValue.floatValue());
+            System.out.println("GAIN " + newValue.floatValue());
+        });
 
         KnobBehaviorDetune behaviorKnobDetune = new KnobBehaviorDetune(knobDetune);
-        knobGain.setOnMouseDragged(behaviorKnobDetune);
+        knobDetune.setOnMouseDragged(behaviorKnobDetune);
+        behaviorKnobDetune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //updateFrequency();
+        } );
+        detuneCent.bind(behaviorKnobDetune.knobValueProperty());
 
         KnobBehavior behaviorKnobLFOdepth = new KnobBehavior(knobLFOdepth);
-        knobGain.setOnMouseDragged(behaviorKnobLFOdepth);
+        knobLFOdepth.setOnMouseDragged(behaviorKnobLFOdepth);
+        //TODO implementera LFO
 
         KnobBehavior behaviorKnobLFOrate = new KnobBehavior(knobLFOrate);
-        knobGain.setOnMouseDragged(behaviorKnobLFOrate);
+        knobLFOrate.setOnMouseDragged(behaviorKnobLFOrate);
+        //TODO implementera LFO
 
         KnobBehaviorWave behaviorKnobWave = new KnobBehaviorWave(knobWave);
-        knobGain.setOnMouseDragged(behaviorKnobWave);
-
-        //NEW GUI END-----------------------------
-
-
-
-        waveFormChoiceBox.setItems(FXCollections.observableArrayList(Waveforms.values()));
-        waveFormChoiceBox.setValue(Waveforms.SINE);
-        waveFormChoiceBox.setOnAction(new EventHandler<ActionEvent>() {
+        knobWave.setOnMouseDragged(behaviorKnobWave);
+        behaviorKnobWave.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            setWaveform(Waveforms.values()[newValue.intValue()]);
+        });
+        tglSwitchOscillatorOnOff.setSelected(true);
+        tglSwitchOscillatorOnOff.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(ActionEvent actionEvent) {
-                setWaveform(waveFormChoiceBox.getValue());
+            public void handle(MouseEvent mouseEvent) {
+                boolean onOff = tglSwitchOscillatorOnOff.isSelected();
+                bypassOscillator(onOff);
             }
         });
 
-        combineModeChoiceBox.setItems(FXCollections.observableArrayList(CombineMode.values()));
-        combineModeChoiceBox.setValue(CombineMode.ADD);
-        combineModeChoiceBox.setOnAction(event -> setOutputType(combineModeChoiceBox.getValue()));
-
-        String[] octaves = {"2'", "4'", "8'", "16'", "32'"} ;
-        SpinnerValueFactory<String> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(octaves));
-        valueFactory.setValue("8'");
+        SpinnerValueFactory<OctaveOperands> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(OctaveOperands.values()));
+        valueFactory.setValue(OctaveOperands.EIGHT);
         octaveSpinner.setValueFactory(valueFactory);
-        octaveSpinner.valueProperty().addListener(new ChangeListener<String>() {
+        octaveSpinner.valueProperty().addListener(new ChangeListener<OctaveOperands>() {
             @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+            public void changed(ObservableValue<? extends OctaveOperands> observableValue, OctaveOperands octaveOperands, OctaveOperands t1) {
                 octaveOperand = t1;
+                // TODO: update frequency of waveplayer
             }
         });
-
-        sliderDetune.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                detuneCent = t1.floatValue();
-            }
-        });
-
-        sliderGain.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                float newGain = t1.floatValue() / 100;
-                voiceOutput.setGain(newGain);
-            }
-        });
-
-        btnBypass.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                bypassOscillator(btnBypass.isSelected());
-            }
-        });
-
-        /// This is if we want per-oscillator ADSR.. Which we don't right now
-        /*
-        sliderAttack.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                adsr.setAttackValue(t1.floatValue());
-            }
-        });
-
-        sliderDecay.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                adsr.setDecayValue(t1.floatValue());
-            }
-        });
-
-        sliderSustain.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                adsr.setSustainValue(t1.floatValue());
-            }
-        });
-         */
     }
 
     /**
@@ -334,20 +305,20 @@ public class Oscillator implements Initializable {
      */
     public float applyOctaveOffset(float frequency) {
         switch (octaveOperand) {
-            case "2'" -> {
-                return frequency / 4;
+            case TWO -> {
+                return frequency / OctaveOperands.TWO.getValue();
             }
-            case "4'" -> {
-                return frequency / 2;
+            case FOUR -> {
+                return frequency / OctaveOperands.FOUR.getValue();
             }
-            case "8'" -> {
-                return frequency;
+            case EIGHT -> {
+                return frequency * OctaveOperands.EIGHT.getValue();
             }
-            case "16'" -> {
-                return frequency * 2;
+            case SIXTEEN -> {
+                return frequency * OctaveOperands.SIXTEEN.getValue();
             }
-            case "32'" -> {
-                return  frequency * 4;
+            case THIRTYTWO -> {
+                return  frequency * OctaveOperands.THIRTYTWO.getValue();
             }
         }
         return frequency;
@@ -361,18 +332,7 @@ public class Oscillator implements Initializable {
      * @author Teodor Wegestål
      */
     public float applyDetuning(float frequency) {
-        return (float)(frequency * (Math.pow(2, (detuneCent/1200))));
+        return (float)(frequency * (Math.pow(2, (detuneCent.floatValue()/1200))));
     }
     //endregion
-
-    /**
-     * @author Joel Eriksson Sinclair
-     */
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Oscillator{");
-        sb.append("waveForm=").append(waveFormChoiceBox.getValue());
-        sb.append('}');
-        return sb.toString();
-    }
 }
