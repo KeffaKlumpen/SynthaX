@@ -33,7 +33,6 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SynthaxController implements Initializable {
-
     @FXML public VBox oscillatorChainView;
     @FXML private Button btnAddOscillator;
     @FXML private Button btnPlay;

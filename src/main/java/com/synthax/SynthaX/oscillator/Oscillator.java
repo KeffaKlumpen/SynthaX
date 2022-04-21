@@ -1,4 +1,3 @@
-
 package com.synthax.SynthaX.oscillator;
 
 import com.synthax.SynthaX.Waveforms;
@@ -41,15 +40,13 @@ import java.util.ResourceBundle;
  * @author Luke Eales
  * @author Axel Nilsson
  */
-
 public class Oscillator implements Initializable {
-
     private final OscillatorVoice[] voices;
     private final int voiceCount = 16;
     private int nextVoice = 0;
     private final Gain voiceOutput;
     private Glide voiceOutputGlide;
-    private UGen output;
+    private UGen oscillatorOutput;
     private OctaveOperands octaveOperand = OctaveOperands.EIGHT;
     private FloatProperty detuneCent = new SimpleFloatProperty();
     private final int[] voicePlayingMidi = new int[128];
@@ -65,18 +62,19 @@ public class Oscillator implements Initializable {
     @FXML private Button knobGain = new Button();
     @FXML private Button knobWave = new Button();
     @FXML private Button knobDetune = new Button();
-    @FXML private Button knobLFOdepth = new Button();
-    @FXML private Button knobLFOrate = new Button();
+    @FXML private Button knobLFODepth = new Button();
+    @FXML private Button knobLFORate = new Button();
     @FXML private Spinner<OctaveOperands> octaveSpinner = new Spinner<>();
 
     /**
      * Setup internal chain structure.
      * @author Joel Eriksson Sinclair
      */
-    public Oscillator(){
+    public Oscillator() {
         voiceOutputGlide = new Glide(AudioContext.getDefaultContext(), 0.5f, 50);
         voiceOutput = new Gain(1, voiceOutputGlide);
 
+        // Instantiate voice objects and setup chain.
         voices = new OscillatorVoice[voiceCount];
         for (int i = 0; i < voiceCount; i++) {
             OscillatorVoice voice = new OscillatorVoice(Buffer.SINE);
@@ -84,7 +82,7 @@ public class Oscillator implements Initializable {
             voices[i] = voice;
         }
 
-        output = new Add(1, voiceOutput);
+        oscillatorOutput = new Add(1, voiceOutput);
     }
 
     /**
@@ -120,7 +118,6 @@ public class Oscillator implements Initializable {
         voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
     }
 
-
     // FIXME: 2022-04-07 Bypassing an Mult Oscillator makes it so no sound reaches the output. (Multiplying with the 0-buffer).
     public void bypassOscillator(boolean onOff) {
         for (int i = 0; i < voiceCount; i++) {
@@ -141,9 +138,6 @@ public class Oscillator implements Initializable {
         }
     }
 
-    /**
-     * @author Joel Eriksson Sinclair
-     */
     public int getVoiceCount(){
         return voiceCount;
     }
@@ -164,7 +158,7 @@ public class Oscillator implements Initializable {
             }
         }
         if(newOutput != null){
-            output = newOutput;
+            oscillatorOutput = newOutput;
             OscillatorManager.getInstance().setupInOuts(this);
         }
     }
@@ -174,8 +168,8 @@ public class Oscillator implements Initializable {
      * @return Add, Mult, Division, Subtract UGen
      * @author Joel Eriksson Sinclair
      */
-    public UGen getOutput(){
-        return output;
+    public UGen getOscillatorOutput(){
+        return oscillatorOutput;
     }
 
     /**
@@ -184,9 +178,9 @@ public class Oscillator implements Initializable {
      * @author Joel Eriksson Sinclair
      */
     public void setInput(UGen input){
-        output.clearInputConnections();
+        oscillatorOutput.clearInputConnections();
         if(input != null){
-            output.addInput(input);
+            oscillatorOutput.addInput(input);
         }
     }
     //endregion
@@ -219,7 +213,6 @@ public class Oscillator implements Initializable {
             }
         });
 
-
         KnobBehavior behaviorKnobGain = new KnobBehavior(knobGain);
         knobGain.setOnMouseDragged(behaviorKnobGain);
         behaviorKnobGain.setValueZero();
@@ -235,12 +228,12 @@ public class Oscillator implements Initializable {
         } );
         detuneCent.bind(behaviorKnobDetune.knobValueProperty());
 
-        KnobBehavior behaviorKnobLFOdepth = new KnobBehavior(knobLFOdepth);
-        knobLFOdepth.setOnMouseDragged(behaviorKnobLFOdepth);
+        KnobBehavior behaviorKnobLFOdepth = new KnobBehavior(knobLFODepth);
+        knobLFODepth.setOnMouseDragged(behaviorKnobLFOdepth);
         //TODO implementera LFO
 
-        KnobBehavior behaviorKnobLFOrate = new KnobBehavior(knobLFOrate);
-        knobLFOrate.setOnMouseDragged(behaviorKnobLFOrate);
+        KnobBehavior behaviorKnobLFOrate = new KnobBehavior(knobLFORate);
+        knobLFORate.setOnMouseDragged(behaviorKnobLFOrate);
         //TODO implementera LFO
 
         KnobBehaviorWave behaviorKnobWave = new KnobBehaviorWave(knobWave);
@@ -303,7 +296,7 @@ public class Oscillator implements Initializable {
      * @author Viktor Lenberg
      * @author Teodor Wegestål
      */
-    public float applyOctaveOffset(float frequency) {
+    private float applyOctaveOffset(float frequency) {
         switch (octaveOperand) {
             case TWO -> {
                 return frequency / OctaveOperands.TWO.getValue();
@@ -331,7 +324,7 @@ public class Oscillator implements Initializable {
      * @author Viktor Lenberg
      * @author Teodor Wegestål
      */
-    public float applyDetuning(float frequency) {
+    private float applyDetuning(float frequency) {
         return (float)(frequency * (Math.pow(2, (detuneCent.floatValue()/1200))));
     }
     //endregion

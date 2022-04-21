@@ -91,7 +91,7 @@
                         <Image url="@../Images/KnobBlackSteps.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="knobLFOdepth" layoutX="34.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
+                  <Button fx:id="knobLFODepth" layoutX="34.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
                   <Label layoutX="34.0" layoutY="6.0" text="LFO">
                      <font>
                         <Font name="Arial" size="15.0" />
@@ -102,7 +102,7 @@
                         <Image url="@../Images/KnobBlackSteps.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="knobLFOrate" layoutX="34.0" layoutY="130.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
+                  <Button fx:id="knobLFORate" layoutX="34.0" layoutY="130.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
                   <Label layoutX="35.0" layoutY="35.0" prefHeight="16.0" prefWidth="31.0" text="Depth">
                      <font>
                         <Font name="Arial" size="10.0" />

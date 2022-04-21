@@ -1,9 +1,3 @@
-/*
-  Author: Joel Eriksson Sinclair
-  ID: ai7892
-  Study program: Sys 21h
-*/
-
 package com.synthax.controller;
 
 import com.synthax.SynthaX.oscillator.Oscillator;
@@ -26,9 +20,9 @@ public class OscillatorManager {
         return instance;
     }
 
-    private final ArrayList<Oscillator> oscillators = new ArrayList<>();
-
     private final Gain output;
+
+    private final ArrayList<Oscillator> oscillators = new ArrayList<>();
 
     private OscillatorManager(){
         output = new Gain(1, 1f);
@@ -75,6 +69,7 @@ public class OscillatorManager {
         int index = oscillators.indexOf(oscillator);
 
         if(index < 0 || index >= oscillators.size()){
+            System.err.println("Oscillator is not found in the chain!");
             return;
         }
 
@@ -85,13 +80,13 @@ public class OscillatorManager {
             System.out.println("Setting our input to null");
         }
         else {
-            oscillator.setInput(oscillators.get(index - 1).getOutput());
+            oscillator.setInput(oscillators.get(index - 1).getOscillatorOutput());
             System.out.println("Setting our input to previous osc.getOutput");
         }
 
         // output
         // If we are the last oscillator, or has next.
-        UGen oscOutput = oscillator.getOutput();
+        UGen oscOutput = oscillator.getOscillatorOutput();
         if(index == oscillators.size() - 1){
             output.clearInputConnections();
             output.addInput(oscOutput);
@@ -102,16 +97,6 @@ public class OscillatorManager {
             System.out.println("Setting nextOsc.input to our output.");
         }
     }
-
-    /**
-     * Return the Gain object which all oscillators are chained to.
-     * @return output
-     */
-    public Gain getOutput(){
-        return output;
-    }
-
-
 
     //region List Managing
     /**
@@ -150,8 +135,7 @@ public class OscillatorManager {
             if(index < oscillators.size()){
                 setupInOuts(oscillators.get(index));
             }
-        }
-        else {
+        } else {
             output.clearInputConnections();
         }
     }
@@ -204,8 +188,16 @@ public class OscillatorManager {
 
         System.out.println(oscillators);
     }
-
     //endregion
+
+
+    /**
+     * Return the Gain object which all oscillators are chained to.
+     * @return output
+     */
+    public Gain getOutput(){
+        return output;
+    }
 
     //region Stupid debugging
     /**
@@ -215,7 +207,7 @@ public class OscillatorManager {
         System.out.println("--DEBUG--");
         for (Oscillator o : oscillators) {
             System.out.println("-----Osc: " + o);
-            for (UGen u : o.getOutput().getConnectedInputs()) {
+            for (UGen u : o.getOscillatorOutput().getConnectedInputs()) {
                 System.out.println("---has a " + u);
             }
         }
