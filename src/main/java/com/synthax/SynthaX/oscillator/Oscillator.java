@@ -14,7 +14,7 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -205,6 +205,39 @@ public class Oscillator implements Initializable {
         initOnOff();
         initOctaveSpinner();
     }
+    /**
+     * Sets behaviour for toggle buttons for the combine modes
+     * @author Teodor Wegestål
+     * @author Viktor Lenberg
+     */
+    private void initCombineModeButtons() {
+        tglBtnCombineAdd.setSelected(true);
+        setOutputType(CombineMode.ADD);
+        System.out.println("ADD");
+
+        tglBtnCombineAdd.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                setOutputType(CombineMode.ADD);
+                System.out.println("ADD");
+            }
+        });
+
+        tglBtnCombineMult.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                setOutputType(CombineMode.MULT);
+                System.out.println("MULT");
+            }
+        });
+
+        tglBtnCombineSub.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.err.println("NOT IMPLEMENTED");
+            }
+        });
+    }
 
     /**
      * @return The button responsible for removing the oscillator.
@@ -318,29 +351,6 @@ public class Oscillator implements Initializable {
         behaviorKnobGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             voiceOutputGlide.setValue(newValue.floatValue());
             System.out.println("GAIN " + newValue.floatValue());
-        });
-    }
-
-    /**
-     * Sets behaviour for toggle buttons for the combine modes
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     */
-    private void initCombineModeButtons() {
-        tglBtnCombineAdd.setSelected(true);
-        segBtnCombineMode.getButtons().addListener(new ListChangeListener<ToggleButton>() {
-            @Override
-            public void onChanged(Change<? extends ToggleButton> change) {
-                if (tglBtnCombineAdd.isSelected()) {
-                    setOutputType(CombineMode.ADD);
-                    System.out.println("ADD");
-                } else if (tglBtnCombineMult.isSelected()) {
-                    setOutputType(CombineMode.MULT);
-                    System.out.println("MULT");
-                } /*else {
-                    setOutputType(CombineMode.SUB); INTE IMPLEMENTERAT
-                }*/
-            }
         });
     }
 
