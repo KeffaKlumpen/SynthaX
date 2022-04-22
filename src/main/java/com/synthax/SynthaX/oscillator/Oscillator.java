@@ -197,69 +197,13 @@ public class Oscillator implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        tglBtnCombineAdd.setSelected(true);
-        segBtnCombineMode.getButtons().addListener(new ListChangeListener<ToggleButton>() {
-            @Override
-            public void onChanged(Change<? extends ToggleButton> change) {
-                if (tglBtnCombineAdd.isSelected()) {
-                    setOutputType(CombineMode.ADD);
-                    System.out.println("ADD");
-                } else if (tglBtnCombineMult.isSelected()) {
-                    setOutputType(CombineMode.MULT);
-                    System.out.println("MULT");
-                } /*else {
-                    setOutputType(CombineMode.SUB); INTE IMPLEMENTERAT
-                }*/
-            }
-        });
-
-        KnobBehavior behaviorKnobGain = new KnobBehavior(knobGain);
-        knobGain.setOnMouseDragged(behaviorKnobGain);
-        behaviorKnobGain.setValueZero();
-        behaviorKnobGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            voiceOutputGlide.setValue(newValue.floatValue());
-            System.out.println("GAIN " + newValue.floatValue());
-        });
-
-        KnobBehaviorDetune behaviorKnobDetune = new KnobBehaviorDetune(knobDetune);
-        knobDetune.setOnMouseDragged(behaviorKnobDetune);
-        behaviorKnobDetune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //updateFrequency();
-        } );
-        detuneCent.bind(behaviorKnobDetune.knobValueProperty());
-
-        KnobBehavior behaviorKnobLFOdepth = new KnobBehavior(knobLFODepth);
-        knobLFODepth.setOnMouseDragged(behaviorKnobLFOdepth);
-        //TODO implementera LFO
-
-        KnobBehavior behaviorKnobLFOrate = new KnobBehavior(knobLFORate);
-        knobLFORate.setOnMouseDragged(behaviorKnobLFOrate);
-        //TODO implementera LFO
-
-        KnobBehaviorWave behaviorKnobWave = new KnobBehaviorWave(knobWave);
-        knobWave.setOnMouseDragged(behaviorKnobWave);
-        behaviorKnobWave.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            setWaveform(Waveforms.values()[newValue.intValue()]);
-        });
-        tglSwitchOscillatorOnOff.setSelected(true);
-        tglSwitchOscillatorOnOff.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                boolean onOff = tglSwitchOscillatorOnOff.isSelected();
-                bypassOscillator(onOff);
-            }
-        });
-
-        SpinnerValueFactory<OctaveOperands> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(OctaveOperands.values()));
-        valueFactory.setValue(OctaveOperands.EIGHT);
-        octaveSpinner.setValueFactory(valueFactory);
-        octaveSpinner.valueProperty().addListener(new ChangeListener<OctaveOperands>() {
-            @Override
-            public void changed(ObservableValue<? extends OctaveOperands> observableValue, OctaveOperands octaveOperands, OctaveOperands t1) {
-                octaveOperand = t1;
-                // TODO: update frequency of waveplayer
-            }
-        });
+        initCombineModeButtons();
+        initGainKnob();
+        initDetuneKnob();
+        initLFOKnobs();
+        initWaveFormKnob();
+        initOnOff();
+        initOctaveSpinner();
     }
 
     /**
@@ -284,6 +228,120 @@ public class Oscillator implements Initializable {
      */
     public Button getBtnMoveUp(){
         return btnMoveUp;
+    }
+
+    /**
+     * Sets behaviour for octave spinner
+     * @author Teodor Wegestål
+     * @author Viktor Lenberg
+     */
+    private void initOctaveSpinner() {
+        SpinnerValueFactory<OctaveOperands> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(OctaveOperands.values()));
+        valueFactory.setValue(OctaveOperands.EIGHT);
+        octaveSpinner.setValueFactory(valueFactory);
+        octaveSpinner.valueProperty().addListener(new ChangeListener<OctaveOperands>() {
+            @Override
+            public void changed(ObservableValue<? extends OctaveOperands> observableValue, OctaveOperands octaveOperands, OctaveOperands t1) {
+                octaveOperand = t1;
+                // TODO: update frequency of waveplayer
+            }
+        });
+    }
+
+    /**
+     * Sets behaviour for on/off toggle switch
+     * @author Teodor Wegestål
+     * @author Viktor Lenberg
+     */
+    private void initOnOff() {
+        tglSwitchOscillatorOnOff.setSelected(true);
+        tglSwitchOscillatorOnOff.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                boolean onOff = tglSwitchOscillatorOnOff.isSelected();
+                bypassOscillator(onOff);
+            }
+        });
+    }
+
+    /**
+     * Sets behaviour for waveform knob
+     * @author Teodor Wegestål
+     * @author Viktor Lenberg
+     */
+    private void initWaveFormKnob() {
+        KnobBehaviorWave behaviorKnobWave = new KnobBehaviorWave(knobWave);
+        knobWave.setOnMouseDragged(behaviorKnobWave);
+        behaviorKnobWave.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            setWaveform(Waveforms.values()[newValue.intValue()]);
+        });
+    }
+
+    /**
+     * Sets behaviour for LFO knobs
+     * @author Teodor Wegestål
+     * @author Viktor Lenberg
+     */
+    private void initLFOKnobs() {
+        KnobBehavior behaviorKnobLFOdepth = new KnobBehavior(knobLFODepth);
+        knobLFODepth.setOnMouseDragged(behaviorKnobLFOdepth);
+        //TODO implementera LFO
+
+        KnobBehavior behaviorKnobLFOrate = new KnobBehavior(knobLFORate);
+        knobLFORate.setOnMouseDragged(behaviorKnobLFOrate);
+        //TODO implementera LFO
+    }
+
+    /**
+     * Sets behaviour for detune knob
+     * @author Teodor Wegestål
+     * @author Viktor Lenberg
+     */
+    private void initDetuneKnob() {
+        KnobBehaviorDetune behaviorKnobDetune = new KnobBehaviorDetune(knobDetune);
+        knobDetune.setOnMouseDragged(behaviorKnobDetune);
+        behaviorKnobDetune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //updateFrequency();
+        } );
+        detuneCent.bind(behaviorKnobDetune.knobValueProperty());
+    }
+
+    /**
+     * Sets behaviour for gain knob
+     * @author Teodor Wegestål
+     * @author Viktor Lenberg
+     */
+    private void initGainKnob() {
+        KnobBehavior behaviorKnobGain = new KnobBehavior(knobGain);
+        knobGain.setOnMouseDragged(behaviorKnobGain);
+        behaviorKnobGain.setValueZero();
+        behaviorKnobGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            voiceOutputGlide.setValue(newValue.floatValue());
+            System.out.println("GAIN " + newValue.floatValue());
+        });
+    }
+
+    /**
+     * Sets behaviour for toggle buttons for the combine modes
+     * @author Teodor Wegestål
+     * @author Viktor Lenberg
+     */
+    private void initCombineModeButtons() {
+        tglBtnCombineAdd.setSelected(true);
+        segBtnCombineMode.getButtons().addListener(new ListChangeListener<ToggleButton>() {
+            @Override
+            public void onChanged(Change<? extends ToggleButton> change) {
+                if (tglBtnCombineAdd.isSelected()) {
+                    setOutputType(CombineMode.ADD);
+                    System.out.println("ADD");
+                } else if (tglBtnCombineMult.isSelected()) {
+                    setOutputType(CombineMode.MULT);
+                    System.out.println("MULT");
+                } /*else {
+                    setOutputType(CombineMode.SUB); INTE IMPLEMENTERAT
+                }*/
+            }
+        });
     }
 
     //endregion
