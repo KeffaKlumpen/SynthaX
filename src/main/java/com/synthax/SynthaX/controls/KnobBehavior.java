@@ -38,6 +38,10 @@ public class KnobBehavior implements EventHandler<MouseEvent> {
             knob.setRotate(knob.getRotate() - 3);
         }
 
+        if (knobValue.getValue() < 0.005) {
+            knobValue.setValue(0);
+        }
+
         lastMousePos = mousePos;
     }
 
