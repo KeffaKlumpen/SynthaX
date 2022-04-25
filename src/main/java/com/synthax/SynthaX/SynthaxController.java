@@ -66,7 +66,8 @@ public class SynthaxController implements Initializable {
             KeyCode.S, new AtomicBoolean(false),
             KeyCode.D, new AtomicBoolean(false),
             KeyCode.F, new AtomicBoolean(false),
-            KeyCode.G, new AtomicBoolean(false));
+            KeyCode.G, new AtomicBoolean(false),
+            KeyCode.H, new AtomicBoolean(false));
 
     public SynthaxController() {
         synth = new Synth();

@@ -66,6 +66,9 @@ public class MidiHelpers {
         else if (keyCode == KeyCode.G){
             return MidiNote.G4;
         }
+        else if (keyCode == KeyCode.H){
+            return MidiNote.A4;
+        }
         return MidiNote.getValues()[0];
     }
 }
