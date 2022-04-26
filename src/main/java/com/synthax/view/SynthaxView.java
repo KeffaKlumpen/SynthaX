@@ -243,7 +243,7 @@ public class SynthaxView implements Initializable {
         //endregion
 
         //region ADSR sliders
-        sliderAttack.setMax(9000);
+        sliderAttack.setMax(3000);
         sliderAttack.setMin(10);
         sliderAttack.setBlockIncrement(50);
         sliderAttack.valueProperty().addListener(new ChangeListener<Number>() {
@@ -253,7 +253,7 @@ public class SynthaxView implements Initializable {
             }
         });
 
-        sliderDecay.setMax(9000);
+        sliderDecay.setMax(1500);
         sliderDecay.setMin(10);
         sliderDecay.setBlockIncrement(50);
         sliderDecay.valueProperty().addListener(new ChangeListener<Number>() {
@@ -273,7 +273,7 @@ public class SynthaxView implements Initializable {
             }
         });
 
-        sliderRelease.setMax(9000);
+        sliderRelease.setMax(2000);
         sliderRelease.setMin(10);
         sliderRelease.setBlockIncrement(50);
         sliderRelease.valueProperty().addListener(new ChangeListener<Number>() {
