@@ -1,15 +1,13 @@
-package com.synthax.SynthaX;
+package com.synthax.controller;
 
-import com.synthax.SynthaX.oscillator.Oscillator;
-import com.synthax.controller.OscillatorManager;
-import com.synthax.model.MidiNote;
-import com.synthax.util.MidiHelpers;
+import com.synthax.model.oscillator.LFO;
+import com.synthax.model.enums.MidiNote;
 import com.synthax.model.ADSRValues;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
 import net.beadsproject.beads.ugens.*;
 
-public class Synth {
+public class SynthaxController {
     private final Gain masterGain;
     private Glide masterGainGlide;
     private LFO lfo;
@@ -20,7 +18,7 @@ public class Synth {
      * Setup AudioContext, OscillatorManager and create all necessary links.
      * @author Joel Eriksson Sinclair
      */
-    public Synth(){
+    public SynthaxController(){
         JavaSoundAudioIO jsaio = new JavaSoundAudioIO(512);
         AudioContext ac = new AudioContext(jsaio);
         AudioContext.setDefaultContext(ac);
@@ -39,35 +37,35 @@ public class Synth {
     }
 
     /**
-     * @param oscillator
+     * @param oscillatorController
      * @author Joel Eriksson Sinclair
      */
-    public void moveOscillatorDown(Oscillator oscillator){
-        oscillatorManager.moveOscillatorDown(oscillator);
+    public void moveOscillatorDown(OscillatorController oscillatorController){
+        oscillatorManager.moveOscillatorDown(oscillatorController);
     }
 
     /**
-     * @param oscillator
+     * @param oscillatorController
      * @author Joel Eriksson Sinclair
      */
-    public void moveOscillatorUp(Oscillator oscillator){
-        oscillatorManager.moveOscillatorUp(oscillator);
+    public void moveOscillatorUp(OscillatorController oscillatorController){
+        oscillatorManager.moveOscillatorUp(oscillatorController);
     }
 
     /**
-     * @param oscillator
+     * @param oscillatorController
      * @author Joel Eriksson Sinclair
      */
-    public void addOscillator(Oscillator oscillator){
-        oscillatorManager.addOscillator(oscillator);
+    public void addOscillator(OscillatorController oscillatorController){
+        oscillatorManager.addOscillator(oscillatorController);
     }
 
     /**
-     * @param oscillator
+     * @param oscillatorController
      * @author Joel Eriksson Sinclair
      */
-    public void removeOscillator(Oscillator oscillator) {
-        oscillatorManager.removeOscillator(oscillator);
+    public void removeOscillator(OscillatorController oscillatorController) {
+        oscillatorManager.removeOscillator(oscillatorController);
     }
 
     /**

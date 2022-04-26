@@ -1,4 +1,4 @@
-package com.synthax.model;
+package com.synthax.model.enums;
 
 public enum OctaveOperands {
     TWO("2'", 4),

@@ -1,5 +1,6 @@
-package com.synthax.SynthaX;
+package com.synthax;
 
+import com.synthax.view.SynthaxView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,10 +11,10 @@ import java.io.IOException;
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("synthax-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/synthax-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(getClass().getResource("skins.css").toExternalForm());
-        SynthaxController controller = fxmlLoader.getController();
+        SynthaxView controller = fxmlLoader.getController();
         stage.setTitle("Synthax");
         stage.setScene(scene);
         stage.show();

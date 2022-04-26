@@ -6,7 +6,7 @@
 
 package com.synthax.util;
 
-import com.synthax.model.MidiNote;
+import com.synthax.model.enums.MidiNote;
 import javafx.scene.input.KeyCode;
 
 /**

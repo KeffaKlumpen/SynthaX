@@ -1,7 +1,6 @@
 package com.synthax.controller;
 
-import com.synthax.SynthaX.oscillator.Oscillator;
-import com.synthax.model.MidiNote;
+import com.synthax.model.enums.MidiNote;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.ugens.Gain;
 
@@ -22,7 +21,7 @@ public class OscillatorManager {
 
     private final Gain output;
 
-    private final ArrayList<Oscillator> oscillators = new ArrayList<>();
+    private final ArrayList<OscillatorController> oscillatorControllers = new ArrayList<>();
 
     private OscillatorManager(){
         output = new Gain(1, 1f);
@@ -35,7 +34,7 @@ public class OscillatorManager {
      * @author Joel Eriksson Sinclair
      */
     public void noteOn(MidiNote midiNote, int velocity){
-        for (Oscillator osc : oscillators) {
+        for (OscillatorController osc : oscillatorControllers) {
             osc.noteOn(midiNote, velocity);
         }
     }
@@ -46,13 +45,13 @@ public class OscillatorManager {
      * @author Joel Eriksson Sinclair
      */
     public void noteOff(MidiNote midiNote){
-        for (Oscillator osc : oscillators) {
+        for (OscillatorController osc : oscillatorControllers) {
             osc.noteOff(midiNote);
         }
     }
 
     public void releaseAllVoices(){
-        for (Oscillator osc : oscillators) {
+        for (OscillatorController osc : oscillatorControllers) {
             int voiceCount = osc.getVoiceCount();
             for (int i = 0; i < voiceCount; i++) {
                 osc.stopVoice(i);
@@ -62,13 +61,13 @@ public class OscillatorManager {
 
     /**
      * Setup input and output connections for the provided Oscillator and it's neighbours.
-     * @param oscillator Oscillator to setup
+     * @param oscillatorController Oscillator to setup
      * @author Joel Eriksson Sinclair
      */
-    public void setupInOuts(Oscillator oscillator){
-        int index = oscillators.indexOf(oscillator);
+    public void setupInOuts(OscillatorController oscillatorController){
+        int index = oscillatorControllers.indexOf(oscillatorController);
 
-        if(index < 0 || index >= oscillators.size()){
+        if(index < 0 || index >= oscillatorControllers.size()){
             System.err.println("Oscillator is not found in the chain!");
             return;
         }
@@ -76,24 +75,24 @@ public class OscillatorManager {
         // input
         // if we are the first oscillator, or has previous.
         if(index == 0){
-            oscillator.setInput(null);
+            oscillatorController.setInput(null);
             System.out.println("Setting our input to null");
         }
         else {
-            oscillator.setInput(oscillators.get(index - 1).getOscillatorOutput());
+            oscillatorController.setInput(oscillatorControllers.get(index - 1).getOscillatorOutput());
             System.out.println("Setting our input to previous osc.getOutput");
         }
 
         // output
         // If we are the last oscillator, or has next.
-        UGen oscOutput = oscillator.getOscillatorOutput();
-        if(index == oscillators.size() - 1){
+        UGen oscOutput = oscillatorController.getOscillatorOutput();
+        if(index == oscillatorControllers.size() - 1){
             output.clearInputConnections();
             output.addInput(oscOutput);
             System.out.println("Setting total.Output to our output.");
         }
         else {
-            oscillators.get(index + 1).setInput(oscOutput);
+            oscillatorControllers.get(index + 1).setInput(oscOutput);
             System.out.println("Setting nextOsc.input to our output.");
         }
     }
@@ -104,8 +103,8 @@ public class OscillatorManager {
      * @param osc Oscillator to be added
      * @author Joel Eriksson Sinclair
      */
-    public void addOscillator(Oscillator osc){
-        oscillators.add(osc);
+    public void addOscillator(OscillatorController osc){
+        oscillatorControllers.add(osc);
         setupInOuts(osc);
 
         System.out.println("Added " + osc + " to Synth!");
@@ -116,24 +115,24 @@ public class OscillatorManager {
      * @param osc Oscillator to be removed
      * @author Joel Eriksson Sinclair
      */
-    public void removeOscillator(Oscillator osc){
-        int index = oscillators.indexOf(osc);
+    public void removeOscillator(OscillatorController osc){
+        int index = oscillatorControllers.indexOf(osc);
 
-        if(index < 0 || index >= oscillators.size()){
+        if(index < 0 || index >= oscillatorControllers.size()){
             return;
         }
 
-        oscillators.remove(index);
+        oscillatorControllers.remove(index);
 
         int previous = index - 1;
 
         // This can cause some overlap, setting the same thing multiple times... Shit's dumb
-        if(oscillators.size() > 0){
+        if(oscillatorControllers.size() > 0){
             if(previous >= 0){
-                setupInOuts(oscillators.get(previous));
+                setupInOuts(oscillatorControllers.get(previous));
             }
-            if(index < oscillators.size()){
-                setupInOuts(oscillators.get(index));
+            if(index < oscillatorControllers.size()){
+                setupInOuts(oscillatorControllers.get(index));
             }
         } else {
             output.clearInputConnections();
@@ -141,36 +140,36 @@ public class OscillatorManager {
     }
 
     /**
-     * @param oscillator
+     * @param oscillatorController
      * @author Joel Eriksson Sinclair
      */
-    public void moveOscillatorDown(Oscillator oscillator) {
-        int index = oscillators.indexOf(oscillator);
+    public void moveOscillatorDown(OscillatorController oscillatorController) {
+        int index = oscillatorControllers.indexOf(oscillatorController);
         if(index < 0){
             return;
         }
 
-        if(index == oscillators.size() - 1){
+        if(index == oscillatorControllers.size() - 1){
             return;
         }
 
-        Oscillator nextOsc = oscillators.get(index + 1);
-        oscillators.add(index, nextOsc);
-        oscillators.remove(index + 2);
+        OscillatorController nextOsc = oscillatorControllers.get(index + 1);
+        oscillatorControllers.add(index, nextOsc);
+        oscillatorControllers.remove(index + 2);
 
         // TODO: We need to re-establish in/outs. Which do we need to update?
-        setupInOuts(oscillator);
+        setupInOuts(oscillatorController);
         setupInOuts(nextOsc);
 
-        System.out.println(oscillators);
+        System.out.println(oscillatorControllers);
     }
 
     /**
-     * @param oscillator
+     * @param oscillatorController
      * @author Joel Eriksson Sinclair
      */
-    public void moveOscillatorUp(Oscillator oscillator) {
-        int index = oscillators.indexOf(oscillator);
+    public void moveOscillatorUp(OscillatorController oscillatorController) {
+        int index = oscillatorControllers.indexOf(oscillatorController);
         if(index < 0){
             return;
         }
@@ -179,14 +178,14 @@ public class OscillatorManager {
             return;
         }
 
-        Oscillator prevOsc = oscillators.get(index - 1);
-        oscillators.add(index + 1, prevOsc);
-        oscillators.remove(index - 1);
+        OscillatorController prevOsc = oscillatorControllers.get(index - 1);
+        oscillatorControllers.add(index + 1, prevOsc);
+        oscillatorControllers.remove(index - 1);
 
-        setupInOuts(oscillator);
+        setupInOuts(oscillatorController);
         setupInOuts(prevOsc);
 
-        System.out.println(oscillators);
+        System.out.println(oscillatorControllers);
     }
     //endregion
 
@@ -205,7 +204,7 @@ public class OscillatorManager {
      */
     public void debugPrintOscillatorInputs(){
         System.out.println("--DEBUG--");
-        for (Oscillator o : oscillators) {
+        for (OscillatorController o : oscillatorControllers) {
             System.out.println("-----Osc: " + o);
             for (UGen u : o.getOscillatorOutput().getConnectedInputs()) {
                 System.out.println("---has a " + u);

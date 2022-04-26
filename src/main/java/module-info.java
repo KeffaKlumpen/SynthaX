@@ -5,11 +5,15 @@ module com.synthax.synthax_beads {
     requires org.controlsfx.controls;
 
 
-    opens com.synthax.SynthaX to javafx.fxml;
-    exports com.synthax.SynthaX;
-    //exports com.synthax.SynthaX.ChainableUGens;
-    //opens com.synthax.SynthaX.ChainableUGens to javafx.fxml;
-    exports com.synthax.SynthaX.oscillator;
     exports com.synthax.model;
-    opens com.synthax.SynthaX.oscillator to javafx.fxml;
+    exports com.synthax.controller;
+    opens com.synthax.controller to javafx.fxml;
+    exports com.synthax;
+    opens com.synthax to javafx.fxml;
+    exports com.synthax.view;
+    opens com.synthax.view to javafx.fxml;
+    exports com.synthax.model.enums;
+    opens com.synthax.model.enums to javafx.fxml;
+    exports com.synthax.model.oscillator;
+    opens com.synthax.model.oscillator to javafx.fxml;
 }

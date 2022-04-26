@@ -4,7 +4,7 @@
   Study program: Sys 21h
 */
 
-package com.synthax.model;
+package com.synthax.model.enums;
 
 public enum CombineMode {
     ADD, MULT, SUB

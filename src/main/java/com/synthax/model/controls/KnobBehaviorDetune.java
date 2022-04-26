@@ -1,4 +1,4 @@
-package com.synthax.SynthaX.controls;
+package com.synthax.model.controls;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;

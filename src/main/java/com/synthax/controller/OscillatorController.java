@@ -1,14 +1,13 @@
-package com.synthax.SynthaX.oscillator;
+package com.synthax.controller;
 
-import com.synthax.SynthaX.Waveforms;
-import com.synthax.SynthaX.controls.KnobBehavior;
-import com.synthax.SynthaX.controls.KnobBehaviorDetune;
-import com.synthax.SynthaX.controls.KnobBehaviorWave;
-import com.synthax.controller.OscillatorManager;
+import com.synthax.model.enums.Waveforms;
+import com.synthax.model.controls.KnobBehavior;
+import com.synthax.model.controls.KnobBehaviorDetune;
+import com.synthax.model.controls.KnobBehaviorWave;
 import com.synthax.model.ADSRValues;
-import com.synthax.model.CombineMode;
-import com.synthax.model.MidiNote;
-import com.synthax.model.OctaveOperands;
+import com.synthax.model.enums.CombineMode;
+import com.synthax.model.enums.MidiNote;
+import com.synthax.model.enums.OctaveOperands;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.value.ChangeListener;
@@ -40,7 +39,7 @@ import java.util.ResourceBundle;
  * @author Luke Eales
  * @author Axel Nilsson
  */
-public class Oscillator implements Initializable {
+public class OscillatorController implements Initializable {
     private final OscillatorVoice[] voices;
     private final int voiceCount = 16;
     private int nextVoice = 0;
@@ -70,7 +69,7 @@ public class Oscillator implements Initializable {
      * Setup internal chain structure.
      * @author Joel Eriksson Sinclair
      */
-    public Oscillator() {
+    public OscillatorController() {
         voiceOutputGlide = new Glide(AudioContext.getDefaultContext(), 0.5f, 50);
         voiceOutput = new Gain(1, voiceOutputGlide);
 

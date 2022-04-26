@@ -1,17 +1,18 @@
-package com.synthax.SynthaX;
+package com.synthax.view;
 
-import com.synthax.SynthaX.controls.KnobBehavior;
+import com.synthax.model.controls.KnobBehavior;
 
-import com.synthax.SynthaX.controls.KnobBehaviorWave;
+import com.synthax.model.controls.KnobBehaviorWave;
+import com.synthax.MainApplication;
+import com.synthax.controller.OscillatorController;
+import com.synthax.controller.SynthaxController;
 import com.synthax.model.ADSRValues;
-import com.synthax.model.MidiNote;
+import com.synthax.model.enums.MidiNote;
 import com.synthax.util.MidiHelpers;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 import javafx.event.EventHandler;
-
-import com.synthax.SynthaX.oscillator.Oscillator;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +23,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class SynthaxController implements Initializable {
+public class SynthaxView implements Initializable {
     @FXML public VBox oscillatorChainView;
     @FXML private Button btnAddOscillator;
     @FXML private AnchorPane mainPane = new AnchorPane();
@@ -43,7 +43,7 @@ public class SynthaxController implements Initializable {
     @FXML private Slider sliderMasterGain;
     @FXML private LineChart lineChartMain;
 
-    private final Synth synth;
+    private final SynthaxController synthaxController;
 
 
     //new gui components
@@ -69,25 +69,25 @@ public class SynthaxController implements Initializable {
             KeyCode.G, new AtomicBoolean(false),
             KeyCode.H, new AtomicBoolean(false));
 
-    public SynthaxController() {
-        synth = new Synth();
+    public SynthaxView() {
+        synthaxController = new SynthaxController();
     }
 
     @FXML
     public void onActionAddOscillator() {
         try {
-            URL fxmlLocation = MainApplication.class.getResource("oscillator/Oscillator-v.fxml");
+            URL fxmlLocation = MainApplication.class.getResource("view/Oscillator-v.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
             Node oscillatorView = fxmlLoader.load();
-            Oscillator oscillator = fxmlLoader.getController();
+            OscillatorController oscillatorController = fxmlLoader.getController();
 
-            synth.addOscillator(oscillator);
+            synthaxController.addOscillator(oscillatorController);
 
-            oscillator.getBtnRemoveOscillator().setOnAction(event -> {
-                synth.removeOscillator(oscillator);
+            oscillatorController.getBtnRemoveOscillator().setOnAction(event -> {
+                synthaxController.removeOscillator(oscillatorController);
                 oscillatorChainView.getChildren().remove(oscillatorView);
             });
-            oscillator.getBtnMoveDown().setOnAction(event -> {
+            oscillatorController.getBtnMoveDown().setOnAction(event -> {
                 Node[] childList = oscillatorChainView.getChildren().toArray(new Node[0]);
                 int oscIndex = oscillatorChainView.getChildren().indexOf(oscillatorView);
 
@@ -98,10 +98,10 @@ public class SynthaxController implements Initializable {
 
                     oscillatorChainView.getChildren().setAll(childList);
 
-                    synth.moveOscillatorDown(oscillator);
+                    synthaxController.moveOscillatorDown(oscillatorController);
                 }
             });
-            oscillator.getBtnMoveUp().setOnAction(event -> {
+            oscillatorController.getBtnMoveUp().setOnAction(event -> {
                 Node[] childList = oscillatorChainView.getChildren().toArray(new Node[0]);
                 int oscIndex = oscillatorChainView.getChildren().indexOf(oscillatorView);
 
@@ -112,7 +112,7 @@ public class SynthaxController implements Initializable {
 
                     oscillatorChainView.getChildren().setAll(childList);
 
-                    synth.moveOscillatorUp(oscillator);
+                    synthaxController.moveOscillatorUp(oscillatorController);
                 }
             });
 
@@ -222,7 +222,7 @@ public class SynthaxController implements Initializable {
                     if(keyStatus.get(keyCode).compareAndSet(false, true)){
                         MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
                         System.out.println("++++" + note.name());
-                        synth.noteOn(note, 128);
+                        synthaxController.noteOn(note, 128);
                     }
                 }
             }
@@ -235,7 +235,7 @@ public class SynthaxController implements Initializable {
                     if(keyStatus.get(keyCode).compareAndSet(true, false)){
                         MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
                         System.out.println("----" + note.name());
-                        synth.noteOff(note);
+                        synthaxController.noteOff(note);
                     }
                 }
             }
@@ -290,7 +290,7 @@ public class SynthaxController implements Initializable {
         sliderMasterGain.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                synth.setMasterGain(t1.floatValue());
+                synthaxController.setMasterGain(t1.floatValue());
             }
         });
     }

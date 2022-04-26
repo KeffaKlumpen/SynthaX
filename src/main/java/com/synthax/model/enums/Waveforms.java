@@ -1,4 +1,4 @@
-package com.synthax.SynthaX;
+package com.synthax.model.enums;
 import net.beadsproject.beads.data.Buffer;
 
 /**

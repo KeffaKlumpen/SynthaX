@@ -1,4 +1,4 @@
-package com.synthax.SynthaX;
+package com.synthax.model.oscillator;
 
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.data.Buffer;

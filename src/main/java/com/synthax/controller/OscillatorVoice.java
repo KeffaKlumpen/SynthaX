@@ -4,7 +4,7 @@
   Study program: Sys 21h
 */
 
-package com.synthax.SynthaX.oscillator;
+package com.synthax.controller;
 
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Envelope;

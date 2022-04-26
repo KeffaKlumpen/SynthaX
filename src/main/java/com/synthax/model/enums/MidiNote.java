@@ -1,4 +1,4 @@
-package com.synthax.model;
+package com.synthax.model.enums;
 
 /**
  * Maps note names to frequencies.
