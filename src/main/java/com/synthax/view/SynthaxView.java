@@ -44,7 +44,7 @@ public class SynthaxView implements Initializable {
     @FXML private LineChart lineChartMain;
 
     private final SynthaxController synthaxController;
-
+    private final int attackMax = 3000;
 
     //new gui components
     @FXML private Button knobNoiseGain;
@@ -243,7 +243,7 @@ public class SynthaxView implements Initializable {
         //endregion
 
         //region ADSR sliders
-        sliderAttack.setMax(3000);
+        sliderAttack.setMax(attackMax);
         sliderAttack.setMin(10);
         sliderAttack.setBlockIncrement(50);
         sliderAttack.valueProperty().addListener(new ChangeListener<Number>() {
@@ -293,5 +293,9 @@ public class SynthaxView implements Initializable {
                 synthaxController.setMasterGain(t1.floatValue());
             }
         });
+    }
+
+    public void onAttackDrag() {
+        double x = sliderAttack.getValue()/attackMax * 100;
     }
 }
