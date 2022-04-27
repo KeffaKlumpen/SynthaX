@@ -1,3 +1,10 @@
+.root {
+    -fx-accent: #f78000;
+    -fx-focus-color: #f78000;
+    -fx-faint-focus-color: #f7800022;
+    -fx-background-color: #d6d1c9;
+    -fx-base: #bfbbb4;
+}
 .knob:focused {
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
         -fx-background-insets: 0, 1, 2;
@@ -18,6 +25,13 @@
 
 .spinner .text-field{
     -fx-background-color: #cfc9c0;
+    -fx-background-radius: 5px
+}
+
+.spinner {
+    -fx-border-color: #a6a097;
+    -fx-border-radius: 5px;
+    -fx-background-color: transparent;
 }
 
 .toggle-switch .thumb-area{
@@ -29,16 +43,7 @@
 }
 
 .tool-bar:horizontal {
-    -fx-background-color: #bfbbb4;
-    -fx-base: #bfbbb4;
-}
-
-.titled-pane: {
-    -fx-background-color: #bfbbb4;
-}
-
-.titled-pane > .title {
-    -fx-background-color: #bfbbb4;
+    -fx-background-color: transparent;
 }
 
 .scroll-pane {
@@ -88,8 +93,7 @@
 }
 
 #mainPane {
--fx-background-color: #d6d1c9;
--fx-base: #bfbbb4;
+
 }
 
 .chart {
