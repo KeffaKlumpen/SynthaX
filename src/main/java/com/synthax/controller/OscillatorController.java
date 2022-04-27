@@ -93,12 +93,17 @@ public class OscillatorController implements Initializable {
                     currGains[i] = currGain;
                     totalGain += currGain;
                 }
-                System.out.println("total: " + totalGain);
+                // System.out.println("total: " + totalGain);
+                float combinedNormalized = 0f;
                 if(totalGain != 0) {
                     for (int i = 0; i < voiceCount; i++) {
-                        voices[i].getNormalizedGain().setGain(currGains[i] / totalGain);
+                        float normalizedGain = currGains[i] / totalGain;
+                        voices[i].getNormalizedGain().setGain(normalizedGain);
+                        combinedNormalized += normalizedGain;
                     }
                 }
+
+                System.out.println(combinedNormalized);
             }
         });
         normalizer.start();
