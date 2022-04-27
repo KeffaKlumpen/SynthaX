@@ -1,9 +1,12 @@
 .root {
+    -fx-base: #bfbbb4;
+    -fx-background: derive(-fx-base,20%);
     -fx-accent: #f78000;
     -fx-focus-color: #f78000;
     -fx-faint-focus-color: #f7800022;
     -fx-background-color: #d6d1c9;
-    -fx-base: #bfbbb4;
+    -fx-control-inner-background: #b0aaa0;
+    -fx-shadow-highlight-color: #a6a4a270;
 }
 .knob:focused {
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
@@ -22,17 +25,20 @@
     -fx-max-width: 30px;
     -fx-max-height: 30px;
 }
-
+/*
 .spinner .text-field{
     -fx-background-color: #cfc9c0;
     -fx-background-radius: 5px
-}
-
+}*/
+/*
 .spinner {
     -fx-border-color: #a6a097;
     -fx-border-radius: 5px;
+
     -fx-background-color: transparent;
+
 }
+*/
 
 .toggle-switch .thumb-area{
     -fx-background-color: #a6a097;
