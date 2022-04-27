@@ -291,6 +291,7 @@ public class SynthaxView implements Initializable {
 
     private void setupLineChart() {
         XYChart.Series<Number, Number> seriesADSR = new XYChart.Series<>();
+
         point1ADSR.setXValue(0d);
         point1ADSR.setYValue(0d);
         point2ADSR.setXValue(0d);

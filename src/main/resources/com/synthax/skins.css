@@ -3,17 +3,115 @@
         -fx-background-insets: 0, 1, 2;
 }
 .knob {
--fx-background-radius: 30px;
--fx-background-image: url("Images/knob-main.png");
-    -fx-background-size: 30px 30px;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
--fx-min-width: 30px;
--fx-min-height: 30px;
--fx-max-width: 30px;
--fx-max-height: 30px;
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+        -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 30px;
+    -fx-background-image: url("Images/knob-main.png");
+        -fx-background-size: 30px 30px;
+        -fx-background-repeat: no-repeat;
+        -fx-background-position: center;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-max-width: 30px;
+    -fx-max-height: 30px;
 }
 
-.lineChartMain {
--fx-tick-mark-visible: false;
+.spinner .text-field{
+    -fx-background-color: #cfc9c0;
+}
+
+.toggle-switch .thumb-area{
+    -fx-background-color: #a6a097;
+}
+
+.toggle-switch:selected .thumb-area {
+    -fx-background-color: #f78000;
+}
+
+.tool-bar:horizontal {
+    -fx-background-color: #bfbbb4;
+    -fx-base: #bfbbb4;
+}
+
+.titled-pane: {
+    -fx-background-color: #bfbbb4;
+}
+
+.titled-pane > .title {
+    -fx-background-color: #bfbbb4;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #b0ada7;
+    -fx-background-radius: 5em;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
+.label {
+    -fx-text-fill: #000000;
+}
+
+#oscBox {
+    -fx-background-color: #d6d1c9;
+}
+
+#logo {
+    -fx-text-fill: #f78000;
+}
+
+#mainPane {
+-fx-background-color: #d6d1c9;
+-fx-base: #bfbbb4;
+}
+
+.chart {
+    -fx-background-color:  transparent;
+}
+
+.chart-plot-background {
+    -fx-background-color:  transparent;
+}
+
+.chart-series-line {
+    -fx-stroke-width: 4px;
+}
+
+.chart-line-symbol {
+    -fx-padding: 5px
+}
+
+.default-color0.chart-series-line {
+    -fx-stroke: #f78000;
+}
+
+.default-color0.chart-line-symbol {
+    -fx-background-color: #f78000, #d6d1c9;
 }

@@ -21,10 +21,10 @@
     <Button fx:id="btnAddOscillator" layoutX="93.0" layoutY="150.0" mnemonicParsing="false" onAction="#onActionAddOscillator" text="Add Oscilltator" />
       <ScrollPane layoutX="8.0" layoutY="182.0" prefHeight="530.0" prefWidth="415.0">
          <content>
-            <VBox fx:id="oscillatorChainView" prefHeight="520.0" prefWidth="400.0" />
+            <VBox id="oscBox" fx:id="oscillatorChainView" prefHeight="520.0" prefWidth="367.0" />
          </content>
       </ScrollPane>
-      <Label layoutX="17.0" layoutY="14.0" prefHeight="66.0" prefWidth="279.0" text="SynthaX™" textFill="#ffa100">
+      <Label id="logo" layoutX="17.0" layoutY="14.0" prefHeight="66.0" prefWidth="279.0" text="SynthaX™" textFill="#ffa100">
          <font>
             <Font name="Arial Bold" size="53.0" />
          </font>
@@ -213,13 +213,12 @@
                   <Font size="12.0" />
                </font>
             </Label>
-            <ToggleSwitch layoutX="396.0" layoutY="16.0" prefHeight="20.0" prefWidth="30.0" />
-            <LineChart fx:id="lineChartADSR" alternativeRowFillVisible="false" animated="false" cacheShape="false" centerShape="false" createSymbols="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="203.0" layoutY="38.0" legendVisible="false" prefHeight="147.0" prefWidth="150.0" scaleShape="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
+            <LineChart fx:id="lineChartADSR" alternativeRowFillVisible="false" animated="false" cacheShape="false" centerShape="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="203.0" layoutY="38.0" legendVisible="false" prefHeight="147.0" prefWidth="150.0" scaleShape="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
               <xAxis>
-                <NumberAxis animated="false" autoRanging="false" lowerBound="-1.0" minorTickVisible="false" opacity="0.0" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" upperBound="41.0" fx:id="xAxis" />
+                <NumberAxis animated="false" autoRanging="false" lowerBound="-3.0" minorTickVisible="false" opacity="0.0" side="BOTTOM" tickLabelsVisible="false" tickMarkVisible="false" upperBound="41.0" fx:id="xAxis" />
               </xAxis>
               <yAxis>
-                <NumberAxis fx:id="yAxis" animated="false" autoRanging="false" lowerBound="-1.0" minorTickVisible="false" opacity="0.0" side="LEFT" tickLabelsVisible="false" tickMarkVisible="false" upperBound="31.0" />
+                <NumberAxis fx:id="yAxis" animated="false" autoRanging="false" lowerBound="-3.0" minorTickVisible="false" opacity="0.0" side="LEFT" tickLabelsVisible="false" tickMarkVisible="false" upperBound="33.0" />
               </yAxis>
             </LineChart>
          </children>
@@ -265,7 +264,7 @@
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <Spinner layoutX="77.0" layoutY="28.0" prefHeight="26.0" prefWidth="77.0" />
+            <Spinner id="filterspin" layoutX="77.0" layoutY="28.0" prefHeight="26.0" prefWidth="77.0" />
             <Label layoutX="81.0" layoutY="8.0" text="Shape" />
          </children>
       </AnchorPane>
