@@ -5,34 +5,37 @@ import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
 import net.beadsproject.beads.data.Buffer;
-import net.beadsproject.beads.ugens.Compressor;
+import net.beadsproject.beads.ugens.Envelope;
 import net.beadsproject.beads.ugens.Function;
 import net.beadsproject.beads.ugens.Gain;
 import net.beadsproject.beads.ugens.WavePlayer;
 
 import java.util.Arrays;
 
-public class TestCompressor {
+public class TestNormalizedADSR {
 
     private Gain masterGain;
-    private Function normalizer;
-    private UGen normalizeUgen;
     private AudioContext ac;
 
-    TestCompressor() {
+    TestNormalizedADSR() {
         JavaSoundAudioIO jsaio = new JavaSoundAudioIO(512);
         ac = new AudioContext(jsaio);
         AudioContext.setDefaultContext(ac);
 
-        masterGain = new Gain(ac, 1, 1f);
+        masterGain = new Gain(ac, 1, .2f);
 
-        int oscCount = 6;
+        int oscCount = 128;
 
         WavePlayer[] wps = new WavePlayer[oscCount];
+        Gain[] gains = new Gain[oscCount];
+        Gain[] normalizedGains = new Gain[oscCount];
+        Envelope[] adsrEnvs = new Envelope[oscCount];
+
+        Gain combinedVoices = new Gain(1, 1f);
 
         for (int i = 0; i < oscCount; i++) {
-            // wps[i] = new WavePlayer(MidiNote.values()[57 + (i * 4)].getFrequency(), Buffer.SINE);
-            Buffer buf = Buffer.SINE;
+            Buffer buf = Buffer.SAW;
+            // region Setup Oscillators
             if(i == 0){
                 wps[i] = new WavePlayer(MidiNote.C4.getFrequency(), buf);
             }
@@ -57,71 +60,44 @@ public class TestCompressor {
             if(i == 7){
                 wps[i] = new WavePlayer(MidiNote.G3.getFrequency(), buf);
             }
-            Gain gain = new Gain(1, 1f);
-            gain.addInput(wps[i]);
-            masterGain.addInput(gain);
+            if(i > 7) {
+                wps[i] = new WavePlayer(MidiNote.G4.getFrequency(), buf);
+            }
+            //endregion
+
+            Envelope env = adsrEnvs[i] = new Envelope(0f);
+            env.addSegment(1f, 2500f);
+            // env.addSegment(0f, 1500f);
+            Gain g = gains[i] = new Gain(1, env);
+            g.addInput(wps[i]);
+            Gain gNorm = normalizedGains[i] = new Gain(1, 1f);
+            gNorm.addInput(g);
+
+            combinedVoices.addInput(gNorm);
         }
 
-        normalizeUgen = new UGen(ac, 1, 1) {
-            private final int historyLength = 64;
-            private float[] peakHistory = new float[historyLength];
-            private int peakHistoryCount = 0;
-            private int peakHistoryIndex = 0;
-
-            @Override
-            public void calculateBuffer() {
-                float[] bi = bufIn[0];
-                float[] bo = bufOut[0];
-
-                float peak = -1000f;
-                for (int i = 0; i < bufferSize; i++) {
-                    float b = Math.abs(bi[i]);
-                    if(b > peak){
-                        peak = b;
+        /////// NORMALIZER THREAD lOl \\\\\\\
+        Thread normalizer = new Thread(() -> {
+            while (true){
+                float totalGain = 0f;
+                float[] currGains = new float[oscCount];
+                for (int i = 0; i < oscCount; i++) {
+                    currGains[i] = gains[i].getGain();
+                    totalGain += gains[i].getGain();
+                }
+                System.out.println("total: " + totalGain);
+                if(totalGain != 0) {
+                    for (int i = 0; i < oscCount; i++) {
+                        normalizedGains[i].setGain(currGains[i] / totalGain);
                     }
                 }
-
-                peak = (float) Math.ceil(peak);
-                System.out.println(peak);
-                // save peak to history
-                peakHistory[peakHistoryIndex] = peak;
-                if(peakHistoryCount < historyLength) {
-                    peakHistoryCount++;
-                }
-                peakHistoryIndex = ++peakHistoryIndex % historyLength;
-
-                // System.out.println(peak);
-
-                float peakDivider = 0f;
-                for (int i = 0; i < peakHistoryCount; i++) {
-                    peakDivider += peakHistory[i];
-                }
-                peakDivider /= peakHistoryCount;
-                peakDivider = (float) Math.ceil(peakDivider);
-
-                // System.out.println(peakDivider);
-
-                bo[0] = 1f / peakDivider;
-
-                for (int i = 0; i < bufferSize; i++) {
-                    if(peak == 0f){
-                        bo[i] = bi[i];
-                    }
-                    else {
-                        bo[i] = bi[i] / peakDivider;
-                    }
-                }
-
-                // System.out.println(Arrays.toString(bo));
             }
-        };
+        });
+        normalizer.start();
 
-        normalizeUgen.addInput(masterGain);
-
-        ac.out.addInput(normalizeUgen);
+        masterGain.addInput(combinedVoices);
+        ac.out.addInput(masterGain);
         ac.start();
-
-        // debug();
     }
 
     private void debug() {
@@ -147,6 +123,6 @@ public class TestCompressor {
     }
 
     public static void main(String[] args) {
-        new TestCompressor();
+        new TestNormalizedADSR();
     }
 }

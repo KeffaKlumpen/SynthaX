@@ -13,14 +13,19 @@ import net.beadsproject.beads.ugens.WavePlayer;
 
 public class OscillatorVoice {
     private final WavePlayer wavePlayer;
-    private final Gain output;
+    private final Gain naturalGain;
     private final Envelope gainEnv;
+    private final Gain normalizedGain;
 
     public OscillatorVoice(Buffer waveBuffer){
         wavePlayer = new WavePlayer(0f, waveBuffer);
+
         gainEnv = new Envelope();
-        output = new Gain(1, gainEnv);
-        output.addInput(wavePlayer);
+        naturalGain = new Gain(1, gainEnv);
+        naturalGain.addInput(wavePlayer);
+
+        normalizedGain = new Gain(1, 1f);
+        normalizedGain.addInput(naturalGain);
     }
 
     public void playFreq(float freq, float maxGain, float attackTime, float sustainGain, float decayTime){
@@ -39,8 +44,12 @@ public class OscillatorVoice {
         wavePlayer.pause(!onOff);
     }
 
-    public Gain getOutput() {
-        return output;
+    public Gain getNaturalGain() {
+        return naturalGain;
+    }
+
+    public Gain getNormalizedGain() {
+        return normalizedGain;
     }
 
     public WavePlayer getWavePlayer() {

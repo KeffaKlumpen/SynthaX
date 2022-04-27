@@ -22,10 +22,7 @@ import javafx.scene.input.MouseEvent;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
-import net.beadsproject.beads.ugens.Add;
-import net.beadsproject.beads.ugens.Gain;
-import net.beadsproject.beads.ugens.Glide;
-import net.beadsproject.beads.ugens.Mult;
+import net.beadsproject.beads.ugens.*;
 import org.controlsfx.control.SegmentedButton;
 import org.controlsfx.control.ToggleSwitch;
 
@@ -77,11 +74,34 @@ public class OscillatorController implements Initializable {
         voices = new OscillatorVoice[voiceCount];
         for (int i = 0; i < voiceCount; i++) {
             OscillatorVoice voice = new OscillatorVoice(Buffer.SINE);
-            voiceOutput.addInput(voice.getOutput());
+            voiceOutput.addInput(voice.getNormalizedGain());
             voices[i] = voice;
         }
 
         oscillatorOutput = new Add(1, voiceOutput);
+        voiceNormalizerThread();
+    }
+
+    private void voiceNormalizerThread() {
+        /////// NORMALIZER THREAD lOl \\\\\\\
+        Thread normalizer = new Thread(() -> {
+            while (true){
+                float totalGain = 0f;
+                float[] currGains = new float[voiceCount];
+                for (int i = 0; i < voiceCount; i++) {
+                    float currGain = voices[i].getNaturalGain().getGain();
+                    currGains[i] = currGain;
+                    totalGain += currGain;
+                }
+                System.out.println("total: " + totalGain);
+                if(totalGain != 0) {
+                    for (int i = 0; i < voiceCount; i++) {
+                        voices[i].getNormalizedGain().setGain(currGains[i] / totalGain);
+                    }
+                }
+            }
+        });
+        normalizer.start();
     }
 
     /**
