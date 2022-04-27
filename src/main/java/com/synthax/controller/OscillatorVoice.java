@@ -9,6 +9,7 @@ package com.synthax.controller;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Envelope;
 import net.beadsproject.beads.ugens.Gain;
+import net.beadsproject.beads.ugens.Glide;
 import net.beadsproject.beads.ugens.WavePlayer;
 
 public class OscillatorVoice {
@@ -16,6 +17,7 @@ public class OscillatorVoice {
     private final Gain naturalGain;
     private final Envelope gainEnv;
     private final Gain normalizedGain;
+    private final Glide normGainGlide;
 
     public OscillatorVoice(Buffer waveBuffer){
         wavePlayer = new WavePlayer(0f, waveBuffer);
@@ -24,7 +26,8 @@ public class OscillatorVoice {
         naturalGain = new Gain(1, gainEnv);
         naturalGain.addInput(wavePlayer);
 
-        normalizedGain = new Gain(1, 1f);
+        normGainGlide = new Glide(0f, 10f);
+        normalizedGain = new Gain(1, normGainGlide);
         normalizedGain.addInput(naturalGain);
     }
 
@@ -50,6 +53,9 @@ public class OscillatorVoice {
 
     public Gain getNormalizedGain() {
         return normalizedGain;
+    }
+    public void setNormalizedGain(float gain) {
+        normGainGlide.setValue(gain);
     }
 
     public WavePlayer getWavePlayer() {

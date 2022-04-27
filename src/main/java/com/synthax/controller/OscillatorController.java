@@ -79,11 +79,16 @@ public class OscillatorController implements Initializable {
         }
 
         oscillatorOutput = new Add(1, voiceOutput);
-        voiceNormalizerThread();
+        // voiceNormalizerThread();
     }
 
+    /**
+     * En jävla idiot-lösning till tråd.
+     * Normalizerar voice-gain baserat på alla voices kombinerade gain.
+     */
     private void voiceNormalizerThread() {
         /////// NORMALIZER THREAD lOl \\\\\\\
+        // todo: 30% CPU per tråd
         Thread normalizer = new Thread(() -> {
             while (true){
                 float totalGain = 0f;
@@ -98,12 +103,12 @@ public class OscillatorController implements Initializable {
                 if(totalGain != 0) {
                     for (int i = 0; i < voiceCount; i++) {
                         float normalizedGain = currGains[i] / totalGain;
-                        voices[i].getNormalizedGain().setGain(normalizedGain);
-                        combinedNormalized += normalizedGain;
+                        voices[i].setNormalizedGain(normalizedGain);
+                        //combinedNormalized += normalizedGain;
                     }
                 }
 
-                System.out.println(combinedNormalized);
+                //System.out.println(combinedNormalized);
             }
         });
         normalizer.start();
