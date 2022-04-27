@@ -19,6 +19,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
@@ -32,21 +34,13 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * BAJS
+ * @author Axel Nilsson
+ * @author Luke Eales
+ */
 public class SynthaxView implements Initializable {
-    @FXML public VBox oscillatorChainView;
-    @FXML private Button btnAddOscillator;
-    @FXML private AnchorPane mainPane = new AnchorPane();
-    @FXML private Slider sliderAttack;
-    @FXML private Slider sliderDecay;
-    @FXML private Slider sliderSustain;
-    @FXML private Slider sliderRelease;
-    @FXML private Slider sliderMasterGain;
-    @FXML private LineChart lineChartMain;
-
-    private final SynthaxController synthaxController;
-    private final int attackMax = 3000;
-
-    //new gui components
+    @FXML private VBox oscillatorChainView;
     @FXML private Button knobNoiseGain;
     @FXML private Button knobDelayFeedback;
     @FXML private Button knobDelayTime;
@@ -60,7 +54,27 @@ public class SynthaxView implements Initializable {
     @FXML private Button knobFilterCutoff;
     @FXML private Button knobFilterResonance;
     @FXML private Button knobFilterEnvelope;
+    @FXML private Button btnAddOscillator;
+    @FXML private AnchorPane mainPane = new AnchorPane();
+    @FXML private Slider sliderAttack;
+    @FXML private Slider sliderDecay;
+    @FXML private Slider sliderSustain;
+    @FXML private Slider sliderRelease;
+    @FXML private Slider sliderMasterGain;
+    @FXML private NumberAxis xAxis = new NumberAxis();
+    @FXML private NumberAxis yAxis = new NumberAxis();
+    @FXML private LineChart<Number, Number> lineChartADSR = new LineChart<Number, Number>(xAxis,yAxis);
 
+    private XYChart.Data<Number, Number> point1ADSR = new XYChart.Data<>();
+    private XYChart.Data<Number, Number> point2ADSR = new XYChart.Data<>();
+    private XYChart.Data<Number, Number> point3ADSR = new XYChart.Data<>();
+    private XYChart.Data<Number, Number> point4ADSR = new XYChart.Data<>();
+    private XYChart.Data<Number, Number> point5ADSR = new XYChart.Data<>();
+
+    private final SynthaxController synthaxController;
+    private final int attackMax = 3000;
+    private final int decayMax = 1500;
+    private final int releaseMax = 2000;
 
     private final Map<KeyCode, AtomicBoolean> keyStatus = Map.of(KeyCode.A, new AtomicBoolean(false),
             KeyCode.S, new AtomicBoolean(false),
@@ -123,13 +137,9 @@ public class SynthaxView implements Initializable {
         }
     }
 
-    @FXML
-    public void onActionPlay() {
-        System.out.println("use A,S,D,F,G keys to play!");
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //region Knob behavior (Click to open/collapse)
         KnobBehavior bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
         knobNoiseGain.setOnMouseDragged(bKnobNoiseGain);
         bKnobNoiseGain.setValueZero();
@@ -208,11 +218,9 @@ public class SynthaxView implements Initializable {
         bKnobFilterEnvelope.knobValueProperty().addListener((v, oldValue, newValue) -> {
             //code here
         });
+        //endregion
 
-
-
-
-        //region KeyBoard playing
+        //region KeyBoard playing (Click to open/collapse)
         mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -242,60 +250,86 @@ public class SynthaxView implements Initializable {
         });
         //endregion
 
-        //region ADSR sliders
+        //region ADSR sliders (Click to open/collapse)
+        setupLineChart();
+
         sliderAttack.setMax(attackMax);
         sliderAttack.setMin(10);
         sliderAttack.setBlockIncrement(50);
-        sliderAttack.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                ADSRValues.setAttackValue(t1.floatValue());
-            }
+        sliderAttack.valueProperty().addListener((observableValue, number, t1) -> {
+            ADSRValues.setAttackValue(t1.floatValue());
+            onAttackDrag();
         });
 
         sliderDecay.setMax(1500);
         sliderDecay.setMin(10);
         sliderDecay.setBlockIncrement(50);
-        sliderDecay.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                ADSRValues.setDecayValue(t1.floatValue());
-            }
+        sliderDecay.valueProperty().addListener((observableValue, number, t1) -> {
+            ADSRValues.setDecayValue(t1.floatValue());
+            onDecayDrag();
         });
 
         sliderSustain.setMax(1);
         sliderSustain.setValue(1);
         sliderSustain.setBlockIncrement(0.1);
-        sliderSustain.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                ADSRValues.setSustainValue(t1.floatValue());
-            }
+        sliderSustain.valueProperty().addListener((observableValue, number, t1) -> {
+            ADSRValues.setSustainValue(t1.floatValue());
+            onSustainDrag();
         });
 
         sliderRelease.setMax(2000);
         sliderRelease.setMin(10);
         sliderRelease.setBlockIncrement(50);
-        sliderRelease.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                ADSRValues.setReleaseValue(t1.floatValue());
-            }
+        sliderRelease.valueProperty().addListener((observableValue, number, t1) -> {
+            ADSRValues.setReleaseValue(t1.floatValue());
+            onReleaseDrag();
         });
-        //endregion
+        //endregion ((Click to open/collapse)
 
-        sliderMasterGain.setMax(1);
-        sliderMasterGain.setValue(0.5);
-        sliderMasterGain.setBlockIncrement(0.1);
-        sliderMasterGain.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                synthaxController.setMasterGain(t1.floatValue());
-            }
-        });
+        sliderMasterGain.valueProperty().addListener((observableValue, number, t1) -> synthaxController.setMasterGain(t1.floatValue()));
     }
 
-    public void onAttackDrag() {
-        double x = sliderAttack.getValue()/attackMax * 100;
+    private void setupLineChart() {
+        XYChart.Series<Number, Number> seriesADSR = new XYChart.Series<>();
+        point1ADSR.setXValue(0d);
+        point1ADSR.setYValue(0d);
+        point2ADSR.setXValue(0d);
+        point2ADSR.setYValue(30d);
+        point3ADSR.setXValue(0d);
+        point3ADSR.setYValue(30d);
+        point4ADSR.setXValue(40d);
+        point4ADSR.setYValue(30d);
+        point5ADSR.setXValue(40d);
+        point5ADSR.setYValue(0d);
+        seriesADSR.getData().add(point1ADSR);
+        seriesADSR.getData().add(point2ADSR);
+        seriesADSR.getData().add(point3ADSR);
+        seriesADSR.getData().add(point4ADSR);
+        seriesADSR.getData().add(point5ADSR);
+        lineChartADSR.getData().add(seriesADSR);
     }
+
+    /**
+     * Shifting the points in ADSR linechart to reflect the slider values.
+     * @author Axel Nilsson
+     * @author Luke Eales
+     */
+    //region Methods for updating linechart (click to open/collapse)
+    private void onAttackDrag() {
+        point2ADSR.setXValue((sliderAttack.getValue()/attackMax)*10d);
+        point3ADSR.setXValue((sliderAttack.getValue()/attackMax)*10d+(sliderDecay.getValue()/decayMax)*10d);
+    }
+
+    private void onDecayDrag() {
+        point3ADSR.setXValue((sliderAttack.getValue()/attackMax)*10d+(sliderDecay.getValue()/decayMax)*10d);
+    }
+    private void onSustainDrag() {
+
+        point3ADSR.setYValue(sliderSustain.getValue()*30d);
+        point4ADSR.setYValue(sliderSustain.getValue()*30d);
+    }
+    private void onReleaseDrag() {
+        point4ADSR.setXValue(40d-(sliderRelease.getValue()/releaseMax)*10d);
+    }
+    //endregion
 }
