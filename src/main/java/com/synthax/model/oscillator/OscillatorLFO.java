@@ -4,10 +4,10 @@ import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.WavePlayer;
 
-public class LFO {
+public class OscillatorLFO {
     private WavePlayer lfo;
 
-    public LFO(AudioContext ac) {
+    public OscillatorLFO(AudioContext ac) {
         lfo = new WavePlayer(ac, 20f, Buffer.SINE);
     }
 

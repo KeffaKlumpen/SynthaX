@@ -183,6 +183,7 @@ public class SynthaxView implements Initializable {
             //code here
         });
 
+        //region LFO knob setup
         KnobBehavior bKnobLFODepth = new KnobBehavior(knobLFODepth);
         knobLFODepth.setOnMouseDragged(bKnobLFODepth);
         bKnobLFODepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
@@ -200,6 +201,7 @@ public class SynthaxView implements Initializable {
         bKnobLFOWaveform.knobValueProperty().addListener((v, oldValue, newValue) -> {
             //code here
         });
+        //endregion
 
         KnobBehavior bKnobFilterCutoff = new KnobBehavior(knobFilterCutoff);
         knobFilterCutoff.setOnMouseDragged(bKnobFilterCutoff);
