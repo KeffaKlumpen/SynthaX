@@ -26,22 +26,22 @@ public class KnobBehavior implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent mouseEvent) {
-
         double mousePos = mouseEvent.getScreenY();
-
-        if (lastMousePos > mousePos && knobValue.getValue() < knobMaxValue) {
-            knobValue.setValue(knobValue.getValue() + 0.01);
+        Float oldValue = knobValue.getValue();
+        if (lastMousePos > mousePos && oldValue < knobMaxValue) {
+            knobValue.setValue(oldValue + 0.01);
             knob.setRotate(knob.getRotate() + 3);
 
-        } else if (lastMousePos < mousePos && knobValue.getValue() > knobMinValue){
-            knobValue.setValue(knobValue.getValue() - 0.01);
+        } else if (lastMousePos < mousePos && oldValue > knobMinValue){
+            knobValue.setValue(oldValue - 0.01);
             knob.setRotate(knob.getRotate() - 3);
         }
-
-        if (knobValue.getValue() < 0.005) {
+        Float currValue = knobValue.getValue();
+        if (currValue < 0.005) {
             knobValue.setValue(0);
+        } else if (currValue > 0.995) {
+            knobValue.setValue(1);
         }
-
         lastMousePos = mousePos;
     }
 

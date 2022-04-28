@@ -27,17 +27,13 @@ public class KnobBehaviorDetune implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent mouseEvent) {
-
-
         double mousePos = mouseEvent.getScreenY();
-
+        float value = knobValue.getValue();
         if (lastMousePos > mousePos) {
             rotation++;
         } else if (lastMousePos < mousePos) {
             rotation--;
         }
-        float value = knobValue.getValue();
-
         if ((rotation > 10 && value < knobMaxValue) && value == 0) {
             knobValue.setValue(knobValue.getValue() + 1);
             knob.setRotate(knob.getRotate() + 3);
