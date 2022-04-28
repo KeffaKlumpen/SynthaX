@@ -5,6 +5,9 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * Class that represents the behavior of a rotating Waveform knob.
  * Rotates the knob organically in a span of 300 degrees starting at 210 degrees.
@@ -29,11 +32,15 @@ public class KnobBehavior implements EventHandler<MouseEvent> {
         double mousePos = mouseEvent.getScreenY();
         Float oldValue = knobValue.getValue();
         if (lastMousePos > mousePos && oldValue < knobMaxValue) {
-            knobValue.setValue(oldValue + 0.01);
+            BigDecimal dec = new BigDecimal(oldValue+0.01);
+            BigDecimal dd = dec.setScale(4, RoundingMode.HALF_UP);
+            knobValue.setValue(dd.floatValue());
             knob.setRotate(knob.getRotate() + 3);
 
         } else if (lastMousePos < mousePos && oldValue > knobMinValue){
-            knobValue.setValue(oldValue - 0.01);
+            BigDecimal dec = new BigDecimal(oldValue-0.01);
+            BigDecimal dd = dec.setScale(2, RoundingMode.HALF_UP);
+            knobValue.setValue(dd.floatValue());
             knob.setRotate(knob.getRotate() - 3);
         }
         Float currValue = knobValue.getValue();
