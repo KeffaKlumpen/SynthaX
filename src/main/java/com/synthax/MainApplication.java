@@ -4,6 +4,7 @@ import com.synthax.view.SynthaxView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.io.IOException;
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        Font.loadFont(MainApplication.class.getResource("fonts/wonome.ttf").toExternalForm(), 10);
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/synthax-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(getClass().getResource("skins.css").toExternalForm());
