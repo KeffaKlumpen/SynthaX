@@ -1,16 +1,13 @@
 package com.synthax.test;
 
+import com.synthax.model.oscillator.VoiceNormalizer;
 import com.synthax.model.enums.MidiNote;
 import net.beadsproject.beads.core.AudioContext;
-import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Envelope;
-import net.beadsproject.beads.ugens.Function;
 import net.beadsproject.beads.ugens.Gain;
 import net.beadsproject.beads.ugens.WavePlayer;
-
-import java.util.Arrays;
 
 public class TestNormalizedADSR {
 
@@ -24,7 +21,7 @@ public class TestNormalizedADSR {
 
         masterGain = new Gain(ac, 1, .2f);
 
-        int oscCount = 128;
+        int oscCount = 2;
 
         WavePlayer[] wps = new WavePlayer[oscCount];
         Gain[] gains = new Gain[oscCount];
@@ -32,6 +29,9 @@ public class TestNormalizedADSR {
         Envelope[] adsrEnvs = new Envelope[oscCount];
 
         Gain combinedVoices = new Gain(1, 1f);
+
+        VoiceNormalizer voiceNormalizer = new VoiceNormalizer(ac, oscCount);
+        masterGain.addDependent(voiceNormalizer);
 
         for (int i = 0; i < oscCount; i++) {
             Buffer buf = Buffer.SAW;
@@ -73,31 +73,21 @@ public class TestNormalizedADSR {
             Gain gNorm = normalizedGains[i] = new Gain(1, 1f);
             gNorm.addInput(g);
 
+            voiceNormalizer.setInGain(g, i);
+            // voiceNormalizer.setOutGain(gNorm, i); // Pass in a Glide object instead! avoids clicks.
+
             combinedVoices.addInput(gNorm);
         }
-
-        /////// NORMALIZER THREAD lOl \\\\\\\
-        Thread normalizer = new Thread(() -> {
-            while (true){
-                float totalGain = 0f;
-                float[] currGains = new float[oscCount];
-                for (int i = 0; i < oscCount; i++) {
-                    currGains[i] = gains[i].getGain();
-                    totalGain += gains[i].getGain();
-                }
-                System.out.println("total: " + totalGain);
-                if(totalGain != 0) {
-                    for (int i = 0; i < oscCount; i++) {
-                        normalizedGains[i].setGain(currGains[i] / totalGain);
-                    }
-                }
-            }
-        });
-        normalizer.start();
 
         masterGain.addInput(combinedVoices);
         ac.out.addInput(masterGain);
         ac.start();
+
+        new Thread(() -> {
+            while (true) {
+                System.out.println(normalizedGains[0].getGain());
+            }
+        }).start();
     }
 
     private void debug() {
@@ -105,6 +95,11 @@ public class TestNormalizedADSR {
         Thread debugger = new Thread(new Runnable() {
             @Override
             public void run() {
+                while (true) {
+
+                }
+
+                /*
                 while (count[0] < 100000) {
                     float[] ob = ac.out.getOutBuffer(0);
                     float peak = -100f;
@@ -117,6 +112,7 @@ public class TestNormalizedADSR {
                     System.out.println(Arrays.toString(ob));
                     count[0]++;
                 }
+                 */
             }
         });
         debugger.start();
@@ -125,4 +121,5 @@ public class TestNormalizedADSR {
     public static void main(String[] args) {
         new TestNormalizedADSR();
     }
+
 }
