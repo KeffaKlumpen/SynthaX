@@ -1,4 +1,17 @@
+@font-face {
+    font-family: "wonome";
+    font-style: normal;
+    font-weight: 400;
+    src: url("fonts/wonome.ttf");
+}
+@font-face {
+    font-family: "Handel Gothic";
+    font-style: normal;
+    font-weight: 400;
+    src: url("fonts/Handel.ttf");
+}
 .root {
+    -fx-font-family: "Handel Gothic";
     -fx-base: #bfbbb4;
     -fx-background: derive(-fx-base,20%);
     -fx-accent: #f78000;
@@ -100,6 +113,7 @@
 }
 
 .label {
+    -fx-font-family: "Handel Gothic";
     -fx-text-fill: #000000;
 }
 

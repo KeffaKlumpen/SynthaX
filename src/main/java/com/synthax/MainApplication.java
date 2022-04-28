@@ -12,7 +12,6 @@ import java.io.IOException;
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Font.loadFont(MainApplication.class.getResource("fonts/wonome.ttf").toExternalForm(), 10);
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/synthax-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(getClass().getResource("skins.css").toExternalForm());

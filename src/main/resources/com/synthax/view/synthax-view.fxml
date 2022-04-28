@@ -19,15 +19,15 @@
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.SynthaxView">
    <children>
       <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="108.0" layoutX="22.0" layoutY="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="384.0" />
-    <Button fx:id="btnAddOscillator" layoutX="67.0" layoutY="136.0" mnemonicParsing="false" onAction="#onActionAddOscillator" prefHeight="40.0" prefWidth="133.0" text="Add Oscilltator" />
+    <Button fx:id="btnAddOscillator" layoutX="141.0" layoutY="136.0" mnemonicParsing="false" onAction="#onActionAddOscillator" prefHeight="40.0" prefWidth="133.0" text="Add Oscilltator" />
       <ScrollPane layoutX="8.0" layoutY="182.0" prefHeight="530.0" prefWidth="415.0">
          <content>
             <VBox id="oscBox" fx:id="oscillatorChainView" prefHeight="520.0" prefWidth="367.0" />
          </content>
       </ScrollPane>
-      <Label id="logo" layoutX="45.0" layoutY="5.0" prefHeight="150.0" prefWidth="394.0" text="SynthaX" textFill="#ffa100">
+      <Label id="logo" layoutX="50.0" layoutY="25.0" prefHeight="81.0" prefWidth="334.0" text="SynthaX" textFill="#ffa100">
          <font>
-            <Font name="Arial Bold" size="53.0" />
+            <Font name="Wingdings 3" size="53.0" />
          </font>
       </Label>
       <Slider fx:id="sliderMasterGain" blockIncrement="0.1" layoutX="1211.0" layoutY="438.0" max="1.0" orientation="VERTICAL" prefHeight="226.0" prefWidth="20.0" value="0.5" />
@@ -42,11 +42,11 @@
             <Button fx:id="knobNoiseGain" layoutX="52.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Label layoutX="14.0" layoutY="6.0" text="Noise">
                <font>
-                  <Font size="17.0" />
+                  <Font name="Handel Gothic" size="17.0" />
                </font>
             </Label>
             <ToggleSwitch layoutX="80.0" layoutY="7.0" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="56.0" layoutY="39.0" text="Gain">
+            <Label layoutX="55.0" layoutY="39.0" text="Gain">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -56,19 +56,22 @@
       <AnchorPane layoutX="596.0" layoutY="31.0" prefHeight="107.0" prefWidth="182.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="116.0" layoutY="-8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="182.0" />
+            <Line endX="89.98095703125" layoutX="12.0" layoutY="20.0" startX="1.5" stroke="#f78000" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="5.0" />
+            <Line endX="90.3912353515625" layoutX="12.0" layoutY="8.0" startX="1.5" stroke="#f78000" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="5.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bfbbb4" height="18.0" layoutX="11.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="52.0" />
             <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="4.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobDelayFeedback" layoutX="20.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="12.0" layoutY="3.0" text="Delay">
+            <Label layoutX="13.0" layoutY="3.0" prefHeight="18.0" prefWidth="48.0" text="Delay">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
             <ToggleSwitch layoutX="129.0" layoutY="4.0" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="13.0" layoutY="39.0" text="Feedback">
+            <Label layoutX="12.0" layoutY="39.0" text="Feedback">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -90,7 +93,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobDelayRepeat" layoutX="130.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="129.0" layoutY="39.0" text="Repeat">
+            <Label layoutX="127.0" layoutY="39.0" text="Repeat">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -100,6 +103,9 @@
       <AnchorPane layoutX="803.0" layoutY="31.0" prefHeight="107.0" prefWidth="182.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="116.0" layoutY="-8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="182.0" />
+            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="8.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="10.0" layoutY="3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="64.0" />
+            <Line endX="115.84246826171875" endY="-7.62939453125E-6" layoutX="17.0" layoutY="13.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
             <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="4.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
@@ -112,7 +118,7 @@
                </font>
             </Label>
             <ToggleSwitch layoutX="129.0" layoutY="4.0" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="25.0" layoutY="39.0" text="Size">
+            <Label layoutX="24.0" layoutY="39.0" text="Size">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -123,7 +129,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobReverbDecay" layoutX="75.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="76.0" layoutY="39.0" text="Decay">
+            <Label layoutX="74.0" layoutY="39.0" text="Decay">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -134,7 +140,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobReverbDW" layoutX="130.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="127.0" layoutY="39.0" text="Dry/Wet">
+            <Label layoutX="124.0" layoutY="39.0" text="Dry/Wet">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -156,7 +162,7 @@
                </font>
             </Label>
             <ToggleSwitch layoutX="132.0" layoutY="4.0" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="23.0" layoutY="39.0" text="Depth">
+            <Label layoutX="21.0" layoutY="39.0" text="Depth">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -167,7 +173,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobLFORate" layoutX="75.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="79.0" layoutY="39.0" text="Rate">
+            <Label layoutX="78.0" layoutY="39.0" text="Rate">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -178,7 +184,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobLFOWaveForm" layoutX="134.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="126.0" layoutY="39.0" text="Waveform">
+            <Label layoutX="122.0" layoutY="39.0" text="Waveform">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -199,22 +205,22 @@
             </Label>
             <Label layoutX="15.0" layoutY="151.0" text="Attack">
                <font>
-                  <Font size="12.0" />
+                  <Font size="10.0" />
                </font>
             </Label>
             <Label layoutX="66.0" layoutY="151.0" text="Decay">
                <font>
-                  <Font size="12.0" />
+                  <Font size="10.0" />
                </font>
             </Label>
             <Label layoutX="114.0" layoutY="151.0" text="Sustain">
                <font>
-                  <Font size="12.0" />
+                  <Font size="10.0" />
                </font>
             </Label>
             <Label layoutX="163.0" layoutY="151.0" text="Release">
                <font>
-                  <Font size="12.0" />
+                  <Font size="10.0" />
                </font>
             </Label>
             <LineChart fx:id="lineChartADSR" alternativeRowFillVisible="false" animated="false" cacheShape="false" centerShape="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="217.0" layoutY="16.0" legendVisible="false" prefHeight="147.0" prefWidth="176.0" scaleShape="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false">
@@ -225,6 +231,9 @@
                 <NumberAxis fx:id="yAxis" animated="false" autoRanging="false" lowerBound="-3.0" minorTickVisible="false" opacity="0.0" side="LEFT" tickLabelsVisible="false" tickMarkVisible="false" upperBound="33.0" />
               </yAxis>
             </LineChart>
+            <Line endX="48.0" layoutX="72.0" layoutY="17.0" startX="1.5" stroke="#f78000" strokeLineCap="ROUND" strokeWidth="4.0" />
+            <Line endX="48.0" layoutX="72.0" layoutY="25.0" startX="1.5" stroke="#f78000" strokeLineCap="ROUND" strokeWidth="4.0" />
+            <Line endX="105.0" endY="1.52587890625E-5" layoutX="15.0" layoutY="33.0" startX="1.5" stroke="#f78000" strokeLineCap="ROUND" strokeWidth="4.0" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="884.0" layoutY="156.0" prefHeight="220.0" prefWidth="252.0">
@@ -242,7 +251,7 @@
                </font>
             </Label>
             <ToggleSwitch layoutX="17.0" layoutY="53.0" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="21.0" layoutY="86.0" text="Cutoff">
+            <Label layoutX="19.0" layoutY="86.0" text="Cutoff">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -253,7 +262,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobFilterResonance" layoutX="109.0" layoutY="106.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="113.0" layoutY="86.0" text="Freq">
+            <Label layoutX="112.0" layoutY="86.0" text="Freq">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -264,7 +273,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobFilterEnvelope" layoutX="196.0" layoutY="106.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="197.0" layoutY="86.0" text="Cutoff">
+            <Label layoutX="195.0" layoutY="86.0" text="Cutoff">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -277,7 +286,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobFilterCutoff1" layoutX="20.0" layoutY="168.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="22.0" layoutY="148.0" text="Slope">
+            <Label layoutX="21.0" layoutY="148.0" text="Slope">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -288,7 +297,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobFilterResonance1" layoutX="109.0" layoutY="168.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="111.0" layoutY="148.0" text="Range">
+            <Label layoutX="108.0" layoutY="148.0" text="Range">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -299,7 +308,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobFilterEnvelope1" layoutX="196.0" layoutY="168.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="198.0" layoutY="148.0" text="Slope">
+            <Label layoutX="197.0" layoutY="148.0" text="Slope">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -481,7 +490,7 @@
             </ImageView>
             <Button layoutX="458.0" layoutY="141.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <RadioButton layoutX="79.0" layoutY="176.0" mnemonicParsing="false" />
-            <RadioButton layoutX="134.0" layoutY="175.0" mnemonicParsing="false" />
+            <RadioButton layoutX="134.0" layoutY="176.0" mnemonicParsing="false" />
             <RadioButton layoutX="189.0" layoutY="176.0" mnemonicParsing="false" />
             <RadioButton layoutX="244.0" layoutY="176.0" mnemonicParsing="false" />
             <RadioButton layoutX="299.0" layoutY="176.0" mnemonicParsing="false" />
@@ -648,7 +657,7 @@
             </ImageView>
             <Button layoutX="458.0" layoutY="295.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <RadioButton layoutX="80.0" layoutY="330.0" mnemonicParsing="false" />
-            <RadioButton layoutX="135.0" layoutY="329.0" mnemonicParsing="false" />
+            <RadioButton layoutX="135.0" layoutY="330.0" mnemonicParsing="false" />
             <RadioButton layoutX="190.0" layoutY="330.0" mnemonicParsing="false" />
             <RadioButton layoutX="245.0" layoutY="330.0" mnemonicParsing="false" />
             <RadioButton layoutX="300.0" layoutY="330.0" mnemonicParsing="false" />
@@ -661,10 +670,18 @@
                </image>
             </ImageView>
             <Button layoutX="535.0" layoutY="182.0" maxWidth="41.0" minHeight="38.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="41.0" styleClass="bigKnob" stylesheets="@../skins.css" />
-            <Button layoutX="517.0" layoutY="72.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="77.0" text="Start/Stop" />
-            <Label layoutX="541.0" layoutY="153.0" text="Rate" />
+            <Button layoutX="505.0" layoutY="72.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="99.0" text="Start/Stop" />
+            <Label layoutX="539.0" layoutY="153.0" text="Rate" />
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#d6d1c9" height="40.0" layoutX="262.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="148.0" />
+            <Line endX="-1.0" endY="247.0" layoutX="447.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="315.5" layoutX="169.0" layoutY="202.0" startX="-100.0" stroke="#78736b" />
+            <Line endX="-1.0" endY="247.0" layoutX="392.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="247.0" layoutX="336.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="247.0" layoutX="281.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="247.0" layoutX="228.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="247.0" layoutX="172.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="247.0" layoutX="117.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
          </children></AnchorPane>
-      <Label layoutX="1201.0" layoutY="411.0" text="Master" />
+      <Label layoutX="1196.0" layoutY="411.0" text="Master" />
    </children>
 </AnchorPane>
