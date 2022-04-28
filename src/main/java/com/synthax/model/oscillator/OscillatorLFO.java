@@ -3,9 +3,14 @@ package com.synthax.model.oscillator;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Function;
-import net.beadsproject.beads.ugens.Mult;
 import net.beadsproject.beads.ugens.WavePlayer;
 
+/**
+ * Class controlling the low frequency oscillator which modulates a frequency of an oscillator.
+ *
+ * @author Teodor Wegestål
+ * @author Viktor Lenberg
+ */
 public class OscillatorLFO {
     private WavePlayer lfo;
     private float depth = 0f;
@@ -15,6 +20,9 @@ public class OscillatorLFO {
     public OscillatorLFO() {
         lfo = new WavePlayer(AudioContext.getDefaultContext(), 20f, Buffer.SINE);
 
+        /**
+         * This function recalculates the sound buffer of the LFO representing its wave.
+         */
         frequencyModulation = new Function(lfo) {
             @Override
             public float calculate() {
@@ -37,11 +45,11 @@ public class OscillatorLFO {
         lfo.setFrequency(rate);
     }
 
-    private float convertRate(float rate) {
-        return (float) (rate * 39.9 + 0.1);
+    public void setDepth(float depth) {
+        this.depth = depth * 35;
     }
 
-    public void setDepth(float depth) {
-        this.depth = depth * 100;
+    private float convertRate(float rate) {
+        return (float) (rate * 19.9 + 0.1);
     }
 }

@@ -28,7 +28,6 @@ public class OscillatorVoice {
     public OscillatorVoice(Buffer waveBuffer){
         oscillatorLFO = new OscillatorLFO();
         wavePlayer = new WavePlayer(oscillatorLFO.getFrequencyModulation(), waveBuffer);
-        //wavePlayer = new WavePlayer(0f, waveBuffer);
 
         gainEnv = new Envelope();
         naturalGain = new Gain(1, gainEnv);
@@ -49,9 +48,7 @@ public class OscillatorVoice {
      * @param decayTime
      */
     public void playFreq(float freq, float maxGain, float attackTime, float sustainGain, float decayTime){
-        //wavePlayer.setFrequency(freq);
-        //oscillatorLFO.setPlayedFrequency(freq);
-        wavePlayer.setFrequency(freq);
+        oscillatorLFO.setPlayedFrequency(freq);
         gainEnv.clear();
         gainEnv.addSegment(maxGain, attackTime);
         gainEnv.addSegment(sustainGain, decayTime);

@@ -330,14 +330,16 @@ public class OscillatorController implements Initializable {
         knobLFODepth.setOnMouseDragged(behaviorKnobLFOdepth);
         behaviorKnobLFOdepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
             for (OscillatorVoice voice : voices) {
-                oscillatorLFO.setDepth(newValue.floatValue());
+                voice.getOscillatorLFO().setDepth(newValue.floatValue());
             }
         });
 
         KnobBehavior behaviorKnobLFOrate = new KnobBehavior(knobLFORate);
         knobLFORate.setOnMouseDragged(behaviorKnobLFOrate);
         behaviorKnobLFOrate.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            oscillatorLFO.setRate(newValue.floatValue());
+            for (OscillatorVoice voice : voices) {
+                voice.getOscillatorLFO().setRate(newValue.floatValue());
+            }
         });
     }
 
