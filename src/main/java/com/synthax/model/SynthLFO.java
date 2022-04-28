@@ -2,28 +2,32 @@ package com.synthax.model;
 
 import com.synthax.model.enums.Waveforms;
 import net.beadsproject.beads.core.AudioContext;
-import net.beadsproject.beads.data.Buffer;
-import net.beadsproject.beads.ugens.Function;
-import net.beadsproject.beads.ugens.WavePlayer;
+import net.beadsproject.beads.ugens.*;
 
 public class SynthLFO {
     private WavePlayer lfo;
-    private Waveforms waveform;
-
-    private Function frequencyModulator;
     private float rate = 20f;
+    private Waveforms waveform = Waveforms.SINE;
     private float depth = 0f;
-    private float playedFrequency = 440f;
 
     public SynthLFO() {
-        lfo = new WavePlayer(AudioContext.getDefaultContext(), rate, Buffer.SINE);
+        lfo = new WavePlayer(AudioContext.getDefaultContext(), rate, waveform.getBuffer());
 
-        frequencyModulator = new Function(lfo) {
-            @Override
-            public float calculate() {
-                return (x[0] * depth) + playedFrequency;
-            }
-        };
+
+
+        //gammelt bös
+        /*
+        WavePlayer lfo = new WavePlayer(ac, 20f, Buffer.SINE);
+
+        Add gumma = new Add(ac,1,1);
+        Mult grabben = new Mult(ac, 1, 0.5f);
+        gumma.addInput(lfo);
+        grabben.addInput(gumma);
+        Gain gubben = new Gain(ac, 1, grabben);
+
+        gubben.addInput(oscillator);
+
+         */
     }
 
     public WavePlayer getLfo() {
@@ -42,14 +46,6 @@ public class SynthLFO {
         this.waveform = waveform;
     }
 
-    public Function getFrequencyModulator() {
-        return frequencyModulator;
-    }
-
-    public void setFrequencyModulator(Function frequencyModulator) {
-        this.frequencyModulator = frequencyModulator;
-    }
-
     public float getRate() {
         return rate;
     }
@@ -64,13 +60,5 @@ public class SynthLFO {
 
     public void setDepth(float depth) {
         this.depth = depth;
-    }
-
-    public float getPlayedFrequency() {
-        return playedFrequency;
-    }
-
-    public void setPlayedFrequency(float playedFrequency) {
-        this.playedFrequency = playedFrequency;
     }
 }

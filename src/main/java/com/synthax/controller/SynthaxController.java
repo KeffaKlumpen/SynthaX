@@ -1,6 +1,6 @@
 package com.synthax.controller;
 
-import com.synthax.model.oscillator.OscillatorLFO;
+import com.synthax.model.SynthLFO;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.ADSRValues;
 import net.beadsproject.beads.core.AudioContext;
@@ -10,7 +10,7 @@ import net.beadsproject.beads.ugens.*;
 public class SynthaxController {
     private final Gain masterGain;
     private Glide masterGainGlide;
-    private OscillatorLFO oscillatorLfo;
+    private SynthLFO synthLFO;
 
     private final OscillatorManager oscillatorManager;
 
@@ -26,10 +26,11 @@ public class SynthaxController {
         masterGainGlide = new Glide(ac, 0.5f, 50);
         masterGain = new Gain(ac, 1, masterGainGlide);
 
-        oscillatorLfo = new OscillatorLFO(ac);
+        synthLFO = new SynthLFO();
+        //oscmanager.getoutput.addinput(lfo)
 
         oscillatorManager = OscillatorManager.getInstance();
-        masterGain.addInput(oscillatorManager.getOutput());
+        masterGain.addInput(oscillatorManager.getOutput()); //parameter ska vara LFO-gainen
 
         // Send to audio-device
         ac.out.addInput(masterGain);

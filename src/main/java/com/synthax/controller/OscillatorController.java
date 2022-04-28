@@ -1,5 +1,6 @@
 package com.synthax.controller;
 
+import com.synthax.model.oscillator.OscillatorLFO;
 import com.synthax.model.oscillator.VoiceNormalizer;
 import com.synthax.model.enums.Waveforms;
 import com.synthax.model.controls.KnobBehavior;
@@ -327,11 +328,17 @@ public class OscillatorController implements Initializable {
     private void initLFOKnobs() {
         KnobBehavior behaviorKnobLFOdepth = new KnobBehavior(knobLFODepth);
         knobLFODepth.setOnMouseDragged(behaviorKnobLFOdepth);
-        //TODO implementera LFO
+        behaviorKnobLFOdepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            for (OscillatorVoice voice : voices) {
+                oscillatorLFO.setDepth(newValue.floatValue());
+            }
+        });
 
         KnobBehavior behaviorKnobLFOrate = new KnobBehavior(knobLFORate);
         knobLFORate.setOnMouseDragged(behaviorKnobLFOrate);
-        //TODO implementera LFO
+        behaviorKnobLFOrate.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            oscillatorLFO.setRate(newValue.floatValue());
+        });
     }
 
     /**

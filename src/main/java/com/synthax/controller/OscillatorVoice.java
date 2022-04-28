@@ -6,6 +6,7 @@
 
 package com.synthax.controller;
 
+import com.synthax.model.oscillator.OscillatorLFO;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Envelope;
 import net.beadsproject.beads.ugens.Gain;
@@ -22,9 +23,12 @@ public class OscillatorVoice {
     private final Envelope gainEnv;
     private final Gain normalizedGain;
     private final Glide normGainGlide;
+    private OscillatorLFO oscillatorLFO;
 
     public OscillatorVoice(Buffer waveBuffer){
-        wavePlayer = new WavePlayer(0f, waveBuffer);
+        oscillatorLFO = new OscillatorLFO();
+        wavePlayer = new WavePlayer(oscillatorLFO.getFrequencyModulation(), waveBuffer);
+        //wavePlayer = new WavePlayer(0f, waveBuffer);
 
         gainEnv = new Envelope();
         naturalGain = new Gain(1, gainEnv);
@@ -45,6 +49,8 @@ public class OscillatorVoice {
      * @param decayTime
      */
     public void playFreq(float freq, float maxGain, float attackTime, float sustainGain, float decayTime){
+        //wavePlayer.setFrequency(freq);
+        //oscillatorLFO.setPlayedFrequency(freq);
         wavePlayer.setFrequency(freq);
         gainEnv.clear();
         gainEnv.addSegment(maxGain, attackTime);
@@ -94,6 +100,10 @@ public class OscillatorVoice {
 
     public WavePlayer getWavePlayer() {
         return wavePlayer;
+    }
+
+    public OscillatorLFO getOscillatorLFO() {
+        return oscillatorLFO;
     }
 
     /**
