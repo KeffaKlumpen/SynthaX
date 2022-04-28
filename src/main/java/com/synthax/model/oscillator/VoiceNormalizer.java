@@ -20,21 +20,34 @@ public class VoiceNormalizer extends UGen {
         this(getDefaultContext(), inouts);
     }
 
-    public VoiceNormalizer(AudioContext context, int inouts) {
-        super(context, inouts, inouts);
-        this.inouts = inouts;
-        inGains = new Gain[inouts];
-        outGains = new Glide[inouts];
+    public VoiceNormalizer(AudioContext context, int voices) {
+        super(context, voices, voices);
+        this.inouts = voices;
+        inGains = new Gain[voices];
+        outGains = new Glide[voices];
     }
 
+    /**
+     * Set the un-normalized gain for the voice. Must be set for each voice.
+     * @param inGain
+     * @param index voiceIndex
+     */
     public void setInGain(Gain inGain, int index) {
         inGains[index] = inGain;
     }
 
+    /**
+     * Set the to-be-normalized gain for the voice. Must be set for each inout.
+     * @param outGain
+     * @param index
+     */
     public void setOutGain(Glide outGain, int index) {
         outGains[index] = outGain;
     }
 
+    /**
+     * Calculates the total gain being played, and then normalizes each individual gain based on the total.
+     */
     @Override
     public void calculateBuffer() {
         float totalGain = 0f;
