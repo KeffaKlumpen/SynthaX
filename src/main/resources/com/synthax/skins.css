@@ -10,6 +10,12 @@
     font-weight: 400;
     src: url("fonts/Handel.ttf");
 }
+@font-face {
+    font-family: "RocketRinder-yV5d";
+    font-style: normal;
+    font-weight: 400;
+    src: url("fonts/RocketRinder-yV5d.ttf");
+}
 .root {
     -fx-font-family: "Handel Gothic";
     -fx-base: #bfbbb4;
@@ -37,6 +43,19 @@
     -fx-min-height: 30px;
     -fx-max-width: 30px;
     -fx-max-height: 30px;
+}
+.knobPoster {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+        -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 70px;
+    -fx-background-image: url("Images/knob-main.png");
+        -fx-background-size: 70px 70px;
+        -fx-background-repeat: no-repeat;
+        -fx-background-position: center;
+    -fx-min-width: 70px;
+    -fx-min-height: 70px;
+    -fx-max-width: 70px;
+    -fx-max-height: 70px;
 }
 .bigKnob:focused {
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
@@ -120,11 +139,15 @@
 #oscBox {
     -fx-background-color: transparent;
 }
-
-#logo {
-    -fx-font-family: wonome;
-    -fx-font-size: 100px;
+.logo {
+    -fx-font-family: "Rocket Rinder";
     -fx-text-fill: #f78000;
+}
+
+.logo.label .text {
+    -fx-fill: #f78000;
+    -fx-stroke: black;
+    -fx-stroke-width: 2px;
 }
 
 .chart {
@@ -137,7 +160,7 @@
 }
 
 .chart-line-symbol {
-    -fx-padding: 5px
+    -fx-padding: 5px;
 }
 
 .default-color0.chart-series-line {
