@@ -74,6 +74,7 @@
     -fx-max-width: 40px;
     -fx-max-height: 40px;
 }
+
 .spinner .increment-arrow-button,
 .spinner .decrement-arrow-button,
 .button,
@@ -87,7 +88,7 @@
 .spinner .decrement-arrow-button .decrement-arrow {
     -fx-background-color: black;
 }
-
+.toggle-button:selected,
 .toggle-switch:selected .thumb-area {
     -fx-background-color: #f78000;
 }
@@ -134,6 +135,14 @@
 .label {
     -fx-font-family: "Handel Gothic";
     -fx-text-fill: #000000;
+}
+
+.oscLabel {
+    -fx-font-size: 10px;
+}
+
+.oscLabelBig {
+    -fx-font-size: 15px;
 }
 
 #oscBox {
