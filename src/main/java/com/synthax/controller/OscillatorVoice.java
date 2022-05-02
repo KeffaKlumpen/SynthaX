@@ -24,6 +24,7 @@ public class OscillatorVoice {
     private final Gain normalizedGain;
     private final Glide normGainGlide;
     private OscillatorLFO oscillatorLFO;
+    private float realFrequency;
 
     public OscillatorVoice(Buffer waveBuffer){
         oscillatorLFO = new OscillatorLFO();
@@ -47,7 +48,8 @@ public class OscillatorVoice {
      * @param sustainGain
      * @param decayTime
      */
-    public void playFreq(float freq, float maxGain, float attackTime, float sustainGain, float decayTime){
+    public void playFreq(float freq, float maxGain, float attackTime, float sustainGain, float decayTime, float realFrequency){
+        this.realFrequency = realFrequency;
         oscillatorLFO.setPlayedFrequency(freq);
         gainEnv.clear();
         gainEnv.addSegment(maxGain, attackTime);
@@ -111,4 +113,12 @@ public class OscillatorVoice {
         wavePlayer.setBuffer(buffer);
     }
 
+    public void updateDetune(float detuneCent) {
+        float freq = applyDetuning(realFrequency, detuneCent);
+        oscillatorLFO.setPlayedFrequency(freq);
+    }
+
+    private float applyDetuning(float frequency, float detuneCent) {
+        return (float)(frequency * (Math.pow(2, (detuneCent/1200))));
+    }
 }

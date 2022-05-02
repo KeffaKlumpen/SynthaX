@@ -1,22 +1,28 @@
 package com.synthax.model.enums;
 
 public enum OctaveOperands {
-    TWO("2'", 4),
-    FOUR("4'", 2),
-    EIGHT("8'", 1),
-    SIXTEEN("16'", 2),
-    THIRTYTWO("32'", 4);
+    TWO("2'", 0.25f, 2),
+    FOUR("4'", 0.5f, 4),
+    EIGHT("8'", 1, 8),
+    SIXTEEN("16'", 2, 16),
+    THIRTYTWO("32'", 4, 32);
 
-    OctaveOperands(String name, int value) {
+    OctaveOperands(String name, float value, int operandValue) {
         this.name = name;
         this.value = value;
+        this.operandValue = operandValue;
     }
 
     private String name;
-    private int value;
+    private float value;
+    private int operandValue;
 
-    public int getValue() {
+    public float getValue() {
         return value;
+    }
+
+    public int getOperandValue() {
+        return operandValue;
     }
 
     public static String[] getNames() {

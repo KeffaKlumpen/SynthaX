@@ -47,7 +47,9 @@ public class OscillatorController implements Initializable {
     private Glide voiceOutputGlide;
     private UGen oscillatorOutput;
     private OctaveOperands octaveOperand = OctaveOperands.EIGHT;
-    private FloatProperty detuneCent = new SimpleFloatProperty();
+    private float realFrequency;
+    //private FloatProperty detuneCent = new SimpleFloatProperty();
+    private float detuneCent;
     private final int[] voicePlayingMidi = new int[128]; // each index corresponds to a MIDI-note, stores voice-indexes
 
     @FXML private ToggleButton tglBtnCombineAdd;
@@ -100,9 +102,10 @@ public class OscillatorController implements Initializable {
         float freq = midiNote.getFrequency();
 
         freq = applyOctaveOffset(freq);
+        float realFrequency = freq;
         freq = applyDetuning(freq);
 
-        voices[nextVoice].playFreq(freq, (float)(velocity / 127), ADSRValues.getAttackValue(), ADSRValues.getSustainValue(), ADSRValues.getDecayValue());
+        voices[nextVoice].playFreq(freq, (float)(velocity / 127), ADSRValues.getAttackValue(), ADSRValues.getSustainValue(), ADSRValues.getDecayValue(), realFrequency);
 
         nextVoice = ++nextVoice % voiceCount;
     }
@@ -286,11 +289,11 @@ public class OscillatorController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends OctaveOperands> observableValue, OctaveOperands octaveOperands, OctaveOperands t1) {
                 octaveOperand = t1;
-                // TODO: update frequency of waveplayer
+
+                updateOctaveOffset(octaveOperands, t1);
             }
         });
     }
-
     private void initOnOff() {
         tglSwitchOscillatorOnOff.setSelected(true);
         tglSwitchOscillatorOnOff.selectedProperty().addListener((v, oldValue, newValue) -> {
@@ -342,10 +345,14 @@ public class OscillatorController implements Initializable {
     private void initDetuneKnob() {
         KnobBehaviorDetune behaviorKnobDetune = new KnobBehaviorDetune(knobDetune);
         knobDetune.setOnMouseDragged(behaviorKnobDetune);
+        //detuneCent.bind(behaviorKnobDetune.knobValueProperty());
         behaviorKnobDetune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //updateFrequency();
+            detuneCent = newValue.floatValue();
+
+            for (OscillatorVoice voice : voices) {
+                voice.updateDetune(detuneCent);
+            }
         } );
-        detuneCent.bind(behaviorKnobDetune.knobValueProperty());
     }
 
     /**
@@ -376,10 +383,10 @@ public class OscillatorController implements Initializable {
     private float applyOctaveOffset(float frequency) {
         switch (octaveOperand) {
             case TWO -> {
-                return frequency / OctaveOperands.TWO.getValue();
+                return frequency * OctaveOperands.TWO.getValue();
             }
             case FOUR -> {
-                return frequency / OctaveOperands.FOUR.getValue();
+                return frequency * OctaveOperands.FOUR.getValue();
             }
             case EIGHT -> {
                 return frequency * OctaveOperands.EIGHT.getValue();
@@ -395,6 +402,27 @@ public class OscillatorController implements Initializable {
     }
 
     /**
+     * Updates the played frequency if the user is changing the octaveoperand during playback.
+     * @param oldValue - the old value of the octave spinner.
+     * @param newValue - the new value of the octave spinner.
+     * @author Viktor Lenberg
+     * @author Teodor Wegestål
+     */
+    private void updateOctaveOffset(OctaveOperands oldValue, OctaveOperands newValue) {
+        if (oldValue.getOperandValue() > newValue.getOperandValue()) {
+            for (OscillatorVoice voice : voices) {
+                float freq = voice.getOscillatorLFO().getPlayedFrequency();
+                voice.getOscillatorLFO().setPlayedFrequency(freq * 0.5f);
+            }
+        } else if (oldValue.getOperandValue() < newValue.getOperandValue()) {
+            for (OscillatorVoice voice : voices) {
+                float freq = voice.getOscillatorLFO().getPlayedFrequency();
+                voice.getOscillatorLFO().setPlayedFrequency(freq * 2);
+            }
+        }
+    }
+
+    /**
      * Alters the frequency to the correct cent value
      * @param frequency of the note, provided by input method
      * @return the detuned frequency
@@ -402,7 +430,7 @@ public class OscillatorController implements Initializable {
      * @author Teodor Wegestål
      */
     private float applyDetuning(float frequency) {
-        return (float)(frequency * (Math.pow(2, (detuneCent.floatValue()/1200))));
+        return (float)(frequency * (Math.pow(2, (detuneCent/1200))));
     }
     //endregion
 }

@@ -35,6 +35,10 @@ public class OscillatorLFO {
         return frequencyModulation;
     }
 
+    public float getPlayedFrequency() {
+        return playedFrequency;
+    }
+
     public void setPlayedFrequency(float playedFrequency) {
         this.playedFrequency = playedFrequency;
     }
