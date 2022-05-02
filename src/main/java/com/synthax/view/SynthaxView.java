@@ -27,6 +27,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.ToggleSwitch;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,18 +43,28 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class SynthaxView implements Initializable {
     @FXML private VBox oscillatorChainView;
     @FXML private Button knobNoiseGain;
+    @FXML private ToggleSwitch tglSwitchNoise;
     @FXML private Button knobDelayFeedback;
     @FXML private Button knobDelayTime;
     @FXML private Button knobDelayRepeat;
+    @FXML private ToggleSwitch tglSwitchDelay;
     @FXML private Button knobReverbSize;
     @FXML private Button knobReverbDecay;
     @FXML private Button knobReverbDW;
+    @FXML private ToggleSwitch tglSwitchReverb;
     @FXML private Button knobLFODepth;
     @FXML private Button knobLFORate;
     @FXML private Button knobLFOWaveForm;
-    @FXML private Button knobFilterCutoff;
-    @FXML private Button knobFilterResonance;
-    @FXML private Button knobFilterEnvelope;
+    @FXML private ToggleSwitch tglSwitchLFO;
+    @FXML private Button knobFilterRange;
+    @FXML private Button knobFilterFreq;
+    @FXML private Button knobFilterHPCutoff;
+    @FXML private Button knobFilterHPSlope;
+    @FXML private Button knobFilterLPCutoff;
+    @FXML private Button knobFilterLPSlope;
+    @FXML private ToggleSwitch tglSwitchFilterLP;
+    @FXML private ToggleSwitch tglSwitchFilterHP;
+    @FXML private ToggleSwitch tglSwitchFilterNotch;
     @FXML private Button btnAddOscillator;
     @FXML private AnchorPane mainPane = new AnchorPane();
     @FXML private Slider sliderAttack;
@@ -137,157 +148,16 @@ public class SynthaxView implements Initializable {
         }
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //region Knob behavior (Click to open/collapse)
-        KnobBehavior bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
-        knobNoiseGain.setOnMouseDragged(bKnobNoiseGain);
-        bKnobNoiseGain.setValueZero();
-        bKnobNoiseGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here.
-        });
-
-        KnobBehavior bKnobDelayFeedback = new KnobBehavior(knobDelayFeedback);
-        knobDelayFeedback.setOnMouseDragged(bKnobDelayFeedback);
-        bKnobDelayFeedback.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
-        });
-
-        KnobBehavior bKnobDelayTime = new KnobBehavior(knobDelayTime);
-        knobDelayTime.setOnMouseDragged(bKnobDelayTime);
-        bKnobDelayTime.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
-        });
-
-        KnobBehavior bKnobDelayRepeat = new KnobBehavior(knobDelayRepeat);
-        knobDelayRepeat.setOnMouseDragged(bKnobDelayRepeat);
-        bKnobDelayRepeat.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
-        });
-
-        KnobBehavior bKnobReverbSize = new KnobBehavior(knobReverbSize);
-        knobReverbSize.setOnMouseDragged(bKnobReverbSize);
-        bKnobReverbSize.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
-        });
-
-        KnobBehavior bKnobReverbDecay = new KnobBehavior(knobReverbDecay);
-        knobReverbDecay.setOnMouseDragged(bKnobReverbDecay);
-        bKnobReverbDecay.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
-        });
-
-        KnobBehavior bKnobReverbDW = new KnobBehavior(knobReverbDW);
-        knobReverbDW.setOnMouseDragged(bKnobReverbDW);
-        bKnobReverbDW.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
-        });
-
-        //region LFO knob setup
-        KnobBehavior bKnobLFODepth = new KnobBehavior(knobLFODepth);
-        knobLFODepth.setOnMouseDragged(bKnobLFODepth);
-        bKnobLFODepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
-        });
-
-        KnobBehavior bKnobLFORate = new KnobBehavior(knobLFORate);
-        knobLFORate.setOnMouseDragged(bKnobLFORate);
-        bKnobLFORate.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
-        });
-
-        KnobBehaviorWave bKnobLFOWaveform = new KnobBehaviorWave(knobLFOWaveForm);
-        knobLFOWaveForm.setOnMouseDragged(bKnobLFOWaveform);
-        bKnobLFOWaveform.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
-        });
-        //endregion
-
-        KnobBehavior bKnobFilterCutoff = new KnobBehavior(knobFilterCutoff);
-        knobFilterCutoff.setOnMouseDragged(bKnobFilterCutoff);
-        bKnobFilterCutoff.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
-        });
-
-        KnobBehavior bKnobFilterResonance = new KnobBehavior(knobFilterResonance);
-        knobFilterResonance.setOnMouseDragged(bKnobFilterResonance);
-        bKnobFilterResonance.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
-        });
-
-        KnobBehavior bKnobFilterEnvelope = new KnobBehavior(knobFilterEnvelope);
-        knobFilterEnvelope.setOnMouseDragged(bKnobFilterEnvelope);
-        bKnobFilterEnvelope.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
-        });
-        //endregion
-
-        //region KeyBoard playing (Click to open/collapse)
-        mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                KeyCode keyCode = event.getCode();
-                // If it's a valid key, send a noteOn message.
-                if(keyStatus.containsKey(keyCode)){
-                    if(keyStatus.get(keyCode).compareAndSet(false, true)){
-                        MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
-                        System.out.println("++++" + note.name());
-                        synthaxController.noteOn(note, 128);
-                    }
-                }
-            }
-        });
-        mainPane.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                KeyCode keyCode = event.getCode();
-                if(keyStatus.containsKey(keyCode)){
-                    if(keyStatus.get(keyCode).compareAndSet(true, false)){
-                        MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
-                        System.out.println("----" + note.name());
-                        synthaxController.noteOff(note);
-                    }
-                }
-            }
-        });
-        //endregion
-
-        //region ADSR sliders (Click to open/collapse)
-        setupLineChart();
-
-        sliderAttack.setMax(attackMax);
-        sliderAttack.setMin(10);
-        sliderAttack.setBlockIncrement(50);
-        sliderAttack.valueProperty().addListener((observableValue, number, t1) -> {
-            ADSRValues.setAttackValue(t1.floatValue());
-            onAttackDrag();
-        });
-
-        sliderDecay.setMax(1500);
-        sliderDecay.setMin(10);
-        sliderDecay.setBlockIncrement(50);
-        sliderDecay.valueProperty().addListener((observableValue, number, t1) -> {
-            ADSRValues.setDecayValue(t1.floatValue());
-            onDecayDrag();
-        });
-
-        sliderSustain.setMax(1);
-        sliderSustain.setValue(1);
-        sliderSustain.setBlockIncrement(0.1);
-        sliderSustain.valueProperty().addListener((observableValue, number, t1) -> {
-            ADSRValues.setSustainValue(t1.floatValue());
-            onSustainDrag();
-        });
-
-        sliderRelease.setMax(2000);
-        sliderRelease.setMin(10);
-        sliderRelease.setBlockIncrement(50);
-        sliderRelease.valueProperty().addListener((observableValue, number, t1) -> {
-            ADSRValues.setReleaseValue(t1.floatValue());
-            onReleaseDrag();
-        });
-        //endregion ((Click to open/collapse)
-
+        initNoise();
+        initADSR();
+        initFilter();
+        initKeyBoardListeners();
+        initDelay();
+        initLFO();
+        initReverb();
         sliderMasterGain.valueProperty().addListener((observableValue, number, t1) -> synthaxController.setMasterGain(t1.floatValue()));
     }
 
@@ -327,12 +197,206 @@ public class SynthaxView implements Initializable {
         point3ADSR.setXValue((sliderAttack.getValue()/attackMax)*10d+(sliderDecay.getValue()/decayMax)*10d);
     }
     private void onSustainDrag() {
-
         point3ADSR.setYValue(sliderSustain.getValue()*30d);
         point4ADSR.setYValue(sliderSustain.getValue()*30d);
     }
     private void onReleaseDrag() {
         point4ADSR.setXValue(40d-(sliderRelease.getValue()/releaseMax)*10d);
+    }
+    //endregion
+
+    //region initialize methods (click to open/collapse)
+    private void initNoise() {
+        tglSwitchNoise.selectedProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+
+        KnobBehavior bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
+        knobNoiseGain.setOnMouseDragged(bKnobNoiseGain);
+        bKnobNoiseGain.setValueZero();
+        bKnobNoiseGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here.
+        });
+    }
+
+    private void initDelay() {
+        tglSwitchDelay.selectedProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+
+        KnobBehavior bKnobDelayFeedback = new KnobBehavior(knobDelayFeedback);
+        knobDelayFeedback.setOnMouseDragged(bKnobDelayFeedback);
+        bKnobDelayFeedback.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobDelayTime = new KnobBehavior(knobDelayTime);
+        knobDelayTime.setOnMouseDragged(bKnobDelayTime);
+        bKnobDelayTime.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobDelayRepeat = new KnobBehavior(knobDelayRepeat);
+        knobDelayRepeat.setOnMouseDragged(bKnobDelayRepeat);
+        bKnobDelayRepeat.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+    }
+
+    private void initReverb() {
+        tglSwitchReverb.selectedProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+
+        KnobBehavior bKnobReverbSize = new KnobBehavior(knobReverbSize);
+        knobReverbSize.setOnMouseDragged(bKnobReverbSize);
+        bKnobReverbSize.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobReverbDecay = new KnobBehavior(knobReverbDecay);
+        knobReverbDecay.setOnMouseDragged(bKnobReverbDecay);
+        bKnobReverbDecay.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobReverbDW = new KnobBehavior(knobReverbDW);
+        knobReverbDW.setOnMouseDragged(bKnobReverbDW);
+        bKnobReverbDW.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+    }
+
+    private void initLFO() {
+        tglSwitchLFO.selectedProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+
+        KnobBehavior bKnobLFODepth = new KnobBehavior(knobLFODepth);
+        knobLFODepth.setOnMouseDragged(bKnobLFODepth);
+        bKnobLFODepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobLFORate = new KnobBehavior(knobLFORate);
+        knobLFORate.setOnMouseDragged(bKnobLFORate);
+        bKnobLFORate.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehaviorWave bKnobLFOWaveform = new KnobBehaviorWave(knobLFOWaveForm);
+        knobLFOWaveForm.setOnMouseDragged(bKnobLFOWaveform);
+        bKnobLFOWaveform.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+    }
+
+    private void initFilter() {
+        tglSwitchNoise.selectedProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+
+        KnobBehavior bKnobFilterHPCutoff = new KnobBehavior(knobFilterHPCutoff);
+        knobFilterHPCutoff.setOnMouseDragged(bKnobFilterHPCutoff);
+        bKnobFilterHPCutoff.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobFilterHPSlope = new KnobBehavior(knobFilterHPSlope);
+        knobFilterHPSlope.setOnMouseDragged(bKnobFilterHPSlope);
+        bKnobFilterHPSlope.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobFilterFreq = new KnobBehavior(knobFilterFreq);
+        knobFilterFreq.setOnMouseDragged(bKnobFilterFreq);
+        bKnobFilterFreq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobFilterRange = new KnobBehavior(knobFilterRange);
+        knobFilterRange.setOnMouseDragged(bKnobFilterRange);
+        bKnobFilterRange.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobFilterLPCutoff = new KnobBehavior(knobFilterLPCutoff);
+        knobFilterLPCutoff.setOnMouseDragged(bKnobFilterLPCutoff);
+        bKnobFilterLPCutoff.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobFilterLPSlope = new KnobBehavior(knobFilterLPSlope);
+        knobFilterLPSlope.setOnMouseDragged(bKnobFilterLPSlope);
+        bKnobFilterLPSlope.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+    }
+
+    private void initADSR() {
+        setupLineChart();
+
+        sliderAttack.setMax(attackMax);
+        sliderAttack.setMin(10);
+        sliderAttack.setBlockIncrement(50);
+        sliderAttack.valueProperty().addListener((observableValue, number, t1) -> {
+            ADSRValues.setAttackValue(t1.floatValue());
+            onAttackDrag();
+        });
+
+        sliderDecay.setMax(1500);
+        sliderDecay.setMin(10);
+        sliderDecay.setBlockIncrement(50);
+        sliderDecay.valueProperty().addListener((observableValue, number, t1) -> {
+            ADSRValues.setDecayValue(t1.floatValue());
+            onDecayDrag();
+        });
+
+        sliderSustain.setMax(1);
+        sliderSustain.setValue(1);
+        sliderSustain.setBlockIncrement(0.1);
+        sliderSustain.valueProperty().addListener((observableValue, number, t1) -> {
+            ADSRValues.setSustainValue(t1.floatValue());
+            onSustainDrag();
+        });
+
+        sliderRelease.setMax(2000);
+        sliderRelease.setMin(10);
+        sliderRelease.setBlockIncrement(50);
+        sliderRelease.valueProperty().addListener((observableValue, number, t1) -> {
+            ADSRValues.setReleaseValue(t1.floatValue());
+            onReleaseDrag();
+        });
+    }
+
+    public void initKeyBoardListeners() {
+        mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                KeyCode keyCode = event.getCode();
+                // If it's a valid key, send a noteOn message.
+                if(keyStatus.containsKey(keyCode)){
+                    if(keyStatus.get(keyCode).compareAndSet(false, true)){
+                        MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
+                        System.out.println("++++" + note.name());
+                        synthaxController.noteOn(note, 128);
+                    }
+                }
+            }
+        });
+        mainPane.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                KeyCode keyCode = event.getCode();
+                if(keyStatus.containsKey(keyCode)){
+                    if(keyStatus.get(keyCode).compareAndSet(true, false)){
+                        MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
+                        System.out.println("----" + note.name());
+                        synthaxController.noteOff(note);
+                    }
+                }
+            }
+        });
     }
     //endregion
 }

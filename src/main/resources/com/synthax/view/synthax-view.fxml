@@ -39,7 +39,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobNoiseGain" layoutX="52.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ToggleSwitch layoutX="100.0" layoutY="7.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch fx:id="tglSwitchNoise" layoutX="100.0" layoutY="7.0" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="55.0" layoutY="39.0" text="Gain">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -73,7 +73,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <ToggleSwitch layoutX="129.0" layoutY="3.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch fx:id="tglSwitchDelay" layoutX="129.0" layoutY="3.0" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="12.0" layoutY="39.0" text="Feedback">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -120,7 +120,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <ToggleSwitch layoutX="129.0" layoutY="3.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch fx:id="tglSwitchReverb" layoutX="129.0" layoutY="3.0" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="24.0" layoutY="39.0" text="Size">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -159,7 +159,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobLFODepth" layoutX="20.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ToggleSwitch layoutX="138.0" layoutY="3.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch fx:id="tglSwitchLFO" layoutX="138.0" layoutY="3.0" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="21.0" layoutY="39.0" text="Depth">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -615,8 +615,8 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobFilterCutoff" layoutX="20.0" layoutY="106.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ToggleSwitch layoutX="17.0" layoutY="53.0" prefHeight="20.0" prefWidth="30.0" />
+            <Button fx:id="knobFilterHPCutoff" layoutX="20.0" layoutY="106.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ToggleSwitch fx:id="tglSwitchFilterHP" layoutX="17.0" layoutY="53.0" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="19.0" layoutY="86.0" text="Cutoff">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -627,7 +627,7 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobFilterResonance" layoutX="109.0" layoutY="106.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobFilterFreq" layoutX="109.0" layoutY="106.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Label layoutX="112.0" layoutY="86.0" text="Freq">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -638,20 +638,20 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobFilterEnvelope" layoutX="196.0" layoutY="106.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobFilterLPCutoff" layoutX="196.0" layoutY="106.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Label layoutX="195.0" layoutY="86.0" text="Cutoff">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ToggleSwitch layoutX="107.0" layoutY="53.0" prefHeight="20.0" prefWidth="30.0" />
-            <ToggleSwitch layoutX="193.0" layoutY="53.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch fx:id="tglSwitchFilterNotch" layoutX="107.0" layoutY="53.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch fx:id="tglSwitchFilterLP" layoutX="193.0" layoutY="53.0" prefHeight="20.0" prefWidth="30.0" />
             <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="4.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobFilterCutoff1" layoutX="20.0" layoutY="168.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobFilterHPSlope" layoutX="20.0" layoutY="168.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Label layoutX="21.0" layoutY="148.0" text="Slope">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -662,7 +662,7 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobFilterResonance1" layoutX="109.0" layoutY="168.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobFilterRange" layoutX="109.0" layoutY="168.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Label layoutX="108.0" layoutY="148.0" text="Range">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -673,7 +673,7 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobFilterEnvelope1" layoutX="196.0" layoutY="168.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobFilterLPSlope" layoutX="196.0" layoutY="168.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Label layoutX="197.0" layoutY="148.0" text="Slope">
                <font>
                   <Font name="Arial" size="10.0" />

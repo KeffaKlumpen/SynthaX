@@ -291,19 +291,10 @@ public class OscillatorController implements Initializable {
         });
     }
 
-    /**
-     * Sets behaviour for on/off toggle switch
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     */
     private void initOnOff() {
         tglSwitchOscillatorOnOff.setSelected(true);
-        tglSwitchOscillatorOnOff.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                boolean onOff = tglSwitchOscillatorOnOff.isSelected();
-                bypassOscillator(onOff);
-            }
+        tglSwitchOscillatorOnOff.selectedProperty().addListener((v, oldValue, newValue) -> {
+            bypassOscillator(newValue);
         });
     }
 
