@@ -210,7 +210,7 @@ public class SynthaxView implements Initializable {
         initDelay();
         initLFO();
         initReverb();
-        //initSS();
+        initSS();
         sliderMasterGain.valueProperty().addListener((observableValue, number, t1) -> synthaxController.setMasterGain(t1.floatValue()));
     }
 
@@ -368,6 +368,22 @@ public class SynthaxView implements Initializable {
         KnobBehavior bKnobSS7Freq = new KnobBehavior(knobSS7freq);
         knobSS7freq.setOnMouseDragged(bKnobSS7Freq);
         bKnobSS7Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+
+        KnobBehavior bKnobSS7FineTune = new KnobBehavior(knobSS7FineTune);
+        knobSS7FineTune.setOnMouseDragged(bKnobSS7FineTune);
+        bKnobSS7FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS7Gain = new KnobBehavior(knobSS7Gain);
+        knobSS7Gain.setOnMouseDragged(bKnobSS7Gain);
+        bKnobSS7Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS8Freq = new KnobBehavior(knobSS8freq);
+        knobSS8freq.setOnMouseDragged(bKnobSS8Freq);
+        bKnobSS8Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
         KnobBehavior bKnobSS8FineTune = new KnobBehavior(knobSS8FineTune);
