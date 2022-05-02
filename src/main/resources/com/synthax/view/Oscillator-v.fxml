@@ -50,29 +50,29 @@
                      </image>
                   </ImageView>
                   <Button fx:id="knobWave" layoutX="22.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
-                  <Label layoutX="10.0" layoutY="6.0" text="Controls">
+                  <Label layoutX="10.0" layoutY="6.0" styleClass="oscLabelBig" text="Controls">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
                   </Label>
                   <Button fx:id="knobGain" layoutX="77.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
                   <Spinner fx:id="octaveSpinner" layoutX="182.0" layoutY="59.0" prefHeight="26.0" prefWidth="59.0" />
-                  <Label layoutX="10.0" layoutY="35.0" prefHeight="16.0" prefWidth="54.0" text="Waveform">
+                  <Label layoutX="10.0" layoutY="35.0" prefHeight="16.0" prefWidth="54.0" styleClass="oscLabel" text="Waveform">
                      <font>
                         <Font name="Arial" size="10.0" />
                      </font>
                   </Label>
-                  <Label layoutX="82.0" layoutY="35.0" prefHeight="16.0" prefWidth="23.0" text="Gain">
+                  <Label layoutX="82.0" layoutY="35.0" prefHeight="16.0" prefWidth="23.0" styleClass="oscLabel" text="Gain">
                      <font>
                         <Font name="Arial" size="10.0" />
                      </font>
                   </Label>
-                  <Label layoutX="190.0" layoutY="35.0" prefHeight="16.0" prefWidth="35.0" text="Octave">
+                  <Label layoutX="190.0" layoutY="35.0" prefHeight="16.0" prefWidth="35.0" styleClass="oscLabel" text="Octave">
                      <font>
                         <Font name="Arial" size="10.0" />
                      </font>
                   </Label>
-                  <Label layoutX="128.0" layoutY="35.0" prefHeight="16.0" prefWidth="37.0" text="Detune">
+                  <Label layoutX="128.0" layoutY="35.0" prefHeight="16.0" prefWidth="37.0" styleClass="oscLabel" text="Detune">
                      <font>
                         <Font name="Arial" size="10.0" />
                      </font>
@@ -93,7 +93,7 @@
                      </image>
                   </ImageView>
                   <Button fx:id="knobLFODepth" layoutX="31.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
-                  <Label layoutX="24.0" layoutY="6.0" text="LFO">
+                  <Label layoutX="24.0" layoutY="6.0" styleClass="oscLabelBig" text="LFO">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -104,12 +104,12 @@
                      </image>
                   </ImageView>
                   <Button fx:id="knobLFORate" layoutX="87.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
-                  <Label layoutX="32.0" layoutY="35.0" prefHeight="16.0" prefWidth="31.0" text="Depth">
+                  <Label layoutX="32.0" layoutY="35.0" prefHeight="16.0" prefWidth="31.0" styleClass="oscLabel" text="Depth">
                      <font>
                         <Font name="Arial" size="10.0" />
                      </font>
                   </Label>
-                  <Label layoutX="89.0" layoutY="35.0" prefHeight="16.0" prefWidth="27.0" text="Rate">
+                  <Label layoutX="89.0" layoutY="35.0" prefHeight="16.0" prefWidth="27.0" styleClass="oscLabel" text="Rate">
                      <font>
                         <Font name="Arial" size="10.0" />
                      </font>
