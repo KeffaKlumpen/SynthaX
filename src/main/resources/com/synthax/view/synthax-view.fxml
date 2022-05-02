@@ -590,7 +590,15 @@
                </image>
             </ImageView>
             <Button layoutX="612.0" layoutY="248.0" maxWidth="41.0" minHeight="38.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="41.0" styleClass="bigKnob" stylesheets="@../skins.css" />
-            <Button layoutX="593.0" layoutY="108.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="82.0" styleClass="plainButton" text="Start/Stop" />
+            <Button layoutX="593.0" layoutY="108.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="82.0" styleClass="plainButton">
+               <graphic>
+                  <VBox prefHeight="19.0" prefWidth="33.0">
+                     <children>
+                        <Label prefHeight="28.0" prefWidth="61.0" styleClass="lightLabel" text="   Start" />
+                        <Label prefHeight="32.0" prefWidth="56.0" styleClass="lightLabel" text="   Stop" />
+                     </children>
+                  </VBox>
+               </graphic></Button>
             <Label layoutX="616.0" layoutY="219.0" text="Rate" />
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#d6d1c9" height="40.0" layoutX="431.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="46.0" />
             <Line endX="-1.0" endY="89.32672119140625" layoutX="123.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />

@@ -127,6 +127,11 @@
     -fx-text-fill: #000000;
 }
 
+.lightLabel {
+    -fx-font-family: "Handel Gothic";
+    -fx-text-fill: #d6d1c9;
+}
+
 .oscLabel {
     -fx-font-size: 10px;
 }

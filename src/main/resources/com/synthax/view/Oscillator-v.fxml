@@ -19,7 +19,7 @@
    <graphic>
       <ToolBar prefHeight="40.0" prefWidth="561.0">
          <items>
-            <Label prefHeight="18.0" prefWidth="63.0" text="Oscillator" />
+            <Label prefHeight="18.0" prefWidth="31.0" text="Osc" />
             <Button fx:id="btnRemoveOscillator" mnemonicParsing="false" styleClass="plainButton" text="Remove" />
             <SegmentedButton fx:id="segBtnCombineMode" prefHeight="26.0" prefWidth="91.0">
                <buttons>
