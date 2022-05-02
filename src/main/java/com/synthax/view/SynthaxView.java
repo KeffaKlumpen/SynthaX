@@ -210,7 +210,7 @@ public class SynthaxView implements Initializable {
         initDelay();
         initLFO();
         initReverb();
-        initSS();
+        //initSS();
         sliderMasterGain.valueProperty().addListener((observableValue, number, t1) -> synthaxController.setMasterGain(t1.floatValue()));
     }
 
