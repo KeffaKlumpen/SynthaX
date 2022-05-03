@@ -290,8 +290,8 @@ public class SynthaxView implements Initializable {
     }
 
     private void initFilter() {
-        tglSwitchNoise.selectedProperty().addListener((v, oldValue, newValue) -> {
-
+        tglSwitchFilterNotch.selectedProperty().addListener((v, oldValue, newValue) -> {
+            synthaxController.setNotchActive(newValue);
         });
 
         tglSwitchFilterHP.selectedProperty().addListener(((v, oldValue, newValue) -> synthaxController.setHPActive(newValue)));
