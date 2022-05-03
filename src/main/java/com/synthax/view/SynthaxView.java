@@ -9,8 +9,6 @@ import com.synthax.controller.SynthaxController;
 import com.synthax.model.ADSRValues;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.util.MidiHelpers;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
 import javafx.event.EventHandler;
 
@@ -293,43 +291,45 @@ public class SynthaxView implements Initializable {
 
     private void initFilter() {
         tglSwitchNoise.selectedProperty().addListener((v, oldValue, newValue) -> {
-
+            System.out.println("what?");
         });
+
+        tglSwitchFilterHP.selectedProperty().addListener(((observable, oldValue, newValue) -> synthaxController.setHPActive(newValue)));
 
         KnobBehavior bKnobFilterHPCutoff = new KnobBehavior(knobFilterHPCutoff);
         knobFilterHPCutoff.setOnMouseDragged(bKnobFilterHPCutoff);
         bKnobFilterHPCutoff.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setHPCutoff(newValue.floatValue());
         });
 
         KnobBehavior bKnobFilterHPSlope = new KnobBehavior(knobFilterHPSlope);
         knobFilterHPSlope.setOnMouseDragged(bKnobFilterHPSlope);
         bKnobFilterHPSlope.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setHPSlope(newValue.floatValue());
         });
 
         KnobBehavior bKnobFilterFreq = new KnobBehavior(knobFilterFreq);
         knobFilterFreq.setOnMouseDragged(bKnobFilterFreq);
         bKnobFilterFreq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setNotchFrequency(newValue.floatValue());
         });
 
         KnobBehavior bKnobFilterRange = new KnobBehavior(knobFilterRange);
         knobFilterRange.setOnMouseDragged(bKnobFilterRange);
         bKnobFilterRange.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setNotchRange(newValue.floatValue());
         });
 
         KnobBehavior bKnobFilterLPCutoff = new KnobBehavior(knobFilterLPCutoff);
         knobFilterLPCutoff.setOnMouseDragged(bKnobFilterLPCutoff);
         bKnobFilterLPCutoff.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setLPCutoff(newValue.floatValue());
         });
 
         KnobBehavior bKnobFilterLPSlope = new KnobBehavior(knobFilterLPSlope);
         knobFilterLPSlope.setOnMouseDragged(bKnobFilterLPSlope);
         bKnobFilterLPSlope.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setLPSlope(newValue.floatValue());
         });
     }
 
