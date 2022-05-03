@@ -11,6 +11,9 @@ public class SynthaxController {
     private final Gain masterGain;
     private Glide masterGainGlide;
     private SynthLFO synthLFO;
+    private BiquadFilter filterHP;
+    private BiquadFilter filterNotch;
+    private BiquadFilter filterLP;
 
     private final OscillatorManager oscillatorManager;
 
@@ -30,7 +33,26 @@ public class SynthaxController {
         //oscmanager.getoutput.addinput(lfo)
 
         oscillatorManager = OscillatorManager.getInstance();
-        masterGain.addInput(oscillatorManager.getOutput()); //parameter ska vara LFO-gainen
+        Gain oscCombined = oscillatorManager.getOutput();
+
+        /* TODO: Dessa ska länkas till knobs. Hjälp.
+            filterHP.setFrequency(0-150) -- knob: Cutoff
+            filterHP.setQ(0-1) -- knob: slope (värdet ska begränsas mer sen, 0-1 är för generöst)
+            filterNotch.setFrequency(150-2500) -- knob: Filter
+            filterNotch.setQ(0-1) -- knob: range
+            filterLP.setFrequency(0-150) -- knob: Cutoff
+            filterLP.setQ(0-1) -- knob: slope (värdet ska begränsas mer sen, 0-1 är för generöst)
+         */
+        filterHP = new BiquadFilter(ac, 1, BiquadFilter.HP);
+        filterHP.addInput(oscCombined);
+
+        filterNotch = new BiquadFilter(ac, 1, BiquadFilter.NOTCH);
+        filterNotch.addInput(filterHP);
+
+        filterLP = new BiquadFilter(ac, 1, BiquadFilter.LP);
+        filterLP.addInput(filterNotch);
+
+        masterGain.addInput(filterLP);
 
         // Send to audio-device
         ac.out.addInput(masterGain);
