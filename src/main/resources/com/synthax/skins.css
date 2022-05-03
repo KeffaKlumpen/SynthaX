@@ -38,7 +38,7 @@
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
         -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 30px;
-    -fx-background-image: url("Images/knob-main.png");
+    -fx-background-image: url("Images/knob2dw.png");
         -fx-background-size: 30px 30px;
         -fx-background-repeat: no-repeat;
         -fx-background-position: center;
@@ -46,6 +46,23 @@
     -fx-min-height: 30px;
     -fx-max-width: 30px;
     -fx-max-height: 30px;
+}
+
+.slider .thumb {
+    -fx-background-image: url("Images/slider2dw.png");
+    -fx-background-size: 28px, 15px;
+    -fx-pref-width: 28px;
+    -fx-pref-height: 15px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#masterSlider .thumb {
+        -fx-background-size: 60px, 30px;
+        -fx-pref-width: 60px;
+        -fx-pref-height: 30px;
+        -fx-background-repeat: no-repeat;
+        -fx-background-position: center;
 }
 
 .bigKnob:focused {
@@ -56,7 +73,7 @@
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
         -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 30px;
-    -fx-background-image: url("Images/knob-main.png");
+    -fx-background-image: url("Images/knob2dw.png");
         -fx-background-size: 40px 40px;
         -fx-background-repeat: no-repeat;
         -fx-background-position: center;
