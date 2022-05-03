@@ -291,10 +291,11 @@ public class SynthaxView implements Initializable {
 
     private void initFilter() {
         tglSwitchNoise.selectedProperty().addListener((v, oldValue, newValue) -> {
-            System.out.println("what?");
+
         });
 
-        tglSwitchFilterHP.selectedProperty().addListener(((observable, oldValue, newValue) -> synthaxController.setHPActive(newValue)));
+        tglSwitchFilterHP.selectedProperty().addListener(((v, oldValue, newValue) -> synthaxController.setHPActive(newValue)));
+        tglSwitchFilterLP.selectedProperty().addListener(((v, oldValue, newValue) -> synthaxController.setLPActive(newValue)));
 
         KnobBehavior bKnobFilterHPCutoff = new KnobBehavior(knobFilterHPCutoff);
         knobFilterHPCutoff.setOnMouseDragged(bKnobFilterHPCutoff);

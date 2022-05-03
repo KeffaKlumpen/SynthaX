@@ -8,16 +8,25 @@ import net.beadsproject.beads.ugens.*;
 
 public class SynthaxController {
     private final Gain masterGain;
-    private Glide masterGainGlide;
+    private final Glide masterGainGlide;
     private SynthLFO synthLFO;
     private final BiquadFilter filterHP;
     private final BiquadFilter filterNotch;
     private final BiquadFilter filterLP;
     private final OscillatorManager oscillatorManager;
 
+    // High-pass
+    private final float hpMinFreq = 800f;
+    private final float hpMaxFreq = 2500f;
+    private final float HPdisableFreq = 0.001f;     // value where the filter is effectively disabled.
     private boolean hpActive = false;
-    private float savedHPCutoff = 0f;
-    private float savedLPCutoff = 22000f;
+    private float savedHPCutoff = hpMinFreq;
+    // Low-pass
+    private final float lpMinFreq = 50f;
+    private final float lpMaxFreq = 1500f;
+    private final float LPdisableFreq = 22000f; // value where the filter is effectively disabled.
+    private boolean lpActive = false;
+    private float savedLPCutoff = lpMinFreq;
 
     /**
      * Setup AudioContext, OscillatorManager and create all necessary links.
@@ -39,7 +48,7 @@ public class SynthaxController {
 
         filterHP = new BiquadFilter(ac, 1, BiquadFilter.HP);
         filterHP.addInput(oscCombined);
-        filterHP.setFrequency(0f);
+        filterHP.setFrequency(HPdisableFreq);
 
         filterNotch = new BiquadFilter(ac, 1, BiquadFilter.NOTCH);
         //filterNotch.addInput(filterHP);
@@ -47,9 +56,9 @@ public class SynthaxController {
 
         filterLP = new BiquadFilter(ac, 1, BiquadFilter.LP);
         filterLP.addInput(filterHP);
-        filterLP.setFrequency(22000f);
+        filterLP.setFrequency(LPdisableFreq);
 
-        masterGain.addInput(filterHP);
+        masterGain.addInput(filterLP);
 
         // Send to audio-device
         ac.out.addInput(masterGain);
@@ -112,41 +121,41 @@ public class SynthaxController {
     //endregion
 
     public void setHPCutoff(float cutoff) {
-        float mapped = map(cutoff, 0f, 1f, 800f, 2500f);
-        System.out.println("mapped: " + mapped);
+        float mapped = map(cutoff, 0f, 1f, hpMinFreq, hpMaxFreq);
         if(hpActive) {
             filterHP.setFrequency(mapped);
         } else {
             savedHPCutoff = mapped;
             System.out.println("Saved: " + savedHPCutoff);
-
         }
     }
 
     public void setHPSlope(float slope) {
         float mapped = map(slope, 0f, 1f, 0.1f, 1f);
-        System.out.println("mapped: " + mapped);
         filterHP.setQ(mapped);
     }
 
-    public void setHPActive(boolean isActive) {
-        hpActive = isActive;
+    public void setHPActive(boolean newActive) {
+        hpActive = newActive;
 
-        if(isActive) {
+        if(hpActive) {
             filterHP.setFrequency(savedHPCutoff);
         } else {
             savedHPCutoff = filterHP.getFrequency();
             System.out.println("Saved: " + savedHPCutoff);
-            filterHP.setFrequency(0f);
+            filterHP.setFrequency(HPdisableFreq);
+            filterHP.reset();
         }
     }
 
     public void setNotchFrequency(float frequency) {
         System.err.println("SynthaxController.setNotchFrequency() - Not implemented.");
     }
-
     public void setNotchRange(float q) {
         System.err.println("SynthaxController.setNotchRange() - Not implemented.");
+    }
+    public void setNotchActive(boolean newActive) {
+        System.err.println("SynthaxController.setNotchActive() - Not implemented.");
     }
 
     /**
@@ -154,23 +163,28 @@ public class SynthaxController {
      * @param cutoff
      */
     public void setLPCutoff(float cutoff) {
-        float mapped = map(cutoff, 0f, 1f, 50f, 1500f);
-        System.out.println("mapped: " + mapped);
-        filterLP.setFrequency(mapped);
+        float mapped = map(cutoff, 0f, 1f, lpMinFreq, lpMaxFreq);
+        if(lpActive) {
+            filterLP.setFrequency(mapped);
+        } else {
+            savedLPCutoff = mapped;
+        }
     }
 
     public void setLPSlope(float slope) {
         float mapped = map(slope, 0f, 1f, 0.1f, 1f);
-        System.out.println("mapped: " + mapped);
         filterLP.setQ(mapped);
     }
 
-    public void bypassLP(boolean bypass) {
-        if(bypass) {
-            setLPCutoff(savedLPCutoff);
+    public void setLPActive(boolean newActive) {
+        lpActive = newActive;
+
+        if(lpActive) {
+            filterLP.setFrequency(savedLPCutoff);
         } else {
             savedLPCutoff = filterLP.getFrequency();
-            setLPCutoff(22000f);
+            filterLP.setFrequency(LPdisableFreq);
+            filterLP.reset();
         }
     }
 
