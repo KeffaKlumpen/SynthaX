@@ -18,13 +18,13 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.SynthaxView">
    <children>
-      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="108.0" layoutX="14.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="384.0" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="123.0" layoutX="14.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="384.0" />
       <ImageView fitHeight="264.0" fitWidth="397.0" layoutX="18.0" layoutY="-38.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Images/logo1.png" />
+            <Image url="@../Images/logoTdigiSv.png" />
          </image>
       </ImageView>
-    <Button fx:id="btnAddOscillator" layoutX="141.0" layoutY="136.0" mnemonicParsing="false" onAction="#onActionAddOscillator" prefHeight="40.0" prefWidth="133.0" styleClass="plainButton" text="Add Oscilltator">
+    <Button fx:id="btnAddOscillator" layoutX="136.0" layoutY="146.0" mnemonicParsing="false" onAction="#onActionAddOscillator" prefHeight="30.0" prefWidth="138.0" styleClass="plainButton" text="Add Oscilltator">
          <font>
             <Font name="Handel Gothic" size="14.0" />
          </font></Button>
