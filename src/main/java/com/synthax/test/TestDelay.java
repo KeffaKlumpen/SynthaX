@@ -65,16 +65,17 @@ public class TestDelay {
         Gain delayGain = new Gain(ac, 1, 0.6f); //gainvärdet här styr amplitud på ekot
 
         //OLLIES SKIT
+        /*
         Glide myGlide = new Glide(ac, 0);
         Gain myGain = new Gain(ac, 1, myGlide);
         myGain.addInput(delayGain);
-        delayIn.addInput(myGain);
+        delayIn.addInput(myGain);*/
 
 
         delayGain.addInput(delayOut);
 
         //to feed the delay back into itself, uncomment this line:
-        delayIn.addInput(delayGain);
+        //delayIn.addInput(delayGain);
 
         ac.out.addInput(synthGain);
         ac.out.addInput(delayGain);
@@ -86,12 +87,12 @@ public class TestDelay {
             gainEnvelope.addSegment(0.8f, 10);
             gainEnvelope.addSegment(0, 300);
             try {
-                Thread.sleep(2000);
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             Scanner scn = new Scanner(System.in);
-            myGlide.setValue(scn.nextFloat());
+            //myGlide.setValue(scn.nextFloat());
             kuken++;
         }
     }
