@@ -37,7 +37,7 @@
    <content>
       <HBox prefHeight="178.0" prefWidth="389.0">
          <children>
-            <AnchorPane prefHeight="172.0" prefWidth="271.0">
+            <AnchorPane prefHeight="110.0" prefWidth="240.0">
                <children>
                   <ImageView fitHeight="67.0" fitWidth="66.0" layoutX="59.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -56,7 +56,7 @@
                      </font>
                   </Label>
                   <Button fx:id="knobGain" layoutX="77.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
-                  <Spinner fx:id="octaveSpinner" layoutX="182.0" layoutY="59.0" prefHeight="26.0" prefWidth="59.0" />
+                  <Spinner fx:id="octaveSpinner" layoutX="179.0" layoutY="59.0" prefHeight="26.0" prefWidth="66.0" />
                   <Label layoutX="10.0" layoutY="35.0" prefHeight="16.0" prefWidth="54.0" styleClass="oscLabel" text="Waveform">
                      <font>
                         <Font name="Arial" size="10.0" />
@@ -85,7 +85,7 @@
                   <Button fx:id="knobDetune" layoutX="132.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="172.0" prefWidth="99.0">
+            <AnchorPane prefHeight="110.0" prefWidth="136.0">
                <children>
                   <ImageView fitHeight="67.0" fitWidth="66.0" layoutX="13.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
