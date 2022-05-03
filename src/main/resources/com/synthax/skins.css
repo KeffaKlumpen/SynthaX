@@ -61,14 +61,13 @@
         -fx-background-size: 60px, 30px;
         -fx-pref-width: 60px;
         -fx-pref-height: 30px;
-        -fx-background-repeat: no-repeat;
-        -fx-background-position: center;
 }
 
 .bigKnob:focused {
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
         -fx-background-insets: 0, 1, 2;
 }
+
 .bigKnob {
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
         -fx-background-insets: 0, 1, 2;
@@ -100,7 +99,6 @@
     -fx-text-fill: #d6d1c9;
     -fx-font-family: "Handel Gothic";
     -fx-font-size: 10;
-
 }
 
 .spinner .increment-arrow-button .increment-arrow,
