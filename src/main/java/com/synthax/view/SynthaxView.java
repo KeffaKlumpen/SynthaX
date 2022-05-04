@@ -283,7 +283,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS0Freq = new KnobBehaviorSeqFreq(knobSS0freq, MidiNote.C4);
         knobSS0freq.setOnMouseDragged(bKnobSS0Freq);
         bKnobSS0Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff0.isSelected()) {
+                btnStepOnOff0.textProperty().setValue(bKnobSS0Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS0FineTune = new KnobBehaviorDetune(knobSS0FineTune);
         knobSS0FineTune.setOnMouseDragged(bKnobSS0FineTune);
@@ -298,7 +300,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS1Freq = new KnobBehaviorSeqFreq(knobSS1freq, MidiNote.Db4);
         knobSS1freq.setOnMouseDragged(bKnobSS1Freq);
         bKnobSS1Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff1.isSelected()) {
+                btnStepOnOff1.textProperty().setValue(bKnobSS1Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS1FineTune = new KnobBehaviorDetune(knobSS1FineTune);
         knobSS1FineTune.setOnMouseDragged(bKnobSS1FineTune);
@@ -313,7 +317,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS2Freq = new KnobBehaviorSeqFreq(knobSS2freq, MidiNote.D4);
         knobSS2freq.setOnMouseDragged(bKnobSS2Freq);
         bKnobSS2Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff2.isSelected()) {
+                btnStepOnOff2.textProperty().setValue(bKnobSS2Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS2FineTune = new KnobBehaviorDetune(knobSS2FineTune);
         knobSS2FineTune.setOnMouseDragged(bKnobSS2FineTune);
@@ -328,7 +334,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS3Freq = new KnobBehaviorSeqFreq(knobSS3freq, MidiNote.Eb4);
         knobSS3freq.setOnMouseDragged(bKnobSS3Freq);
         bKnobSS3Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff3.isSelected()) {
+                btnStepOnOff3.textProperty().setValue(bKnobSS3Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS3FineTune = new KnobBehaviorDetune(knobSS3FineTune);
         knobSS3FineTune.setOnMouseDragged(bKnobSS3FineTune);
@@ -343,7 +351,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS4Freq = new KnobBehaviorSeqFreq(knobSS4freq, MidiNote.E4);
         knobSS4freq.setOnMouseDragged(bKnobSS4Freq);
         bKnobSS4Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff4.isSelected()) {
+                btnStepOnOff4.textProperty().setValue(bKnobSS4Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS4FineTune = new KnobBehaviorDetune(knobSS4FineTune);
         knobSS4FineTune.setOnMouseDragged(bKnobSS4FineTune);
@@ -358,7 +368,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS5Freq = new KnobBehaviorSeqFreq(knobSS5freq, MidiNote.F4);
         knobSS5freq.setOnMouseDragged(bKnobSS5Freq);
         bKnobSS5Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff5.isSelected()) {
+                btnStepOnOff5.textProperty().setValue(bKnobSS5Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS5FineTune = new KnobBehaviorDetune(knobSS5FineTune);
         knobSS5FineTune.setOnMouseDragged(bKnobSS5FineTune);
@@ -373,7 +385,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS6Freq = new KnobBehaviorSeqFreq(knobSS6freq, MidiNote.Gb4);
         knobSS6freq.setOnMouseDragged(bKnobSS6Freq);
         bKnobSS6Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff6.isSelected()) {
+                btnStepOnOff6.textProperty().setValue(bKnobSS6Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS6FineTune = new KnobBehaviorDetune(knobSS6FineTune);
         knobSS6FineTune.setOnMouseDragged(bKnobSS6FineTune);
@@ -388,7 +402,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS7Freq = new KnobBehaviorSeqFreq(knobSS7freq, MidiNote.G4);
         knobSS7freq.setOnMouseDragged(bKnobSS7Freq);
         bKnobSS7Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff7.isSelected()) {
+                btnStepOnOff7.textProperty().setValue(bKnobSS7Freq.getNoteName());
+            }
         });
 
         KnobBehaviorDetune bKnobSS7FineTune = new KnobBehaviorDetune(knobSS7FineTune);
@@ -404,7 +420,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS8Freq = new KnobBehaviorSeqFreq(knobSS8freq, MidiNote.Ab4);
         knobSS8freq.setOnMouseDragged(bKnobSS8Freq);
         bKnobSS8Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff8.isSelected()) {
+                btnStepOnOff8.textProperty().setValue(bKnobSS8Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS8FineTune = new KnobBehaviorDetune(knobSS8FineTune);
         knobSS8FineTune.setOnMouseDragged(bKnobSS8FineTune);
@@ -419,7 +437,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS9Freq = new KnobBehaviorSeqFreq(knobSS9freq, MidiNote.A4);
         knobSS9freq.setOnMouseDragged(bKnobSS9Freq);
         bKnobSS9Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff9.isSelected()) {
+                btnStepOnOff9.textProperty().setValue(bKnobSS9Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS9FineTune = new KnobBehaviorDetune(knobSS9FineTune);
         knobSS9FineTune.setOnMouseDragged(bKnobSS9FineTune);
@@ -434,7 +454,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS10Freq = new KnobBehaviorSeqFreq(knobSS10freq, MidiNote.Bb4);
         knobSS10freq.setOnMouseDragged(bKnobSS10Freq);
         bKnobSS10Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff10.isSelected()) {
+                btnStepOnOff10.textProperty().setValue(bKnobSS10Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS10FineTune = new KnobBehaviorDetune(knobSS10FineTune);
         knobSS10FineTune.setOnMouseDragged(bKnobSS10FineTune);
@@ -449,7 +471,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS11Freq = new KnobBehaviorSeqFreq(knobSS11freq, MidiNote.B4);
         knobSS11freq.setOnMouseDragged(bKnobSS11Freq);
         bKnobSS11Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff11.isSelected()) {
+                btnStepOnOff11.textProperty().setValue(bKnobSS11Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS11FineTune = new KnobBehaviorDetune(knobSS11FineTune);
         knobSS11FineTune.setOnMouseDragged(bKnobSS11FineTune);
@@ -464,7 +488,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS12Freq = new KnobBehaviorSeqFreq(knobSS12freq, MidiNote.C5);
         knobSS12freq.setOnMouseDragged(bKnobSS12Freq);
         bKnobSS12Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff12.isSelected()) {
+                btnStepOnOff12.textProperty().setValue(bKnobSS12Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS12FineTune = new KnobBehaviorDetune(knobSS12FineTune);
         knobSS12FineTune.setOnMouseDragged(bKnobSS12FineTune);
@@ -479,7 +505,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS13Freq = new KnobBehaviorSeqFreq(knobSS13freq, MidiNote.Db5);
         knobSS13freq.setOnMouseDragged(bKnobSS13Freq);
         bKnobSS13Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff13.isSelected()) {
+                btnStepOnOff13.textProperty().setValue(bKnobSS13Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS13FineTune = new KnobBehaviorDetune(knobSS13FineTune);
         knobSS13FineTune.setOnMouseDragged(bKnobSS13FineTune);
@@ -494,7 +522,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS14Freq = new KnobBehaviorSeqFreq(knobSS14freq, MidiNote.D5);
         knobSS14freq.setOnMouseDragged(bKnobSS14Freq);
         bKnobSS14Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff14.isSelected()) {
+                btnStepOnOff14.textProperty().setValue(bKnobSS14Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS14FineTune = new KnobBehaviorDetune(knobSS14FineTune);
         knobSS14FineTune.setOnMouseDragged(bKnobSS14FineTune);
@@ -509,7 +539,9 @@ public class SynthaxView implements Initializable {
         KnobBehaviorSeqFreq bKnobSS15Freq = new KnobBehaviorSeqFreq(knobSS15freq, MidiNote.Eb5);
         knobSS15freq.setOnMouseDragged(bKnobSS15Freq);
         bKnobSS15Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            if (btnStepOnOff15.isSelected()) {
+                btnStepOnOff15.textProperty().setValue(bKnobSS15Freq.getNoteName());
+            }
         });
         KnobBehaviorDetune bKnobSS15FineTune = new KnobBehaviorDetune(knobSS15FineTune);
         knobSS15FineTune.setOnMouseDragged(bKnobSS15FineTune);
@@ -534,6 +566,128 @@ public class SynthaxView implements Initializable {
                 btnStepOnOff0.textProperty().setValue("Off");
             }
             //synthaxController.setStepOnOff(0, newValue);
+        });
+        btnStepOnOff1.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff1.textProperty().setValue(bKnobSS1Freq.getNoteName());
+            } else {
+                btnStepOnOff1.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(1, newValue);
+        });
+        btnStepOnOff2.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff2.textProperty().setValue(bKnobSS2Freq.getNoteName());
+            } else {
+                btnStepOnOff2.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(2, newValue);
+        });
+        btnStepOnOff3.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff3.textProperty().setValue(bKnobSS3Freq.getNoteName());
+            } else {
+                btnStepOnOff3.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(3, newValue);
+        });
+
+        btnStepOnOff4.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff4.textProperty().setValue(bKnobSS4Freq.getNoteName());
+            } else {
+                btnStepOnOff4.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(4, newValue);
+        });
+        btnStepOnOff5.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff5.textProperty().setValue(bKnobSS5Freq.getNoteName());
+            } else {
+                btnStepOnOff5.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(5, newValue);
+        });
+        btnStepOnOff6.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff6.textProperty().setValue(bKnobSS6Freq.getNoteName());
+            } else {
+                btnStepOnOff6.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(6, newValue);
+        });
+        btnStepOnOff7.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff7.textProperty().setValue(bKnobSS7Freq.getNoteName());
+            } else {
+                btnStepOnOff7.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(7, newValue);
+        });
+
+        btnStepOnOff8.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff8.textProperty().setValue(bKnobSS8Freq.getNoteName());
+            } else {
+                btnStepOnOff8.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(8, newValue);
+        });
+        btnStepOnOff9.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff9.textProperty().setValue(bKnobSS9Freq.getNoteName());
+            } else {
+                btnStepOnOff9.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(9, newValue);
+        });
+        btnStepOnOff10.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff10.textProperty().setValue(bKnobSS10Freq.getNoteName());
+            } else {
+                btnStepOnOff10.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(10, newValue);
+        });
+        btnStepOnOff11.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff11.textProperty().setValue(bKnobSS11Freq.getNoteName());
+            } else {
+                btnStepOnOff11.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(11, newValue);
+        });
+        btnStepOnOff12.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff12.textProperty().setValue(bKnobSS12Freq.getNoteName());
+            } else {
+                btnStepOnOff12.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(12, newValue);
+        });
+        btnStepOnOff13.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff13.textProperty().setValue(bKnobSS13Freq.getNoteName());
+            } else {
+                btnStepOnOff13.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(13, newValue);
+        });
+        btnStepOnOff14.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff14.textProperty().setValue(bKnobSS14Freq.getNoteName());
+            } else {
+                btnStepOnOff14.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(14, newValue);
+        });
+        btnStepOnOff15.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff15.textProperty().setValue(bKnobSS15Freq.getNoteName());
+            } else {
+                btnStepOnOff15.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(15, newValue);
         });
     }
     private void initNoise() {
