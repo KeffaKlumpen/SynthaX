@@ -18,8 +18,8 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.SynthaxView">
    <children>
-      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="123.0" layoutX="14.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="397.0" />
-      <ImageView fitHeight="264.0" fitWidth="397.0" layoutX="21.0" layoutY="-38.0" pickOnBounds="true" preserveRatio="true">
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="121.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="397.0" />
+      <ImageView fitHeight="264.0" fitWidth="397.0" layoutX="21.0" layoutY="-40.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/logoTdigiSv.png" />
          </image>
@@ -153,47 +153,47 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="435.0" layoutY="27.0" prefHeight="108.0" prefWidth="193.0">
+      <AnchorPane layoutX="435.0" layoutY="14.0" prefHeight="117.0" prefWidth="193.0">
          <children>
-            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="116.0" layoutY="-8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="193.0" />
-            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="2.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="121.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="193.0" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="2.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobLFODepth" layoutX="20.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ToggleSwitch fx:id="tglSwitchLFO" layoutX="138.0" layoutY="3.0" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="21.0" layoutY="39.0" styleClass="smallLabel" text="Depth">
+            <Button fx:id="knobLFODepth" layoutX="20.0" layoutY="67.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ToggleSwitch fx:id="tglSwitchLFO" layoutX="144.0" layoutY="10.0" prefHeight="20.0" prefWidth="30.0" />
+            <Label layoutX="21.0" layoutY="47.0" styleClass="smallLabel" text="Depth">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="57.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="57.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobLFORate" layoutX="75.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="78.0" layoutY="39.0" styleClass="smallLabel" text="Rate">
+            <Button fx:id="knobLFORate" layoutX="75.0" layoutY="67.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label layoutX="78.0" layoutY="47.0" styleClass="smallLabel" text="Rate">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="63.0" fitWidth="59.0" layoutX="119.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="63.0" fitWidth="59.0" layoutX="119.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/knobStepsWave.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobLFOWaveForm" layoutX="134.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="122.0" layoutY="39.0" styleClass="smallLabel" text="Waveform">
+            <Button fx:id="knobLFOWaveForm" layoutX="134.0" layoutY="67.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label layoutX="122.0" layoutY="47.0" styleClass="smallLabel" text="Waveform">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="8.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="122.0" />
-            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="10.0" layoutY="3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="39.0" />
-            <Line endX="121.1051025390625" endY="-7.62939453125E-6" layoutX="11.0" layoutY="13.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <Label layoutX="12.0" layoutY="3.0" styleClass="bigLabel" text="LFO">
+            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="8.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="122.0" />
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="39.0" />
+            <Line endX="121.1051025390625" endY="-7.62939453125E-6" layoutX="11.0" layoutY="20.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
+            <Label layoutX="12.0" layoutY="10.0" styleClass="bigLabel" text="LFO">
                <font>
                   <Font size="17.0" />
                </font>
@@ -844,5 +844,6 @@
             <Slider id="masterSlider" fx:id="sliderMasterGain" blockIncrement="0.1" layoutX="32.0" layoutY="43.0" majorTickUnit="0.05" max="1.0" minorTickCount="1" orientation="VERTICAL" prefHeight="503.0" prefWidth="35.0" value="0.5" />
          </children>
       </AnchorPane>
+      <Line endX="100.0" layoutX="399.0" layoutY="12.0" startX="-100.0" />
    </children>
 </AnchorPane>
