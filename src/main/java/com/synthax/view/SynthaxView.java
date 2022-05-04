@@ -510,14 +510,14 @@ public class SynthaxView implements Initializable {
     }
     private void initNoise() {
         tglSwitchNoise.selectedProperty().addListener((v, oldValue, newValue) -> {
-
+            synthaxController.setNoiseActive(newValue);
         });
 
         KnobBehavior bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
         knobNoiseGain.setOnMouseDragged(bKnobNoiseGain);
         bKnobNoiseGain.setValueZero();
         bKnobNoiseGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here.
+            synthaxController.setNoiseGain(newValue.floatValue());
         });
     }
 

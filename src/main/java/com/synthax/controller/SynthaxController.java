@@ -30,7 +30,7 @@ public class SynthaxController {
         //oscmanager.getoutput.addinput(lfo)
 
         oscillatorManager = OscillatorManager.getInstance();
-        Gain oscCombined = oscillatorManager.getOutput();
+        Gain oscCombined = oscillatorManager.getFinalOutput();
 
         filters = new EQFilters();
         filters.addInput(oscCombined);
@@ -74,7 +74,9 @@ public class SynthaxController {
     public void removeOscillator(OscillatorController oscillatorController) {
         oscillatorManager.removeOscillator(oscillatorController);
     }
+    //endregion
 
+    //region MIDI-handling (click to open/collapse)
     /**
      * Forward noteOn message
      * @param midiNote
@@ -134,6 +136,16 @@ public class SynthaxController {
 
     public void setLPActive(boolean newActive) {
         filters.setLPActive(newActive);
+    }
+    //endregion
+
+    //region Noise-GUI-forwarding (click to open/collapse)
+    public void setNoiseGain(float gain) {
+        oscillatorManager.getNoiseController().setGain(gain);
+    }
+
+    public void setNoiseActive(boolean isActive) {
+        oscillatorManager.getNoiseController().setActive(isActive);
     }
     //endregion
 
