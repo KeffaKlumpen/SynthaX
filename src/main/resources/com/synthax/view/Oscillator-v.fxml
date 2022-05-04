@@ -23,9 +23,9 @@
             <Button fx:id="btnRemoveOscillator" mnemonicParsing="false" styleClass="plainButton" text="Remove" />
             <SegmentedButton fx:id="segBtnCombineMode" prefHeight="26.0" prefWidth="91.0">
                <buttons>
-                  <ToggleButton fx:id="tglBtnCombineAdd" mnemonicParsing="false" prefHeight="26.0" prefWidth="35.0" text="+" />
-                  <ToggleButton fx:id="tglBtnCombineSub" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" text="-" />
-                  <ToggleButton fx:id="tglBtnCombineMult" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" text="*" />
+                  <ToggleButton fx:id="tglBtnCombineAdd" mnemonicParsing="false" prefHeight="26.0" prefWidth="35.0" styleClass="toggleOsc" text="+" />
+                  <ToggleButton fx:id="tglBtnCombineSub" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" styleClass="toggleOsc" text="-" />
+                  <ToggleButton fx:id="tglBtnCombineMult" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" styleClass="toggleOsc" text="*" />
                </buttons>
             </SegmentedButton>
             <Button fx:id="btnMoveUp" mnemonicParsing="false" styleClass="plainButton" text="up" />

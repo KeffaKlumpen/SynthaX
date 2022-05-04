@@ -85,7 +85,7 @@
 .spinner .increment-arrow-button,
 .spinner .decrement-arrow-button,
 .plainButton,
-.toggle-button,
+.toggleOsc,
 .toggle-switch .thumb-area {
     -fx-background-color: #78736b;
     -fx-text-fill: #d6d1c9;
@@ -106,9 +106,21 @@
     -fx-background-color: black;
 }
 
-.toggle-button:selected,
+.toggleOsc:selected,
 .toggle-switch:selected .thumb-area {
     -fx-background-color: #f78000;
+}
+
+.toggleSeq {
+    -fx-padding: 0,3px;
+    -fx-background-color: #78736b;
+    -fx-text-fill: #d6d1c9;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 10;
+}
+
+.toggleSeq:selected {
+    -fx-text-fill: #f78000;
 }
 
 .spinner .text-field,

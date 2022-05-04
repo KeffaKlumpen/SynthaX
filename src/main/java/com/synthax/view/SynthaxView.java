@@ -126,6 +126,22 @@ public class SynthaxView implements Initializable {
     @FXML private Button knobSS15Gain;
     @FXML private Button SSStartStop;
     @FXML private Button knobSSRate;
+    @FXML private Button btnStepOnOff0;
+    @FXML private Button btnStepOnOff1;
+    @FXML private Button btnStepOnOff2;
+    @FXML private Button btnStepOnOff3;
+    @FXML private Button btnStepOnOff4;
+    @FXML private Button btnStepOnOff5;
+    @FXML private Button btnStepOnOff6;
+    @FXML private Button btnStepOnOff7;
+    @FXML private Button btnStepOnOff8;
+    @FXML private Button btnStepOnOff9;
+    @FXML private Button btnStepOnOff10;
+    @FXML private Button btnStepOnOff11;
+    @FXML private Button btnStepOnOff12;
+    @FXML private Button btnStepOnOff13;
+    @FXML private Button btnStepOnOff14;
+    @FXML private Button btnStepOnOff15;
     //endregion
 
 
@@ -677,30 +693,24 @@ public class SynthaxView implements Initializable {
     }
 
     public void initKeyBoardListeners() {
-        mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                KeyCode keyCode = event.getCode();
-                // If it's a valid key, send a noteOn message.
-                if(keyStatus.containsKey(keyCode)){
-                    if(keyStatus.get(keyCode).compareAndSet(false, true)){
-                        MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
-                        System.out.println("++++" + note.name());
-                        synthaxController.noteOn(note, 127);
-                    }
+        mainPane.setOnKeyPressed(event -> {
+            KeyCode keyCode = event.getCode();
+            // If it's a valid key, send a noteOn message.
+            if(keyStatus.containsKey(keyCode)){
+                if(keyStatus.get(keyCode).compareAndSet(false, true)){
+                    MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
+                    System.out.println("++++" + note.name());
+                    synthaxController.noteOn(note, 127);
                 }
             }
         });
-        mainPane.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                KeyCode keyCode = event.getCode();
-                if(keyStatus.containsKey(keyCode)){
-                    if(keyStatus.get(keyCode).compareAndSet(true, false)){
-                        MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
-                        System.out.println("----" + note.name());
-                        synthaxController.noteOff(note);
-                    }
+        mainPane.setOnKeyReleased(event -> {
+            KeyCode keyCode = event.getCode();
+            if(keyStatus.containsKey(keyCode)){
+                if(keyStatus.get(keyCode).compareAndSet(true, false)){
+                    MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
+                    System.out.println("----" + note.name());
+                    synthaxController.noteOff(note);
                 }
             }
         });
