@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 
-public class KnobSeqFreq implements EventHandler<MouseEvent> {
+public class KnobBehaviorSeqFreq implements EventHandler<MouseEvent> {
     private Button knob;
     private int knobMaxValue = 108;
     private int knobMinValue = 21;
@@ -18,7 +18,7 @@ public class KnobSeqFreq implements EventHandler<MouseEvent> {
     private IntegerProperty noteProperty = new SimpleIntegerProperty(this, "midiNoteIndex", 0);
     private MidiNote midiNote;
 
-    public KnobSeqFreq(Button knob, MidiNote midiNote) {
+    public KnobBehaviorSeqFreq(Button knob, MidiNote midiNote) {
         this.knob = knob;
         this.midiNote = midiNote;
         knob.setRotate(midiNote.getRotation());
