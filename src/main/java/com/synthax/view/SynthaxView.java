@@ -30,6 +30,7 @@ import org.controlsfx.control.ToggleSwitch;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -155,12 +156,19 @@ public class SynthaxView implements Initializable {
     private final int decayMax = 1500;
     private final int releaseMax = 2000;
 
-    private final Map<KeyCode, AtomicBoolean> keyStatus = Map.of(KeyCode.A, new AtomicBoolean(false),
+    /*
+    private Map<KeyCode, AtomicBoolean> keyStatus = Map.of(KeyCode.A, new AtomicBoolean(false),
             KeyCode.S, new AtomicBoolean(false),
             KeyCode.D, new AtomicBoolean(false),
             KeyCode.F, new AtomicBoolean(false),
             KeyCode.G, new AtomicBoolean(false),
-            KeyCode.H, new AtomicBoolean(false));
+            KeyCode.H, new AtomicBoolean(false),
+            KeyCode.W, new AtomicBoolean(false),
+            KeyCode.E, new AtomicBoolean(false),
+            KeyCode.T, new AtomicBoolean(false),
+            KeyCode.Y, new AtomicBoolean(false));
+    */
+    private final HashMap<KeyCode, AtomicBoolean> keyStatus = new HashMap<>();
 
     public SynthaxView() {
         synthaxController = new SynthaxController(this);
@@ -215,9 +223,21 @@ public class SynthaxView implements Initializable {
         }
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        keyStatus.put(KeyCode.A, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.W, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.S, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.E, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.D, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.F, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.T, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.G, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.Y, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.H, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.U, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.J, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.K, new AtomicBoolean(false));
         initNoise();
         initADSR();
         initFilter();
