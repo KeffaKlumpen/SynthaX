@@ -105,7 +105,7 @@ public class OscillatorController implements Initializable {
         float realFrequency = freq;
         freq = applyDetuning(freq);
 
-        voices[nextVoice].playFreq(freq, (float)(velocity / 127), ADSRValues.getAttackValue(), ADSRValues.getSustainValue(), ADSRValues.getDecayValue(), realFrequency);
+        voices[nextVoice].playFreq(freq, (velocity / 127f), ADSRValues.getAttackValue(), ADSRValues.getSustainValue(), ADSRValues.getDecayValue(), realFrequency);
 
         nextVoice = ++nextVoice % voiceCount;
     }

@@ -682,7 +682,7 @@ public class SynthaxView implements Initializable {
                     if(keyStatus.get(keyCode).compareAndSet(false, true)){
                         MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
                         System.out.println("++++" + note.name());
-                        synthaxController.noteOn(note, 128);
+                        synthaxController.noteOn(note, 127);
                     }
                 }
             }
