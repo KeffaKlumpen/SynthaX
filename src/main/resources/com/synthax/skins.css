@@ -27,15 +27,18 @@
     -fx-control-inner-background: #b0aaa0;
     -fx-shadow-highlight-color: #a6a4a270;
 }
+
 .knob:focused {
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
         -fx-background-insets: 0, 1, 2;
 }
+
 .knob {
+    -fx-text-fill: #f78000;
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
         -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 30px;
-    -fx-background-image: url("Images/knob-main.png");
+    -fx-background-image: url("Images/knob2dw.png");
         -fx-background-size: 30px 30px;
         -fx-background-repeat: no-repeat;
         -fx-background-position: center;
@@ -44,28 +47,32 @@
     -fx-max-width: 30px;
     -fx-max-height: 30px;
 }
-.knobPoster {
-    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
-        -fx-background-insets: 0, 1, 2;
-    -fx-background-radius: 70px;
-    -fx-background-image: url("Images/knob-main.png");
-        -fx-background-size: 70px 70px;
-        -fx-background-repeat: no-repeat;
-        -fx-background-position: center;
-    -fx-min-width: 70px;
-    -fx-min-height: 70px;
-    -fx-max-width: 70px;
-    -fx-max-height: 70px;
+
+.slider .thumb {
+    -fx-background-image: url("Images/slider2dw.png");
+    -fx-background-size: 28px, 15px;
+    -fx-pref-width: 28px;
+    -fx-pref-height: 15px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
 }
+
+#masterSlider .thumb {
+        -fx-background-size: 60px, 30px;
+        -fx-pref-width: 60px;
+        -fx-pref-height: 30px;
+}
+
 .bigKnob:focused {
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
         -fx-background-insets: 0, 1, 2;
 }
+
 .bigKnob {
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
         -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 30px;
-    -fx-background-image: url("Images/knob-main.png");
+    -fx-background-image: url("Images/knob2dw.png");
         -fx-background-size: 40px 40px;
         -fx-background-repeat: no-repeat;
         -fx-background-position: center;
@@ -77,17 +84,28 @@
 
 .spinner .increment-arrow-button,
 .spinner .decrement-arrow-button,
-.button,
+.plainButton,
 .toggle-button,
 .toggle-switch .thumb-area {
     -fx-background-color: #78736b;
     -fx-text-fill: #d6d1c9;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 14;
+}
+
+.seqButton {
+    -fx-padding: 0,3px;
+    -fx-background-color: #78736b;
+    -fx-text-fill: #d6d1c9;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 10;
 }
 
 .spinner .increment-arrow-button .increment-arrow,
 .spinner .decrement-arrow-button .decrement-arrow {
     -fx-background-color: black;
 }
+
 .toggle-button:selected,
 .toggle-switch:selected .thumb-area {
     -fx-background-color: #f78000;
@@ -132,9 +150,27 @@
     -fx-background-radius: 5em;
 }
 
-.label {
+.bigLabel {
     -fx-font-family: "Handel Gothic";
     -fx-text-fill: #000000;
+    -fx-font-size: 17px;
+}
+
+.smallLabel {
+    -fx-font-family: "Handel Gothic";
+    -fx-text-fill: #000000;
+    -fx-font-size: 10px;
+}
+
+.filterLabel {
+    -fx-font-family: "Handel Gothic";
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+}
+
+.lightLabel {
+    -fx-font-family: "Handel Gothic";
+    -fx-text-fill: #d6d1c9;
 }
 
 .oscLabel {

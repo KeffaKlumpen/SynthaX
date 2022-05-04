@@ -44,7 +44,7 @@ public class SynthaxView implements Initializable {
     @FXML private ToggleSwitch tglSwitchNoise;
     @FXML private Button knobDelayFeedback;
     @FXML private Button knobDelayTime;
-    @FXML private Button knobDelayRepeat;
+    @FXML private Button knobDelayLevel;
     @FXML private ToggleSwitch tglSwitchDelay;
     @FXML private Button knobReverbSize;
     @FXML private Button knobReverbDecay;
@@ -73,6 +73,58 @@ public class SynthaxView implements Initializable {
     @FXML private NumberAxis xAxis = new NumberAxis();
     @FXML private NumberAxis yAxis = new NumberAxis();
     @FXML private LineChart<Number, Number> lineChartADSR = new LineChart<Number, Number>(xAxis,yAxis);
+    //region Step sequencer buttons
+    @FXML private Button knobSS0freq;
+    @FXML private Button knobSS0FineTune;
+    @FXML private Button knobSS0Gain;
+    @FXML private Button knobSS1freq;
+    @FXML private Button knobSS1FineTune;
+    @FXML private Button knobSS1Gain;
+    @FXML private Button knobSS2freq;
+    @FXML private Button knobSS2FineTune;
+    @FXML private Button knobSS2Gain;
+    @FXML private Button knobSS3freq;
+    @FXML private Button knobSS3FineTune;
+    @FXML private Button knobSS3Gain;
+    @FXML private Button knobSS4freq;
+    @FXML private Button knobSS4FineTune;
+    @FXML private Button knobSS4Gain;
+    @FXML private Button knobSS5freq;
+    @FXML private Button knobSS5FineTune;
+    @FXML private Button knobSS5Gain;
+    @FXML private Button knobSS6freq;
+    @FXML private Button knobSS6FineTune;
+    @FXML private Button knobSS6Gain;
+    @FXML private Button knobSS7freq;
+    @FXML private Button knobSS7FineTune;
+    @FXML private Button knobSS7Gain;
+    @FXML private Button knobSS8freq;
+    @FXML private Button knobSS8FineTune;
+    @FXML private Button knobSS8Gain;
+    @FXML private Button knobSS9freq;
+    @FXML private Button knobSS9FineTune;
+    @FXML private Button knobSS9Gain;
+    @FXML private Button knobSS10freq;
+    @FXML private Button knobSS10FineTune;
+    @FXML private Button knobSS10Gain;
+    @FXML private Button knobSS11freq;
+    @FXML private Button knobSS11FineTune;
+    @FXML private Button knobSS11Gain;
+    @FXML private Button knobSS12freq;
+    @FXML private Button knobSS12FineTune;
+    @FXML private Button knobSS12Gain;
+    @FXML private Button knobSS13freq;
+    @FXML private Button knobSS13FineTune;
+    @FXML private Button knobSS13Gain;
+    @FXML private Button knobSS14freq;
+    @FXML private Button knobSS14FineTune;
+    @FXML private Button knobSS14Gain;
+    @FXML private Button knobSS15freq;
+    @FXML private Button knobSS15FineTune;
+    @FXML private Button knobSS15Gain;
+    @FXML private Button SSStartStop;
+    @FXML private Button knobSSRate;
+    //endregion
 
     private XYChart.Data<Number, Number> point1ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point2ADSR = new XYChart.Data<>();
@@ -156,6 +208,7 @@ public class SynthaxView implements Initializable {
         initDelay();
         initLFO();
         initReverb();
+        initSS();
         sliderMasterGain.valueProperty().addListener((observableValue, number, t1) -> synthaxController.setMasterGain(t1.floatValue()));
     }
 
@@ -204,6 +257,255 @@ public class SynthaxView implements Initializable {
     //endregion
 
     //region initialize methods (click to open/collapse)
+    private void initSS() {
+        KnobBehavior bKnobSS0Freq = new KnobBehavior(knobSS0freq);
+        knobSS0freq.setOnMouseDragged(bKnobSS0Freq);
+        bKnobSS0Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS0FineTune = new KnobBehavior(knobSS0FineTune);
+        knobSS0FineTune.setOnMouseDragged(bKnobSS0FineTune);
+        bKnobSS0FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS0Gain = new KnobBehavior(knobSS0Gain);
+        knobSS0Gain.setOnMouseDragged(bKnobSS0Gain);
+        bKnobSS0Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS1Freq = new KnobBehavior(knobSS1freq);
+        knobSS1freq.setOnMouseDragged(bKnobSS1Freq);
+        bKnobSS1Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS1FineTune = new KnobBehavior(knobSS1FineTune);
+        knobSS1FineTune.setOnMouseDragged(bKnobSS1FineTune);
+        bKnobSS1FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS1Gain = new KnobBehavior(knobSS1Gain);
+        knobSS1Gain.setOnMouseDragged(bKnobSS1Gain);
+        bKnobSS1Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS2Freq = new KnobBehavior(knobSS2freq);
+        knobSS2freq.setOnMouseDragged(bKnobSS2Freq);
+        bKnobSS2Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS2FineTune = new KnobBehavior(knobSS2FineTune);
+        knobSS2FineTune.setOnMouseDragged(bKnobSS2FineTune);
+        bKnobSS2FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS2Gain = new KnobBehavior(knobSS2Gain);
+        knobSS2Gain.setOnMouseDragged(bKnobSS2Gain);
+        bKnobSS2Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS3Freq = new KnobBehavior(knobSS3freq);
+        knobSS3freq.setOnMouseDragged(bKnobSS3Freq);
+        bKnobSS3Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS3FineTune = new KnobBehavior(knobSS3FineTune);
+        knobSS3FineTune.setOnMouseDragged(bKnobSS3FineTune);
+        bKnobSS3FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS3Gain = new KnobBehavior(knobSS3Gain);
+        knobSS3Gain.setOnMouseDragged(bKnobSS3Gain);
+        bKnobSS3Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS4Freq = new KnobBehavior(knobSS4freq);
+        knobSS4freq.setOnMouseDragged(bKnobSS4Freq);
+        bKnobSS4Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS4FineTune = new KnobBehavior(knobSS4FineTune);
+        knobSS4FineTune.setOnMouseDragged(bKnobSS4FineTune);
+        bKnobSS4FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS4Gain = new KnobBehavior(knobSS4Gain);
+        knobSS4Gain.setOnMouseDragged(bKnobSS4Gain);
+        bKnobSS4Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS5Freq = new KnobBehavior(knobSS5freq);
+        knobSS5freq.setOnMouseDragged(bKnobSS5Freq);
+        bKnobSS5Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS5FineTune = new KnobBehavior(knobSS5FineTune);
+        knobSS5FineTune.setOnMouseDragged(bKnobSS5FineTune);
+        bKnobSS5FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS5Gain = new KnobBehavior(knobSS5Gain);
+        knobSS5Gain.setOnMouseDragged(bKnobSS5Gain);
+        bKnobSS5Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS6Freq = new KnobBehavior(knobSS6freq);
+        knobSS6freq.setOnMouseDragged(bKnobSS6Freq);
+        bKnobSS6Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS6FineTune = new KnobBehavior(knobSS6FineTune);
+        knobSS6FineTune.setOnMouseDragged(bKnobSS6FineTune);
+        bKnobSS6FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS6Gain = new KnobBehavior(knobSS6Gain);
+        knobSS6Gain.setOnMouseDragged(bKnobSS6Gain);
+        bKnobSS6Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS7Freq = new KnobBehavior(knobSS7freq);
+        knobSS7freq.setOnMouseDragged(bKnobSS7Freq);
+        bKnobSS7Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+
+        KnobBehavior bKnobSS7FineTune = new KnobBehavior(knobSS7FineTune);
+        knobSS7FineTune.setOnMouseDragged(bKnobSS7FineTune);
+        bKnobSS7FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS7Gain = new KnobBehavior(knobSS7Gain);
+        knobSS7Gain.setOnMouseDragged(bKnobSS7Gain);
+        bKnobSS7Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS8Freq = new KnobBehavior(knobSS8freq);
+        knobSS8freq.setOnMouseDragged(bKnobSS8Freq);
+        bKnobSS8Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS8FineTune = new KnobBehavior(knobSS8FineTune);
+        knobSS8FineTune.setOnMouseDragged(bKnobSS8FineTune);
+        bKnobSS8FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS8Gain = new KnobBehavior(knobSS8Gain);
+        knobSS8Gain.setOnMouseDragged(bKnobSS8Gain);
+        bKnobSS8Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS9Freq = new KnobBehavior(knobSS9freq);
+        knobSS9freq.setOnMouseDragged(bKnobSS9Freq);
+        bKnobSS9Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS9FineTune = new KnobBehavior(knobSS9FineTune);
+        knobSS9FineTune.setOnMouseDragged(bKnobSS9FineTune);
+        bKnobSS9FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS9Gain = new KnobBehavior(knobSS9Gain);
+        knobSS9Gain.setOnMouseDragged(bKnobSS9Gain);
+        bKnobSS9Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS10Freq = new KnobBehavior(knobSS10freq);
+        knobSS10freq.setOnMouseDragged(bKnobSS10Freq);
+        bKnobSS10Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS10FineTune = new KnobBehavior(knobSS10FineTune);
+        knobSS10FineTune.setOnMouseDragged(bKnobSS10FineTune);
+        bKnobSS10FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS10Gain = new KnobBehavior(knobSS10Gain);
+        knobSS10Gain.setOnMouseDragged(bKnobSS10Gain);
+        bKnobSS10Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS11Freq = new KnobBehavior(knobSS11freq);
+        knobSS11freq.setOnMouseDragged(bKnobSS11Freq);
+        bKnobSS11Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS11FineTune = new KnobBehavior(knobSS11FineTune);
+        knobSS11FineTune.setOnMouseDragged(bKnobSS11FineTune);
+        bKnobSS11FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS11Gain = new KnobBehavior(knobSS11Gain);
+        knobSS11Gain.setOnMouseDragged(bKnobSS11Gain);
+        bKnobSS11Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS12Freq = new KnobBehavior(knobSS12freq);
+        knobSS12freq.setOnMouseDragged(bKnobSS12Freq);
+        bKnobSS12Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS12FineTune = new KnobBehavior(knobSS12FineTune);
+        knobSS12FineTune.setOnMouseDragged(bKnobSS12FineTune);
+        bKnobSS12FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS12Gain = new KnobBehavior(knobSS12Gain);
+        knobSS12Gain.setOnMouseDragged(bKnobSS12Gain);
+        bKnobSS12Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS13Freq = new KnobBehavior(knobSS13freq);
+        knobSS13freq.setOnMouseDragged(bKnobSS13Freq);
+        bKnobSS13Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS13FineTune = new KnobBehavior(knobSS13FineTune);
+        knobSS13FineTune.setOnMouseDragged(bKnobSS13FineTune);
+        bKnobSS13FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS13Gain = new KnobBehavior(knobSS13Gain);
+        knobSS13Gain.setOnMouseDragged(bKnobSS13Gain);
+        bKnobSS13Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS14Freq = new KnobBehavior(knobSS14freq);
+        knobSS14freq.setOnMouseDragged(bKnobSS14Freq);
+        bKnobSS14Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS14FineTune = new KnobBehavior(knobSS14FineTune);
+        knobSS14FineTune.setOnMouseDragged(bKnobSS14FineTune);
+        bKnobSS14FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS14Gain = new KnobBehavior(knobSS14Gain);
+        knobSS14Gain.setOnMouseDragged(bKnobSS14Gain);
+        bKnobSS14Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS15Freq = new KnobBehavior(knobSS15freq);
+        knobSS15freq.setOnMouseDragged(bKnobSS15Freq);
+        bKnobSS15Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS15FineTune = new KnobBehavior(knobSS15FineTune);
+        knobSS15FineTune.setOnMouseDragged(bKnobSS15FineTune);
+        bKnobSS15FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        KnobBehavior bKnobSS15Gain = new KnobBehavior(knobSS15Gain);
+        knobSS15Gain.setOnMouseDragged(bKnobSS15Gain);
+        bKnobSS15Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+
+        KnobBehavior bKnobSSRate = new KnobBehavior(knobSSRate);
+        knobSSRate.setOnMouseDragged(bKnobSSRate);
+        bKnobSSRate.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+    }
     private void initNoise() {
         tglSwitchNoise.selectedProperty().addListener((v, oldValue, newValue) -> {
 
@@ -234,9 +536,9 @@ public class SynthaxView implements Initializable {
             //code here
         });
 
-        KnobBehavior bKnobDelayRepeat = new KnobBehavior(knobDelayRepeat);
-        knobDelayRepeat.setOnMouseDragged(bKnobDelayRepeat);
-        bKnobDelayRepeat.knobValueProperty().addListener((v, oldValue, newValue) -> {
+        KnobBehavior bKnobDelayLevel = new KnobBehavior(knobDelayLevel);
+        knobDelayLevel.setOnMouseDragged(bKnobDelayLevel);
+        bKnobDelayLevel.knobValueProperty().addListener((v, oldValue, newValue) -> {
             //code here
         });
     }

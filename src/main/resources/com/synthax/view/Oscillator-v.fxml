@@ -19,8 +19,8 @@
    <graphic>
       <ToolBar prefHeight="40.0" prefWidth="561.0">
          <items>
-            <Label prefHeight="18.0" prefWidth="63.0" text="Oscillator" />
-            <Button fx:id="btnRemoveOscillator" mnemonicParsing="false" text="Remove" />
+            <Label prefHeight="18.0" prefWidth="31.0" text="Osc" />
+            <Button fx:id="btnRemoveOscillator" mnemonicParsing="false" styleClass="plainButton" text="Remove" />
             <SegmentedButton fx:id="segBtnCombineMode" prefHeight="26.0" prefWidth="91.0">
                <buttons>
                   <ToggleButton fx:id="tglBtnCombineAdd" mnemonicParsing="false" prefHeight="26.0" prefWidth="35.0" text="+" />
@@ -28,8 +28,8 @@
                   <ToggleButton fx:id="tglBtnCombineMult" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" text="*" />
                </buttons>
             </SegmentedButton>
-            <Button fx:id="btnMoveUp" mnemonicParsing="false" text="up" />
-            <Button fx:id="btnMoveDown" mnemonicParsing="false" text="down" />
+            <Button fx:id="btnMoveUp" mnemonicParsing="false" styleClass="plainButton" text="up" />
+            <Button fx:id="btnMoveDown" mnemonicParsing="false" styleClass="plainButton" text="down" />
             <ToggleSwitch fx:id="tglSwitchOscillatorOnOff" prefHeight="20.0" prefWidth="38.0" />
          </items>
       </ToolBar>
@@ -37,9 +37,9 @@
    <content>
       <HBox prefHeight="178.0" prefWidth="389.0">
          <children>
-            <AnchorPane prefHeight="172.0" prefWidth="271.0">
+            <AnchorPane prefHeight="110.0" prefWidth="240.0">
                <children>
-                  <ImageView fitHeight="67.0" fitWidth="66.0" layoutX="59.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="67.0" fitWidth="66.0" layoutX="59.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/KnobBlackSteps.png" />
                      </image>
@@ -50,34 +50,34 @@
                      </image>
                   </ImageView>
                   <Button fx:id="knobWave" layoutX="22.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
-                  <Label layoutX="10.0" layoutY="6.0" text="Controls">
+                  <Label layoutX="10.0" layoutY="6.0" styleClass="oscLabelBig" text="Controls">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
                   </Label>
                   <Button fx:id="knobGain" layoutX="77.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
-                  <Spinner fx:id="octaveSpinner" layoutX="182.0" layoutY="59.0" prefHeight="26.0" prefWidth="59.0" />
-                  <Label layoutX="10.0" layoutY="35.0" prefHeight="16.0" prefWidth="54.0" text="Waveform">
+                  <Spinner fx:id="octaveSpinner" layoutX="179.0" layoutY="59.0" prefHeight="26.0" prefWidth="66.0" />
+                  <Label layoutX="10.0" layoutY="35.0" prefHeight="16.0" prefWidth="54.0" styleClass="oscLabel" text="Waveform">
                      <font>
                         <Font name="Arial" size="10.0" />
                      </font>
                   </Label>
-                  <Label layoutX="82.0" layoutY="35.0" prefHeight="16.0" prefWidth="23.0" text="Gain">
+                  <Label layoutX="82.0" layoutY="35.0" prefHeight="16.0" prefWidth="23.0" styleClass="oscLabel" text="Gain">
                      <font>
                         <Font name="Arial" size="10.0" />
                      </font>
                   </Label>
-                  <Label layoutX="190.0" layoutY="35.0" prefHeight="16.0" prefWidth="35.0" text="Octave">
+                  <Label layoutX="190.0" layoutY="35.0" prefHeight="16.0" prefWidth="35.0" styleClass="oscLabel" text="Octave">
                      <font>
                         <Font name="Arial" size="10.0" />
                      </font>
                   </Label>
-                  <Label layoutX="128.0" layoutY="35.0" prefHeight="16.0" prefWidth="37.0" text="Detune">
+                  <Label layoutX="128.0" layoutY="35.0" prefHeight="16.0" prefWidth="37.0" styleClass="oscLabel" text="Detune">
                      <font>
                         <Font name="Arial" size="10.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="67.0" fitWidth="66.0" layoutX="114.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="67.0" fitWidth="66.0" layoutX="114.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/KnobBlackSteps.png" />
                      </image>
@@ -85,31 +85,31 @@
                   <Button fx:id="knobDetune" layoutX="132.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="172.0" prefWidth="99.0">
+            <AnchorPane prefHeight="110.0" prefWidth="136.0">
                <children>
-                  <ImageView fitHeight="67.0" fitWidth="66.0" layoutX="13.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="67.0" fitWidth="66.0" layoutX="13.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/KnobBlackSteps.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="knobLFODepth" layoutX="31.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
-                  <Label layoutX="24.0" layoutY="6.0" text="LFO">
+                  <Label layoutX="24.0" layoutY="6.0" styleClass="oscLabelBig" text="LFO">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="66.0" fitWidth="84.0" layoutX="69.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="66.0" fitWidth="84.0" layoutX="69.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/KnobBlackSteps.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="knobLFORate" layoutX="87.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
-                  <Label layoutX="32.0" layoutY="35.0" prefHeight="16.0" prefWidth="31.0" text="Depth">
+                  <Label layoutX="32.0" layoutY="35.0" prefHeight="16.0" prefWidth="31.0" styleClass="oscLabel" text="Depth">
                      <font>
                         <Font name="Arial" size="10.0" />
                      </font>
                   </Label>
-                  <Label layoutX="89.0" layoutY="35.0" prefHeight="16.0" prefWidth="27.0" text="Rate">
+                  <Label layoutX="89.0" layoutY="35.0" prefHeight="16.0" prefWidth="27.0" styleClass="oscLabel" text="Rate">
                      <font>
                         <Font name="Arial" size="10.0" />
                      </font>

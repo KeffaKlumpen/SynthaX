@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.Image?>
@@ -18,29 +18,32 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.SynthaxView">
    <children>
-      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="108.0" layoutX="22.0" layoutY="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="384.0" />
-    <Button fx:id="btnAddOscillator" layoutX="141.0" layoutY="136.0" mnemonicParsing="false" onAction="#onActionAddOscillator" prefHeight="40.0" prefWidth="133.0" text="Add Oscilltator" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="123.0" layoutX="14.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="384.0" />
+      <ImageView fitHeight="264.0" fitWidth="397.0" layoutX="18.0" layoutY="-38.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/logoTdigiSv.png" />
+         </image>
+      </ImageView>
+    <Button fx:id="btnAddOscillator" layoutX="136.0" layoutY="146.0" mnemonicParsing="false" onAction="#onActionAddOscillator" prefHeight="30.0" prefWidth="138.0" styleClass="plainButton" text="Add Oscilltator">
+         <font>
+            <Font name="Handel Gothic" size="14.0" />
+         </font></Button>
       <ScrollPane layoutX="8.0" layoutY="182.0" prefHeight="530.0" prefWidth="415.0">
          <content>
             <VBox id="oscBox" fx:id="oscillatorChainView" prefHeight="520.0" prefWidth="367.0" />
          </content>
       </ScrollPane>
-      <Label layoutX="99.0" layoutY="28.0" prefHeight="81.0" prefWidth="230.0" styleClass="logo" text="yntha">
-         <font>
-            <Font name="Rocket Rinder" size="59.0" />
-         </font>
-      </Label>
-      <AnchorPane layoutX="433.0" layoutY="27.0" prefHeight="108.0" prefWidth="133.0">
+      <AnchorPane layoutX="433.0" layoutY="28.0" prefHeight="108.0" prefWidth="133.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="114.0" layoutX="1.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="147.0" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="36.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="34.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobNoiseGain" layoutX="52.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <ToggleSwitch fx:id="tglSwitchNoise" layoutX="100.0" layoutY="7.0" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="55.0" layoutY="39.0" text="Gain">
+            <Label layoutX="55.0" layoutY="39.0" styleClass="smallLabel" text="Gain">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -48,7 +51,7 @@
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="85.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="11.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
             <Line endX="86.6788330078125" endY="-7.62939453125E-6" layoutX="9.0" layoutY="17.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <Label layoutX="13.0" layoutY="7.0" text="Noise">
+            <Label layoutX="13.0" layoutY="7.0" styleClass="bigLabel" text="Noise">
                <font>
                   <Font name="Handel Gothic" size="17.0" />
                </font>
@@ -62,41 +65,41 @@
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="10.0" layoutY="3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
             <Line endX="115.84246826171875" endY="-7.62939453125E-6" layoutX="10.0" layoutY="13.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#bfbbb4" height="18.0" layoutX="11.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="52.0" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="4.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="2.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobDelayFeedback" layoutX="20.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="12.0" layoutY="3.0" prefHeight="18.0" prefWidth="48.0" text="Delay">
+            <Label layoutX="12.0" layoutY="3.0" prefHeight="18.0" prefWidth="48.0" styleClass="bigLabel" text="Delay">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
             <ToggleSwitch fx:id="tglSwitchDelay" layoutX="129.0" layoutY="3.0" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="12.0" layoutY="39.0" text="Feedback">
+            <Label layoutX="11.0" layoutY="39.0" styleClass="smallLabel" text="Feedback">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="59.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="57.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobDelayTime" layoutX="75.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="79.0" layoutY="39.0" text="Time">
+            <Label layoutX="78.0" layoutY="39.0" styleClass="smallLabel" text="Time">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="114.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="112.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobDelayRepeat" layoutX="130.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="127.0" layoutY="39.0" text="Repeat">
+            <Button fx:id="knobDelayLevel" layoutX="130.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label layoutX="132.0" layoutY="39.0" styleClass="smallLabel" text="Level">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -109,41 +112,41 @@
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="8.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="10.0" layoutY="3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="65.0" />
             <Line endX="115.84246826171875" endY="-7.62939453125E-6" layoutX="10.0" layoutY="13.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="4.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="2.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobReverbSize" layoutX="20.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="13.0" layoutY="3.0" text="Reverb">
+            <Label layoutX="13.0" layoutY="3.0" styleClass="bigLabel" text="Reverb">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
             <ToggleSwitch fx:id="tglSwitchReverb" layoutX="129.0" layoutY="3.0" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="24.0" layoutY="39.0" text="Size">
+            <Label layoutX="24.0" layoutY="39.0" styleClass="smallLabel" text="Size">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="59.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="57.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobReverbDecay" layoutX="75.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="74.0" layoutY="39.0" text="Decay">
+            <Label layoutX="74.0" layoutY="39.0" styleClass="smallLabel" text="Decay">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="114.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="112.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobReverbDW" layoutX="130.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="124.0" layoutY="39.0" text="Dry/Wet">
+            <Label layoutX="124.0" layoutY="39.0" styleClass="smallLabel" text="Dry/Wet">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -153,25 +156,25 @@
       <AnchorPane layoutX="1011.0" layoutY="31.0" prefHeight="108.0" prefWidth="193.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="116.0" layoutY="-8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="193.0" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="4.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="2.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobLFODepth" layoutX="20.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <ToggleSwitch fx:id="tglSwitchLFO" layoutX="138.0" layoutY="3.0" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="21.0" layoutY="39.0" text="Depth">
+            <Label layoutX="21.0" layoutY="39.0" styleClass="smallLabel" text="Depth">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="59.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="57.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobLFORate" layoutX="75.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="78.0" layoutY="39.0" text="Rate">
+            <Label layoutX="78.0" layoutY="39.0" styleClass="smallLabel" text="Rate">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -182,7 +185,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobLFOWaveForm" layoutX="134.0" layoutY="59.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="122.0" layoutY="39.0" text="Waveform">
+            <Label layoutX="122.0" layoutY="39.0" styleClass="smallLabel" text="Waveform">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -190,7 +193,7 @@
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="8.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="122.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="10.0" layoutY="3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="39.0" />
             <Line endX="121.1051025390625" endY="-7.62939453125E-6" layoutX="11.0" layoutY="13.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <Label layoutX="12.0" layoutY="3.0" text="LFO">
+            <Label layoutX="12.0" layoutY="3.0" styleClass="bigLabel" text="LFO">
                <font>
                   <Font size="17.0" />
                </font>
@@ -204,22 +207,22 @@
             <Slider fx:id="sliderDecay" blockIncrement="0.1" layoutX="75.0" layoutY="39.0" max="1.0" orientation="VERTICAL" prefHeight="101.0" prefWidth="16.0" />
             <Slider fx:id="sliderSustain" blockIncrement="0.1" layoutX="125.0" layoutY="39.0" max="1.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="16.0" value="1.0" />
             <Slider fx:id="sliderRelease" blockIncrement="0.1" layoutX="175.0" layoutY="39.0" max="1.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="16.0" />
-            <Label layoutX="15.0" layoutY="151.0" text="Attack">
+            <Label layoutX="15.0" layoutY="151.0" styleClass="smallLabel" text="Attack">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label layoutX="66.0" layoutY="151.0" text="Decay">
+            <Label layoutX="66.0" layoutY="151.0" styleClass="smallLabel" text="Decay">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label layoutX="114.0" layoutY="151.0" text="Sustain">
+            <Label layoutX="114.0" layoutY="151.0" styleClass="smallLabel" text="Sustain">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label layoutX="163.0" layoutY="151.0" text="Release">
+            <Label layoutX="163.0" layoutY="151.0" styleClass="smallLabel" text="Release">
                <font>
                   <Font size="10.0" />
                </font>
@@ -235,7 +238,7 @@
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="13.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="189.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="15.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="58.0" />
             <Line endX="196.30328369140625" layoutX="15.0" layoutY="24.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <Label layoutX="18.0" layoutY="14.0" text="ADSR">
+            <Label layoutX="18.0" layoutY="14.0" styleClass="bigLabel" text="ADSR">
                <font>
                   <Font size="17.0" />
                </font>
@@ -245,449 +248,582 @@
       <AnchorPane layoutX="432.0" layoutY="346.0" prefHeight="378.0" prefWidth="634.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="62.0" layoutX="403.0" layoutY="27.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="60.0" />
-            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="350.0" layoutX="2.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="429.0" />
-            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="316.0" layoutX="219.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="482.0" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="57.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="356.0" layoutX="2.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="429.0" />
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="323.0" layoutX="219.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="483.0" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="55.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="73.0" layoutY="63.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="39.0" layoutY="72.0" text="Freq">
+            <Button fx:id="knobSS0freq" layoutX="73.0" layoutY="62.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css">
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
+            <Label layoutX="37.0" layoutY="72.0" styleClass="smallLabel" text="Freq">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="112.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="122.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="128.0" layoutY="63.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="167.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS1freq" layoutX="140.0" layoutY="62.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="189.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="183.0" layoutY="63.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="222.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS2freq" layoutX="207.0" layoutY="62.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="256.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="238.0" layoutY="63.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="277.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS3freq" layoutX="274.0" layoutY="62.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="323.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="293.0" layoutY="63.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="332.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS4freq" layoutX="341.0" layoutY="62.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="390.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="348.0" layoutY="63.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="387.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS5freq" layoutX="408.0" layoutY="62.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="457.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="403.0" layoutY="63.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="442.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS6freq" layoutX="475.0" layoutY="62.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="524.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="458.0" layoutY="63.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="57.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS7freq" layoutX="542.0" layoutY="62.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="55.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="73.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="21.0" layoutY="111.0" text="Finetune">
+            <Button fx:id="knobSS0FineTune" layoutX="73.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label layoutX="19.0" layoutY="111.0" styleClass="smallLabel" text="Finetune">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="112.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="122.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="128.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="167.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS1FineTune" layoutX="140.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="189.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="183.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="222.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS2FineTune" layoutX="207.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="256.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="238.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="277.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS3FineTune" layoutX="274.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="323.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="293.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="332.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS4FineTune" layoutX="341.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="390.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="348.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="387.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS5FineTune" layoutX="408.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="457.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="403.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="442.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS6FineTune" layoutX="475.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="524.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="458.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="57.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS7FineTune" layoutX="542.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="55.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="73.0" layoutY="141.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="39.0" layoutY="150.0" text="Gain">
+            <Button fx:id="knobSS0Gain" layoutX="73.0" layoutY="142.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label layoutX="37.0" layoutY="150.0" styleClass="smallLabel" text="Gain">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="112.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="122.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="128.0" layoutY="141.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="167.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS1Gain" layoutX="140.0" layoutY="142.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="189.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="183.0" layoutY="141.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="222.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS2Gain" layoutX="207.0" layoutY="142.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="256.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="238.0" layoutY="141.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="277.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS3Gain" layoutX="274.0" layoutY="142.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="323.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="293.0" layoutY="141.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="332.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS4Gain" layoutX="341.0" layoutY="142.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="390.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="348.0" layoutY="141.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="387.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS5Gain" layoutX="408.0" layoutY="142.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="457.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="403.0" layoutY="141.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="442.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS6Gain" layoutX="475.0" layoutY="142.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="524.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="458.0" layoutY="141.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <RadioButton layoutX="79.0" layoutY="176.0" mnemonicParsing="false" />
-            <RadioButton layoutX="134.0" layoutY="176.0" mnemonicParsing="false" />
-            <RadioButton layoutX="189.0" layoutY="176.0" mnemonicParsing="false" />
-            <RadioButton layoutX="244.0" layoutY="176.0" mnemonicParsing="false" />
-            <RadioButton layoutX="299.0" layoutY="176.0" mnemonicParsing="false" />
-            <RadioButton layoutX="354.0" layoutY="176.0" mnemonicParsing="false" />
-            <RadioButton layoutX="409.0" layoutY="176.0" mnemonicParsing="false" />
-            <RadioButton layoutX="464.0" layoutY="176.0" mnemonicParsing="false" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="57.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS7Gain" layoutX="542.0" layoutY="142.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button layoutX="141.0" layoutY="181.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="55.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="73.0" layoutY="217.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="39.0" layoutY="226.0" text="Freq">
+            <Button fx:id="knobSS8freq" layoutX="73.0" layoutY="220.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label layoutX="37.0" layoutY="230.0" styleClass="smallLabel" text="Freq">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="112.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="122.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="128.0" layoutY="217.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="167.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS9freq" layoutX="140.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="189.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="183.0" layoutY="217.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="222.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS10freq" layoutX="207.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="256.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="238.0" layoutY="217.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="277.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS11freq" layoutX="274.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="323.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="293.0" layoutY="217.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="332.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS12freq" layoutX="341.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="390.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="348.0" layoutY="217.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="387.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS13freq" layoutX="408.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="457.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="403.0" layoutY="217.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="442.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS14freq" layoutX="475.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="524.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="458.0" layoutY="217.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="57.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS15freq" layoutX="542.0" layoutY="220.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="55.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="73.0" layoutY="256.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="22.0" layoutY="265.0" text="Finetune">
+            <Button fx:id="knobSS8FineTune" layoutX="73.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label layoutX="20.0" layoutY="269.0" styleClass="smallLabel" text="Finetune">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="112.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="122.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="128.0" layoutY="256.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="167.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS9FineTune" layoutX="140.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="189.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="183.0" layoutY="256.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="222.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS10FineTune" layoutX="207.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="256.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="238.0" layoutY="256.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="277.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS11FineTune" layoutX="274.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="323.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="293.0" layoutY="256.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="332.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS12FineTune" layoutX="341.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="390.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="348.0" layoutY="256.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="387.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS13FineTune" layoutX="408.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="457.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="403.0" layoutY="256.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="442.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS14FineTune" layoutX="475.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="524.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="458.0" layoutY="256.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="57.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS15FineTune" layoutX="542.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="55.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="73.0" layoutY="295.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="39.0" layoutY="304.0" text="Gain">
+            <Button fx:id="knobSS8Gain" layoutX="73.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label layoutX="37.0" layoutY="308.0" styleClass="smallLabel" text="Gain">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="112.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="122.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="128.0" layoutY="295.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="167.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS9Gain" layoutX="140.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="189.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="183.0" layoutY="295.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="222.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS10Gain" layoutX="207.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="256.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="238.0" layoutY="295.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="277.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS11Gain" layoutX="274.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="323.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="293.0" layoutY="295.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="332.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS12Gain" layoutX="341.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="390.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="348.0" layoutY="295.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="387.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS13Gain" layoutX="408.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="457.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="403.0" layoutY="295.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="442.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS14Gain" layoutX="475.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="524.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="458.0" layoutY="295.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <RadioButton layoutX="80.0" layoutY="330.0" mnemonicParsing="false" />
-            <RadioButton layoutX="135.0" layoutY="330.0" mnemonicParsing="false" />
-            <RadioButton layoutX="190.0" layoutY="330.0" mnemonicParsing="false" />
-            <RadioButton layoutX="245.0" layoutY="330.0" mnemonicParsing="false" />
-            <RadioButton layoutX="300.0" layoutY="330.0" mnemonicParsing="false" />
-            <RadioButton layoutX="355.0" layoutY="330.0" mnemonicParsing="false" />
-            <RadioButton layoutX="410.0" layoutY="330.0" mnemonicParsing="false" />
-            <RadioButton layoutX="465.0" layoutY="330.0" mnemonicParsing="false" />
-            <ImageView fitHeight="88.0" fitWidth="90.0" layoutX="547.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="knobSS15Gain" layoutX="542.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button layoutX="141.0" layoutY="340.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <Button layoutX="74.0" layoutY="340.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <Button layoutX="208.0" layoutY="340.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <Button layoutX="275.0" layoutY="340.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <Button layoutX="409.0" layoutY="340.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <Button layoutX="342.0" layoutY="340.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <Button layoutX="476.0" layoutY="340.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <Button layoutX="543.0" layoutY="340.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="88.0" fitWidth="90.0" layoutX="594.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button layoutX="571.0" layoutY="234.0" maxWidth="41.0" minHeight="38.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="41.0" styleClass="bigKnob" stylesheets="@../skins.css" />
-            <Button layoutX="542.0" layoutY="91.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="99.0" text="Start/Stop" />
-            <Label layoutX="575.0" layoutY="205.0" text="Rate" />
+            <Button fx:id="knobSSRate" layoutX="618.0" layoutY="248.0" maxWidth="41.0" minHeight="38.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="41.0" styleClass="bigKnob" stylesheets="@../skins.css" />
+            <Button fx:id="SSStartStop" layoutX="598.0" layoutY="108.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="82.0" styleClass="plainButton">
+               <graphic>
+                  <VBox prefHeight="19.0" prefWidth="33.0">
+                     <children>
+                        <Label prefHeight="28.0" prefWidth="61.0" styleClass="lightLabel" text="   Start" />
+                        <Label prefHeight="32.0" prefWidth="56.0" styleClass="lightLabel" text="   Stop" />
+                     </children>
+                  </VBox>
+               </graphic></Button>
+            <Label layoutX="621.0" layoutY="219.0" styleClass="filterLabel" text="Rate">
+               <font>
+                  <Font name="Handel Gothic" size="14.0" />
+               </font></Label>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#d6d1c9" height="40.0" layoutX="431.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="46.0" />
-            <Line endX="-1.0" endY="247.0" layoutX="447.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
-            <Line endX="315.5" layoutX="169.0" layoutY="202.0" startX="-100.0" stroke="#78736b" />
-            <Line endX="-1.0" endY="247.0" layoutX="392.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
-            <Line endX="-1.0" endY="247.0" layoutX="336.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
-            <Line endX="-1.0" endY="247.0" layoutX="281.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
-            <Line endX="-1.0" endY="247.0" layoutX="228.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
-            <Line endX="-1.0" endY="247.0" layoutX="172.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
-            <Line endX="-1.0" endY="247.0" layoutX="117.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="89.32672119140625" layoutX="123.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="13.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="407.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="15.0" layoutY="22.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="164.0" />
             <Line endX="408.2060546875" layoutX="15.0" layoutY="32.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <Label layoutX="19.0" layoutY="22.0" text="16-Step Sequencer">
+            <Label layoutX="19.0" layoutY="22.0" styleClass="bigLabel" text="16-Step Sequencer">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
+            <Line endX="-1.0" endY="89.32672119140625" layoutX="123.0" layoutY="256.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="89.32672119140625" layoutX="190.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="89.32672119140625" layoutX="190.0" layoutY="256.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="89.32672119140625" layoutX="257.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="89.32672119140625" layoutX="257.0" layoutY="256.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="89.32672119140625" layoutX="324.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="89.32672119140625" layoutX="324.0" layoutY="256.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="89.32672119140625" layoutX="391.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="89.32672119140625" layoutX="391.0" layoutY="256.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="89.32672119140625" layoutX="458.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="89.32672119140625" layoutX="458.0" layoutY="256.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="89.32672119140625" layoutX="525.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="-1.0" endY="89.32672119140625" layoutX="525.0" layoutY="256.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Line endX="415.13275146484375" layoutX="164.0" layoutY="205.0" startX="-100.0" stroke="#78736b" />
+            <Button layoutX="74.0" layoutY="181.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <Button layoutX="208.0" layoutY="181.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <Button layoutX="275.0" layoutY="181.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <Button layoutX="409.0" layoutY="181.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <Button layoutX="342.0" layoutY="181.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <Button layoutX="476.0" layoutY="181.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
+            <Button layoutX="543.0" layoutY="181.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="seqButton" text="Off">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Handel Gothic" size="11.0" />
+               </font>
+            </Button>
          </children></AnchorPane>
       <AnchorPane layoutX="884.0" layoutY="156.0" prefHeight="220.0" prefWidth="252.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="226.0" layoutY="-6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="250.0" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="4.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="2.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobFilterHPCutoff" layoutX="20.0" layoutY="106.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ToggleSwitch fx:id="tglSwitchFilterHP" layoutX="17.0" layoutY="53.0" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="19.0" layoutY="86.0" text="Cutoff">
+            <ToggleSwitch fx:id="tglSwitchFilterHP" layoutX="17.0" layoutY="55.0" prefHeight="20.0" prefWidth="30.0" />
+            <Label layoutX="19.0" layoutY="86.0" styleClass="smallLabel" text="Cutoff">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="93.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="91.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobFilterFreq" layoutX="109.0" layoutY="106.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="112.0" layoutY="86.0" text="Freq">
+            <Label layoutX="112.0" layoutY="86.0" styleClass="smallLabel" text="Freq">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="180.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="178.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobFilterLPCutoff" layoutX="196.0" layoutY="106.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="195.0" layoutY="86.0" text="Cutoff">
+            <Label layoutX="195.0" layoutY="86.0" styleClass="smallLabel" text="Cutoff">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ToggleSwitch fx:id="tglSwitchFilterNotch" layoutX="107.0" layoutY="53.0" prefHeight="20.0" prefWidth="30.0" />
-            <ToggleSwitch fx:id="tglSwitchFilterLP" layoutX="193.0" layoutY="53.0" prefHeight="20.0" prefWidth="30.0" />
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="4.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+            <ToggleSwitch fx:id="tglSwitchFilterNotch" layoutX="107.0" layoutY="55.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch fx:id="tglSwitchFilterLP" layoutX="193.0" layoutY="55.0" prefHeight="20.0" prefWidth="30.0" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="2.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobFilterHPSlope" layoutX="20.0" layoutY="168.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="21.0" layoutY="148.0" text="Slope">
+            <Label layoutX="21.0" layoutY="148.0" styleClass="smallLabel" text="Slope">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="93.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="91.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobFilterRange" layoutX="109.0" layoutY="168.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="108.0" layoutY="148.0" text="Range">
+            <Label layoutX="108.0" layoutY="148.0" styleClass="smallLabel" text="Range">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="69.0" fitWidth="63.0" layoutX="180.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="178.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobFilterLPSlope" layoutX="196.0" layoutY="168.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="197.0" layoutY="148.0" text="Slope">
+            <Label layoutX="197.0" layoutY="148.0" styleClass="smallLabel" text="Slope">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <Label layoutX="26.0" layoutY="35.0" text="HP" />
-            <Label layoutX="107.0" layoutY="35.0" text="Notch" />
-            <Label layoutX="204.0" layoutY="35.0" text="LP" />
+            <Label layoutX="26.0" layoutY="35.0" styleClass="filterLabel" text="HP" />
+            <Label layoutX="104.0" layoutY="35.0" styleClass="filterLabel" text="Notch" />
+            <Label layoutX="203.0" layoutY="35.0" styleClass="filterLabel" text="LP" />
             <Line endX="-1.0" endY="134.0" layoutX="80.0" layoutY="73.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
             <Line endX="-1.0" endY="134.0" layoutX="170.0" layoutY="73.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="10.0" layoutY="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="226.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="12.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="52.0" />
             <Line endX="229.8883056640625" layoutX="12.0" layoutY="16.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <Label layoutX="15.0" layoutY="6.0" text="Filter">
+            <Label layoutX="15.0" layoutY="6.0" styleClass="bigLabel" text="Filter">
                <font>
                   <Font size="17.0" />
                </font>
@@ -700,24 +836,13 @@
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="13.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="97.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="15.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="68.0" />
             <Line endX="98.058837890625" layoutX="16.5986328125" layoutY="22.585784912109375" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <Label layoutX="17.0" layoutY="14.0" text="Master">
+            <Label layoutX="17.0" layoutY="14.0" styleClass="bigLabel" text="Master">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Slider fx:id="sliderMasterGain" blockIncrement="0.1" layoutX="50.0" layoutY="43.0" max="1.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="20.0" value="0.5" />
+            <Slider id="masterSlider" fx:id="sliderMasterGain" blockIncrement="0.1" layoutX="32.0" layoutY="43.0" majorTickUnit="0.05" max="1.0" minorTickCount="1" orientation="VERTICAL" prefHeight="503.0" prefWidth="35.0" value="0.5" />
          </children>
       </AnchorPane>
-      <Label layoutX="55.0" layoutY="24.0" prefHeight="89.0" prefWidth="63.0" styleClass="logo" text="S">
-         <font>
-            <Font size="59.0" />
-         </font>
-      </Label>
-      <Label layoutX="323.0" layoutY="29.0" prefHeight="88.0" prefWidth="73.0" styleClass="logo" text="X">
-         <font>
-            <Font size="78.0" />
-         </font>
-      </Label>
-      <Line endX="82.25048828125" fill="#f78000" layoutX="236.0" layoutY="99.0" startX="-181.0596466064453" stroke="#f78000" strokeWidth="8.0" />
    </children>
 </AnchorPane>
