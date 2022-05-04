@@ -584,9 +584,9 @@
                </image>
             </ImageView>
             <Button fx:id="knobSSRate" layoutX="618.0" layoutY="248.0" maxWidth="41.0" minHeight="38.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="41.0" styleClass="bigKnob" stylesheets="@../skins.css" />
-            <Button fx:id="SSStartStop" layoutX="598.0" layoutY="108.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="82.0" styleClass="plainButton" text=" Start Stop" textAlignment="CENTER" wrapText="true">
+            <Button id="btnStartStop" fx:id="SSStartStop" layoutX="598.0" layoutY="108.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="82.0" styleClass="plainButton" text="Start" textAlignment="CENTER" wrapText="true">
                <font>
-                  <Font size="19.0" />
+                  <Font size="39.0" />
                </font></Button>
             <Label layoutX="621.0" layoutY="219.0" styleClass="filterLabel" text="Rate">
                <font>

@@ -93,6 +93,10 @@
     -fx-font-size: 14;
 }
 
+#btnStartStop {
+    -fx-font-size: 20;
+}
+
 .seqButton {
     -fx-padding: 0,3px;
     -fx-background-color: #78736b;
