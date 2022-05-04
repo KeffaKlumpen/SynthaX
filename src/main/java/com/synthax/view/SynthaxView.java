@@ -12,7 +12,6 @@ import com.synthax.model.controls.KnobBehaviorSeqFreq;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.util.MidiHelpers;
 
-import javafx.event.EventHandler;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +24,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.ToggleSwitch;
@@ -35,10 +33,10 @@ import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.BiConsumer;
 
 /**
  * Class for synthesizer main view
+ *
  * @author Axel Nilsson
  * @author Luke Eales
  */
@@ -76,7 +74,7 @@ public class SynthaxView implements Initializable {
     @FXML private Slider sliderMasterGain;
     @FXML private NumberAxis xAxis = new NumberAxis();
     @FXML private NumberAxis yAxis = new NumberAxis();
-    @FXML private LineChart<Number, Number> lineChartADSR = new LineChart<Number, Number>(xAxis,yAxis);
+    @FXML private LineChart<Number, Number> lineChartADSR = new LineChart<Number, Number>(xAxis, yAxis);
     //region Step sequencer buttons
     @FXML private Button knobSS0freq;
     @FXML private Button knobSS0FineTune;
@@ -146,8 +144,6 @@ public class SynthaxView implements Initializable {
     @FXML private ToggleButton btnStepOnOff15;
     //endregion
 
-
-
     private XYChart.Data<Number, Number> point1ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point2ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point3ADSR = new XYChart.Data<>();
@@ -188,7 +184,7 @@ public class SynthaxView implements Initializable {
                 Node[] childList = oscillatorChainView.getChildren().toArray(new Node[0]);
                 int oscIndex = oscillatorChainView.getChildren().indexOf(oscillatorView);
 
-                if(oscIndex < childList.length - 1){
+                if (oscIndex < childList.length - 1) {
                     Node nextOsc = childList[oscIndex + 1];
                     childList[oscIndex + 1] = oscillatorView;
                     childList[oscIndex] = nextOsc;
@@ -202,7 +198,7 @@ public class SynthaxView implements Initializable {
                 Node[] childList = oscillatorChainView.getChildren().toArray(new Node[0]);
                 int oscIndex = oscillatorChainView.getChildren().indexOf(oscillatorView);
 
-                if(oscIndex > 0){
+                if (oscIndex > 0) {
                     Node prevOsc = childList[oscIndex - 1];
                     childList[oscIndex - 1] = oscillatorView;
                     childList[oscIndex] = prevOsc;
@@ -214,8 +210,7 @@ public class SynthaxView implements Initializable {
             });
 
             oscillatorChainView.getChildren().add(oscillatorView);
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -257,24 +252,27 @@ public class SynthaxView implements Initializable {
 
     /**
      * Shifting the points in ADSR linechart to reflect the slider values.
+     *
      * @author Axel Nilsson
      * @author Luke Eales
      */
     //region Methods for updating linechart (click to open/collapse)
     private void onAttackDrag() {
-        point2ADSR.setXValue((sliderAttack.getValue()/attackMax)*10d);
-        point3ADSR.setXValue((sliderAttack.getValue()/attackMax)*10d+(sliderDecay.getValue()/decayMax)*10d);
+        point2ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d);
+        point3ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d + (sliderDecay.getValue() / decayMax) * 10d);
     }
 
     private void onDecayDrag() {
-        point3ADSR.setXValue((sliderAttack.getValue()/attackMax)*10d+(sliderDecay.getValue()/decayMax)*10d);
+        point3ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d + (sliderDecay.getValue() / decayMax) * 10d);
     }
+
     private void onSustainDrag() {
-        point3ADSR.setYValue(sliderSustain.getValue()*30d);
-        point4ADSR.setYValue(sliderSustain.getValue()*30d);
+        point3ADSR.setYValue(sliderSustain.getValue() * 30d);
+        point4ADSR.setYValue(sliderSustain.getValue() * 30d);
     }
+
     private void onReleaseDrag() {
-        point4ADSR.setXValue(40d-(sliderRelease.getValue()/releaseMax)*10d);
+        point4ADSR.setXValue(40d - (sliderRelease.getValue() / releaseMax) * 10d);
     }
     //endregion
 
@@ -689,7 +687,21 @@ public class SynthaxView implements Initializable {
             }
             //synthaxController.setStepOnOff(15, newValue);
         });
+        SSStartStop.setOnMousePressed(l -> {
+            /*
+            boolean running = synthaxController.ssIsRunning();
+            if (running) {
+                SSStartStop.setText("Stop");
+                SSStartStop.setStyle("-fx-text-fill: #f78000");
+            } else {
+                SSStartStop.setText("Start");
+                SSStartStop.setStyle("-fx-text-fill: #d6d1c9");
+            }
+            synthaxController.ssSetRunning(!running);
+             */
+        });
     }
+
     private void initNoise() {
         tglSwitchNoise.selectedProperty().addListener((v, oldValue, newValue) -> {
 
@@ -860,8 +872,8 @@ public class SynthaxView implements Initializable {
         mainPane.setOnKeyPressed(event -> {
             KeyCode keyCode = event.getCode();
             // If it's a valid key, send a noteOn message.
-            if(keyStatus.containsKey(keyCode)){
-                if(keyStatus.get(keyCode).compareAndSet(false, true)){
+            if (keyStatus.containsKey(keyCode)) {
+                if (keyStatus.get(keyCode).compareAndSet(false, true)) {
                     MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
                     System.out.println("++++" + note.name());
                     synthaxController.noteOn(note, 127);
@@ -870,8 +882,8 @@ public class SynthaxView implements Initializable {
         });
         mainPane.setOnKeyReleased(event -> {
             KeyCode keyCode = event.getCode();
-            if(keyStatus.containsKey(keyCode)){
-                if(keyStatus.get(keyCode).compareAndSet(true, false)){
+            if (keyStatus.containsKey(keyCode)) {
+                if (keyStatus.get(keyCode).compareAndSet(true, false)) {
                     MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
                     System.out.println("----" + note.name());
                     synthaxController.noteOff(note);
