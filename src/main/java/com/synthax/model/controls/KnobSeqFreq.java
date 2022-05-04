@@ -12,6 +12,7 @@ public class KnobSeqFreq implements EventHandler<MouseEvent> {
     private Button knob;
     private int knobMaxValue = 108;
     private int knobMinValue = 21;
+    private double rotation = 0;
     private double lastMousePos;
     private ArrayList<MidiNote> notes = MidiNote.getArrayList();
     private IntegerProperty noteProperty = new SimpleIntegerProperty(this, "midiNoteIndex", 0);
@@ -28,16 +29,23 @@ public class KnobSeqFreq implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent mouseEvent) {
         double mousePos = mouseEvent.getScreenY();
+        if (lastMousePos > mousePos) {
+            rotation++;
+        } else if (lastMousePos < mousePos) {
+            rotation--;
+        }
         int oldValue = noteProperty.getValue();
-        if (lastMousePos > mousePos && oldValue < knobMaxValue) {
+        if (rotation == 2 && oldValue < knobMaxValue) {
             this.midiNote = notes.get(oldValue + 1);
             knob.setRotate(midiNote.getRotation());
             noteProperty.setValue(notes.indexOf(midiNote));
+            rotation = 0;
 
-        } else if (lastMousePos < mousePos && oldValue > knobMinValue){
+        } else if (rotation == -2 && oldValue > knobMinValue){
             this.midiNote = notes.get(oldValue - 1);
             knob.setRotate(midiNote.getRotation());
             noteProperty.setValue(notes.indexOf(midiNote));
+            rotation = 0;
         }
         System.out.println(noteProperty.getValue() + " " + midiNote.name());
         lastMousePos = mousePos;

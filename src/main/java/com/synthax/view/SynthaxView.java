@@ -2,6 +2,7 @@ package com.synthax.view;
 
 import com.synthax.model.controls.KnobBehavior;
 
+import com.synthax.model.controls.KnobBehaviorDetune;
 import com.synthax.model.controls.KnobBehaviorWave;
 import com.synthax.MainApplication;
 import com.synthax.controller.OscillatorController;
@@ -264,7 +265,7 @@ public class SynthaxView implements Initializable {
         bKnobSS0Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS0FineTune = new KnobBehavior(knobSS0FineTune);
+        KnobBehaviorDetune bKnobSS0FineTune = new KnobBehaviorDetune(knobSS0FineTune);
         knobSS0FineTune.setOnMouseDragged(bKnobSS0FineTune);
         bKnobSS0FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -274,12 +275,12 @@ public class SynthaxView implements Initializable {
         bKnobSS0Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS1Freq = new KnobBehavior(knobSS1freq);
+        KnobSeqFreq bKnobSS1Freq = new KnobSeqFreq(knobSS1freq, MidiNote.Db4);
         knobSS1freq.setOnMouseDragged(bKnobSS1Freq);
         bKnobSS1Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS1FineTune = new KnobBehavior(knobSS1FineTune);
+        KnobBehaviorDetune bKnobSS1FineTune = new KnobBehaviorDetune(knobSS1FineTune);
         knobSS1FineTune.setOnMouseDragged(bKnobSS1FineTune);
         bKnobSS1FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -289,12 +290,12 @@ public class SynthaxView implements Initializable {
         bKnobSS1Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS2Freq = new KnobBehavior(knobSS2freq);
+        KnobSeqFreq bKnobSS2Freq = new KnobSeqFreq(knobSS2freq, MidiNote.D4);
         knobSS2freq.setOnMouseDragged(bKnobSS2Freq);
         bKnobSS2Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS2FineTune = new KnobBehavior(knobSS2FineTune);
+        KnobBehaviorDetune bKnobSS2FineTune = new KnobBehaviorDetune(knobSS2FineTune);
         knobSS2FineTune.setOnMouseDragged(bKnobSS2FineTune);
         bKnobSS2FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -304,12 +305,12 @@ public class SynthaxView implements Initializable {
         bKnobSS2Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS3Freq = new KnobBehavior(knobSS3freq);
+        KnobSeqFreq bKnobSS3Freq = new KnobSeqFreq(knobSS3freq, MidiNote.Eb4);
         knobSS3freq.setOnMouseDragged(bKnobSS3Freq);
         bKnobSS3Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS3FineTune = new KnobBehavior(knobSS3FineTune);
+        KnobBehaviorDetune bKnobSS3FineTune = new KnobBehaviorDetune(knobSS3FineTune);
         knobSS3FineTune.setOnMouseDragged(bKnobSS3FineTune);
         bKnobSS3FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -319,12 +320,12 @@ public class SynthaxView implements Initializable {
         bKnobSS3Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS4Freq = new KnobBehavior(knobSS4freq);
+        KnobSeqFreq bKnobSS4Freq = new KnobSeqFreq(knobSS4freq, MidiNote.E4);
         knobSS4freq.setOnMouseDragged(bKnobSS4Freq);
         bKnobSS4Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS4FineTune = new KnobBehavior(knobSS4FineTune);
+        KnobBehaviorDetune bKnobSS4FineTune = new KnobBehaviorDetune(knobSS4FineTune);
         knobSS4FineTune.setOnMouseDragged(bKnobSS4FineTune);
         bKnobSS4FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -334,12 +335,12 @@ public class SynthaxView implements Initializable {
         bKnobSS4Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS5Freq = new KnobBehavior(knobSS5freq);
+        KnobSeqFreq bKnobSS5Freq = new KnobSeqFreq(knobSS5freq, MidiNote.F4);
         knobSS5freq.setOnMouseDragged(bKnobSS5Freq);
         bKnobSS5Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS5FineTune = new KnobBehavior(knobSS5FineTune);
+        KnobBehaviorDetune bKnobSS5FineTune = new KnobBehaviorDetune(knobSS5FineTune);
         knobSS5FineTune.setOnMouseDragged(bKnobSS5FineTune);
         bKnobSS5FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -349,12 +350,12 @@ public class SynthaxView implements Initializable {
         bKnobSS5Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS6Freq = new KnobBehavior(knobSS6freq);
+        KnobSeqFreq bKnobSS6Freq = new KnobSeqFreq(knobSS6freq, MidiNote.Gb4);
         knobSS6freq.setOnMouseDragged(bKnobSS6Freq);
         bKnobSS6Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS6FineTune = new KnobBehavior(knobSS6FineTune);
+        KnobBehaviorDetune bKnobSS6FineTune = new KnobBehaviorDetune(knobSS6FineTune);
         knobSS6FineTune.setOnMouseDragged(bKnobSS6FineTune);
         bKnobSS6FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -364,13 +365,13 @@ public class SynthaxView implements Initializable {
         bKnobSS6Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS7Freq = new KnobBehavior(knobSS7freq);
+        KnobSeqFreq bKnobSS7Freq = new KnobSeqFreq(knobSS7freq, MidiNote.G4);
         knobSS7freq.setOnMouseDragged(bKnobSS7Freq);
         bKnobSS7Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
 
-        KnobBehavior bKnobSS7FineTune = new KnobBehavior(knobSS7FineTune);
+        KnobBehaviorDetune bKnobSS7FineTune = new KnobBehaviorDetune(knobSS7FineTune);
         knobSS7FineTune.setOnMouseDragged(bKnobSS7FineTune);
         bKnobSS7FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -380,12 +381,12 @@ public class SynthaxView implements Initializable {
         bKnobSS7Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS8Freq = new KnobBehavior(knobSS8freq);
+        KnobSeqFreq bKnobSS8Freq = new KnobSeqFreq(knobSS8freq, MidiNote.Ab4);
         knobSS8freq.setOnMouseDragged(bKnobSS8Freq);
         bKnobSS8Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS8FineTune = new KnobBehavior(knobSS8FineTune);
+        KnobBehaviorDetune bKnobSS8FineTune = new KnobBehaviorDetune(knobSS8FineTune);
         knobSS8FineTune.setOnMouseDragged(bKnobSS8FineTune);
         bKnobSS8FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -395,12 +396,12 @@ public class SynthaxView implements Initializable {
         bKnobSS8Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS9Freq = new KnobBehavior(knobSS9freq);
+        KnobSeqFreq bKnobSS9Freq = new KnobSeqFreq(knobSS9freq, MidiNote.A4);
         knobSS9freq.setOnMouseDragged(bKnobSS9Freq);
         bKnobSS9Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS9FineTune = new KnobBehavior(knobSS9FineTune);
+        KnobBehaviorDetune bKnobSS9FineTune = new KnobBehaviorDetune(knobSS9FineTune);
         knobSS9FineTune.setOnMouseDragged(bKnobSS9FineTune);
         bKnobSS9FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -410,12 +411,12 @@ public class SynthaxView implements Initializable {
         bKnobSS9Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS10Freq = new KnobBehavior(knobSS10freq);
+        KnobSeqFreq bKnobSS10Freq = new KnobSeqFreq(knobSS10freq, MidiNote.Bb4);
         knobSS10freq.setOnMouseDragged(bKnobSS10Freq);
         bKnobSS10Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS10FineTune = new KnobBehavior(knobSS10FineTune);
+        KnobBehaviorDetune bKnobSS10FineTune = new KnobBehaviorDetune(knobSS10FineTune);
         knobSS10FineTune.setOnMouseDragged(bKnobSS10FineTune);
         bKnobSS10FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -425,12 +426,12 @@ public class SynthaxView implements Initializable {
         bKnobSS10Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS11Freq = new KnobBehavior(knobSS11freq);
+        KnobSeqFreq bKnobSS11Freq = new KnobSeqFreq(knobSS11freq, MidiNote.B4);
         knobSS11freq.setOnMouseDragged(bKnobSS11Freq);
         bKnobSS11Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS11FineTune = new KnobBehavior(knobSS11FineTune);
+        KnobBehaviorDetune bKnobSS11FineTune = new KnobBehaviorDetune(knobSS11FineTune);
         knobSS11FineTune.setOnMouseDragged(bKnobSS11FineTune);
         bKnobSS11FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -440,12 +441,12 @@ public class SynthaxView implements Initializable {
         bKnobSS11Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS12Freq = new KnobBehavior(knobSS12freq);
+        KnobSeqFreq bKnobSS12Freq = new KnobSeqFreq(knobSS12freq, MidiNote.C5);
         knobSS12freq.setOnMouseDragged(bKnobSS12Freq);
         bKnobSS12Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS12FineTune = new KnobBehavior(knobSS12FineTune);
+        KnobBehaviorDetune bKnobSS12FineTune = new KnobBehaviorDetune(knobSS12FineTune);
         knobSS12FineTune.setOnMouseDragged(bKnobSS12FineTune);
         bKnobSS12FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -455,12 +456,12 @@ public class SynthaxView implements Initializable {
         bKnobSS12Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS13Freq = new KnobBehavior(knobSS13freq);
+        KnobSeqFreq bKnobSS13Freq = new KnobSeqFreq(knobSS13freq, MidiNote.Db5);
         knobSS13freq.setOnMouseDragged(bKnobSS13Freq);
         bKnobSS13Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS13FineTune = new KnobBehavior(knobSS13FineTune);
+        KnobBehaviorDetune bKnobSS13FineTune = new KnobBehaviorDetune(knobSS13FineTune);
         knobSS13FineTune.setOnMouseDragged(bKnobSS13FineTune);
         bKnobSS13FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -470,12 +471,12 @@ public class SynthaxView implements Initializable {
         bKnobSS13Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS14Freq = new KnobBehavior(knobSS14freq);
+        KnobSeqFreq bKnobSS14Freq = new KnobSeqFreq(knobSS14freq, MidiNote.D5);
         knobSS14freq.setOnMouseDragged(bKnobSS14Freq);
         bKnobSS14Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS14FineTune = new KnobBehavior(knobSS14FineTune);
+        KnobBehaviorDetune bKnobSS14FineTune = new KnobBehaviorDetune(knobSS14FineTune);
         knobSS14FineTune.setOnMouseDragged(bKnobSS14FineTune);
         bKnobSS14FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
@@ -485,12 +486,12 @@ public class SynthaxView implements Initializable {
         bKnobSS14Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS15Freq = new KnobBehavior(knobSS15freq);
+        KnobSeqFreq bKnobSS15Freq = new KnobSeqFreq(knobSS15freq, MidiNote.Eb5);
         knobSS15freq.setOnMouseDragged(bKnobSS15Freq);
         bKnobSS15Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
         });
-        KnobBehavior bKnobSS15FineTune = new KnobBehavior(knobSS15FineTune);
+        KnobBehaviorDetune bKnobSS15FineTune = new KnobBehaviorDetune(knobSS15FineTune);
         knobSS15FineTune.setOnMouseDragged(bKnobSS15FineTune);
         bKnobSS15FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
