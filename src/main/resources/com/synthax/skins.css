@@ -26,6 +26,7 @@
     -fx-background-color: #d6d1c9;
     -fx-control-inner-background: #b0aaa0;
     -fx-shadow-highlight-color: #a6a4a270;
+
 }
 
 .knob:focused {
@@ -95,14 +96,6 @@
 
 #btnStartStop {
     -fx-font-size: 20;
-}
-
-.seqButton {
-    -fx-padding: 0,3px;
-    -fx-background-color: #78736b;
-    -fx-text-fill: #d6d1c9;
-    -fx-font-family: "Handel Gothic";
-    -fx-font-size: 10;
 }
 
 .spinner .increment-arrow-button .increment-arrow,
