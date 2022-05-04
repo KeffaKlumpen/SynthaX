@@ -28,8 +28,8 @@
                   <ToggleButton fx:id="tglBtnCombineMult" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" styleClass="toggleOsc" text="*" />
                </buttons>
             </SegmentedButton>
-            <Button fx:id="btnMoveUp" mnemonicParsing="false" styleClass="plainButton" text="up" />
-            <Button fx:id="btnMoveDown" mnemonicParsing="false" styleClass="plainButton" text="down" />
+            <Button fx:id="btnMoveUp" mnemonicParsing="false" styleClass="plainButton" text="Up" />
+            <Button fx:id="btnMoveDown" mnemonicParsing="false" styleClass="plainButton" text="Down" />
             <ToggleSwitch fx:id="tglSwitchOscillatorOnOff" prefHeight="20.0" prefWidth="38.0" />
          </items>
       </ToolBar>

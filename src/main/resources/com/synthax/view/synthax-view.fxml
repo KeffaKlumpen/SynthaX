@@ -311,7 +311,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobSS0FineTune" layoutX="73.0" layoutY="102.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="19.0" layoutY="111.0" styleClass="smallLabel" text="Finetune">
+            <Label layoutX="25.0" layoutY="111.0" styleClass="smallLabel" text="Detune">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -478,7 +478,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobSS8FineTune" layoutX="73.0" layoutY="261.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="20.0" layoutY="270.0" styleClass="smallLabel" text="Finetune">
+            <Label layoutX="25.0" layoutY="270.0" styleClass="smallLabel" text="Detune">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
