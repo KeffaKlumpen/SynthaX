@@ -36,7 +36,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * BAJS
+ * Class for synthesizer main view
  * @author Axel Nilsson
  * @author Luke Eales
  */
