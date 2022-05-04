@@ -3,11 +3,14 @@ package com.synthax.controller;
 import com.synthax.model.EQFilters;
 import com.synthax.model.SynthLFO;
 import com.synthax.model.enums.MidiNote;
+import com.synthax.view.SynthaxView;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
 import net.beadsproject.beads.ugens.*;
 
 public class SynthaxController {
+    private SynthaxView synthaxView;
+
     private final Gain masterGain;
     private final Glide masterGainGlide;
     private SynthLFO synthLFO;
@@ -18,7 +21,8 @@ public class SynthaxController {
      * Setup AudioContext, OscillatorManager and create all necessary links.
      * @author Joel Eriksson Sinclair
      */
-    public SynthaxController() {
+    public SynthaxController(SynthaxView synthaxView) {
+        this.synthaxView = synthaxView;
         JavaSoundAudioIO jsaio = new JavaSoundAudioIO(512);
         AudioContext ac = new AudioContext(jsaio);
         AudioContext.setDefaultContext(ac);
