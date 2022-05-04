@@ -1,5 +1,6 @@
 package com.synthax.controller;
 
+import com.synthax.model.EQFilters;
 import com.synthax.model.SynthLFO;
 import com.synthax.model.enums.MidiNote;
 import net.beadsproject.beads.core.AudioContext;
@@ -10,23 +11,8 @@ public class SynthaxController {
     private final Gain masterGain;
     private final Glide masterGainGlide;
     private SynthLFO synthLFO;
-    private final BiquadFilter filterHP;
-    private final BiquadFilter filterNotch;
-    private final BiquadFilter filterLP;
     private final OscillatorManager oscillatorManager;
-
-    // High-pass
-    private final float hpMinFreq = 800f;
-    private final float hpMaxFreq = 2500f;
-    private final float HPdisableFreq = 0.001f;     // value where the filter is effectively disabled.
-    private boolean hpActive = false;
-    private float savedHPCutoff = hpMinFreq;
-    // Low-pass
-    private final float lpMinFreq = 50f;
-    private final float lpMaxFreq = 1500f;
-    private final float LPdisableFreq = 22000f; // value where the filter is effectively disabled.
-    private boolean lpActive = false;
-    private float savedLPCutoff = lpMinFreq;
+    private final EQFilters filters;
 
     /**
      * Setup AudioContext, OscillatorManager and create all necessary links.
@@ -46,26 +32,17 @@ public class SynthaxController {
         oscillatorManager = OscillatorManager.getInstance();
         Gain oscCombined = oscillatorManager.getOutput();
 
-        filterHP = new BiquadFilter(ac, 1, BiquadFilter.HP);
-        filterHP.addInput(oscCombined);
-        filterHP.setFrequency(HPdisableFreq);
+        filters = new EQFilters();
+        filters.addInput(oscCombined);
 
-        filterNotch = new BiquadFilter(ac, 1, BiquadFilter.NOTCH);
-        //filterNotch.addInput(filterHP);
-        //filterNotch.setGain(1f);
-
-        filterLP = new BiquadFilter(ac, 1, BiquadFilter.LP);
-        filterLP.addInput(filterHP);
-        filterLP.setFrequency(LPdisableFreq);
-
-        masterGain.addInput(filterLP);
+        masterGain.addInput(filters.getOutput());
 
         // Send to audio-device
         ac.out.addInput(masterGain);
         ac.start();
     }
 
-    //region OscillatorManager forwarding (click to collapse)
+    //region OscillatorManager (click to open/collapse)
     /**
      * @param oscillatorController
      * @author Joel Eriksson Sinclair
@@ -120,32 +97,17 @@ public class SynthaxController {
     }
     //endregion
 
+    //region Filters (click to open/collapse)
     public void setHPCutoff(float cutoff) {
-        float mapped = map(cutoff, 0f, 1f, hpMinFreq, hpMaxFreq);
-        if(hpActive) {
-            filterHP.setFrequency(mapped);
-        } else {
-            savedHPCutoff = mapped;
-            System.out.println("Saved: " + savedHPCutoff);
-        }
+        filters.setHPCutoff(cutoff);
     }
 
     public void setHPSlope(float slope) {
-        float mapped = map(slope, 0f, 1f, 0.1f, 1f);
-        filterHP.setQ(mapped);
+        filters.setHPSlope(slope);
     }
 
     public void setHPActive(boolean newActive) {
-        hpActive = newActive;
-
-        if(hpActive) {
-            filterHP.setFrequency(savedHPCutoff);
-        } else {
-            savedHPCutoff = filterHP.getFrequency();
-            System.out.println("Saved: " + savedHPCutoff);
-            filterHP.setFrequency(HPdisableFreq);
-            filterHP.reset();
-        }
+        filters.setHPActive(newActive);
     }
 
     public void setNotchFrequency(float frequency) {
@@ -163,40 +125,19 @@ public class SynthaxController {
      * @param cutoff
      */
     public void setLPCutoff(float cutoff) {
-        float mapped = map(cutoff, 0f, 1f, lpMinFreq, lpMaxFreq);
-        if(lpActive) {
-            filterLP.setFrequency(mapped);
-        } else {
-            savedLPCutoff = mapped;
-        }
+        filters.setLPCutoff(cutoff);
     }
 
     public void setLPSlope(float slope) {
-        float mapped = map(slope, 0f, 1f, 0.1f, 1f);
-        filterLP.setQ(mapped);
+        filters.setLPSlope(slope);
     }
 
     public void setLPActive(boolean newActive) {
-        lpActive = newActive;
-
-        if(lpActive) {
-            filterLP.setFrequency(savedLPCutoff);
-        } else {
-            savedLPCutoff = filterLP.getFrequency();
-            filterLP.setFrequency(LPdisableFreq);
-            filterLP.reset();
-        }
+        filters.setLPActive(newActive);
     }
+    //endregion
 
     public void setMasterGain(float gain) {
         masterGainGlide.setValue(gain);
-    }
-
-    /**
-     * Helper function to map a value from one range to another range.
-     */
-    private float map(float x, float in_min, float in_max, float out_min, float out_max)
-    {
-        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
 }
