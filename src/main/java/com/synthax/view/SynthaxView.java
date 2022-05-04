@@ -7,6 +7,7 @@ import com.synthax.MainApplication;
 import com.synthax.controller.OscillatorController;
 import com.synthax.controller.SynthaxController;
 import com.synthax.model.ADSRValues;
+import com.synthax.model.controls.KnobSeqFreq;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.util.MidiHelpers;
 
@@ -258,7 +259,7 @@ public class SynthaxView implements Initializable {
 
     //region initialize methods (click to open/collapse)
     private void initSS() {
-        KnobBehavior bKnobSS0Freq = new KnobBehavior(knobSS0freq);
+        KnobSeqFreq bKnobSS0Freq = new KnobSeqFreq(knobSS0freq, MidiNote.C4);
         knobSS0freq.setOnMouseDragged(bKnobSS0Freq);
         bKnobSS0Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
