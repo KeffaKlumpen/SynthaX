@@ -18,13 +18,13 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.SynthaxView">
    <children>
-      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="123.0" layoutX="14.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="384.0" />
-      <ImageView fitHeight="264.0" fitWidth="397.0" layoutX="18.0" layoutY="-38.0" pickOnBounds="true" preserveRatio="true">
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="123.0" layoutX="14.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="397.0" />
+      <ImageView fitHeight="264.0" fitWidth="397.0" layoutX="21.0" layoutY="-38.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/logoTdigiSv.png" />
          </image>
       </ImageView>
-    <Button fx:id="btnAddOscillator" layoutX="136.0" layoutY="146.0" mnemonicParsing="false" onAction="#onActionAddOscillator" prefHeight="30.0" prefWidth="138.0" styleClass="plainButton" text="Add Oscilltator">
+    <Button fx:id="btnAddOscillator" layoutX="144.0" layoutY="145.0" mnemonicParsing="false" onAction="#onActionAddOscillator" prefHeight="30.0" prefWidth="138.0" styleClass="plainButton" text="Add Oscilltator">
          <font>
             <Font name="Handel Gothic" size="14.0" />
          </font></Button>
@@ -33,7 +33,7 @@
             <VBox id="oscBox" fx:id="oscillatorChainView" prefHeight="520.0" prefWidth="367.0" />
          </content>
       </ScrollPane>
-      <AnchorPane layoutX="433.0" layoutY="28.0" prefHeight="108.0" prefWidth="133.0">
+      <AnchorPane layoutX="1120.0" layoutY="26.0" prefHeight="108.0" prefWidth="133.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="114.0" layoutX="1.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="147.0" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="34.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
@@ -58,7 +58,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="596.0" layoutY="31.0" prefHeight="107.0" prefWidth="182.0">
+      <AnchorPane layoutX="664.0" layoutY="27.0" prefHeight="107.0" prefWidth="182.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="116.0" layoutY="-8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="182.0" />
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="8.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
@@ -106,7 +106,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="803.0" layoutY="31.0" prefHeight="107.0" prefWidth="182.0">
+      <AnchorPane layoutX="892.0" layoutY="27.0" prefHeight="107.0" prefWidth="182.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="116.0" layoutY="-8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="182.0" />
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="8.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
@@ -153,7 +153,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="1011.0" layoutY="31.0" prefHeight="108.0" prefWidth="193.0">
+      <AnchorPane layoutX="435.0" layoutY="27.0" prefHeight="108.0" prefWidth="193.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="116.0" layoutY="-8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="193.0" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="2.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
@@ -202,7 +202,7 @@
       </AnchorPane>
       <AnchorPane layoutX="430.0" layoutY="155.0" prefHeight="200.0" prefWidth="450.0">
          <children>
-            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="176.0" layoutX="4.0" layoutY="3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="427.0" />
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="192.0" layoutX="4.0" layoutY="-5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="434.0" />
             <Slider fx:id="sliderAttack" blockIncrement="0.1" layoutX="25.0" layoutY="39.0" max="1.0" minorTickCount="0" orientation="VERTICAL" prefHeight="100.0" prefWidth="16.0" />
             <Slider fx:id="sliderDecay" blockIncrement="0.1" layoutX="75.0" layoutY="39.0" max="1.0" orientation="VERTICAL" prefHeight="101.0" prefWidth="16.0" />
             <Slider fx:id="sliderSustain" blockIncrement="0.1" layoutX="125.0" layoutY="39.0" max="1.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="16.0" value="1.0" />
@@ -235,10 +235,10 @@
                 <NumberAxis fx:id="yAxis" animated="false" autoRanging="false" lowerBound="-3.0" minorTickVisible="false" opacity="0.0" side="LEFT" tickLabelsVisible="false" tickMarkVisible="false" upperBound="33.0" />
               </yAxis>
             </LineChart>
-            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="13.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="189.0" />
-            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="15.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="58.0" />
-            <Line endX="196.30328369140625" layoutX="15.0" layoutY="24.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <Label layoutX="18.0" layoutY="14.0" styleClass="bigLabel" text="ADSR">
+            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="13.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="189.0" />
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="15.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="58.0" />
+            <Line endX="196.30328369140625" layoutX="15.0" layoutY="17.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
+            <Label layoutX="18.0" layoutY="7.0" styleClass="bigLabel" text="ADSR">
                <font>
                   <Font size="17.0" />
                </font>
@@ -248,7 +248,7 @@
       <AnchorPane layoutX="432.0" layoutY="346.0" prefHeight="378.0" prefWidth="634.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="62.0" layoutX="403.0" layoutY="27.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="60.0" />
-            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="356.0" layoutX="2.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="429.0" />
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="356.0" layoutX="2.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="436.0" />
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="323.0" layoutX="219.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="483.0" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="55.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -662,7 +662,7 @@
                <font>
                   <Font name="Handel Gothic" size="14.0" />
                </font></Label>
-            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#d6d1c9" height="40.0" layoutX="431.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="46.0" />
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#d6d1c9" height="40.0" layoutX="438.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="46.0" />
             <Line endX="-1.0" endY="89.32672119140625" layoutX="123.0" layoutY="100.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="13.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="407.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="15.0" layoutY="22.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="164.0" />
