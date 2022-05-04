@@ -23,6 +23,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -34,6 +35,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.BiConsumer;
 
 /**
  * Class for synthesizer main view
@@ -126,22 +128,22 @@ public class SynthaxView implements Initializable {
     @FXML private Button knobSS15Gain;
     @FXML private Button SSStartStop;
     @FXML private Button knobSSRate;
-    @FXML private Button btnStepOnOff0;
-    @FXML private Button btnStepOnOff1;
-    @FXML private Button btnStepOnOff2;
-    @FXML private Button btnStepOnOff3;
-    @FXML private Button btnStepOnOff4;
-    @FXML private Button btnStepOnOff5;
-    @FXML private Button btnStepOnOff6;
-    @FXML private Button btnStepOnOff7;
-    @FXML private Button btnStepOnOff8;
-    @FXML private Button btnStepOnOff9;
-    @FXML private Button btnStepOnOff10;
-    @FXML private Button btnStepOnOff11;
-    @FXML private Button btnStepOnOff12;
-    @FXML private Button btnStepOnOff13;
-    @FXML private Button btnStepOnOff14;
-    @FXML private Button btnStepOnOff15;
+    @FXML private ToggleButton btnStepOnOff0;
+    @FXML private ToggleButton btnStepOnOff1;
+    @FXML private ToggleButton btnStepOnOff2;
+    @FXML private ToggleButton btnStepOnOff3;
+    @FXML private ToggleButton btnStepOnOff4;
+    @FXML private ToggleButton btnStepOnOff5;
+    @FXML private ToggleButton btnStepOnOff6;
+    @FXML private ToggleButton btnStepOnOff7;
+    @FXML private ToggleButton btnStepOnOff8;
+    @FXML private ToggleButton btnStepOnOff9;
+    @FXML private ToggleButton btnStepOnOff10;
+    @FXML private ToggleButton btnStepOnOff11;
+    @FXML private ToggleButton btnStepOnOff12;
+    @FXML private ToggleButton btnStepOnOff13;
+    @FXML private ToggleButton btnStepOnOff14;
+    @FXML private ToggleButton btnStepOnOff15;
     //endregion
 
 
@@ -165,7 +167,7 @@ public class SynthaxView implements Initializable {
             KeyCode.H, new AtomicBoolean(false));
 
     public SynthaxView() {
-        synthaxController = new SynthaxController();
+        synthaxController = new SynthaxController(this);
     }
 
     @FXML
@@ -524,6 +526,14 @@ public class SynthaxView implements Initializable {
         knobSSRate.setOnMouseDragged(bKnobSSRate);
         bKnobSSRate.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
+        });
+        btnStepOnOff0.selectedProperty().addListener((v, oldValue, newValue) -> {
+            if (newValue) {
+                btnStepOnOff0.textProperty().setValue(bKnobSS0Freq.getNoteName());
+            } else {
+                btnStepOnOff0.textProperty().setValue("Off");
+            }
+            //synthaxController.setStepOnOff(0, newValue);
         });
     }
     private void initNoise() {

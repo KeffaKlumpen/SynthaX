@@ -61,4 +61,8 @@ public class KnobBehaviorSeqFreq implements EventHandler<MouseEvent> {
         noteProperty.setValue(notes.indexOf(midiNote));
     }
 
+    public String getNoteName() {
+        return midiNote.name();
+    }
+
 }
