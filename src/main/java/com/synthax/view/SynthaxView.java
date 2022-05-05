@@ -145,6 +145,10 @@ public class SynthaxView implements Initializable {
     @FXML private ToggleButton btnStepOnOff15;
     //endregion
 
+    private Button[] sequencerFreqKnobs;
+    private Button[] sequencerDetuneKnobs;
+    private Button[] sequencerGainKnobs;
+    private ToggleButton[] sequencerSteps;
     private XYChart.Data<Number, Number> point1ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point2ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point3ADSR = new XYChart.Data<>();
@@ -156,18 +160,6 @@ public class SynthaxView implements Initializable {
     private final int decayMax = 1500;
     private final int releaseMax = 2000;
 
-    /*
-    private Map<KeyCode, AtomicBoolean> keyStatus = Map.of(KeyCode.A, new AtomicBoolean(false),
-            KeyCode.S, new AtomicBoolean(false),
-            KeyCode.D, new AtomicBoolean(false),
-            KeyCode.F, new AtomicBoolean(false),
-            KeyCode.G, new AtomicBoolean(false),
-            KeyCode.H, new AtomicBoolean(false),
-            KeyCode.W, new AtomicBoolean(false),
-            KeyCode.E, new AtomicBoolean(false),
-            KeyCode.T, new AtomicBoolean(false),
-            KeyCode.Y, new AtomicBoolean(false));
-    */
     private final HashMap<KeyCode, AtomicBoolean> keyStatus = new HashMap<>();
 
     public SynthaxView() {
@@ -271,19 +263,8 @@ public class SynthaxView implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        keyStatus.put(KeyCode.A, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.W, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.S, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.E, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.D, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.F, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.T, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.G, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.Y, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.H, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.U, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.J, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.K, new AtomicBoolean(false));
+        initButtonArrays();
+        initKeyStatus();
         initNoise();
         initADSR();
         initFilter();
@@ -293,6 +274,77 @@ public class SynthaxView implements Initializable {
         initReverb();
         initSS();
         sliderMasterGain.valueProperty().addListener((observableValue, number, t1) -> synthaxController.setMasterGain(t1.floatValue()));
+    }
+
+    private void initButtonArrays() {
+        sequencerSteps = new ToggleButton[] {
+                btnStepOnOff0,
+                btnStepOnOff1,
+                btnStepOnOff2,
+                btnStepOnOff3,
+                btnStepOnOff4,
+                btnStepOnOff5,
+                btnStepOnOff6,
+                btnStepOnOff7,
+                btnStepOnOff8,
+                btnStepOnOff9,
+                btnStepOnOff10,
+                btnStepOnOff11,
+                btnStepOnOff12,
+                btnStepOnOff13,
+                btnStepOnOff14,
+                btnStepOnOff15};
+        sequencerFreqKnobs = new Button[] {
+                knobSS0freq,
+                knobSS1freq,
+                knobSS2freq,
+                knobSS3freq,
+                knobSS4freq,
+                knobSS5freq,
+                knobSS6freq,
+                knobSS7freq,
+                knobSS8freq,
+                knobSS9freq,
+                knobSS10freq,
+                knobSS11freq,
+                knobSS12freq,
+                knobSS13freq,
+                knobSS14freq,
+                knobSS15freq};
+        sequencerDetuneKnobs = new Button[] {
+                knobSS0FineTune,
+                knobSS1FineTune,
+                knobSS2FineTune,
+                knobSS3FineTune,
+                knobSS4FineTune,
+                knobSS5FineTune,
+                knobSS6FineTune,
+                knobSS7FineTune,
+                knobSS8FineTune,
+                knobSS9FineTune,
+                knobSS10FineTune,
+                knobSS11FineTune,
+                knobSS12FineTune,
+                knobSS13FineTune,
+                knobSS14FineTune,
+                knobSS15FineTune};
+        sequencerGainKnobs = new Button[] {
+                knobSS0Gain,
+                knobSS1Gain,
+                knobSS2Gain,
+                knobSS3Gain,
+                knobSS4Gain,
+                knobSS5Gain,
+                knobSS6Gain,
+                knobSS7Gain,
+                knobSS8Gain,
+                knobSS9Gain,
+                knobSS10Gain,
+                knobSS11Gain,
+                knobSS12Gain,
+                knobSS13Gain,
+                knobSS14Gain,
+                knobSS15Gain};
     }
 
     private void setupLineChart() {
@@ -343,8 +395,20 @@ public class SynthaxView implements Initializable {
     //endregion
 
     //region initialize methods (click to open/collapse)
+    private void setupSeqButton(Button knobFreq, int i, ) {
+        KnobBehaviorSeqFreq bKnobSeqFreq = new KnobBehaviorSeqFreq(knobFreq, MidiNote.F4);
+        knobFreq.setOnMouseDragged(bKnobSeqFreq);
+        bKnobSeqFreq.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            if (sequencerSteps[i].isSelected()) {
+                sequencerSteps[i].textProperty().setValue(bKnobSeqFreq.getNoteName());
+            }
+            synthaxController.setSeqMidiNote(i, MidiNote.values()[newValue.intValue()]);
+        });
+
+    }
+
     private void initSS() {
-        KnobBehaviorSeqFreq bKnobSS0Freq = new KnobBehaviorSeqFreq(knobSS0freq, MidiNote.F4);
+        /*KnobBehaviorSeqFreq bKnobSS0Freq = new KnobBehaviorSeqFreq(knobSS0freq, MidiNote.F4);
         knobSS0freq.setOnMouseDragged(bKnobSS0Freq);
         bKnobSS0Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
             if (btnStepOnOff0.isSelected()) {
@@ -352,6 +416,9 @@ public class SynthaxView implements Initializable {
             }
             synthaxController.setSeqMidiNote(0, MidiNote.values()[newValue.intValue()]);
         });
+
+         */
+        setupSeqButton(sequencerFreqKnobs[0], 0);
         KnobBehaviorDetune bKnobSS0FineTune = new KnobBehaviorDetune(knobSS0FineTune);
         knobSS0FineTune.setOnMouseDragged(bKnobSS0FineTune);
         bKnobSS0FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
@@ -965,8 +1032,22 @@ public class SynthaxView implements Initializable {
             onReleaseDrag();
         });
     }
-
-    public void initKeyBoardListeners() {
+    private void initKeyStatus() {
+        keyStatus.put(KeyCode.A, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.W, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.S, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.E, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.D, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.F, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.T, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.G, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.Y, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.H, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.U, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.J, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.K, new AtomicBoolean(false));
+    }
+    private void initKeyBoardListeners() {
         mainPane.setOnKeyPressed(event -> {
             KeyCode keyCode = event.getCode();
             // If it's a valid key, send a noteOn message.
