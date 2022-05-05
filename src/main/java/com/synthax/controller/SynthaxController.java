@@ -197,6 +197,10 @@ public class SynthaxController {
         sequencer.setBPM(rate);
     }
 
+    public void setSeqNSteps(int nSteps) {
+        sequencer.setNSteps(nSteps);
+    }
+
     public void setSeqButtonOrange(int i) {
         synthaxView.setSeqButtonOrange(i);
     }

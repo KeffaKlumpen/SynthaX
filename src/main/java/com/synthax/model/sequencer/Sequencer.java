@@ -11,6 +11,7 @@ public class Sequencer implements Runnable {
     private int msBetweenBeats = 100;
     private boolean running;
     private Thread thread;
+    private int nSteps = 16;
 
     public Sequencer(SynthaxController sc) {
         synthaxController = sc;
@@ -34,6 +35,10 @@ public class Sequencer implements Runnable {
 
     public void setOnOff(int i, boolean on) {
         steps[i].setIsOn(on);
+    }
+
+    public void setNSteps(int nSteps) {
+        this.nSteps = nSteps;
     }
 
     public void setBPM(float rate) {
@@ -85,7 +90,7 @@ public class Sequencer implements Runnable {
             }
             synthaxController.setSeqButtonGray(count);
             steps[count].stop();
-            count = (count + 1) % steps.length;
+            count = (count + 1) % nSteps;
         }
     }
 }
