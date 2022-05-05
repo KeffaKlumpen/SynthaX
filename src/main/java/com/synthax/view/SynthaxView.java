@@ -46,6 +46,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author Luke Eales
  */
 public class SynthaxView implements Initializable {
+    //region FXML variables
     @FXML private VBox oscillatorChainView;
     @FXML private Button knobNoiseGain;
     @FXML private ToggleSwitch tglSwitchNoise;
@@ -81,6 +82,7 @@ public class SynthaxView implements Initializable {
     @FXML private NumberAxis xAxis = new NumberAxis();
     @FXML private NumberAxis yAxis = new NumberAxis();
     @FXML private LineChart<Number, Number> lineChartADSR = new LineChart<Number, Number>(xAxis, yAxis);
+    //endregion
     //region Step sequencer buttons
     @FXML private Button knobSS0freq;
     @FXML private Button knobSS0FineTune;
@@ -151,10 +153,14 @@ public class SynthaxView implements Initializable {
     @FXML private ToggleButton btnStepOnOff15;
     //endregion
 
+    private final HashMap<KeyCode, AtomicBoolean> keyStatus = new HashMap<>();
     private Button[] sequencerFreqKnobs;
     private Button[] sequencerDetuneKnobs;
     private Button[] sequencerGainKnobs;
     private ToggleButton[] sequencerSteps;
+    private KnobBehavior[] knobBehaviorsGain = new KnobBehavior[16];
+    private KnobBehaviorDetune[] knobBehaviorDetunes = new KnobBehaviorDetune[16];
+    private KnobBehaviorSeqFreq[] knobBehaviorSeqFreqs = new KnobBehaviorSeqFreq[16];
     private XYChart.Data<Number, Number> point1ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point2ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point3ADSR = new XYChart.Data<>();
@@ -166,7 +172,7 @@ public class SynthaxView implements Initializable {
     private final int decayMax = 1500;
     private final int releaseMax = 2000;
 
-    private final HashMap<KeyCode, AtomicBoolean> keyStatus = new HashMap<>();
+
 
     public SynthaxView() {
         synthaxController = new SynthaxController(this);
@@ -223,47 +229,14 @@ public class SynthaxView implements Initializable {
 
     public void setSeqButtonOrange(int i) {
         Platform.runLater(() -> {
-            switch (i) {
-                case 0 -> btnStepOnOff0.setStyle("-fx-background-color: #f78000");
-                case 1 -> btnStepOnOff1.setStyle("-fx-background-color: #f78000");
-                case 2 -> btnStepOnOff2.setStyle("-fx-background-color: #f78000");
-                case 3 -> btnStepOnOff3.setStyle("-fx-background-color: #f78000");
-                case 4 -> btnStepOnOff4.setStyle("-fx-background-color: #f78000");
-                case 5 -> btnStepOnOff5.setStyle("-fx-background-color: #f78000");
-                case 6 -> btnStepOnOff6.setStyle("-fx-background-color: #f78000");
-                case 7 -> btnStepOnOff7.setStyle("-fx-background-color: #f78000");
-                case 8 -> btnStepOnOff8.setStyle("-fx-background-color: #f78000");
-                case 9 -> btnStepOnOff9.setStyle("-fx-background-color: #f78000");
-                case 10 -> btnStepOnOff10.setStyle("-fx-background-color: #f78000");
-                case 11 -> btnStepOnOff11.setStyle("-fx-background-color: #f78000");
-                case 12 -> btnStepOnOff12.setStyle("-fx-background-color: #f78000");
-                case 13 -> btnStepOnOff13.setStyle("-fx-background-color: #f78000");
-                case 14 -> btnStepOnOff14.setStyle("-fx-background-color: #f78000");
-                case 15 -> btnStepOnOff15.setStyle("-fx-background-color: #f78000");
-            }
+            sequencerSteps[i].setStyle("-fx-background-color: #f78000");
         });
     }
 
     public void setSeqButtonGray(int i) {
         Platform.runLater(()-> {
-            switch (i) {
-                case 0 -> btnStepOnOff0.setStyle("-fx-background-color: #78736b");
-                case 1 -> btnStepOnOff1.setStyle("-fx-background-color: #78736b");
-                case 2 -> btnStepOnOff2.setStyle("-fx-background-color: #78736b");
-                case 3 -> btnStepOnOff3.setStyle("-fx-background-color: #78736b");
-                case 4 -> btnStepOnOff4.setStyle("-fx-background-color: #78736b");
-                case 5 -> btnStepOnOff5.setStyle("-fx-background-color: #78736b");
-                case 6 -> btnStepOnOff6.setStyle("-fx-background-color: #78736b");
-                case 7 -> btnStepOnOff7.setStyle("-fx-background-color: #78736b");
-                case 8 -> btnStepOnOff8.setStyle("-fx-background-color: #78736b");
-                case 9 -> btnStepOnOff9.setStyle("-fx-background-color: #78736b");
-                case 10 -> btnStepOnOff10.setStyle("-fx-background-color: #78736b");
-                case 11 -> btnStepOnOff11.setStyle("-fx-background-color: #78736b");
-                case 12 -> btnStepOnOff12.setStyle("-fx-background-color: #78736b");
-                case 13 -> btnStepOnOff13.setStyle("-fx-background-color: #78736b");
-                case 14 -> btnStepOnOff14.setStyle("-fx-background-color: #78736b");
-                case 15 -> btnStepOnOff15.setStyle("-fx-background-color: #78736b");
-            }
+            sequencerSteps[i].setStyle("-fx-background-color: #78736b");
+
         });
     }
 
@@ -355,7 +328,6 @@ public class SynthaxView implements Initializable {
 
     private void setupLineChart() {
         XYChart.Series<Number, Number> seriesADSR = new XYChart.Series<>();
-
         point1ADSR.setXValue(0d);
         point1ADSR.setYValue(0d);
         point2ADSR.setXValue(0d);
@@ -401,329 +373,38 @@ public class SynthaxView implements Initializable {
     //endregion
 
     //region initialize methods (click to open/collapse)
-    /*private void setupSeqButton(Button knobFreq, int i, ) {
-        KnobBehaviorSeqFreq bKnobSeqFreq = new KnobBehaviorSeqFreq(knobFreq, MidiNote.F4);
-        knobFreq.setOnMouseDragged(bKnobSeqFreq);
-        bKnobSeqFreq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (sequencerSteps[i].isSelected()) {
-                sequencerSteps[i].textProperty().setValue(bKnobSeqFreq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(i, MidiNote.values()[newValue.intValue()]);
-        });
-
-    }
-
-     */
 
     private void initSS() {
-        /*KnobBehaviorSeqFreq bKnobSS0Freq = new KnobBehaviorSeqFreq(knobSS0freq, MidiNote.F4);
-        knobSS0freq.setOnMouseDragged(bKnobSS0Freq);
-        bKnobSS0Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff0.isSelected()) {
-                btnStepOnOff0.textProperty().setValue(bKnobSS0Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(0, MidiNote.values()[newValue.intValue()]);
-        });
+        for (int i = 0; i < sequencerFreqKnobs.length; i++) {
+            int finali = i;
+            knobBehaviorSeqFreqs[i] = new KnobBehaviorSeqFreq(sequencerFreqKnobs[i], MidiNote.F4);
+            sequencerFreqKnobs[i].setOnMouseDragged(knobBehaviorSeqFreqs[i]);
+            knobBehaviorSeqFreqs[i].knobValueProperty().addListener((v, oldValue, newValue) -> {
+                if (sequencerSteps[finali].isSelected()) {
+                    sequencerSteps[finali].textProperty().setValue(knobBehaviorSeqFreqs[finali].getNoteName());
+                }
+                synthaxController.setSeqMidiNote(finali, MidiNote.values()[newValue.intValue()]);
+            });
+        }
 
-         */
-        //setupSeqButton(sequencerFreqKnobs[0], 0);
-        KnobBehaviorDetune bKnobSS0FineTune = new KnobBehaviorDetune(knobSS0FineTune);
-        knobSS0FineTune.setOnMouseDragged(bKnobSS0FineTune);
-        bKnobSS0FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(0, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS0Gain = new KnobBehavior(knobSS0Gain);
-        bKnobSS0Gain.setValueRotation(150, 1.0f);
-        knobSS0Gain.setOnMouseDragged(bKnobSS0Gain);
-        bKnobSS0Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(0, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS1Freq = new KnobBehaviorSeqFreq(knobSS1freq, MidiNote.F4);
-        knobSS1freq.setOnMouseDragged(bKnobSS1Freq);
-        bKnobSS1Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff1.isSelected()) {
-                btnStepOnOff1.textProperty().setValue(bKnobSS1Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(1, MidiNote.values()[newValue.intValue()]);
-        });
-        KnobBehaviorDetune bKnobSS1FineTune = new KnobBehaviorDetune(knobSS1FineTune);
-        knobSS1FineTune.setOnMouseDragged(bKnobSS1FineTune);
-        bKnobSS1FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(1, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS1Gain = new KnobBehavior(knobSS1Gain);
-        bKnobSS1Gain.setValueRotation(150, 1.0f);
-        knobSS1Gain.setOnMouseDragged(bKnobSS1Gain);
-        bKnobSS1Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(1, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS2Freq = new KnobBehaviorSeqFreq(knobSS2freq, MidiNote.F4);
-        knobSS2freq.setOnMouseDragged(bKnobSS2Freq);
-        bKnobSS2Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff2.isSelected()) {
-                btnStepOnOff2.textProperty().setValue(bKnobSS2Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(2, MidiNote.values()[newValue.intValue()]);
-        });
-        KnobBehaviorDetune bKnobSS2FineTune = new KnobBehaviorDetune(knobSS2FineTune);
-        knobSS2FineTune.setOnMouseDragged(bKnobSS2FineTune);
-        bKnobSS2FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(2, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS2Gain = new KnobBehavior(knobSS2Gain);
-        bKnobSS2Gain.setValueRotation(150, 1.0f);
-        knobSS2Gain.setOnMouseDragged(bKnobSS2Gain);
-        bKnobSS2Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(2, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS3Freq = new KnobBehaviorSeqFreq(knobSS3freq, MidiNote.F4);
-        knobSS3freq.setOnMouseDragged(bKnobSS3Freq);
-        bKnobSS3Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff3.isSelected()) {
-                btnStepOnOff3.textProperty().setValue(bKnobSS3Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(3, MidiNote.values()[newValue.intValue()]);
-        });
-        KnobBehaviorDetune bKnobSS3FineTune = new KnobBehaviorDetune(knobSS3FineTune);
-        knobSS3FineTune.setOnMouseDragged(bKnobSS3FineTune);
-        bKnobSS3FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(3, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS3Gain = new KnobBehavior(knobSS3Gain);
-        bKnobSS3Gain.setValueRotation(150, 1.0f);
-        knobSS3Gain.setOnMouseDragged(bKnobSS3Gain);
-        bKnobSS3Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(3, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS4Freq = new KnobBehaviorSeqFreq(knobSS4freq, MidiNote.F4);
-        knobSS4freq.setOnMouseDragged(bKnobSS4Freq);
-        bKnobSS4Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff4.isSelected()) {
-                btnStepOnOff4.textProperty().setValue(bKnobSS4Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(4, MidiNote.values()[newValue.intValue()]);
-        });
-        KnobBehaviorDetune bKnobSS4FineTune = new KnobBehaviorDetune(knobSS4FineTune);
-        knobSS4FineTune.setOnMouseDragged(bKnobSS4FineTune);
-        bKnobSS4FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(4, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS4Gain = new KnobBehavior(knobSS4Gain);
-        bKnobSS4Gain.setValueRotation(150, 1.0f);
-        knobSS4Gain.setOnMouseDragged(bKnobSS4Gain);
-        bKnobSS4Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(4, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS5Freq = new KnobBehaviorSeqFreq(knobSS5freq, MidiNote.F4);
-        knobSS5freq.setOnMouseDragged(bKnobSS5Freq);
-        bKnobSS5Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff5.isSelected()) {
-                btnStepOnOff5.textProperty().setValue(bKnobSS5Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(5, MidiNote.values()[newValue.intValue()]);
-        });
-        KnobBehaviorDetune bKnobSS5FineTune = new KnobBehaviorDetune(knobSS5FineTune);
-        knobSS5FineTune.setOnMouseDragged(bKnobSS5FineTune);
-        bKnobSS5FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(5, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS5Gain = new KnobBehavior(knobSS5Gain);
-        bKnobSS5Gain.setValueRotation(150, 1.0f);
-        knobSS5Gain.setOnMouseDragged(bKnobSS5Gain);
-        bKnobSS5Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(5, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS6Freq = new KnobBehaviorSeqFreq(knobSS6freq, MidiNote.F4);
-        knobSS6freq.setOnMouseDragged(bKnobSS6Freq);
-        bKnobSS6Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff6.isSelected()) {
-                btnStepOnOff6.textProperty().setValue(bKnobSS6Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(6, MidiNote.values()[newValue.intValue()]);
-        });
-        KnobBehaviorDetune bKnobSS6FineTune = new KnobBehaviorDetune(knobSS6FineTune);
-        knobSS6FineTune.setOnMouseDragged(bKnobSS6FineTune);
-        bKnobSS6FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(6, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS6Gain = new KnobBehavior(knobSS6Gain);
-        knobSS6Gain.setOnMouseDragged(bKnobSS6Gain);
-        bKnobSS6Gain.setValueRotation(150, 1.0f);
-        bKnobSS6Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(6, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS7Freq = new KnobBehaviorSeqFreq(knobSS7freq, MidiNote.F4);
-        knobSS7freq.setOnMouseDragged(bKnobSS7Freq);
-        bKnobSS7Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff7.isSelected()) {
-                btnStepOnOff7.textProperty().setValue(bKnobSS7Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(7, MidiNote.values()[newValue.intValue()]);
-        });
+        for (int i = 0; i < sequencerDetuneKnobs.length; i++) {
+            int finali = i;
+            knobBehaviorDetunes[i] = new KnobBehaviorDetune(sequencerDetuneKnobs[i]);
+            sequencerDetuneKnobs[i].setOnMouseDragged(knobBehaviorDetunes[i]);
+            knobBehaviorDetunes[i].knobValueProperty().addListener((v, oldValue, newValue) -> {
+                synthaxController.setSeqDetuneCent(finali, newValue.floatValue());
+            });
+        }
 
-        KnobBehaviorDetune bKnobSS7FineTune = new KnobBehaviorDetune(knobSS7FineTune);
-        knobSS7FineTune.setOnMouseDragged(bKnobSS7FineTune);
-        bKnobSS7FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(7, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS7Gain = new KnobBehavior(knobSS7Gain);
-        bKnobSS7Gain.setValueRotation(150, 1.0f);
-        knobSS7Gain.setOnMouseDragged(bKnobSS7Gain);
-        bKnobSS7Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(7, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS8Freq = new KnobBehaviorSeqFreq(knobSS8freq, MidiNote.F4);
-        knobSS8freq.setOnMouseDragged(bKnobSS8Freq);
-        bKnobSS8Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff8.isSelected()) {
-                btnStepOnOff8.textProperty().setValue(bKnobSS8Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(8, MidiNote.values()[newValue.intValue()]);
-        });
-        KnobBehaviorDetune bKnobSS8FineTune = new KnobBehaviorDetune(knobSS8FineTune);
-        knobSS8FineTune.setOnMouseDragged(bKnobSS8FineTune);
-        bKnobSS8FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(8, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS8Gain = new KnobBehavior(knobSS8Gain);
-        bKnobSS8Gain.setValueRotation(150, 1.0f);
-        knobSS8Gain.setOnMouseDragged(bKnobSS8Gain);
-        bKnobSS8Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(8, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS9Freq = new KnobBehaviorSeqFreq(knobSS9freq, MidiNote.F4);
-        knobSS9freq.setOnMouseDragged(bKnobSS9Freq);
-        bKnobSS9Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff9.isSelected()) {
-                btnStepOnOff9.textProperty().setValue(bKnobSS9Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(9, MidiNote.values()[newValue.intValue()]);
-        });
-        KnobBehaviorDetune bKnobSS9FineTune = new KnobBehaviorDetune(knobSS9FineTune);
-        knobSS9FineTune.setOnMouseDragged(bKnobSS9FineTune);
-        bKnobSS9FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(9, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS9Gain = new KnobBehavior(knobSS9Gain);
-        bKnobSS9Gain.setValueRotation(150, 1.0f);
-        knobSS9Gain.setOnMouseDragged(bKnobSS9Gain);
-        bKnobSS9Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(9, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS10Freq = new KnobBehaviorSeqFreq(knobSS10freq, MidiNote.F4);
-        knobSS10freq.setOnMouseDragged(bKnobSS10Freq);
-        bKnobSS10Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff10.isSelected()) {
-                btnStepOnOff10.textProperty().setValue(bKnobSS10Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(10, MidiNote.values()[newValue.intValue()]);
-        });
-        KnobBehaviorDetune bKnobSS10FineTune = new KnobBehaviorDetune(knobSS10FineTune);
-        knobSS10FineTune.setOnMouseDragged(bKnobSS10FineTune);
-        bKnobSS10FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(10, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS10Gain = new KnobBehavior(knobSS10Gain);
-        bKnobSS10Gain.setValueRotation(150, 1.0f);
-        knobSS10Gain.setOnMouseDragged(bKnobSS10Gain);
-        bKnobSS10Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(10, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS11Freq = new KnobBehaviorSeqFreq(knobSS11freq, MidiNote.F4);
-        knobSS11freq.setOnMouseDragged(bKnobSS11Freq);
-        bKnobSS11Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff11.isSelected()) {
-                btnStepOnOff11.textProperty().setValue(bKnobSS11Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(11, MidiNote.values()[newValue.intValue()]);
-        });
-        KnobBehaviorDetune bKnobSS11FineTune = new KnobBehaviorDetune(knobSS11FineTune);
-        knobSS11FineTune.setOnMouseDragged(bKnobSS11FineTune);
-        bKnobSS11FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(11, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS11Gain = new KnobBehavior(knobSS11Gain);
-        bKnobSS11Gain.setValueRotation(150, 1.0f);
-        knobSS11Gain.setOnMouseDragged(bKnobSS11Gain);
-        bKnobSS11Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(11, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS12Freq = new KnobBehaviorSeqFreq(knobSS12freq, MidiNote.F4);
-        knobSS12freq.setOnMouseDragged(bKnobSS12Freq);
-        bKnobSS12Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff12.isSelected()) {
-                btnStepOnOff12.textProperty().setValue(bKnobSS12Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(12, MidiNote.values()[newValue.intValue()]);
-        });
-        KnobBehaviorDetune bKnobSS12FineTune = new KnobBehaviorDetune(knobSS12FineTune);
-        knobSS12FineTune.setOnMouseDragged(bKnobSS12FineTune);
-        bKnobSS12FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(12, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS12Gain = new KnobBehavior(knobSS12Gain);
-        bKnobSS12Gain.setValueRotation(150, 1.0f);
-        knobSS12Gain.setOnMouseDragged(bKnobSS12Gain);
-        bKnobSS12Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(12, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS13Freq = new KnobBehaviorSeqFreq(knobSS13freq, MidiNote.F4);
-        knobSS13freq.setOnMouseDragged(bKnobSS13Freq);
-        bKnobSS13Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff13.isSelected()) {
-                btnStepOnOff13.textProperty().setValue(bKnobSS13Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(13, MidiNote.values()[newValue.intValue()]);
-        });
-        KnobBehaviorDetune bKnobSS13FineTune = new KnobBehaviorDetune(knobSS13FineTune);
-        knobSS13FineTune.setOnMouseDragged(bKnobSS13FineTune);
-        bKnobSS13FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(13, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS13Gain = new KnobBehavior(knobSS13Gain);
-        bKnobSS13Gain.setValueRotation(150, 1.0f);
-        knobSS13Gain.setOnMouseDragged(bKnobSS13Gain);
-        bKnobSS13Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(13, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS14Freq = new KnobBehaviorSeqFreq(knobSS14freq, MidiNote.F4);
-        knobSS14freq.setOnMouseDragged(bKnobSS14Freq);
-        bKnobSS14Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff14.isSelected()) {
-                btnStepOnOff14.textProperty().setValue(bKnobSS14Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(14, MidiNote.values()[newValue.intValue()]);
-        });
-        KnobBehaviorDetune bKnobSS14FineTune = new KnobBehaviorDetune(knobSS14FineTune);
-        knobSS14FineTune.setOnMouseDragged(bKnobSS14FineTune);
-        bKnobSS14FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(14, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS14Gain = new KnobBehavior(knobSS14Gain);
-        bKnobSS14Gain.setValueRotation(150, 1.0f);
-        knobSS14Gain.setOnMouseDragged(bKnobSS14Gain);
-        bKnobSS14Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(14, newValue.floatValue());
-        });
-        KnobBehaviorSeqFreq bKnobSS15Freq = new KnobBehaviorSeqFreq(knobSS15freq, MidiNote.F4);
-        knobSS15freq.setOnMouseDragged(bKnobSS15Freq);
-        bKnobSS15Freq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            if (btnStepOnOff15.isSelected()) {
-                btnStepOnOff15.textProperty().setValue(bKnobSS15Freq.getNoteName());
-            }
-            synthaxController.setSeqMidiNote(15, MidiNote.values()[newValue.intValue()]);
-        });
-        KnobBehaviorDetune bKnobSS15FineTune = new KnobBehaviorDetune(knobSS15FineTune);
-        knobSS15FineTune.setOnMouseDragged(bKnobSS15FineTune);
-        bKnobSS15FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqDetuneCent(15, newValue.floatValue());
-        });
-        KnobBehavior bKnobSS15Gain = new KnobBehavior(knobSS15Gain);
-        bKnobSS15Gain.setValueRotation(150, 1.0f);
-        knobSS15Gain.setOnMouseDragged(bKnobSS15Gain);
-        bKnobSS15Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSeqVelocity(15, newValue.floatValue());
-        });
+        for (int i = 0; i < sequencerGainKnobs.length; i++) {
+            int finalI = i;
+            knobBehaviorsGain[i] = new KnobBehavior(sequencerGainKnobs[i]);
+            knobBehaviorsGain[i].setValueRotation(150, 1.0f);
+            sequencerGainKnobs[i].setOnMouseDragged(knobBehaviorsGain[i]);
+            knobBehaviorsGain[i].knobValueProperty().addListener((v, oldValue, newValue) -> {
+                synthaxController.setSeqVelocity(finalI, newValue.floatValue());
+            });
+        }
 
         KnobBehavior bKnobSSRate = new KnobBehavior(knobSSRate);
         bKnobSSRate.setValueRotation(0, 0.5f);
@@ -731,136 +412,18 @@ public class SynthaxView implements Initializable {
         bKnobSSRate.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqBPM(newValue.floatValue());
         });
-        btnStepOnOff0.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                //btnStepOnOff0.textProperty().setValue(bKnobSS0Freq.getNoteName());
-            } else {
-                btnStepOnOff0.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(0, newValue);
-        });
-        btnStepOnOff1.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff1.textProperty().setValue(bKnobSS1Freq.getNoteName());
-            } else {
-                btnStepOnOff1.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(1, newValue);
-        });
-        btnStepOnOff2.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff2.textProperty().setValue(bKnobSS2Freq.getNoteName());
-            } else {
-                btnStepOnOff2.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(2, newValue);
-        });
-        btnStepOnOff3.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff3.textProperty().setValue(bKnobSS3Freq.getNoteName());
-            } else {
-                btnStepOnOff3.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(3, newValue);
-        });
 
-        btnStepOnOff4.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff4.textProperty().setValue(bKnobSS4Freq.getNoteName());
-            } else {
-                btnStepOnOff4.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(4, newValue);
-        });
-        btnStepOnOff5.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff5.textProperty().setValue(bKnobSS5Freq.getNoteName());
-            } else {
-                btnStepOnOff5.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(5, newValue);
-        });
-        btnStepOnOff6.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff6.textProperty().setValue(bKnobSS6Freq.getNoteName());
-            } else {
-                btnStepOnOff6.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(6, newValue);
-        });
-        btnStepOnOff7.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff7.textProperty().setValue(bKnobSS7Freq.getNoteName());
-            } else {
-                btnStepOnOff7.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(7, newValue);
-        });
-
-        btnStepOnOff8.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff8.textProperty().setValue(bKnobSS8Freq.getNoteName());
-            } else {
-                btnStepOnOff8.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(8, newValue);
-        });
-        btnStepOnOff9.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff9.textProperty().setValue(bKnobSS9Freq.getNoteName());
-            } else {
-                btnStepOnOff9.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(9, newValue);
-        });
-        btnStepOnOff10.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff10.textProperty().setValue(bKnobSS10Freq.getNoteName());
-            } else {
-                btnStepOnOff10.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(10, newValue);
-        });
-        btnStepOnOff11.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff11.textProperty().setValue(bKnobSS11Freq.getNoteName());
-            } else {
-                btnStepOnOff11.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(11, newValue);
-        });
-        btnStepOnOff12.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff12.textProperty().setValue(bKnobSS12Freq.getNoteName());
-            } else {
-                btnStepOnOff12.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(12, newValue);
-        });
-        btnStepOnOff13.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff13.textProperty().setValue(bKnobSS13Freq.getNoteName());
-            } else {
-                btnStepOnOff13.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(13, newValue);
-        });
-        btnStepOnOff14.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff14.textProperty().setValue(bKnobSS14Freq.getNoteName());
-            } else {
-                btnStepOnOff14.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(14, newValue);
-        });
-        btnStepOnOff15.selectedProperty().addListener((v, oldValue, newValue) -> {
-            if (newValue) {
-                btnStepOnOff15.textProperty().setValue(bKnobSS15Freq.getNoteName());
-            } else {
-                btnStepOnOff15.textProperty().setValue("Off");
-            }
-            synthaxController.setStepOnOff(15, newValue);
-        });
+        for (int i = 0; i < sequencerSteps.length; i++) {
+            int finalI = i;
+            sequencerSteps[i].selectedProperty().addListener((v, oldValue, newValue) -> {
+                if (newValue) {
+                    sequencerSteps[finalI].textProperty().setValue(knobBehaviorSeqFreqs[finalI].getNoteName());
+                } else {
+                    sequencerSteps[finalI].textProperty().setValue("Off");
+                }
+                synthaxController.setStepOnOff(finalI, newValue);
+            });
+        }
         SSStartStop.setOnMousePressed(l -> {
             boolean running = synthaxController.sequencerIsRunning();
             if (!running) {
