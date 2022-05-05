@@ -401,7 +401,7 @@ public class SynthaxView implements Initializable {
     //endregion
 
     //region initialize methods (click to open/collapse)
-    private void setupSeqButton(Button knobFreq, int i, ) {
+    /*private void setupSeqButton(Button knobFreq, int i, ) {
         KnobBehaviorSeqFreq bKnobSeqFreq = new KnobBehaviorSeqFreq(knobFreq, MidiNote.F4);
         knobFreq.setOnMouseDragged(bKnobSeqFreq);
         bKnobSeqFreq.knobValueProperty().addListener((v, oldValue, newValue) -> {
@@ -412,6 +412,8 @@ public class SynthaxView implements Initializable {
         });
 
     }
+
+     */
 
     private void initSS() {
         /*KnobBehaviorSeqFreq bKnobSS0Freq = new KnobBehaviorSeqFreq(knobSS0freq, MidiNote.F4);
@@ -424,7 +426,7 @@ public class SynthaxView implements Initializable {
         });
 
          */
-        setupSeqButton(sequencerFreqKnobs[0], 0);
+        //setupSeqButton(sequencerFreqKnobs[0], 0);
         KnobBehaviorDetune bKnobSS0FineTune = new KnobBehaviorDetune(knobSS0FineTune);
         knobSS0FineTune.setOnMouseDragged(bKnobSS0FineTune);
         bKnobSS0FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
@@ -731,7 +733,7 @@ public class SynthaxView implements Initializable {
         });
         btnStepOnOff0.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue) {
-                btnStepOnOff0.textProperty().setValue(bKnobSS0Freq.getNoteName());
+                //btnStepOnOff0.textProperty().setValue(bKnobSS0Freq.getNoteName());
             } else {
                 btnStepOnOff0.textProperty().setValue("Off");
             }
