@@ -1,5 +1,6 @@
 package com.synthax.controller;
 
+import com.synthax.model.Delay;
 import net.beadsproject.beads.ugens.*;
 
 /**
@@ -37,6 +38,10 @@ public class NoiseVoice {
         gainEnv.clear();
         gainEnv.addSegment(maxGain, attackTime);
         gainEnv.addSegment(sustainGain, decayTime);
+
+        Delay.getEnvelope().addSegment(1f, 10f);
+        Delay.getEnvelope().addSegment(1f, Delay.getFeedBackDuration());
+        Delay.getEnvelope().addSegment(0f, 10f);
     }
 
     /**

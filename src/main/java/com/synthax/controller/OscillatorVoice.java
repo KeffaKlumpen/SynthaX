@@ -6,6 +6,7 @@
 
 package com.synthax.controller;
 
+import com.synthax.model.Delay;
 import com.synthax.model.oscillator.OscillatorLFO;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Envelope;
@@ -54,6 +55,10 @@ public class OscillatorVoice {
         gainEnv.clear();
         gainEnv.addSegment(maxGain, attackTime);
         gainEnv.addSegment(sustainGain, decayTime);
+
+        Delay.getEnvelope().addSegment(1f, 10f);
+        Delay.getEnvelope().addSegment(1f, Delay.getFeedBackDuration());
+        Delay.getEnvelope().addSegment(0f, 10f);
     }
 
     /**

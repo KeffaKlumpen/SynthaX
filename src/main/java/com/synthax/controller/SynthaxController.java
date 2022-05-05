@@ -1,5 +1,6 @@
 package com.synthax.controller;
 
+import com.synthax.model.Delay;
 import com.synthax.model.EQFilters;
 import com.synthax.model.SynthLFO;
 import com.synthax.model.enums.MidiNote;
@@ -16,6 +17,7 @@ public class SynthaxController {
     private SynthLFO synthLFO;
     private final OscillatorManager oscillatorManager;
     private final EQFilters filters;
+    private final Delay delay;
 
     /**
      * Setup AudioContext, OscillatorManager and create all necessary links.
@@ -40,6 +42,9 @@ public class SynthaxController {
         filters.addInput(oscCombined);
 
         masterGain.addInput(filters.getOutput());
+
+        delay = new Delay(filters.getOutput());
+        masterGain.addInput(delay.getOutput());
 
         // Send to audio-device
         ac.out.addInput(masterGain);
