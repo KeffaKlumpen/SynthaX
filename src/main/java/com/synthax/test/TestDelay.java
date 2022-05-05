@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class TestDelay {
     private float feedbackTime; //detta är en go lösning på feedbackparametern
     private Gain delayGain;
-    private float delayGainValue = 0.5f;
+    private float delayGainValue = 0.9f;
     private Glide delayGainGlide;
 
     public TestDelay() {
@@ -151,21 +151,37 @@ public class TestDelay {
 
         delayGain.addInput(delayOut);
 
+        Envelope delayTimeEnv = new Envelope(ac, 0f);
+        Gain timeGain = new Gain(ac, 1, delayTimeEnv);
+        timeGain.addInput(delayGain);
 
         //to feed the delay back into itself, uncomment this line:
-        delayIn.addInput(delayGain);
+        //delayIn.addInput(delayGain);
+        delayIn.addInput(timeGain);
 
 
-        ac.out.addInput(synthGain);
-        ac.out.addInput(delayGain);
+        // dry = synthGain
+        Gain finalDelayGain = new Gain(ac, 1, 0.5f);
+        finalDelayGain.addInput(delayGain);
+
+        Gain output = new Gain(ac, 1, 1f);
+        output.addInput(synthGain);
+        output.addInput(finalDelayGain);
+
+        ac.out.addInput(output);
         ac.start();
 
         feedbackTime = 2000f;
         while (true) {
             delayGainGlide.setValue(delayGainValue);
-            new FeedBackSleepyHead();
+            // new FeedBackSleepyHead();
+
             gainEnvelope.addSegment(0.8f, 10);
             gainEnvelope.addSegment(0, 300);
+
+            delayTimeEnv.addSegment(1f, 10f);
+            delayTimeEnv.addSegment(1f, 12000f); // 12000 = how long before hard-cutoff
+            delayTimeEnv.addSegment(0f, 10f);
 
             Scanner scn = new Scanner(System.in);
             feedbackTime = scn.nextFloat();
