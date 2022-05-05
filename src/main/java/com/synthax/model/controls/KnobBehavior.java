@@ -51,9 +51,9 @@ public class KnobBehavior implements EventHandler<MouseEvent> {
         return knobValue;
     }
 
-    public void setValueZero() {
-        knob.setRotate(0);
-        knobValue.setValue(0.5);
+    public void setValueRotation(double rotation, float value) {
+        knob.setRotate(rotation);
+        knobValue.setValue(value);
     }
 
 }
