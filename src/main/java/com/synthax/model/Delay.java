@@ -10,6 +10,7 @@ public class Delay {
     private final float maxDelayTime = 3000.0f;
     private static float feedBackDuration = 100.0f;
     private float cachedLevelValue;
+    private boolean isActive = false;
 
     private TapIn delayIn;
     private TapOut delayOut;
@@ -56,10 +57,12 @@ public class Delay {
 
     public void setActive(boolean active) {
         if(!active) {
-            cachedLevelValue = delayGainGlide.getValue();
-            delayGainGlide.setValue(0.0f);
+            cachedLevelValue = finalDelayGainGlide.getValue();
+            finalDelayGainGlide.setValue(0.0f);
+            isActive = false;
         } else {
-            delayGainGlide.setValue(cachedLevelValue);
+            finalDelayGainGlide.setValue(cachedLevelValue);
+            isActive = true;
         }
     }
 
@@ -72,8 +75,11 @@ public class Delay {
     }
 
     public void setLevel(float levelValue) {
-        cachedLevelValue = levelValue;
-        finalDelayGainGlide.setValue(levelValue);
+        if (!isActive) {
+            cachedLevelValue = levelValue;
+        } else {
+            finalDelayGainGlide.setValue(levelValue);
+        }
     }
 
     public void setFeedBackDuration(float feedBackDuration) {
