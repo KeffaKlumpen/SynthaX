@@ -304,16 +304,17 @@ public class SynthaxView implements Initializable {
             if (btnStepOnOff0.isSelected()) {
                 btnStepOnOff0.textProperty().setValue(bKnobSS0Freq.getNoteName());
             }
+            synthaxController.setSeqMidiNote(0, MidiNote.values()[newValue.intValue()]);
         });
         KnobBehaviorDetune bKnobSS0FineTune = new KnobBehaviorDetune(knobSS0FineTune);
         knobSS0FineTune.setOnMouseDragged(bKnobSS0FineTune);
         bKnobSS0FineTune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            synthaxController.setSeqDetuneCent(0, newValue.floatValue());
         });
         KnobBehavior bKnobSS0Gain = new KnobBehavior(knobSS0Gain);
         knobSS0Gain.setOnMouseDragged(bKnobSS0Gain);
         bKnobSS0Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+            synthaxController.setSeqVelocity(0, newValue.floatValue());
         });
         KnobBehaviorSeqFreq bKnobSS1Freq = new KnobBehaviorSeqFreq(knobSS1freq, MidiNote.Db4);
         knobSS1freq.setOnMouseDragged(bKnobSS1Freq);
@@ -583,7 +584,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff0.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(0, newValue);
+            synthaxController.setStepOnOff(0, newValue);
         });
         btnStepOnOff1.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue) {
@@ -591,7 +592,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff1.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(1, newValue);
+            synthaxController.setStepOnOff(1, newValue);
         });
         btnStepOnOff2.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue) {
@@ -599,7 +600,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff2.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(2, newValue);
+            synthaxController.setStepOnOff(2, newValue);
         });
         btnStepOnOff3.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue) {
@@ -607,7 +608,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff3.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(3, newValue);
+            synthaxController.setStepOnOff(3, newValue);
         });
 
         btnStepOnOff4.selectedProperty().addListener((v, oldValue, newValue) -> {
@@ -616,7 +617,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff4.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(4, newValue);
+            synthaxController.setStepOnOff(4, newValue);
         });
         btnStepOnOff5.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue) {
@@ -624,7 +625,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff5.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(5, newValue);
+            synthaxController.setStepOnOff(5, newValue);
         });
         btnStepOnOff6.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue) {
@@ -632,7 +633,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff6.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(6, newValue);
+            synthaxController.setStepOnOff(6, newValue);
         });
         btnStepOnOff7.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue) {
@@ -640,7 +641,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff7.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(7, newValue);
+            synthaxController.setStepOnOff(7, newValue);
         });
 
         btnStepOnOff8.selectedProperty().addListener((v, oldValue, newValue) -> {
@@ -649,7 +650,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff8.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(8, newValue);
+            synthaxController.setStepOnOff(8, newValue);
         });
         btnStepOnOff9.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue) {
@@ -657,7 +658,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff9.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(9, newValue);
+            synthaxController.setStepOnOff(9, newValue);
         });
         btnStepOnOff10.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue) {
@@ -665,7 +666,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff10.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(10, newValue);
+            synthaxController.setStepOnOff(10, newValue);
         });
         btnStepOnOff11.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue) {
@@ -673,7 +674,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff11.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(11, newValue);
+            synthaxController.setStepOnOff(11, newValue);
         });
         btnStepOnOff12.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue) {
@@ -681,7 +682,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff12.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(12, newValue);
+            synthaxController.setStepOnOff(12, newValue);
         });
         btnStepOnOff13.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue) {
@@ -689,7 +690,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff13.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(13, newValue);
+            synthaxController.setStepOnOff(13, newValue);
         });
         btnStepOnOff14.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue) {
@@ -697,7 +698,7 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff14.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(14, newValue);
+            synthaxController.setStepOnOff(14, newValue);
         });
         btnStepOnOff15.selectedProperty().addListener((v, oldValue, newValue) -> {
             if (newValue) {
@@ -705,20 +706,19 @@ public class SynthaxView implements Initializable {
             } else {
                 btnStepOnOff15.textProperty().setValue("Off");
             }
-            //synthaxController.setStepOnOff(15, newValue);
+            synthaxController.setStepOnOff(15, newValue);
         });
         SSStartStop.setOnMousePressed(l -> {
-            /*
-            boolean running = synthaxController.ssIsRunning();
-            if (running) {
+            boolean running = synthaxController.sequencerIsRunning();
+            if (!running) {
+                synthaxController.sequencerOn();
                 SSStartStop.setText("Stop");
                 SSStartStop.setStyle("-fx-text-fill: #f78000");
             } else {
+                synthaxController.sequencerOff();
                 SSStartStop.setText("Start");
                 SSStartStop.setStyle("-fx-text-fill: #d6d1c9");
             }
-            synthaxController.ssSetRunning(!running);
-             */
         });
     }
 

@@ -120,6 +120,8 @@ public class OscillatorController implements Initializable {
         voicePlayingMidi[midiNote.ordinal()] = nextVoice; // This only allows 1 voice per note-press..
         float freq = midiNote.getFrequency();
 
+        freq = applyDetuning(freq, detuneCent);
+
         freq = applyOctaveOffset(freq);
         float realFrequency = freq;
         freq = applyDetuning(freq);
@@ -451,6 +453,9 @@ public class OscillatorController implements Initializable {
      * @author Teodor Wegestål
      */
     private float applyDetuning(float frequency) {
+        return (float)(frequency * (Math.pow(2, (detuneCent/1200))));
+    }
+    private float applyDetuning(float frequency, float detuneCent) {
         return (float)(frequency * (Math.pow(2, (detuneCent/1200))));
     }
     //endregion

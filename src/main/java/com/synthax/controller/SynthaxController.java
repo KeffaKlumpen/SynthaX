@@ -3,6 +3,7 @@ package com.synthax.controller;
 import com.synthax.model.EQFilters;
 import com.synthax.model.SynthLFO;
 import com.synthax.model.enums.MidiNote;
+import com.synthax.model.sequencer.Sequencer;
 import com.synthax.view.SynthaxView;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
@@ -16,6 +17,7 @@ public class SynthaxController {
     private SynthLFO synthLFO;
     private final OscillatorManager oscillatorManager;
     private final EQFilters filters;
+    private final Sequencer sequencer;
 
     /**
      * Setup AudioContext, OscillatorManager and create all necessary links.
@@ -38,6 +40,8 @@ public class SynthaxController {
 
         filters = new EQFilters();
         filters.addInput(oscCombined);
+
+        sequencer = new Sequencer(this);
 
         masterGain.addInput(filters.getOutput());
 
@@ -160,6 +164,35 @@ public class SynthaxController {
     }
     //endregion
 
+    //region Sequencer (click to open/collapse)
+    public void setStepOnOff(int i, boolean on) {
+        sequencer.setOnOff(i, on);
+    }
+
+    public boolean sequencerIsRunning() {
+        return sequencer.isRunning();
+    }
+
+    public void sequencerOn() {
+        sequencer.start();
+    }
+
+    public void sequencerOff() {
+        sequencer.stop();
+    }
+
+    public void setSeqMidiNote(int i, MidiNote midiNote) {
+        sequencer.setStepMidiNote(i, midiNote);
+    }
+
+    public void setSeqDetuneCent(int i, float detuneCent) {
+        sequencer.setStepDetuneCent(i, detuneCent);
+    }
+
+    public void setSeqVelocity(int i, float velocity) {
+        sequencer.setStepVelocity(i, velocity);
+    }
+    //endregion
     public void setMasterGain(float gain) {
         masterGainGlide.setValue(gain);
     }
