@@ -10,12 +10,11 @@ import com.synthax.controller.SynthaxController;
 import com.synthax.model.ADSRValues;
 import com.synthax.model.controls.KnobBehaviorSeqFreq;
 import com.synthax.model.enums.MidiNote;
+import com.synthax.model.sequencer.SequencerMode;
 import com.synthax.util.MidiHelpers;
 
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,7 +31,6 @@ import org.controlsfx.control.ToggleSwitch;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -46,7 +44,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class SynthaxView implements Initializable {
     //region FXML variables
     @FXML private Button randomize;
-    @FXML private Button bollenMode;
+    @FXML private ComboBox<SequencerMode> sequencerMode;
     @FXML private VBox oscillatorChainView;
     @FXML private Button knobNoiseGain;
     @FXML private ToggleSwitch tglSwitchNoise;
@@ -187,10 +185,6 @@ public class SynthaxView implements Initializable {
             int midi = random.nextInt(88) + 21;
             knobBehaviorSeqFreqs[i].setNote(MidiNote.values()[midi]);
         }
-    }
-
-    @FXML public void setBollenMode() {
-        synthaxController.setBollenMode();
     }
 
     @FXML
@@ -456,6 +450,12 @@ public class SynthaxView implements Initializable {
         spinnerSteps.setValueFactory(spf);
         spinnerSteps.valueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqNSteps(newValue);
+        });
+
+        sequencerMode.getItems().addAll(SequencerMode.loop, SequencerMode.bollen);
+        sequencerMode.valueProperty().setValue(SequencerMode.loop);
+        sequencerMode.valueProperty().addListener((v, oldValue, newValue) -> {
+            synthaxController.setSequencerMode(newValue);
         });
     }
 

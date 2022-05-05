@@ -35,8 +35,8 @@ public class Sequencer implements Runnable {
         }
     }
 
-    public void setBollenMode() {
-        sequencerMode = SequencerMode.bollen;
+    public void setSequencerMode(SequencerMode sequencerMode) {
+        this.sequencerMode = sequencerMode;
     }
 
     public void setOnOff(int i, boolean on) {
