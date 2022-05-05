@@ -44,7 +44,7 @@ public class OscillatorController implements Initializable {
     private final int voiceCount = 16;
     private int nextVoice = 0;
     private final Gain voiceOutput;
-    private Glide voiceOutputGlide;
+    private final Glide voiceOutputGlide;
     private UGen oscillatorOutput;
     private OctaveOperands octaveOperand = OctaveOperands.EIGHT;
     private float realFrequency;
@@ -97,7 +97,7 @@ public class OscillatorController implements Initializable {
      * @param midiNote Midi-note to be played.
      * @author Joel Eriksson Sinclair
      */
-    public void noteOn(MidiNote midiNote, int velocity){
+    public void noteOn(MidiNote midiNote, int velocity) {
         voicePlayingMidi[midiNote.ordinal()] = nextVoice; // This only allows 1 voice per note-press..
         float freq = midiNote.getFrequency();
 
@@ -135,7 +135,7 @@ public class OscillatorController implements Initializable {
      * @param midiNote Midi-note to be released.
      * @author Joel Eriksson Sinclair
      */
-    public void noteOff(MidiNote midiNote){
+    public void noteOff(MidiNote midiNote) {
         int voiceIndex = voicePlayingMidi[midiNote.ordinal()];
         voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
     }

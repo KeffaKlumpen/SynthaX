@@ -19,12 +19,19 @@ public class OscillatorManager {
         return instance;
     }
 
-    private final Gain output;
+    private final Gain oscillatorOutput;
+    private final Gain finalOutput;
 
     private final ArrayList<OscillatorController> oscillatorControllers = new ArrayList<>();
 
+    private final NoiseController noiseController;
+
     private OscillatorManager(){
-        output = new Gain(1, 1f);
+        noiseController = new NoiseController();
+        oscillatorOutput = new Gain(1, 1f);
+        finalOutput = new Gain(1, 1f);
+        finalOutput.addInput(noiseController.getVoiceOutput());
+        finalOutput.addInput(oscillatorOutput);
         //new DebugThread(2000).start();
     }
 
@@ -37,6 +44,8 @@ public class OscillatorManager {
         for (OscillatorController osc : oscillatorControllers) {
             osc.noteOn(midiNote, velocity);
         }
+
+        noiseController.noteOn(midiNote, velocity);
     }
 
     /**
@@ -58,6 +67,8 @@ public class OscillatorManager {
         for (OscillatorController osc : oscillatorControllers) {
             osc.noteOff(midiNote);
         }
+
+        noiseController.noteOff(midiNote);
     }
 
     public void releaseAllVoices(){
@@ -74,7 +85,7 @@ public class OscillatorManager {
      * @param oscillatorController Oscillator to setup
      * @author Joel Eriksson Sinclair
      */
-    public void setupInOuts(OscillatorController oscillatorController){
+    public void setupInOuts(OscillatorController oscillatorController) {
         int index = oscillatorControllers.indexOf(oscillatorController);
 
         if(index < 0 || index >= oscillatorControllers.size()){
@@ -97,8 +108,8 @@ public class OscillatorManager {
         // If we are the last oscillator, or has next.
         UGen oscOutput = oscillatorController.getOscillatorOutput();
         if(index == oscillatorControllers.size() - 1){
-            output.clearInputConnections();
-            output.addInput(oscOutput);
+            oscillatorOutput.clearInputConnections();
+            oscillatorOutput.addInput(oscOutput);
             System.out.println("Setting total.Output to our output.");
         }
         else {
@@ -145,7 +156,7 @@ public class OscillatorManager {
                 setupInOuts(oscillatorControllers.get(index));
             }
         } else {
-            output.clearInputConnections();
+            oscillatorOutput.clearInputConnections();
         }
     }
 
@@ -204,8 +215,12 @@ public class OscillatorManager {
      * Return the Gain object which all oscillators are chained to.
      * @return output
      */
-    public Gain getOutput(){
-        return output;
+    public Gain getFinalOutput() {
+        return finalOutput;
+    }
+
+    public NoiseController getNoiseController() {
+        return noiseController;
     }
 
     //region Stupid debugging

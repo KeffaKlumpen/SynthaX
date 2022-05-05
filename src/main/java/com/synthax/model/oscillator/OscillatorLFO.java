@@ -18,7 +18,7 @@ public class OscillatorLFO {
     private Function frequencyModulation;
 
     public OscillatorLFO() {
-        lfo = new WavePlayer(AudioContext.getDefaultContext(), 20f, Buffer.SINE);
+        lfo = new WavePlayer(AudioContext.getDefaultContext(), 0.1f, Buffer.SINE);
 
         /**
          * This function recalculates the sound buffer of the LFO representing its wave.

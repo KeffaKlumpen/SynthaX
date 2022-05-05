@@ -19,6 +19,8 @@ public class TestEQFilters {
     private AudioContext ac;
 
     TestEQFilters() {
+        Scanner input = new Scanner(System.in);
+
         JavaSoundAudioIO jsaio = new JavaSoundAudioIO(512);
         ac = new AudioContext(jsaio);
         AudioContext.setDefaultContext(ac);
@@ -37,17 +39,37 @@ public class TestEQFilters {
         oscTotal.addInput(gain1);
         oscTotal.addInput(gain2);
 
-        BiquadFilter filter = new BiquadFilter(1, BiquadFilter.Type.LP);
-        filter.addInput(oscTotal);
-        filter.setFrequency(MidiNote.C3.getFrequency());
+        int filterCount = input.nextInt();
+        BiquadFilter[] filters = new BiquadFilter[filterCount];
+        for (int i = 0; i < filterCount; i++) {
+            BiquadFilter filter = new BiquadFilter(1, BiquadFilter.BUTTERWORTH_HP);
+            filter.setFrequency(MidiNote.C3.getFrequency());
 
-        masterGain.addInput(filter);
+            // set up chaining
+            if(i == 0) {
+                filter.addInput(oscTotal);
+            }
+            else {
+                filter.addInput(filters[i - 1]);
+            }
+
+            filters[i] = filter;
+        }
+
+        // lp to remove buzz
+        BiquadFilter lp = new BiquadFilter(1, BiquadFilter.BUTTERWORTH_LP);
+        lp.setFrequency(2000);
+        lp.addInput(filters[filterCount - 1]);
+
+        masterGain.addInput(filters[filterCount - 1]);
         ac.out.addInput(masterGain);
         ac.start();
 
-        Scanner input = new Scanner(System.in);
         while (true) {
-            filter.setQ(input.nextFloat());
+            float freq = input.nextFloat();
+            for (int i = 0; i < filterCount; i++) {
+                filters[i].setFrequency(freq);
+            }
         }
     }
 

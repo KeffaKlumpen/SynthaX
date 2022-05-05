@@ -54,8 +54,14 @@ public class MidiHelpers {
         if(keyCode == KeyCode.A){
             return MidiNote.C4;
         }
+        else if (keyCode == KeyCode.W){
+            return MidiNote.Db4;
+        }
         else if (keyCode == KeyCode.S){
             return MidiNote.D4;
+        }
+        else if (keyCode == KeyCode.E){
+            return MidiNote.Eb4;
         }
         else if (keyCode == KeyCode.D){
             return MidiNote.E4;
@@ -63,11 +69,26 @@ public class MidiHelpers {
         else if (keyCode == KeyCode.F){
             return MidiNote.F4;
         }
+        else if (keyCode == KeyCode.T){
+            return MidiNote.Gb4;
+        }
         else if (keyCode == KeyCode.G){
             return MidiNote.G4;
         }
+        else if (keyCode == KeyCode.Y){
+            return MidiNote.Ab4;
+        }
         else if (keyCode == KeyCode.H){
             return MidiNote.A4;
+        }
+        else if (keyCode == KeyCode.U){
+            return MidiNote.Bb4;
+        }
+        else if (keyCode == KeyCode.J){
+            return MidiNote.B4;
+        }
+        else if (keyCode == KeyCode.K){
+            return MidiNote.C5;
         }
         return MidiNote.getValues()[0];
     }
