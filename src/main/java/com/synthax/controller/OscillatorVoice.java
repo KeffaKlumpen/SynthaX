@@ -25,6 +25,7 @@ public class OscillatorVoice {
     private final Gain normalizedGain;
     private final Glide normGainGlide;
     private OscillatorLFO oscillatorLFO;
+    private Delay delay;
     private float realFrequency;
 
     public OscillatorVoice(Buffer waveBuffer){
@@ -38,6 +39,8 @@ public class OscillatorVoice {
         normGainGlide = new Glide(0f, 10f);
         normalizedGain = new Gain(1, normGainGlide);
         normalizedGain.addInput(naturalGain);
+
+        delay = new Delay(normalizedGain);
     }
 
     /**
@@ -56,9 +59,11 @@ public class OscillatorVoice {
         gainEnv.addSegment(maxGain, attackTime);
         gainEnv.addSegment(sustainGain, decayTime);
 
-        Delay.getEnvelope().addSegment(1f, 10f);
-        Delay.getEnvelope().addSegment(1f, Delay.getFeedBackDuration());
-        Delay.getEnvelope().addSegment(0f, 10f);
+
+        delay.getEnvelope().clear();
+        delay.getEnvelope().addSegment(1f, 10f);
+        delay.getEnvelope().addSegment(1f, Delay.getFeedBackDuration());
+        delay.getEnvelope().addSegment(0f, 10f);
     }
 
     /**
@@ -108,6 +113,10 @@ public class OscillatorVoice {
 
     public OscillatorLFO getOscillatorLFO() {
         return oscillatorLFO;
+    }
+
+    public Delay getDelay() {
+        return delay;
     }
 
     /**

@@ -39,9 +39,11 @@ public class NoiseVoice {
         gainEnv.addSegment(maxGain, attackTime);
         gainEnv.addSegment(sustainGain, decayTime);
 
+        /*
         Delay.getEnvelope().addSegment(1f, 10f);
         Delay.getEnvelope().addSegment(1f, Delay.getFeedBackDuration());
         Delay.getEnvelope().addSegment(0f, 10f);
+        */
     }
 
     /**

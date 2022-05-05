@@ -1,18 +1,20 @@
 package com.synthax.model;
 
+import com.synthax.util.BasicMath;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.ugens.*;
 
 
 public class Delay {
-    private final float maxDelayTime = 2000.0f;
-    private static float feedBackDuration = 0.0f;
+    private final float maxDelayTime = 3000.0f;
+    private static float feedBackDuration = 100.0f;
+    private float cachedLevelValue;
 
     private TapIn delayIn;
     private TapOut delayOut;
     private Glide delayGainGlide;
-    private static Envelope delayFeedbackEnvelope;
+    private Envelope delayFeedbackEnvelope;
     private Glide finalDelayGainGlide;
     private Gain output;
 
@@ -23,6 +25,7 @@ public class Delay {
         delayIn = new TapIn(AudioContext.getDefaultContext(), maxDelayTime);
         delayIn.addInput(synthGain);
 
+        //this object controls the time of the delay
         delayOut = new TapOut(AudioContext.getDefaultContext(), delayIn, 100.0f);
 
         //this Gain object controls the decay of the delay
@@ -51,8 +54,17 @@ public class Delay {
         return output;
     }
 
+    public void setActive(boolean active) {
+        if(!active) {
+            cachedLevelValue = delayGainGlide.getValue();
+            delayGainGlide.setValue(0.0f);
+        } else {
+            delayGainGlide.setValue(cachedLevelValue);
+        }
+    }
+
     public void setDelayTime(float delayTime) {
-        delayOut.setDelay(delayTime);
+        delayOut.setDelay(BasicMath.map(delayTime, 0, 1, 100, 1000));
     }
 
     public void setDecay(float decayValue) {
@@ -60,14 +72,15 @@ public class Delay {
     }
 
     public void setLevel(float levelValue) {
+        cachedLevelValue = levelValue;
         finalDelayGainGlide.setValue(levelValue);
     }
 
     public void setFeedBackDuration(float feedBackDuration) {
-        Delay.feedBackDuration = feedBackDuration;
+        Delay.feedBackDuration = BasicMath.map(feedBackDuration, 0, 1, 100, 2500);
     }
 
-    public static Envelope getEnvelope() {
+    public Envelope getEnvelope() {
         return delayFeedbackEnvelope;
     }
 

@@ -157,18 +157,6 @@ public class SynthaxView implements Initializable {
     private final int decayMax = 1500;
     private final int releaseMax = 2000;
 
-    /*
-    private Map<KeyCode, AtomicBoolean> keyStatus = Map.of(KeyCode.A, new AtomicBoolean(false),
-            KeyCode.S, new AtomicBoolean(false),
-            KeyCode.D, new AtomicBoolean(false),
-            KeyCode.F, new AtomicBoolean(false),
-            KeyCode.G, new AtomicBoolean(false),
-            KeyCode.H, new AtomicBoolean(false),
-            KeyCode.W, new AtomicBoolean(false),
-            KeyCode.E, new AtomicBoolean(false),
-            KeyCode.T, new AtomicBoolean(false),
-            KeyCode.Y, new AtomicBoolean(false));
-    */
     private final HashMap<KeyCode, AtomicBoolean> keyStatus = new HashMap<>();
 
     public SynthaxView() {
@@ -226,19 +214,7 @@ public class SynthaxView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        keyStatus.put(KeyCode.A, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.W, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.S, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.E, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.D, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.F, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.T, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.G, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.Y, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.H, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.U, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.J, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.K, new AtomicBoolean(false));
+        initKeyCodes();
         initNoise();
         initADSR();
         initFilter();
@@ -247,6 +223,7 @@ public class SynthaxView implements Initializable {
         initLFO();
         initReverb();
         initSS();
+        initDelay();
         sliderMasterGain.valueProperty().addListener((observableValue, number, t1) -> synthaxController.setMasterGain(t1.floatValue()));
     }
 
@@ -298,6 +275,22 @@ public class SynthaxView implements Initializable {
     //endregion
 
     //region initialize methods (click to open/collapse)
+    private void initKeyCodes() {
+        keyStatus.put(KeyCode.A, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.W, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.S, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.E, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.D, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.F, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.T, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.G, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.Y, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.H, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.U, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.J, new AtomicBoolean(false));
+        keyStatus.put(KeyCode.K, new AtomicBoolean(false));
+    }
+
     private void initSS() {
         KnobBehaviorSeqFreq bKnobSS0Freq = new KnobBehaviorSeqFreq(knobSS0freq, MidiNote.C4);
         knobSS0freq.setOnMouseDragged(bKnobSS0Freq);
@@ -738,31 +731,31 @@ public class SynthaxView implements Initializable {
 
     private void initDelay() {
         tglSwitchDelay.selectedProperty().addListener((v, oldValue, newValue) -> {
-
+            synthaxController.setDelayActive(newValue);
         });
 
         KnobBehavior bKnobDelayFeedback = new KnobBehavior(knobDelayFeedback);
         knobDelayFeedback.setOnMouseDragged(bKnobDelayFeedback);
         bKnobDelayFeedback.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setDelayFeedback(newValue.floatValue());
         });
 
         KnobBehavior bKnobDelayTime = new KnobBehavior(knobDelayTime);
         knobDelayTime.setOnMouseDragged(bKnobDelayTime);
         bKnobDelayTime.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setDelayTime(newValue.floatValue());
         });
 
         KnobBehavior bKnobDelayDecay = new KnobBehavior(knobDelayDecay);
         knobDelayDecay.setOnMouseDragged(bKnobDelayDecay);
         bKnobDelayDecay.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setDelayDecay(newValue.floatValue());
         });
 
         KnobBehavior bKnobDelayLevel = new KnobBehavior(knobDelayLevel);
         knobDelayLevel.setOnMouseDragged(bKnobDelayLevel);
         bKnobDelayLevel.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setDelayLevel(newValue.floatValue());
         });
     }
 

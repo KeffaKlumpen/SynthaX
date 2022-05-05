@@ -17,7 +17,7 @@ public class SynthaxController {
     private SynthLFO synthLFO;
     private final OscillatorManager oscillatorManager;
     private final EQFilters filters;
-    private final Delay delay;
+    //private final Delay delay;
 
     /**
      * Setup AudioContext, OscillatorManager and create all necessary links.
@@ -43,8 +43,8 @@ public class SynthaxController {
 
         masterGain.addInput(filters.getOutput());
 
-        delay = new Delay(filters.getOutput());
-        masterGain.addInput(delay.getOutput());
+        //delay = new Delay(filters.getOutput());
+        //masterGain.addInput(delay.getOutput());
 
         // Send to audio-device
         ac.out.addInput(masterGain);
@@ -156,6 +156,29 @@ public class SynthaxController {
     public void setNoiseActive(boolean isActive) {
         oscillatorManager.getNoiseController().setActive(isActive);
     }
+    //endregion
+
+    //region Delay-GUI-forwarding (click to open/collapse)
+    public void setDelayFeedback(float feedBackDuration) {
+        oscillatorManager.setDelayFeedback(feedBackDuration);
+    }
+
+    public void setDelayTime(float delayTime) {
+        oscillatorManager.setDelayTime(delayTime);
+    }
+
+    public void setDelayDecay(float decayValue) {
+        oscillatorManager.setDelayDecay(decayValue);
+    }
+
+    public void setDelayLevel(float levelValue) {
+        oscillatorManager.setDelayLevel(levelValue);
+    }
+
+    public void setDelayActive(boolean active) {
+        oscillatorManager.setDelayActive(active);
+    }
+
     //endregion
 
     public void setMasterGain(float gain) {
