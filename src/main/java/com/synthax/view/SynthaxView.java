@@ -182,8 +182,13 @@ public class SynthaxView implements Initializable {
         for (int i = 0; i < knobBehaviorSeqFreqs.length; i++) {
             int onOff = random.nextInt(2);
             sequencerSteps[i].setSelected(onOff == 0);
-            int midi = random.nextInt(88) + 21;
-            knobBehaviorSeqFreqs[i].setNote(MidiNote.values()[midi]);
+            int out = 0;
+            for (int j = 0; j < 4; j++) {
+                out += random.nextInt(88);
+            }
+            out /= 4;
+            out += 21;
+            knobBehaviorSeqFreqs[i].setNote(MidiNote.values()[out]);
         }
     }
 
