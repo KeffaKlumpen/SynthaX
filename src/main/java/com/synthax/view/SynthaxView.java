@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -47,6 +48,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class SynthaxView implements Initializable {
     //region FXML variables
+    @FXML private Button randomize;
     @FXML private VBox oscillatorChainView;
     @FXML private Button knobNoiseGain;
     @FXML private ToggleSwitch tglSwitchNoise;
@@ -153,6 +155,7 @@ public class SynthaxView implements Initializable {
     @FXML private ToggleButton btnStepOnOff15;
     //endregion
 
+
     private final HashMap<KeyCode, AtomicBoolean> keyStatus = new HashMap<>();
     private Button[] sequencerFreqKnobs;
     private Button[] sequencerDetuneKnobs;
@@ -176,6 +179,16 @@ public class SynthaxView implements Initializable {
 
     public SynthaxView() {
         synthaxController = new SynthaxController(this);
+    }
+    @FXML
+    public void randomizeSequencer() {
+        Random random  = new Random();
+        for (int i = 0; i < knobBehaviorSeqFreqs.length; i++) {
+            int onOff = random.nextInt(2);
+            sequencerSteps[i].setSelected(onOff == 0);
+            int midi = random.nextInt(88) + 21;
+            knobBehaviorSeqFreqs[i].setNote(MidiNote.values()[midi]);
+        }
     }
 
     @FXML

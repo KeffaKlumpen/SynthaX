@@ -635,6 +635,7 @@
             <ToggleButton fx:id="btnStepOnOff13" layoutX="409.0" layoutY="342.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
             <ToggleButton fx:id="btnStepOnOff14" layoutX="476.0" layoutY="342.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
             <ToggleButton fx:id="btnStepOnOff15" layoutX="543.0" layoutY="342.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <Button fx:id="randomize" layoutX="613.0" layoutY="65.0" mnemonicParsing="false" onAction="#randomizeSequencer" text="Random" />
          </children></AnchorPane>
       <AnchorPane layoutX="884.0" layoutY="153.0" prefHeight="220.0" prefWidth="252.0">
          <children>

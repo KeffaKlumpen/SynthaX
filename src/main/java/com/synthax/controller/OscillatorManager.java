@@ -44,7 +44,6 @@ public class OscillatorManager {
         for (OscillatorController osc : oscillatorControllers) {
             osc.noteOn(midiNote, velocity);
         }
-
         noiseController.noteOn(midiNote, velocity);
     }
 
@@ -56,6 +55,7 @@ public class OscillatorManager {
         for (OscillatorController osc : oscillatorControllers) {
             osc.noteOn(midiNote, velocity, detuneCent);
         }
+        noiseController.noteOn(midiNote, velocity);
     }
 
     /**
