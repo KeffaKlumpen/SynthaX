@@ -1,5 +1,6 @@
 package com.synthax.controller;
 
+import com.synthax.model.Delay;
 import com.synthax.model.EQFilters;
 import com.synthax.model.SynthLFO;
 import com.synthax.model.enums.MidiNote;
@@ -18,6 +19,8 @@ public class SynthaxController {
     private final OscillatorManager oscillatorManager;
     private final EQFilters filters;
     private final Sequencer sequencer;
+    private  boolean b = true;
+    //private final Delay delay;
 
     /**
      * Setup AudioContext, OscillatorManager and create all necessary links.
@@ -44,6 +47,9 @@ public class SynthaxController {
         sequencer = new Sequencer(this);
 
         masterGain.addInput(filters.getOutput());
+
+        //delay = new Delay(filters.getOutput());
+        //masterGain.addInput(delay.getOutput());
 
         // Send to audio-device
         ac.out.addInput(masterGain);
@@ -208,6 +214,32 @@ public class SynthaxController {
     public void setSeqButtonGray(int i) {
         synthaxView.setSeqButtonGray(i);
     }
+    //endregion
+
+    //region Delay-GUI-forwarding (click to open/collapse)
+    public void setDelayFeedback(float feedBackDuration) {
+        oscillatorManager.setDelayFeedback(feedBackDuration);
+    }
+
+    public void setDelayTime(float delayTime) {
+        oscillatorManager.setDelayTime(delayTime);
+    }
+
+    public void setDelayDecay(float decayValue) {
+        oscillatorManager.setDelayDecay(decayValue);
+    }
+
+    public void setDelayLevel(float levelValue) {
+        oscillatorManager.setDelayLevel(levelValue);
+    }
+
+    public void setDelayActive(boolean active) {
+        if (b == active) {
+            oscillatorManager.setDelayActive(active);
+            b = !b;
+        }
+    }
+
     //endregion
 
     public void setMasterGain(float gain) {

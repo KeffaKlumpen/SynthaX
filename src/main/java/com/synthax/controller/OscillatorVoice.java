@@ -6,6 +6,7 @@
 
 package com.synthax.controller;
 
+import com.synthax.model.Delay;
 import com.synthax.model.oscillator.OscillatorLFO;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Envelope;
@@ -24,6 +25,7 @@ public class OscillatorVoice {
     private final Gain normalizedGain;
     private final Glide normGainGlide;
     private OscillatorLFO oscillatorLFO;
+    private Delay delay;
     private float realFrequency;
 
     public OscillatorVoice(Buffer waveBuffer){
@@ -37,6 +39,8 @@ public class OscillatorVoice {
         normGainGlide = new Glide(0f, 10f);
         normalizedGain = new Gain(1, normGainGlide);
         normalizedGain.addInput(naturalGain);
+
+        delay = new Delay(normalizedGain);
     }
 
     /**
@@ -54,6 +58,12 @@ public class OscillatorVoice {
         gainEnv.clear();
         gainEnv.addSegment(maxGain, attackTime);
         gainEnv.addSegment(sustainGain, decayTime);
+
+
+        delay.getEnvelope().clear();
+        delay.getEnvelope().addSegment(1f, 10f);
+        delay.getEnvelope().addSegment(1f, delay.getFeedbackDuration());
+        delay.getEnvelope().addSegment(0f, 10f);
     }
 
     /**
@@ -103,6 +113,10 @@ public class OscillatorVoice {
 
     public OscillatorLFO getOscillatorLFO() {
         return oscillatorLFO;
+    }
+
+    public Delay getDelay() {
+        return delay;
     }
 
     /**

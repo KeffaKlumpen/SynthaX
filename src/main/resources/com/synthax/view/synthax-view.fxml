@@ -33,17 +33,17 @@
             <VBox id="oscBox" fx:id="oscillatorChainView" prefHeight="520.0" prefWidth="367.0" />
          </content>
       </ScrollPane>
-      <AnchorPane layoutX="1106.0" layoutY="11.0" prefHeight="121.0" prefWidth="158.0">
+      <AnchorPane layoutX="1138.0" layoutY="11.0" prefHeight="121.0" prefWidth="115.0">
          <children>
-            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="121.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="160.0" />
-            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="47.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="121.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="128.0" />
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="56.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobNoiseGain" layoutX="65.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ToggleSwitch fx:id="tglSwitchNoise" layoutX="108.0" layoutY="10.0" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="68.0" layoutY="47.0" styleClass="smallLabel" text="Gain">
+            <Button fx:id="knobNoiseGain" layoutX="74.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ToggleSwitch fx:id="tglSwitchNoise" layoutX="16.0" layoutY="73.0" prefHeight="20.0" prefWidth="30.0" />
+            <Label layoutX="77.0" layoutY="47.0" styleClass="smallLabel" text="Gain">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -58,54 +58,65 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="661.0" layoutY="11.0" prefHeight="121.0" prefWidth="205.0">
+      <AnchorPane layoutX="661.0" layoutY="11.0" prefHeight="121.0" prefWidth="237.0">
          <children>
-            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="121.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="207.0" />
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="121.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="237.0" />
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="11.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
             <Line endX="115.84246826171875" endY="-7.62939453125E-6" layoutX="10.0" layoutY="20.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="6.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="3.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobDelayFeedback" layoutX="24.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobDelayFeedback" layoutX="21.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Label layoutX="13.0" layoutY="9.0" prefHeight="18.0" prefWidth="48.0" styleClass="bigLabel" text="Delay">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
             <ToggleSwitch fx:id="tglSwitchDelay" layoutX="154.0" layoutY="10.0" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="15.0" layoutY="47.0" styleClass="smallLabel" text="Feedback">
+            <Label layoutX="12.0" layoutY="47.0" styleClass="smallLabel" text="Feedback">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="70.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="57.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobDelayTime" layoutX="88.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="91.0" layoutY="47.0" styleClass="smallLabel" text="Time">
+            <Button fx:id="knobDelayTime" layoutX="75.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label layoutX="78.0" layoutY="47.0" styleClass="smallLabel" text="Time">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="134.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="113.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobDelayLevel" layoutX="152.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="154.0" layoutY="47.0" styleClass="smallLabel" text="Level">
+            <Button fx:id="knobDelayDecay" layoutX="131.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label layoutX="130.0" layoutY="47.0" styleClass="smallLabel" text="Decay">
+               <font>
+                  <Font name="Arial" size="10.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="168.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/KnobBlackSteps.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="knobDelayLevel" layoutX="186.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label layoutX="188.0" layoutY="47.0" styleClass="smallLabel" text="Level">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="883.0" layoutY="11.0" prefHeight="121.0" prefWidth="191.0">
+      <AnchorPane layoutX="914.0" layoutY="11.0" prefHeight="121.0" prefWidth="191.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="121.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="207.0" />
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />

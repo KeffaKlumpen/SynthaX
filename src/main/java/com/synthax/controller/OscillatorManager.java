@@ -237,7 +237,38 @@ public class OscillatorManager {
         }
         System.out.println("---END---");
     }
+    //region delay-setters
+    public void setDelayFeedback(float feedBackDuration) {
+        for(OscillatorController controller : oscillatorControllers) {
+            controller.setDelayFeedback(feedBackDuration);
+        }
+    }
 
+    public void setDelayTime(float delayTime) {
+        for (OscillatorController controller : oscillatorControllers) {
+            controller.setDelayTime(delayTime);
+        }
+    }
+
+    public void setDelayDecay(float decayValue) {
+        for (OscillatorController controller : oscillatorControllers) {
+            controller.setDelayDecay(decayValue);
+        }
+    }
+
+    public void setDelayLevel(float levelValue) {
+        for (OscillatorController controller : oscillatorControllers) {
+            controller.setDelayLevel(levelValue);
+        }
+    }
+
+    public void setDelayActive(boolean active) {
+        for (OscillatorController controller : oscillatorControllers) {
+            controller.setDelayActive(active);
+        }
+    }
+
+    //endregion
     /**
      * Repeatedly print out stuff. TODO: Make this a Util class and pass in a method basically.
      */

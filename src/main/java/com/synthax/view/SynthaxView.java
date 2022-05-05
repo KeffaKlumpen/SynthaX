@@ -14,6 +14,8 @@ import com.synthax.util.MidiHelpers;
 
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,6 +35,7 @@ import org.controlsfx.control.ToggleSwitch;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -48,6 +51,7 @@ public class SynthaxView implements Initializable {
     @FXML private ToggleSwitch tglSwitchNoise;
     @FXML private Button knobDelayFeedback;
     @FXML private Button knobDelayTime;
+    @FXML private Button knobDelayDecay;
     @FXML private Button knobDelayLevel;
     @FXML private ToggleSwitch tglSwitchDelay;
     @FXML private Button knobReverbSize;
@@ -884,25 +888,31 @@ public class SynthaxView implements Initializable {
 
     private void initDelay() {
         tglSwitchDelay.selectedProperty().addListener((v, oldValue, newValue) -> {
-
+            synthaxController.setDelayActive(newValue);
         });
 
         KnobBehavior bKnobDelayFeedback = new KnobBehavior(knobDelayFeedback);
         knobDelayFeedback.setOnMouseDragged(bKnobDelayFeedback);
         bKnobDelayFeedback.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setDelayFeedback(newValue.floatValue());
         });
 
         KnobBehavior bKnobDelayTime = new KnobBehavior(knobDelayTime);
         knobDelayTime.setOnMouseDragged(bKnobDelayTime);
         bKnobDelayTime.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setDelayTime(newValue.floatValue());
+        });
+
+        KnobBehavior bKnobDelayDecay = new KnobBehavior(knobDelayDecay);
+        knobDelayDecay.setOnMouseDragged(bKnobDelayDecay);
+        bKnobDelayDecay.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            synthaxController.setDelayDecay(newValue.floatValue());
         });
 
         KnobBehavior bKnobDelayLevel = new KnobBehavior(knobDelayLevel);
         knobDelayLevel.setOnMouseDragged(bKnobDelayLevel);
         bKnobDelayLevel.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setDelayLevel(newValue.floatValue());
         });
     }
 

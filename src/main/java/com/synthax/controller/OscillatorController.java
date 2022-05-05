@@ -82,7 +82,7 @@ public class OscillatorController implements Initializable {
             voiceGainNormalizer.setInGain(voice.getNaturalGain(), i);
             voiceGainNormalizer.setOutGain(voice.getNormGainGlide(), i);
 
-            voiceOutput.addInput(voice.getNormalizedGain());
+            voiceOutput.addInput(voice.getDelay().getOutput());
             voices[i] = voice;
         }
 
@@ -455,4 +455,35 @@ public class OscillatorController implements Initializable {
         return (float)(frequency * (Math.pow(2, (detuneCent/1200))));
     }
     //endregion
+
+    //region delay-setters
+    public void setDelayFeedback(float feedBackDuration) {
+        for(OscillatorVoice voice : voices) {
+            voice.getDelay().setFeedbackDuration(feedBackDuration);
+        }
+    }
+
+    public void setDelayTime(float delayTime) {
+        for (OscillatorVoice voice : voices) {
+            voice.getDelay().setDelayTime(delayTime);
+        }
+    }
+
+    public void setDelayDecay(float decayValue) {
+        for (OscillatorVoice voice : voices) {
+            voice.getDelay().setDecay(decayValue);
+        }
+    }
+
+    public void setDelayLevel(float levelValue) {
+        for (OscillatorVoice voice : voices) {
+            voice.getDelay().setLevel(levelValue);
+        }
+    }
+
+    public void setDelayActive(boolean active) {
+        for (OscillatorVoice voice : voices) {
+            voice.getDelay().setActive(active);
+        }
+    }
 }
