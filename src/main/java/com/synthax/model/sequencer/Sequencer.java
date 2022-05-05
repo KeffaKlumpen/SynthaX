@@ -3,6 +3,7 @@ package com.synthax.model.sequencer;
 import com.synthax.controller.SynthaxController;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.util.BasicMath;
+import com.synthax.view.SynthaxView;
 
 public class Sequencer implements Runnable {
     private SynthaxController synthaxController;
@@ -76,11 +77,13 @@ public class Sequencer implements Runnable {
         int count = 0;
         while (running) {
             steps[count].play();
+            synthaxController.setSeqButtonOrange(count);
             try {
                 Thread.sleep(msBetweenBeats);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            synthaxController.setSeqButtonGray(count);
             steps[count].stop();
             count = (count + 1) % steps.length;
         }

@@ -13,6 +13,7 @@ import com.synthax.model.enums.MidiNote;
 import com.synthax.util.MidiHelpers;
 
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -222,6 +223,52 @@ public class SynthaxView implements Initializable {
         }
     }
 
+    public void setSeqButtonOrange(int i) {
+        Platform.runLater(() -> {
+            switch (i) {
+                case 0 -> btnStepOnOff0.setStyle("-fx-background-color: #f78000");
+                case 1 -> btnStepOnOff1.setStyle("-fx-background-color: #f78000");
+                case 2 -> btnStepOnOff2.setStyle("-fx-background-color: #f78000");
+                case 3 -> btnStepOnOff3.setStyle("-fx-background-color: #f78000");
+                case 4 -> btnStepOnOff4.setStyle("-fx-background-color: #f78000");
+                case 5 -> btnStepOnOff5.setStyle("-fx-background-color: #f78000");
+                case 6 -> btnStepOnOff6.setStyle("-fx-background-color: #f78000");
+                case 7 -> btnStepOnOff7.setStyle("-fx-background-color: #f78000");
+                case 8 -> btnStepOnOff8.setStyle("-fx-background-color: #f78000");
+                case 9 -> btnStepOnOff9.setStyle("-fx-background-color: #f78000");
+                case 10 -> btnStepOnOff10.setStyle("-fx-background-color: #f78000");
+                case 11 -> btnStepOnOff11.setStyle("-fx-background-color: #f78000");
+                case 12 -> btnStepOnOff12.setStyle("-fx-background-color: #f78000");
+                case 13 -> btnStepOnOff13.setStyle("-fx-background-color: #f78000");
+                case 14 -> btnStepOnOff14.setStyle("-fx-background-color: #f78000");
+                case 15 -> btnStepOnOff15.setStyle("-fx-background-color: #f78000");
+            }
+        });
+    }
+
+    public void setSeqButtonGray(int i) {
+        Platform.runLater(()-> {
+            switch (i) {
+                case 0 -> btnStepOnOff0.setStyle("-fx-background-color: #78736b");
+                case 1 -> btnStepOnOff1.setStyle("-fx-background-color: #78736b");
+                case 2 -> btnStepOnOff2.setStyle("-fx-background-color: #78736b");
+                case 3 -> btnStepOnOff3.setStyle("-fx-background-color: #78736b");
+                case 4 -> btnStepOnOff4.setStyle("-fx-background-color: #78736b");
+                case 5 -> btnStepOnOff5.setStyle("-fx-background-color: #78736b");
+                case 6 -> btnStepOnOff6.setStyle("-fx-background-color: #78736b");
+                case 7 -> btnStepOnOff7.setStyle("-fx-background-color: #78736b");
+                case 8 -> btnStepOnOff8.setStyle("-fx-background-color: #78736b");
+                case 9 -> btnStepOnOff9.setStyle("-fx-background-color: #78736b");
+                case 10 -> btnStepOnOff10.setStyle("-fx-background-color: #78736b");
+                case 11 -> btnStepOnOff11.setStyle("-fx-background-color: #78736b");
+                case 12 -> btnStepOnOff12.setStyle("-fx-background-color: #78736b");
+                case 13 -> btnStepOnOff13.setStyle("-fx-background-color: #78736b");
+                case 14 -> btnStepOnOff14.setStyle("-fx-background-color: #78736b");
+                case 15 -> btnStepOnOff15.setStyle("-fx-background-color: #78736b");
+            }
+        });
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         keyStatus.put(KeyCode.A, new AtomicBoolean(false));
@@ -604,6 +651,7 @@ public class SynthaxView implements Initializable {
         });
 
         KnobBehavior bKnobSSRate = new KnobBehavior(knobSSRate);
+        bKnobSSRate.setValueRotation(0, 0.5f);
         knobSSRate.setOnMouseDragged(bKnobSSRate);
         bKnobSSRate.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqBPM(newValue.floatValue());

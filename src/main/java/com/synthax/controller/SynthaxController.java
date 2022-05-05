@@ -196,7 +196,16 @@ public class SynthaxController {
     public void setSeqBPM(float rate) {
         sequencer.setBPM(rate);
     }
+
+    public void setSeqButtonOrange(int i) {
+        synthaxView.setSeqButtonOrange(i);
+    }
+
+    public void setSeqButtonGray(int i) {
+        synthaxView.setSeqButtonGray(i);
+    }
     //endregion
+
     public void setMasterGain(float gain) {
         masterGainGlide.setValue(gain);
     }
