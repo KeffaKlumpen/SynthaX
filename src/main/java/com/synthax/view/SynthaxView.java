@@ -47,6 +47,7 @@ public class SynthaxView implements Initializable {
     @FXML private ToggleSwitch tglSwitchNoise;
     @FXML private Button knobDelayFeedback;
     @FXML private Button knobDelayTime;
+    @FXML private Button knobDelayDecay;
     @FXML private Button knobDelayLevel;
     @FXML private ToggleSwitch tglSwitchDelay;
     @FXML private Button knobReverbSize;
@@ -749,6 +750,12 @@ public class SynthaxView implements Initializable {
         KnobBehavior bKnobDelayTime = new KnobBehavior(knobDelayTime);
         knobDelayTime.setOnMouseDragged(bKnobDelayTime);
         bKnobDelayTime.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //code here
+        });
+
+        KnobBehavior bKnobDelayDecay = new KnobBehavior(knobDelayDecay);
+        knobDelayDecay.setOnMouseDragged(bKnobDelayDecay);
+        bKnobDelayDecay.knobValueProperty().addListener((v, oldValue, newValue) -> {
             //code here
         });
 
