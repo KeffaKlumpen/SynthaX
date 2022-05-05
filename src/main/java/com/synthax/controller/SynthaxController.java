@@ -192,6 +192,10 @@ public class SynthaxController {
     public void setSeqVelocity(int i, float velocity) {
         sequencer.setStepVelocity(i, velocity);
     }
+
+    public void setSeqBPM(float rate) {
+        sequencer.setBPM(rate);
+    }
     //endregion
     public void setMasterGain(float gain) {
         masterGainGlide.setValue(gain);

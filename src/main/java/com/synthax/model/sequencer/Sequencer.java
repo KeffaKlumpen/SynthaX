@@ -37,7 +37,7 @@ public class Sequencer implements Runnable {
 
     public void setBPM(float rate) {
         float temp = BasicMath.map(rate, 0, 1, 60, 240);
-        temp = 60000 / (temp * 16);
+        temp = 60000 / (temp * 4);
         msBetweenBeats = (int)temp;
     }
 
