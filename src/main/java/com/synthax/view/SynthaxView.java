@@ -31,7 +31,6 @@ import org.controlsfx.control.ToggleSwitch;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -312,6 +311,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(0, newValue.floatValue());
         });
         KnobBehavior bKnobSS0Gain = new KnobBehavior(knobSS0Gain);
+        bKnobSS0Gain.setValueRotation(150, 1.0f);
         knobSS0Gain.setOnMouseDragged(bKnobSS0Gain);
         bKnobSS0Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(0, newValue.floatValue());
@@ -330,6 +330,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(1, newValue.floatValue());
         });
         KnobBehavior bKnobSS1Gain = new KnobBehavior(knobSS1Gain);
+        bKnobSS1Gain.setValueRotation(150, 1.0f);
         knobSS1Gain.setOnMouseDragged(bKnobSS1Gain);
         bKnobSS1Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(1, newValue.floatValue());
@@ -348,6 +349,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(2, newValue.floatValue());
         });
         KnobBehavior bKnobSS2Gain = new KnobBehavior(knobSS2Gain);
+        bKnobSS2Gain.setValueRotation(150, 1.0f);
         knobSS2Gain.setOnMouseDragged(bKnobSS2Gain);
         bKnobSS2Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(2, newValue.floatValue());
@@ -366,6 +368,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(3, newValue.floatValue());
         });
         KnobBehavior bKnobSS3Gain = new KnobBehavior(knobSS3Gain);
+        bKnobSS3Gain.setValueRotation(150, 1.0f);
         knobSS3Gain.setOnMouseDragged(bKnobSS3Gain);
         bKnobSS3Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(3, newValue.floatValue());
@@ -384,6 +387,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(4, newValue.floatValue());
         });
         KnobBehavior bKnobSS4Gain = new KnobBehavior(knobSS4Gain);
+        bKnobSS4Gain.setValueRotation(150, 1.0f);
         knobSS4Gain.setOnMouseDragged(bKnobSS4Gain);
         bKnobSS4Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(4, newValue.floatValue());
@@ -402,6 +406,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(5, newValue.floatValue());
         });
         KnobBehavior bKnobSS5Gain = new KnobBehavior(knobSS5Gain);
+        bKnobSS5Gain.setValueRotation(150, 1.0f);
         knobSS5Gain.setOnMouseDragged(bKnobSS5Gain);
         bKnobSS5Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(5, newValue.floatValue());
@@ -421,6 +426,7 @@ public class SynthaxView implements Initializable {
         });
         KnobBehavior bKnobSS6Gain = new KnobBehavior(knobSS6Gain);
         knobSS6Gain.setOnMouseDragged(bKnobSS6Gain);
+        bKnobSS6Gain.setValueRotation(150, 1.0f);
         bKnobSS6Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(6, newValue.floatValue());
         });
@@ -439,6 +445,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(7, newValue.floatValue());
         });
         KnobBehavior bKnobSS7Gain = new KnobBehavior(knobSS7Gain);
+        bKnobSS7Gain.setValueRotation(150, 1.0f);
         knobSS7Gain.setOnMouseDragged(bKnobSS7Gain);
         bKnobSS7Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(7, newValue.floatValue());
@@ -457,6 +464,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(8, newValue.floatValue());
         });
         KnobBehavior bKnobSS8Gain = new KnobBehavior(knobSS8Gain);
+        bKnobSS8Gain.setValueRotation(150, 1.0f);
         knobSS8Gain.setOnMouseDragged(bKnobSS8Gain);
         bKnobSS8Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(8, newValue.floatValue());
@@ -475,6 +483,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(9, newValue.floatValue());
         });
         KnobBehavior bKnobSS9Gain = new KnobBehavior(knobSS9Gain);
+        bKnobSS9Gain.setValueRotation(150, 1.0f);
         knobSS9Gain.setOnMouseDragged(bKnobSS9Gain);
         bKnobSS9Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(9, newValue.floatValue());
@@ -493,6 +502,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(10, newValue.floatValue());
         });
         KnobBehavior bKnobSS10Gain = new KnobBehavior(knobSS10Gain);
+        bKnobSS10Gain.setValueRotation(150, 1.0f);
         knobSS10Gain.setOnMouseDragged(bKnobSS10Gain);
         bKnobSS10Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(10, newValue.floatValue());
@@ -511,6 +521,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(11, newValue.floatValue());
         });
         KnobBehavior bKnobSS11Gain = new KnobBehavior(knobSS11Gain);
+        bKnobSS11Gain.setValueRotation(150, 1.0f);
         knobSS11Gain.setOnMouseDragged(bKnobSS11Gain);
         bKnobSS11Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(11, newValue.floatValue());
@@ -529,6 +540,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(12, newValue.floatValue());
         });
         KnobBehavior bKnobSS12Gain = new KnobBehavior(knobSS12Gain);
+        bKnobSS12Gain.setValueRotation(150, 1.0f);
         knobSS12Gain.setOnMouseDragged(bKnobSS12Gain);
         bKnobSS12Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(12, newValue.floatValue());
@@ -547,6 +559,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(13, newValue.floatValue());
         });
         KnobBehavior bKnobSS13Gain = new KnobBehavior(knobSS13Gain);
+        bKnobSS13Gain.setValueRotation(150, 1.0f);
         knobSS13Gain.setOnMouseDragged(bKnobSS13Gain);
         bKnobSS13Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(13, newValue.floatValue());
@@ -565,6 +578,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(14, newValue.floatValue());
         });
         KnobBehavior bKnobSS14Gain = new KnobBehavior(knobSS14Gain);
+        bKnobSS14Gain.setValueRotation(150, 1.0f);
         knobSS14Gain.setOnMouseDragged(bKnobSS14Gain);
         bKnobSS14Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(14, newValue.floatValue());
@@ -583,6 +597,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqDetuneCent(15, newValue.floatValue());
         });
         KnobBehavior bKnobSS15Gain = new KnobBehavior(knobSS15Gain);
+        bKnobSS15Gain.setValueRotation(150, 1.0f);
         knobSS15Gain.setOnMouseDragged(bKnobSS15Gain);
         bKnobSS15Gain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqVelocity(15, newValue.floatValue());
@@ -744,7 +759,7 @@ public class SynthaxView implements Initializable {
 
         KnobBehavior bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
         knobNoiseGain.setOnMouseDragged(bKnobNoiseGain);
-        bKnobNoiseGain.setValueZero();
+        bKnobNoiseGain.setValueRotation(0, 0.5f);
         bKnobNoiseGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setNoiseGain(newValue.floatValue());
         });
