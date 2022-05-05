@@ -23,6 +23,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -127,6 +128,7 @@ public class SynthaxView implements Initializable {
     @FXML private Button knobSS15Gain;
     @FXML private Button SSStartStop;
     @FXML private Button knobSSRate;
+    @FXML private Spinner<Integer> spinnerSteps;
     @FXML private ToggleButton btnStepOnOff0;
     @FXML private ToggleButton btnStepOnOff1;
     @FXML private ToggleButton btnStepOnOff2;
@@ -268,7 +270,7 @@ public class SynthaxView implements Initializable {
             }
         });
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         keyStatus.put(KeyCode.A, new AtomicBoolean(false));
