@@ -123,6 +123,7 @@
 .spinner .text-field,
 .titled-pane > .title {
     -fx-background-color: #a6a097;
+    -fx-text-fill: black;
 }
 
 .spinner,
@@ -138,7 +139,6 @@
 .scroll-pane,
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
-
 }
 
 .increment-button, .decrement-button {

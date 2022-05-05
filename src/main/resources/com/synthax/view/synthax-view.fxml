@@ -178,7 +178,7 @@
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <ImageView fitHeight="63.0" fitWidth="59.0" layoutX="134.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="71.0" fitWidth="71.0" layoutX="128.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/knobStepsWave.png" />
                </image>

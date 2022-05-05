@@ -113,6 +113,25 @@ public class OscillatorController implements Initializable {
     }
 
     /**
+     * noteOn for sequencer
+     * @param velocity
+     */
+    public void noteOn(MidiNote midiNote, int velocity, float detuneCent){
+        voicePlayingMidi[midiNote.ordinal()] = nextVoice; // This only allows 1 voice per note-press..
+        float freq = midiNote.getFrequency();
+
+        freq = applyOctaveOffset(freq);
+        float realFrequency = freq;
+        freq = applyDetuning(freq);
+
+        float maxGain = velocity / 127f;
+        float sustainGain = maxGain * ADSRValues.getSustainValue();
+        voices[nextVoice].playFreq(freq, maxGain, ADSRValues.getAttackValue(), sustainGain, ADSRValues.getDecayValue(), realFrequency);
+
+        nextVoice = ++nextVoice % voiceCount;
+    }
+
+    /**
      * @param midiNote Midi-note to be released.
      * @author Joel Eriksson Sinclair
      */
