@@ -111,6 +111,13 @@ public class SynthaxController {
     }
 
     /**
+     * noteOn for sequencer
+     * @param velocity
+     */
+    public void noteOn(MidiNote midiNote, int velocity, float detuneCent) {
+        oscillatorManager.noteOn(midiNote, velocity, detuneCent);
+    }
+    /**
      * Forward noteOff message
      * @param midiNote
      */

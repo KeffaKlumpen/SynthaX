@@ -40,6 +40,16 @@ public class OscillatorManager {
     }
 
     /**
+     * notOn for sequencer
+     * @param velocity
+     */
+    public void noteOn(MidiNote midiNote, int velocity, float detuneCent){
+        for (OscillatorController osc : oscillatorControllers) {
+            osc.noteOn(midiNote, velocity, detuneCent);
+        }
+    }
+
+    /**
      *
      * @param midiNote
      * @author Joel Eriksson Sinclair
