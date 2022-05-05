@@ -1,6 +1,5 @@
 package com.synthax.controller;
 
-import com.synthax.model.oscillator.OscillatorLFO;
 import com.synthax.model.oscillator.VoiceNormalizer;
 import com.synthax.model.enums.Waveforms;
 import com.synthax.model.controls.KnobBehavior;
@@ -10,8 +9,6 @@ import com.synthax.model.ADSRValues;
 import com.synthax.model.enums.CombineMode;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.OctaveOperands;
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -20,7 +17,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
@@ -439,7 +435,7 @@ public class OscillatorController implements Initializable {
     //region delay-setters
     public void setDelayFeedback(float feedBackDuration) {
         for(OscillatorVoice voice : voices) {
-            voice.getDelay().setFeedBackDuration(feedBackDuration);
+            voice.getDelay().setFeedbackDuration(feedBackDuration);
         }
     }
 

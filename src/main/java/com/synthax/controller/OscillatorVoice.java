@@ -62,7 +62,7 @@ public class OscillatorVoice {
 
         delay.getEnvelope().clear();
         delay.getEnvelope().addSegment(1f, 10f);
-        delay.getEnvelope().addSegment(1f, Delay.getFeedBackDuration());
+        delay.getEnvelope().addSegment(1f, delay.getFeedbackDuration());
         delay.getEnvelope().addSegment(0f, 10f);
     }
 

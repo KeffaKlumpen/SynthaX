@@ -13,6 +13,8 @@ import com.synthax.model.enums.MidiNote;
 import com.synthax.util.MidiHelpers;
 
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

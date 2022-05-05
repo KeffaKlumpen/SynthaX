@@ -8,15 +8,19 @@ import net.beadsproject.beads.ugens.*;
 
 public class Delay {
     private final float maxDelayTime = 3000.0f;
-    private static float feedBackDuration = 100.0f;
+    private float feedbackDuration = 100.0f;
+
     private float cachedLevelValue;
+    private float cachedDelayTime;
+    private float cachedDecayValue;
+    private float cachedFeedbackDuration;
     private boolean isActive = false;
 
     private TapIn delayIn;
     private TapOut delayOut;
-    private Glide delayGainGlide;
+    private Glide decayGlide;
     private Envelope delayFeedbackEnvelope;
-    private Glide finalDelayGainGlide;
+    private Glide levelGlide;
     private Gain output;
 
     public Delay(UGen filterOutput) {
@@ -30,8 +34,8 @@ public class Delay {
         delayOut = new TapOut(AudioContext.getDefaultContext(), delayIn, 100.0f);
 
         //this Gain object controls the decay of the delay
-        delayGainGlide = new Glide(AudioContext.getDefaultContext(), 0.0f);
-        Gain delayGain = new Gain(AudioContext.getDefaultContext(), 1, delayGainGlide);
+        decayGlide = new Glide(AudioContext.getDefaultContext(), 0.0f);
+        Gain delayGain = new Gain(AudioContext.getDefaultContext(), 1, decayGlide);
         delayGain.addInput(delayOut);
 
         //this Envelope object controls the feedback duration of the delay
@@ -42,8 +46,8 @@ public class Delay {
         delayIn.addInput(feedBackGain);
 
         //this Gain object controls the level of the delay
-        finalDelayGainGlide = new Glide(AudioContext.getDefaultContext(), 0.0f, 20f);
-        Gain finalDelayGain = new Gain(AudioContext.getDefaultContext(), 1, finalDelayGainGlide);
+        levelGlide = new Glide(AudioContext.getDefaultContext(), 0.0f, 20f);
+        Gain finalDelayGain = new Gain(AudioContext.getDefaultContext(), 1, levelGlide);
         finalDelayGain.addInput(delayGain);
 
         output = new Gain(AudioContext.getDefaultContext(), 1, 1.0f);
@@ -57,40 +61,66 @@ public class Delay {
 
     public void setActive(boolean active) {
         if(!active) {
-            cachedLevelValue = finalDelayGainGlide.getValue();
-            finalDelayGainGlide.setValue(0.0f);
+            cachedLevelValue = levelGlide.getValue();
+            levelGlide.setValue(0.0f);
+
+            cachedDelayTime = delayOut.getDelay();
+            delayOut.setDelay(0.0f);
+
+            cachedDecayValue = decayGlide.getValue();
+            decayGlide.setValue(0.0f);
+
+            cachedFeedbackDuration = feedbackDuration;
+            feedbackDuration = 0.0f;
+
             isActive = false;
         } else {
-            finalDelayGainGlide.setValue(cachedLevelValue);
+            levelGlide.setValue(cachedLevelValue);
+            delayOut.setDelay(cachedDelayTime);
+            decayGlide.setValue(cachedDecayValue);
+            feedbackDuration = cachedFeedbackDuration;
+
             isActive = true;
         }
     }
 
     public void setDelayTime(float delayTime) {
-        delayOut.setDelay(BasicMath.map(delayTime, 0, 1, 100, 1000));
+        if (!isActive) {
+            cachedDelayTime = BasicMath.map(delayTime, 0, 1, 100, 1000);
+        } else {
+            delayOut.setDelay(BasicMath.map(delayTime, 0, 1, 100, 1000));
+        }
     }
 
     public void setDecay(float decayValue) {
-        delayGainGlide.setValue(decayValue);
+        if (!isActive) {
+            cachedDecayValue = decayValue;
+        } else {
+            decayGlide.setValue(decayValue);
+        }
     }
 
     public void setLevel(float levelValue) {
         if (!isActive) {
             cachedLevelValue = levelValue;
         } else {
-            finalDelayGainGlide.setValue(levelValue);
+            levelGlide.setValue(levelValue);
         }
     }
 
-    public void setFeedBackDuration(float feedBackDuration) {
-        Delay.feedBackDuration = BasicMath.map(feedBackDuration, 0, 1, 100, 2500);
+    public void setFeedbackDuration(float feedbackDuration) {
+        if (!isActive) {
+            cachedFeedbackDuration = BasicMath.map(feedbackDuration, 0, 1, 100, 2500);
+        } else {
+            this.feedbackDuration = BasicMath.map(feedbackDuration, 0, 1, 100, 2500);
+        }
     }
 
     public Envelope getEnvelope() {
         return delayFeedbackEnvelope;
     }
 
-    public static float getFeedBackDuration() {
-        return feedBackDuration;
+    public float getFeedbackDuration() {
+        return feedbackDuration;
     }
 }

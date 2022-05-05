@@ -17,6 +17,7 @@ public class SynthaxController {
     private SynthLFO synthLFO;
     private final OscillatorManager oscillatorManager;
     private final EQFilters filters;
+    private  boolean b = true;
     //private final Delay delay;
 
     /**
@@ -176,7 +177,10 @@ public class SynthaxController {
     }
 
     public void setDelayActive(boolean active) {
-        oscillatorManager.setDelayActive(active);
+        if (b == active) {
+            oscillatorManager.setDelayActive(active);
+            b = !b;
+        }
     }
 
     //endregion
