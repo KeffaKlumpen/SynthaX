@@ -23,10 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -453,6 +450,12 @@ public class SynthaxView implements Initializable {
                 SSStartStop.setText("Start");
                 SSStartStop.setStyle("-fx-text-fill: #d6d1c9");
             }
+        });
+        spinnerSteps.setEditable(true);
+        SpinnerValueFactory<Integer> spf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,16,16);
+        spinnerSteps.setValueFactory(spf);
+        spinnerSteps.valueProperty().addListener((v, oldValue, newValue) -> {
+            synthaxController.setSeqNSteps(newValue);
         });
     }
 
