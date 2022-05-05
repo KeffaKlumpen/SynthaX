@@ -556,7 +556,7 @@ public class SynthaxView implements Initializable {
     }
 
     private void initFilter() {
-        tglSwitchFilterNotch.selectedProperty().addListener((v, oldValue, newValue) -> {
+        /*tglSwitchFilterNotch.selectedProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setNotchActive(newValue);
         });
 
@@ -597,7 +597,7 @@ public class SynthaxView implements Initializable {
         knobFilterLPSlope.setOnMouseDragged(bKnobFilterLPSlope);
         bKnobFilterLPSlope.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setLPSlope(newValue.floatValue());
-        });
+        });*/
     }
 
     private void initADSR() {
