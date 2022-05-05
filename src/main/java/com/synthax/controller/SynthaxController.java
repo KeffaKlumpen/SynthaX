@@ -19,7 +19,6 @@ public class SynthaxController {
     private final OscillatorManager oscillatorManager;
     private final EQFilters filters;
     private final Sequencer sequencer;
-    private  boolean b = true;
     //private final Delay delay;
 
     /**
@@ -175,6 +174,10 @@ public class SynthaxController {
         sequencer.setOnOff(i, on);
     }
 
+    public void setBollenMode() {
+        sequencer.setBollenMode();
+    }
+
     public boolean sequencerIsRunning() {
         return sequencer.isRunning();
     }
@@ -234,10 +237,7 @@ public class SynthaxController {
     }
 
     public void setDelayActive(boolean active) {
-        if (b == active) {
-            oscillatorManager.setDelayActive(active);
-            b = !b;
-        }
+        oscillatorManager.setDelayActive(active);
     }
 
     //endregion

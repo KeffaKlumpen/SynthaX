@@ -12,6 +12,8 @@ public class Sequencer implements Runnable {
     private boolean running;
     private Thread thread;
     private int nSteps = 16;
+    private SequencerMode sequencerMode = SequencerMode.loop;
+    private boolean bollenMode = true;
 
     public Sequencer(SynthaxController sc) {
         synthaxController = sc;
@@ -31,6 +33,10 @@ public class Sequencer implements Runnable {
             running = false;
             thread = null;
         }
+    }
+
+    public void setBollenMode() {
+        sequencerMode = SequencerMode.bollen;
     }
 
     public void setOnOff(int i, boolean on) {
@@ -90,7 +96,20 @@ public class Sequencer implements Runnable {
             }
             synthaxController.setSeqButtonGray(count);
             steps[count].stop();
-            count = (count + 1) % nSteps;
+            if (sequencerMode == SequencerMode.loop) {
+                count = (count + 1) % nSteps;
+            } else {
+                if (count == 0) {
+                    bollenMode = true;
+                } else if (count == nSteps-1) {
+                    bollenMode = false;
+                }
+                if (bollenMode) {
+                    count++;
+                } else {
+                    count--;
+                }
+            }
         }
     }
 }

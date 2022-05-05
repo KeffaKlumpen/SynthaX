@@ -49,6 +49,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class SynthaxView implements Initializable {
     //region FXML variables
     @FXML private Button randomize;
+    @FXML private Button bollenMode;
     @FXML private VBox oscillatorChainView;
     @FXML private Button knobNoiseGain;
     @FXML private ToggleSwitch tglSwitchNoise;
@@ -189,6 +190,10 @@ public class SynthaxView implements Initializable {
             int midi = random.nextInt(88) + 21;
             knobBehaviorSeqFreqs[i].setNote(MidiNote.values()[midi]);
         }
+    }
+
+    @FXML public void setBollenMode() {
+        synthaxController.setBollenMode();
     }
 
     @FXML
