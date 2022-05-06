@@ -164,6 +164,9 @@ public class SynthaxView implements Initializable {
     private Button[] sequencerFreqKnobs;
     private Button[] sequencerDetuneKnobs;
     private Button[] sequencerGainKnobs;
+    private Button[] EQGain;
+    private Button[] EQFreq;
+    private Button[] EQRange;
     private ToggleButton[] sequencerSteps;
     private KnobBehavior[] knobBehaviorsGain = new KnobBehavior[16];
     private KnobBehaviorDetune[] knobBehaviorDetunes = new KnobBehaviorDetune[16];
@@ -264,8 +267,9 @@ public class SynthaxView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initButtonArrays();
-        initKeyStatus();
+        initSequencerArrays();
+        initFilterArrays();
+        initKeyHash();
         initNoise();
         initADSR();
         initFilter();
@@ -277,7 +281,22 @@ public class SynthaxView implements Initializable {
         sliderMasterGain.valueProperty().addListener((observableValue, number, t1) -> synthaxController.setMasterGain(t1.floatValue()));
     }
 
-    private void initButtonArrays() {
+    private void initFilterArrays() {
+        EQFreq = new Button[] {
+                knobEQ1Freq,
+                knobEQ2Freq,
+                knobEQ3Freq};
+        EQGain = new Button[] {
+                knobEQ1Gain,
+                knobEQ2Gain,
+                knobEQ3Gain};
+        EQRange = new Button[] {
+                knobEQ1Range,
+                knobEQ2Range,
+                knobEQ3Range};
+    }
+
+    private void initSequencerArrays() {
         sequencerSteps = new ToggleButton[] {
                 btnStepOnOff0,
                 btnStepOnOff1,
@@ -577,7 +596,30 @@ public class SynthaxView implements Initializable {
 
         });
 
-        
+        for (int i = 0; i < EQGain.length; i++) {
+            int finalI = i;
+            KnobBehaviorDetune b = new KnobBehaviorDetune(EQGain[i]);
+            EQGain[i].setOnMouseDragged(b);
+            b.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+            });
+        }
+        for (int i = 0; i < EQRange.length; i++) {
+            int finalI = i;
+            KnobBehavior b = new KnobBehavior(EQRange[i]);
+            EQGain[i].setOnMouseDragged(b);
+            b.knobValueProperty().addListener((v, oldValue, newValue) -> {
+                System.out.println("hej");
+            });
+        }
+        for (int i = 0; i < EQFreq.length; i++) {
+            int finalI = i;
+            KnobBehavior b = new KnobBehavior(EQFreq[i]);
+            EQFreq[i].setOnMouseDragged(b);
+            b.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+            });
+        }
 
         KnobBehavior bKnobFilterHPCutoff = new KnobBehavior(knobFilterHPCutoff);
         knobFilterHPCutoff.setOnMouseDragged(bKnobFilterHPCutoff);
@@ -629,7 +671,7 @@ public class SynthaxView implements Initializable {
             onReleaseDrag();
         });
     }
-    private void initKeyStatus() {
+    private void initKeyHash() {
         keyStatus.put(KeyCode.A, new AtomicBoolean(false));
         keyStatus.put(KeyCode.W, new AtomicBoolean(false));
         keyStatus.put(KeyCode.S, new AtomicBoolean(false));
