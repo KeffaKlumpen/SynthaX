@@ -68,16 +68,6 @@
     -fx-max-height: 40px;
 }
 
-.randomButton {
-    -fx-background-image: url("Images/dice1.png");
-        -fx-background-size: 50px 50px;
-        -fx-background-repeat: no-repeat;
-        -fx-background-position: center;
-        -fx-body-color: #78736b;
-        -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
-        -fx-background-insets: 2, 2, 2;
-}
-
 .slider .thumb {
     -fx-background-image: url("Images/slider2dw.png");
     -fx-background-size: 28px, 15px;
@@ -95,13 +85,21 @@
 
 .spinner .increment-arrow-button,
 .spinner .decrement-arrow-button,
-.plainButton,
 .toggleOsc,
 .toggle-switch .thumb-area {
     -fx-background-color: #78736b;
     -fx-text-fill: #d6d1c9;
     -fx-font-family: "Handel Gothic";
     -fx-font-size: 14;
+}
+
+.plainButton {
+    -fx-background-color: #78736b;
+    -fx-text-fill: #d6d1c9;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 14;
+    -fx-body-color: #78736b;
+    -fx-background-insets: 2, 2, 2;
 }
 
 #btnStartStop {
@@ -134,6 +132,7 @@
 .titled-pane > .title {
     -fx-background-color: #a6a097;
     -fx-text-fill: black;
+    -fx-body-color: #78736b;
 }
 
 .spinner,
