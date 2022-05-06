@@ -20,7 +20,7 @@ public class TestLFOLerp {
         masterGain = new Gain(ac, 1, .2f);
 
         // v0
-        WavePlayer lfo = new WavePlayer(ac, 2f, Buffer.SINE);
+        WavePlayer lfo = new WavePlayer(ac, 2f, Buffer.SQUARE);
         WavePlayer carrier = new WavePlayer(ac, 440f, Buffer.SINE);
         Add add = new Add(1, 1);
         Mult v0 = new Mult(1, 0.5f);
@@ -31,7 +31,7 @@ public class TestLFOLerp {
         // v1
         Static v1 = new Static(1f);
 
-        Static depth = new Static(0.5f);
+        Static depth = new Static(0f);
 
         // v0 + t * (v1 - v0)
         Mult v0neg = new Mult(1, -1f);
@@ -46,6 +46,8 @@ public class TestLFOLerp {
         Add f = new Add(1, v0);
         f.addInput(txv1negv0);
 
+        //Glide glide = new Glide(0f, 50f);
+        //glide.addInput(f);
         Gain gain = new Gain(1, f);
         gain.addInput(carrier);
 

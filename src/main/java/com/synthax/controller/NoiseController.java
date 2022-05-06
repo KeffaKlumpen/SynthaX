@@ -1,17 +1,16 @@
-/*
-  Author: Joel Eriksson Sinclair
-  ID: ai7892
-  Study program: Sys 21h
-*/
-
 package com.synthax.controller;
 
 import com.synthax.model.ADSRValues;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.oscillator.VoiceNormalizer;
+import com.synthax.util.BasicMath;
 import net.beadsproject.beads.ugens.Gain;
 import net.beadsproject.beads.ugens.Glide;
 
+/**
+ * Forwards midi-messages to a number of noise generating voices to control when they are active.
+ * @author Joel Eriksson Sinclair
+ */
 public class NoiseController {
     private final NoiseVoice[] voices;
     private final int voiceCount = 16;
@@ -20,6 +19,7 @@ public class NoiseController {
     private final Glide voiceOutputGlide;
     private final int[] voicePlayingMidi = new int[128];
     private float savedGain = 0.5f;
+    private boolean isActive = false;
 
     public NoiseController() {
         voiceOutputGlide = new Glide(0f, 50f);
@@ -60,16 +60,24 @@ public class NoiseController {
     }
 
     public void setGain(float gain) {
-        voiceOutputGlide.setValue(gain);
+        float mapped = BasicMath.map(gain, 0f, 1f, 0f, 0.5f);
+
+        if(isActive) {
+            voiceOutputGlide.setValue(mapped);
+        } else {
+            savedGain = mapped;
+        }
     }
 
-    public void setActive(boolean isActive) {
+    public void setActive(boolean newActive) {
+        isActive = newActive;
+
         if(isActive) {
-            setGain(savedGain);
+            voiceOutputGlide.setValue(savedGain);
         }
         else {
             savedGain = voiceOutputGlide.getTargetValue();
-            setGain(0f);
+            voiceOutputGlide.setValue(0f);
         }
     }
 }
