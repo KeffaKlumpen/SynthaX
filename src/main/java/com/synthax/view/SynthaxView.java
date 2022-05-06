@@ -583,13 +583,13 @@ public class SynthaxView implements Initializable {
         tglSwitchFilterHP.selectedProperty().addListener((v, oldValue, newValue) -> synthaxController.setHPActive(newValue));
         tglSwitchFilterLP.selectedProperty().addListener((v, oldValue, newValue) -> synthaxController.setLPActive(newValue));
         tglSwitchEQ1.selectedProperty().addListener((v, oldValue, newValue) -> {
-
+            synthaxController.setEQActive(0, newValue);
         });
         tglSwitchEQ2.selectedProperty().addListener((v, oldValue, newValue) -> {
-
+            synthaxController.setEQActive(1, newValue);
         });
         tglSwitchEQ3.selectedProperty().addListener((v, oldValue, newValue) -> {
-
+            synthaxController.setEQActive(2, newValue);
         });
 
         for (int i = 0; i < EQGain.length; i++) {
@@ -597,15 +597,15 @@ public class SynthaxView implements Initializable {
             KnobBehaviorDetune b = new KnobBehaviorDetune(EQGain[i]);
             EQGain[i].setOnMouseDragged(b);
             b.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+                synthaxController.setEQGain(finalI, newValue.floatValue());
             });
         }
         for (int i = 0; i < EQRange.length; i++) {
             int finalI = i;
             KnobBehavior b = new KnobBehavior(EQRange[i]);
-            EQGain[i].setOnMouseDragged(b);
+            EQRange[i].setOnMouseDragged(b);
             b.knobValueProperty().addListener((v, oldValue, newValue) -> {
-                System.out.println("hej");
+                synthaxController.setEQRange(finalI, newValue.floatValue());
             });
         }
         for (int i = 0; i < EQFreq.length; i++) {
@@ -613,7 +613,7 @@ public class SynthaxView implements Initializable {
             KnobBehavior b = new KnobBehavior(EQFreq[i]);
             EQFreq[i].setOnMouseDragged(b);
             b.knobValueProperty().addListener((v, oldValue, newValue) -> {
-
+                synthaxController.setEQFreq(finalI, newValue.floatValue());
             });
         }
 
@@ -628,8 +628,6 @@ public class SynthaxView implements Initializable {
         bKnobFilterLPCutoff.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setLPCutoff(newValue.floatValue());
         });
-
-
     }
 
     private void initADSR() {

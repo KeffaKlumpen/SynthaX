@@ -13,6 +13,10 @@ import net.beadsproject.beads.ugens.*;
 
 import java.util.Random;
 
+/**
+ *
+ * @author Joel Eriksson Sinclair
+ */
 public class SynthaxController {
     private SynthaxView synthaxView;
 
@@ -22,7 +26,6 @@ public class SynthaxController {
     private final OscillatorManager oscillatorManager;
     private final EQFilters filters;
     private final Sequencer sequencer;
-    //private final Delay delay;
 
     /**
      * Setup AudioContext, OscillatorManager and create all necessary links.
@@ -37,8 +40,6 @@ public class SynthaxController {
         masterGainGlide = new Glide(ac, 0.5f, 50);
         masterGain = new Gain(ac, 1, masterGainGlide);
 
-        //oscmanager.getoutput.addinput(lfo)
-
         oscillatorManager = OscillatorManager.getInstance();
         Gain oscCombined = oscillatorManager.getFinalOutput();
 
@@ -51,9 +52,6 @@ public class SynthaxController {
         sequencer = new Sequencer(this);
 
         masterGain.addInput(filters.getOutput());
-
-        //delay = new Delay(filters.getOutput());
-        //masterGain.addInput(delay.getOutput());
 
         // Send to audio-device
         ac.out.addInput(masterGain);
@@ -129,34 +127,28 @@ public class SynthaxController {
         filters.setHPCutoff(cutoff);
     }
 
-    public void setHPSlope(float slope) {
-        filters.setHPSlope(slope);
-    }
-
     public void setHPActive(boolean newActive) {
         filters.setHPActive(newActive);
     }
 
-    public void setNotchFrequency(float frequency) {
-        System.err.println("SynthaxController.setNotchFrequency() - Not implemented.");
-    }
-    public void setNotchRange(float q) {
-        System.err.println("SynthaxController.setNotchRange() - Not implemented.");
-    }
-    public void setNotchActive(boolean newActive) {
-        System.err.println("SynthaxController.setNotchActive() - Not implemented.");
+    public void setEQActive(int i, boolean newVal) {
+        filters.setEQActive(i, newVal);
     }
 
-    /**
-     * Set the frequency for the LP-filter (all frequencies above this frequency will be lowered.
-     * @param cutoff
-     */
+    public void setEQGain(int i, float newVal) {
+        filters.setEQGain(i, newVal);
+    }
+
+    public void setEQFreq(int i, float newVal) {
+        filters.setEQFrequency(i, newVal);
+    }
+
+    public void setEQRange(int i, float newVal) {
+        filters.setEQRange(i, newVal);
+    }
+
     public void setLPCutoff(float cutoff) {
         filters.setLPCutoff(cutoff);
-    }
-
-    public void setLPSlope(float slope) {
-        filters.setLPSlope(slope);
     }
 
     public void setLPActive(boolean newActive) {

@@ -1,38 +1,50 @@
-/*
-  Author: Joel Eriksson Sinclair
-  ID: ai7892
-  Study program: Sys 21h
-*/
-
 package com.synthax.model;
 
 import com.synthax.util.BasicMath;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.ugens.BiquadFilter;
 
+/**
+ * Manages filters that modify the amplitude of specific frequencies.
+ * @author Joel Eriksson Sinclair
+ */
 public class EQFilters {
+    private static final float HP_MIN_FREQ = 400f;
+    private static final float HP_MAX_FREQ = 2000f;
+    private static final float LP_MIN_FREQ = 100f;
+    private static final float LP_MAX_FREQ = 1500f;
     private static final float HP_DISABLED_FREQ = 50f;      // value where the filter is effectively disabled.
     private static final float LP_DISABLED_FREQ = 22000f;   // value where the filter is effectively disabled.
-    private static final int FILTER_COUNT = 16;
+    private static final int FILTER_STACK_COUNT = 16;
+    private static final float EQ_GAIN_MIN = -25f;
+    private static final float EQ_GAIN_MAX = 25f;
+    private static final float EQ_GAIN_DISABLED = 0f;
+    private static final float EQ_FREQ_MIN = 200f;
+    private static final float EQ_FREQ_MAX = 1800f;
+    private static final float EQ_RANGE_MIN = 10f;          // q value, higher is sharper slope
+    private static final float EQ_RANGE_MAX = 1f;           // q value, higher is sharper slope
+    private static final int EQ_FILTER_COUNT = 3;           // 3 in GUI..
 
     private final BiquadFilter[] highPassFilters;
-    private final BiquadFilter filterNotch;
+    private final BiquadFilter[] eqFilters = new BiquadFilter[EQ_FILTER_COUNT];
     private final BiquadFilter[] lowPassFilters;
 
     // High-pass
-    private final float hpMinFreq = 400f;
-    private final float hpMaxFreq = 2000f;
     private boolean hpActive = false;
-    private float savedHPCutoff = hpMinFreq;
+    private float savedHPCutoff = HP_MIN_FREQ;
     // Low-pass
-    private final float lpMinFreq = 100f;
-    private final float lpMaxFreq = 1500f;
     private boolean lpActive = false;
-    private float savedLPCutoff = lpMinFreq;
+    private float savedLPCutoff = LP_MIN_FREQ;
+    // EQ
+    private final boolean[] eqActive = new boolean[EQ_FILTER_COUNT];
+    private final float[] eqSavedGain = new float[EQ_FILTER_COUNT];
 
+    /**
+     * Sets up the internal chain. Send the incoming audio through the HP-, EQ- and finally LP-filters.
+     */
     public EQFilters() {
-        highPassFilters = new BiquadFilter[FILTER_COUNT];
-        for (int i = 0; i < FILTER_COUNT; i++) {
+        highPassFilters = new BiquadFilter[FILTER_STACK_COUNT];
+        for (int i = 0; i < FILTER_STACK_COUNT; i++) {
             BiquadFilter filter = new BiquadFilter(1, BiquadFilter.BESSEL_HP);
             filter.setFrequency(HP_DISABLED_FREQ);
 
@@ -44,12 +56,23 @@ public class EQFilters {
             highPassFilters[i] = filter;
         }
 
-        filterNotch = new BiquadFilter(1, BiquadFilter.NOTCH);
-        //filterNotch.addInput(filterHP);
-        //filterNotch.setGain(1f);
+        for (int i = 0; i < EQ_FILTER_COUNT; i++) {
+            BiquadFilter eqFilter = new BiquadFilter(1, BiquadFilter.PEAKING_EQ);
+            eqFilter.setGain(EQ_GAIN_DISABLED);
+            eqFilter.setQ(EQ_RANGE_MIN);
+            eqFilter.setFrequency(EQ_FREQ_MIN);
 
-        lowPassFilters = new BiquadFilter[FILTER_COUNT];
-        for (int i = 0; i < FILTER_COUNT; i++) {
+            // set up chaining
+            if(i > 0) {
+                eqFilter.addInput(eqFilters[i - 1]);
+            }
+
+            eqFilters[i] = eqFilter;
+        }
+        eqFilters[0].addInput(highPassFilters[FILTER_STACK_COUNT - 1]);
+
+        lowPassFilters = new BiquadFilter[FILTER_STACK_COUNT];
+        for (int i = 0; i < FILTER_STACK_COUNT; i++) {
             BiquadFilter filter = new BiquadFilter(1, BiquadFilter.BESSEL_LP);
             filter.setFrequency(LP_DISABLED_FREQ);
 
@@ -60,22 +83,17 @@ public class EQFilters {
 
             lowPassFilters[i] = filter;
         }
-        lowPassFilters[0].addInput(highPassFilters[FILTER_COUNT - 1]);
+        lowPassFilters[0].addInput(eqFilters[EQ_FILTER_COUNT - 1]);
     }
 
     public void setHPCutoff(float cutoff) {
-        float mapped = BasicMath.map(cutoff, 0f, 1f, hpMinFreq, hpMaxFreq);
+        float mapped = BasicMath.map(cutoff, 0f, 1f, HP_MIN_FREQ, HP_MAX_FREQ);
         if(hpActive) {
             setHPfreq(mapped);
         } else {
             savedHPCutoff = mapped;
             System.out.println("Saved HP: " + savedHPCutoff);
         }
-    }
-
-    public void setHPSlope(float slope) {
-        float mapped = BasicMath.map(slope, 0f, 1f, 0.1f, 1f);
-        // filterHP.setQ(mapped);
     }
 
     public void setHPActive(boolean newActive) {
@@ -90,33 +108,49 @@ public class EQFilters {
         }
     }
 
-    public void setNotchFrequency(float frequency) {
-        System.err.println("EQFilters.setNotchFrequency() - Not implemented.");
-    }
-    public void setNotchRange(float q) {
-        System.err.println("EQFilters.setNotchRange() - Not implemented.");
-    }
-    public void setNotchActive(boolean newActive) {
-        System.err.println("EQFilters.setNotchActive() - Not implemented.");
+    public void setEQActive(int i, boolean newVal) {
+        System.out.println("EQActive: " + newVal);
+        eqActive[i] = newVal;
+        if(eqActive[i]) {
+            eqFilters[i].setGain(eqSavedGain[i]);
+        }
+        else {
+            eqSavedGain[i] = eqFilters[i].getGain();
+            System.out.println("saved: " + eqSavedGain[i]);
+            eqFilters[i].setGain(EQ_GAIN_DISABLED);
+        }
     }
 
-    /**
-     * Set the frequency for the LP-filter (all frequencies above this frequency will be lowered.
-     * @param cutoff
-     */
+    public void setEQGain(int i, float newVal) {
+        float gain = BasicMath.map(newVal, -50f, 50f, EQ_GAIN_MIN, EQ_GAIN_MAX);
+        if(eqActive[i]) {
+            System.out.println("EQGain: " + gain);
+            eqFilters[i].setGain(gain);
+        } else {
+            eqSavedGain[i] = gain;
+        }
+    }
+
+    public void setEQRange(int i, float newVal) {
+        float qVal = BasicMath.map(newVal, 0f, 1f, EQ_RANGE_MIN, EQ_RANGE_MAX);
+        System.out.println("EQqVal: " + qVal);
+        eqFilters[i].setQ(qVal);
+    }
+
+    public void setEQFrequency(int i, float newVal) {
+        float freq = BasicMath.map(newVal, 0f, 1f, EQ_FREQ_MIN, EQ_FREQ_MAX);
+        System.out.println("EQfreq: " + freq);
+        eqFilters[i].setFrequency(freq);
+    }
+
     public void setLPCutoff(float cutoff) {
-        float mapped = BasicMath.map(cutoff, 0f, 1f, lpMinFreq, lpMaxFreq);
+        float mapped = BasicMath.map(cutoff, 0f, 1f, LP_MIN_FREQ, LP_MAX_FREQ);
         if(lpActive) {
             setLPfreq(mapped);
         } else {
             savedLPCutoff = mapped;
             System.out.println("Saved LP: " + savedHPCutoff);
         }
-    }
-
-    public void setLPSlope(float slope) {
-        float mapped = BasicMath.map(slope, 0f, 1f, 0.1f, 1f);
-        //filterLP.setQ(mapped);
     }
 
     public void setLPActive(boolean newActive) {
@@ -131,16 +165,22 @@ public class EQFilters {
         }
     }
 
+    /**
+     * Helper method to set frequency of the HighPass filter.
+     */
     private void setHPfreq(float freq) {
         System.out.println("Setting HP freq: " + freq);
-        for (int i = 0; i < FILTER_COUNT; i++) {
+        for (int i = 0; i < FILTER_STACK_COUNT; i++) {
             highPassFilters[i].setFrequency(freq);
         }
     }
 
+    /**
+     * Helper method to set frequency of the LowPass filter.
+     */
     private void setLPfreq(float freq) {
         System.out.println("Setting LP freq: " + freq);
-        for (int i = 0; i < FILTER_COUNT; i++) {
+        for (int i = 0; i < FILTER_STACK_COUNT; i++) {
             lowPassFilters[i].setFrequency(freq);
         }
     }
@@ -154,6 +194,6 @@ public class EQFilters {
     }
 
     public UGen getOutput() {
-        return lowPassFilters[FILTER_COUNT - 1];
+        return lowPassFilters[FILTER_STACK_COUNT - 1];
     }
 }
