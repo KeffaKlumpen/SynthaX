@@ -2,6 +2,7 @@ package com.synthax.controller;
 
 import com.synthax.model.EQFilters;
 import com.synthax.model.SynthLFO;
+import com.synthax.model.SynthReverb;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.Waveforms;
 import com.synthax.model.sequencer.Sequencer;
@@ -22,6 +23,7 @@ public class SynthaxController {
     private final OscillatorManager oscillatorManager;
     private final EQFilters filters;
     private final Sequencer sequencer;
+    private SynthReverb reverb;
     //private final Delay delay;
 
     /**
@@ -33,6 +35,8 @@ public class SynthaxController {
         JavaSoundAudioIO jsaio = new JavaSoundAudioIO(512);
         AudioContext ac = new AudioContext(jsaio);
         AudioContext.setDefaultContext(ac);
+
+        sequencer = new Sequencer(this);
 
         masterGainGlide = new Glide(ac, 0.5f, 50);
         masterGain = new Gain(ac, 1, masterGainGlide);
@@ -48,12 +52,8 @@ public class SynthaxController {
         filters = new EQFilters();
         filters.addInput(synthLFO.getOutput());
 
-        sequencer = new Sequencer(this);
-
-        masterGain.addInput(filters.getOutput());
-
-        //delay = new Delay(filters.getOutput());
-        //masterGain.addInput(delay.getOutput());
+        reverb = new SynthReverb(filters.getOutput());
+        masterGain.addInput(reverb.getOutput());
 
         // Send to audio-device
         ac.out.addInput(masterGain);
@@ -279,6 +279,26 @@ public class SynthaxController {
     }
 
     //endregion
+
+    //region reverb-GUI-forwarding (click to open/collapse)
+
+    public void setReverbActive(boolean active) {
+        reverb.setActive(active);
+    }
+
+    public void setReverbDryWet(float dryWet) {
+        reverb.setReverbDryWet(dryWet);
+    }
+
+    public void setReverbSize(float size) {
+        reverb.setReverbSize(size);
+    }
+
+    public void setReverbTone(float tone) {
+        reverb.setReverbTone(tone);
+    }
+
+    // endregion
 
     public void setMasterGain(float gain) {
         masterGainGlide.setValue(gain);
