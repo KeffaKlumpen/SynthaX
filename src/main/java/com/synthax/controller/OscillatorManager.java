@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class OscillatorManager {
     private static OscillatorManager instance;
-    public static OscillatorManager getInstance(){
-        if(instance == null){
+    public static OscillatorManager getInstance() {
+        if(instance == null) {
             instance = new OscillatorManager();
         }
         return instance;
@@ -26,13 +26,12 @@ public class OscillatorManager {
 
     private final NoiseController noiseController;
 
-    private OscillatorManager(){
+    private OscillatorManager() {
         noiseController = new NoiseController();
         oscillatorOutput = new Gain(1, 1f);
         finalOutput = new Gain(1, 1f);
         finalOutput.addInput(noiseController.getVoiceOutput());
         finalOutput.addInput(oscillatorOutput);
-        //new DebugThread(2000).start();
     }
 
     /**
@@ -40,7 +39,7 @@ public class OscillatorManager {
      * @param velocity
      * @author Joel Eriksson Sinclair
      */
-    public void noteOn(MidiNote midiNote, int velocity){
+    public void noteOn(MidiNote midiNote, int velocity) {
         for (OscillatorController osc : oscillatorControllers) {
             osc.noteOn(midiNote, velocity);
         }
@@ -51,7 +50,7 @@ public class OscillatorManager {
      * notOn for sequencer
      * @param velocity
      */
-    public void noteOn(MidiNote midiNote, int velocity, float detuneCent){
+    public void noteOn(MidiNote midiNote, int velocity, float detuneCent) {
         for (OscillatorController osc : oscillatorControllers) {
             osc.noteOn(midiNote, velocity, detuneCent);
         }
@@ -63,7 +62,7 @@ public class OscillatorManager {
      * @param midiNote
      * @author Joel Eriksson Sinclair
      */
-    public void noteOff(MidiNote midiNote){
+    public void noteOff(MidiNote midiNote) {
         for (OscillatorController osc : oscillatorControllers) {
             osc.noteOff(midiNote);
         }
@@ -71,7 +70,7 @@ public class OscillatorManager {
         noiseController.noteOff(midiNote);
     }
 
-    public void releaseAllVoices(){
+    public void releaseAllVoices() {
         for (OscillatorController osc : oscillatorControllers) {
             int voiceCount = osc.getVoiceCount();
             for (int i = 0; i < voiceCount; i++) {
@@ -88,30 +87,32 @@ public class OscillatorManager {
     public void setupInOuts(OscillatorController oscillatorController) {
         int index = oscillatorControllers.indexOf(oscillatorController);
 
-        if(index < 0 || index >= oscillatorControllers.size()){
-            System.err.println("Oscillator is not found in the chain!");
+        if(index < 0 || index >= oscillatorControllers.size()) {
+            System.err.println("OscillatorManager.setupInOuts() - Oscillator Index out of bounds.");
             return;
         }
 
-        // input
-        // if we are the first oscillator, or has previous.
-        if(index == 0){
+        // Set oscillators input
+        // If we are the first oscillator in the chain
+        if(index == 0) {
             oscillatorController.setInput(null);
             System.out.println("Setting our input to null");
         }
+        // If we have previous oscillators in the chain, set our input to the previous output.
         else {
             oscillatorController.setInput(oscillatorControllers.get(index - 1).getOscillatorOutput());
             System.out.println("Setting our input to previous osc.getOutput");
         }
 
-        // output
-        // If we are the last oscillator, or has next.
+        // Set oscillators output
+        // If we are the last oscillator in the chain, set our output
         UGen oscOutput = oscillatorController.getOscillatorOutput();
-        if(index == oscillatorControllers.size() - 1){
+        if(index == oscillatorControllers.size() - 1) {
             oscillatorOutput.clearInputConnections();
             oscillatorOutput.addInput(oscOutput);
             System.out.println("Setting total.Output to our output.");
         }
+        // If there are more oscillators in the chain, set their input to our output.
         else {
             oscillatorControllers.get(index + 1).setInput(oscOutput);
             System.out.println("Setting nextOsc.input to our output.");
@@ -124,7 +125,7 @@ public class OscillatorManager {
      * @param osc Oscillator to be added
      * @author Joel Eriksson Sinclair
      */
-    public void addOscillator(OscillatorController osc){
+    public void addOscillator(OscillatorController osc) {
         oscillatorControllers.add(osc);
         setupInOuts(osc);
 
@@ -136,10 +137,11 @@ public class OscillatorManager {
      * @param osc Oscillator to be removed
      * @author Joel Eriksson Sinclair
      */
-    public void removeOscillator(OscillatorController osc){
+    public void removeOscillator(OscillatorController osc) {
         int index = oscillatorControllers.indexOf(osc);
 
-        if(index < 0 || index >= oscillatorControllers.size()){
+        if(index < 0 || index >= oscillatorControllers.size()) {
+            System.err.println("OscillatorManager.removeOscillator() - Oscillator Index out of bounds.");
             return;
         }
 
@@ -148,11 +150,11 @@ public class OscillatorManager {
         int previous = index - 1;
 
         // This can cause some overlap, setting the same thing multiple times... Shit's dumb
-        if(oscillatorControllers.size() > 0){
-            if(previous >= 0){
+        if(oscillatorControllers.size() > 0) {
+            if(previous >= 0) {
                 setupInOuts(oscillatorControllers.get(previous));
             }
-            if(index < oscillatorControllers.size()){
+            if(index < oscillatorControllers.size()) {
                 setupInOuts(oscillatorControllers.get(index));
             }
         } else {
@@ -166,11 +168,11 @@ public class OscillatorManager {
      */
     public void moveOscillatorDown(OscillatorController oscillatorController) {
         int index = oscillatorControllers.indexOf(oscillatorController);
-        if(index < 0){
+        if(index < 0) {
             return;
         }
 
-        if(index == oscillatorControllers.size() - 1){
+        if(index == oscillatorControllers.size() - 1) {
             return;
         }
 
@@ -191,11 +193,11 @@ public class OscillatorManager {
      */
     public void moveOscillatorUp(OscillatorController oscillatorController) {
         int index = oscillatorControllers.indexOf(oscillatorController);
-        if(index < 0){
+        if(index < 0) {
             return;
         }
 
-        if(index == 0){
+        if(index == 0) {
             return;
         }
 
@@ -223,20 +225,6 @@ public class OscillatorManager {
         return noiseController;
     }
 
-    //region Stupid debugging
-    /**
-     * Prints out the inputs of all oscillators.
-     */
-    public void debugPrintOscillatorInputs(){
-        System.out.println("--DEBUG--");
-        for (OscillatorController o : oscillatorControllers) {
-            System.out.println("-----Osc: " + o);
-            for (UGen u : o.getOscillatorOutput().getConnectedInputs()) {
-                System.out.println("---has a " + u);
-            }
-        }
-        System.out.println("---END---");
-    }
     //region delay-setters
     public void setDelayFeedback(float feedBackDuration) {
         for(OscillatorController controller : oscillatorControllers) {
@@ -267,30 +255,4 @@ public class OscillatorManager {
             controller.setDelayActive(active);
         }
     }
-
-    //endregion
-    /**
-     * Repeatedly print out stuff. TODO: Make this a Util class and pass in a method basically.
-     */
-    class DebugThread extends Thread{
-
-        private final long sleepTime;
-
-        public DebugThread(long sleepTime){
-            this.sleepTime = sleepTime;
-        }
-
-        @Override
-        public void run() {
-            while (!isInterrupted()){
-                try {
-                    sleep(sleepTime);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                debugPrintOscillatorInputs();
-            }
-        }
-    }
-    //endregion
 }
