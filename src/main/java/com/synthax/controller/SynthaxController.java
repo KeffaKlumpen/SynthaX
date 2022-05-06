@@ -11,6 +11,8 @@ import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
 import net.beadsproject.beads.ugens.*;
 
+import java.util.Random;
+
 public class SynthaxController {
     private SynthaxView synthaxView;
 
@@ -237,6 +239,21 @@ public class SynthaxController {
 
     public void setSeqButtonGray(int i) {
         synthaxView.setSeqButtonGray(i);
+    }
+
+    public void randomize(int length) {
+        Random random  = new Random();
+        for (int i = 0; i < length; i++) {
+            int onOff = random.nextInt(2);
+            synthaxView.setSequencerStepsOnOff(onOff == 0, i);
+            int out = 0;
+            for (int j = 0; j < 4; j++) {
+                out += random.nextInt(88);
+            }
+            out /= 4;
+            out += 21;
+            synthaxView.setSequencerFreqKnobs(MidiNote.values()[out], i);
+        }
     }
     //endregion
 

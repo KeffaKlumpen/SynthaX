@@ -16,6 +16,7 @@ import com.synthax.util.MidiHelpers;
 
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -45,7 +46,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class SynthaxView implements Initializable {
     //region FXML variables
     @FXML private Button randomize;
-    @FXML private ComboBox<SequencerMode> sequencerMode;
+    @FXML private Spinner<SequencerMode> sequencerMode;
     @FXML private VBox oscillatorChainView;
     @FXML private Button knobNoiseGain;
     @FXML private ToggleSwitch tglSwitchNoise;
@@ -62,15 +63,22 @@ public class SynthaxView implements Initializable {
     @FXML private Button knobLFORate;
     @FXML private Button knobLFOWaveForm;
     @FXML private ToggleSwitch tglSwitchLFO;
-    @FXML private Button knobFilterRange;
-    @FXML private Button knobFilterFreq;
     @FXML private Button knobFilterHPCutoff;
-    @FXML private Button knobFilterHPSlope;
     @FXML private Button knobFilterLPCutoff;
-    @FXML private Button knobFilterLPSlope;
+    @FXML private Button knobEQ1Gain;
+    @FXML private Button knobEQ1Freq;
+    @FXML private Button knobEQ1Range;
+    @FXML private Button knobEQ2Gain;
+    @FXML private Button knobEQ2Freq;
+    @FXML private Button knobEQ2Range;
+    @FXML private Button knobEQ3Gain;
+    @FXML private Button knobEQ3Freq;
+    @FXML private Button knobEQ3Range;
+    @FXML private ToggleSwitch tglSwitchEQ1;
+    @FXML private ToggleSwitch tglSwitchEQ2;
+    @FXML private ToggleSwitch tglSwitchEQ3;
     @FXML private ToggleSwitch tglSwitchFilterLP;
     @FXML private ToggleSwitch tglSwitchFilterHP;
-    @FXML private ToggleSwitch tglSwitchFilterNotch;
     @FXML private Button btnAddOscillator;
     @FXML private AnchorPane mainPane = new AnchorPane();
     @FXML private Slider sliderAttack;
@@ -157,6 +165,9 @@ public class SynthaxView implements Initializable {
     private Button[] sequencerFreqKnobs;
     private Button[] sequencerDetuneKnobs;
     private Button[] sequencerGainKnobs;
+    private Button[] EQGain;
+    private Button[] EQFreq;
+    private Button[] EQRange;
     private ToggleButton[] sequencerSteps;
     private KnobBehavior[] knobBehaviorsGain = new KnobBehavior[16];
     private KnobBehaviorDetune[] knobBehaviorDetunes = new KnobBehaviorDetune[16];
@@ -179,18 +190,13 @@ public class SynthaxView implements Initializable {
     }
     @FXML
     public void randomizeSequencer() {
-        Random random  = new Random();
-        for (int i = 0; i < knobBehaviorSeqFreqs.length; i++) {
-            int onOff = random.nextInt(2);
-            sequencerSteps[i].setSelected(onOff == 0);
-            int out = 0;
-            for (int j = 0; j < 4; j++) {
-                out += random.nextInt(88);
-            }
-            out /= 4;
-            out += 21;
-            knobBehaviorSeqFreqs[i].setNote(MidiNote.values()[out]);
-        }
+        synthaxController.randomize(sequencerSteps.length);
+    }
+    public void setSequencerStepsOnOff(boolean on, int index) {
+        sequencerSteps[index].setSelected(on);
+    }
+    public void setSequencerFreqKnobs(MidiNote note, int index) {
+        knobBehaviorSeqFreqs[index].setNote(note);
     }
 
     @FXML
@@ -258,8 +264,9 @@ public class SynthaxView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initButtonArrays();
-        initKeyStatus();
+        initSequencerArrays();
+        initFilterArrays();
+        initKeyHash();
         initNoise();
         initADSR();
         initFilter();
@@ -271,7 +278,22 @@ public class SynthaxView implements Initializable {
         sliderMasterGain.valueProperty().addListener((observableValue, number, t1) -> synthaxController.setMasterGain(t1.floatValue()));
     }
 
-    private void initButtonArrays() {
+    private void initFilterArrays() {
+        EQFreq = new Button[] {
+                knobEQ1Freq,
+                knobEQ2Freq,
+                knobEQ3Freq};
+        EQGain = new Button[] {
+                knobEQ1Gain,
+                knobEQ2Gain,
+                knobEQ3Gain};
+        EQRange = new Button[] {
+                knobEQ1Range,
+                knobEQ2Range,
+                knobEQ3Range};
+    }
+
+    private void initSequencerArrays() {
         sequencerSteps = new ToggleButton[] {
                 btnStepOnOff0,
                 btnStepOnOff1,
@@ -451,18 +473,19 @@ public class SynthaxView implements Initializable {
                 SSStartStop.setStyle("-fx-text-fill: #d6d1c9");
             }
         });
-        spinnerSteps.setEditable(true);
         SpinnerValueFactory<Integer> spf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,16,16);
         spinnerSteps.setValueFactory(spf);
         spinnerSteps.valueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqNSteps(newValue);
         });
 
-        sequencerMode.getItems().addAll(SequencerMode.loop, SequencerMode.bollen);
-        sequencerMode.valueProperty().setValue(SequencerMode.loop);
+        SpinnerValueFactory<SequencerMode> spfMode = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(SequencerMode.values()));
+        sequencerMode.setValueFactory(spfMode);
         sequencerMode.valueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSequencerMode(newValue);
         });
+
+
     }
 
     private void initNoise() {
@@ -557,35 +580,47 @@ public class SynthaxView implements Initializable {
     }
 
     private void initFilter() {
-        tglSwitchFilterNotch.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setNotchActive(newValue);
+        tglSwitchFilterHP.selectedProperty().addListener((v, oldValue, newValue) -> synthaxController.setHPActive(newValue));
+        tglSwitchFilterLP.selectedProperty().addListener((v, oldValue, newValue) -> synthaxController.setLPActive(newValue));
+        tglSwitchEQ1.selectedProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        tglSwitchEQ2.selectedProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        tglSwitchEQ3.selectedProperty().addListener((v, oldValue, newValue) -> {
+
         });
 
-        tglSwitchFilterHP.selectedProperty().addListener(((v, oldValue, newValue) -> synthaxController.setHPActive(newValue)));
-        tglSwitchFilterLP.selectedProperty().addListener(((v, oldValue, newValue) -> synthaxController.setLPActive(newValue)));
+        for (int i = 0; i < EQGain.length; i++) {
+            int finalI = i;
+            KnobBehaviorDetune b = new KnobBehaviorDetune(EQGain[i]);
+            EQGain[i].setOnMouseDragged(b);
+            b.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+            });
+        }
+        for (int i = 0; i < EQRange.length; i++) {
+            int finalI = i;
+            KnobBehavior b = new KnobBehavior(EQRange[i]);
+            EQGain[i].setOnMouseDragged(b);
+            b.knobValueProperty().addListener((v, oldValue, newValue) -> {
+                System.out.println("hej");
+            });
+        }
+        for (int i = 0; i < EQFreq.length; i++) {
+            int finalI = i;
+            KnobBehavior b = new KnobBehavior(EQFreq[i]);
+            EQFreq[i].setOnMouseDragged(b);
+            b.knobValueProperty().addListener((v, oldValue, newValue) -> {
+
+            });
+        }
 
         KnobBehavior bKnobFilterHPCutoff = new KnobBehavior(knobFilterHPCutoff);
         knobFilterHPCutoff.setOnMouseDragged(bKnobFilterHPCutoff);
         bKnobFilterHPCutoff.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setHPCutoff(newValue.floatValue());
-        });
-
-        KnobBehavior bKnobFilterHPSlope = new KnobBehavior(knobFilterHPSlope);
-        knobFilterHPSlope.setOnMouseDragged(bKnobFilterHPSlope);
-        bKnobFilterHPSlope.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setHPSlope(newValue.floatValue());
-        });
-
-        KnobBehavior bKnobFilterFreq = new KnobBehavior(knobFilterFreq);
-        knobFilterFreq.setOnMouseDragged(bKnobFilterFreq);
-        bKnobFilterFreq.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setNotchFrequency(newValue.floatValue());
-        });
-
-        KnobBehavior bKnobFilterRange = new KnobBehavior(knobFilterRange);
-        knobFilterRange.setOnMouseDragged(bKnobFilterRange);
-        bKnobFilterRange.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setNotchRange(newValue.floatValue());
         });
 
         KnobBehavior bKnobFilterLPCutoff = new KnobBehavior(knobFilterLPCutoff);
@@ -594,11 +629,7 @@ public class SynthaxView implements Initializable {
             synthaxController.setLPCutoff(newValue.floatValue());
         });
 
-        KnobBehavior bKnobFilterLPSlope = new KnobBehavior(knobFilterLPSlope);
-        knobFilterLPSlope.setOnMouseDragged(bKnobFilterLPSlope);
-        bKnobFilterLPSlope.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setLPSlope(newValue.floatValue());
-        });
+
     }
 
     private void initADSR() {
@@ -636,7 +667,7 @@ public class SynthaxView implements Initializable {
             onReleaseDrag();
         });
     }
-    private void initKeyStatus() {
+    private void initKeyHash() {
         keyStatus.put(KeyCode.A, new AtomicBoolean(false));
         keyStatus.put(KeyCode.W, new AtomicBoolean(false));
         keyStatus.put(KeyCode.S, new AtomicBoolean(false));

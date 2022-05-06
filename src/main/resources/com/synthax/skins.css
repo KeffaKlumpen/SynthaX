@@ -49,21 +49,6 @@
     -fx-max-height: 30px;
 }
 
-.slider .thumb {
-    -fx-background-image: url("Images/slider2dw.png");
-    -fx-background-size: 28px, 15px;
-    -fx-pref-width: 28px;
-    -fx-pref-height: 15px;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-}
-
-#masterSlider .thumb {
-        -fx-background-size: 60px, 30px;
-        -fx-pref-width: 60px;
-        -fx-pref-height: 30px;
-}
-
 .bigKnob:focused {
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
         -fx-background-insets: 0, 1, 2;
@@ -83,15 +68,38 @@
     -fx-max-height: 40px;
 }
 
+.slider .thumb {
+    -fx-background-image: url("Images/slider2dw.png");
+    -fx-background-size: 28px, 15px;
+    -fx-pref-width: 28px;
+    -fx-pref-height: 15px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#masterSlider .thumb {
+        -fx-background-size: 40px, 20px;
+        -fx-pref-width: 40px;
+        -fx-pref-height: 20px;
+}
+
 .spinner .increment-arrow-button,
 .spinner .decrement-arrow-button,
-.plainButton,
 .toggleOsc,
 .toggle-switch .thumb-area {
     -fx-background-color: #78736b;
     -fx-text-fill: #d6d1c9;
     -fx-font-family: "Handel Gothic";
     -fx-font-size: 14;
+}
+
+.plainButton {
+    -fx-background-color: #78736b;
+    -fx-text-fill: #d6d1c9;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 14;
+    -fx-body-color: #78736b;
+    -fx-background-insets: 0, 0, 0;
 }
 
 #btnStartStop {
@@ -114,6 +122,7 @@
     -fx-text-fill: #d6d1c9;
     -fx-font-family: "Handel Gothic";
     -fx-font-size: 10;
+    -fx-background-insets: 0, 0, 0;
 }
 
 .toggleSeq:selected {
@@ -124,6 +133,7 @@
 .titled-pane > .title {
     -fx-background-color: #a6a097;
     -fx-text-fill: black;
+    -fx-background-insets: 0, 0, 0;
 }
 
 .spinner,
@@ -170,12 +180,18 @@
     -fx-text-fill: #000000;
     -fx-font-size: 10px;
 }
+.smallLabel2 {
+    -fx-font-family: "Handel Gothic";
+    -fx-text-fill: #000000;
+    -fx-font-size: 12px;
+}
 
 .filterLabel {
     -fx-font-family: "Handel Gothic";
     -fx-text-fill: #000000;
     -fx-font-size: 14px;
 }
+
 
 .lightLabel {
     -fx-font-family: "Handel Gothic";
@@ -193,6 +209,7 @@
 #oscBox {
     -fx-background-color: transparent;
 }
+
 .logo {
     -fx-font-family: "Rocket Rinder";
     -fx-text-fill: #f78000;
