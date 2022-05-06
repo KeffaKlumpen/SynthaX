@@ -189,18 +189,13 @@ public class SynthaxView implements Initializable {
     }
     @FXML
     public void randomizeSequencer() {
-        Random random  = new Random();
-        for (int i = 0; i < knobBehaviorSeqFreqs.length; i++) {
-            int onOff = random.nextInt(2);
-            sequencerSteps[i].setSelected(onOff == 0);
-            int out = 0;
-            for (int j = 0; j < 4; j++) {
-                out += random.nextInt(88);
-            }
-            out /= 4;
-            out += 21;
-            knobBehaviorSeqFreqs[i].setNote(MidiNote.values()[out]);
-        }
+        synthaxController.randomize(sequencerSteps.length);
+    }
+    public void setSequencerStepsOnOff(boolean on, int index) {
+        sequencerSteps[index].setSelected(on);
+    }
+    public void setSequencerFreqKnobs(MidiNote note, int index) {
+        knobBehaviorSeqFreqs[index].setNote(note);
     }
 
     @FXML
