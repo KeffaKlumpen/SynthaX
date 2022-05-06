@@ -44,7 +44,6 @@ public class KnobBehavior implements EventHandler<MouseEvent> {
             knobValue.setValue(dd.floatValue());
             knob.setRotate(knob.getRotate() - 3);
         }
-        System.out.println(knobValue.getValue());
         lastMousePos = mousePos;
     }
 

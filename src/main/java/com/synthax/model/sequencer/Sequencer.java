@@ -2,8 +2,10 @@ package com.synthax.model.sequencer;
 
 import com.synthax.controller.SynthaxController;
 import com.synthax.model.enums.MidiNote;
+import com.synthax.model.enums.SequencerMode;
 import com.synthax.util.BasicMath;
-import com.synthax.view.SynthaxView;
+
+import java.util.Random;
 
 public class Sequencer implements Runnable {
     private SynthaxController synthaxController;
@@ -96,19 +98,35 @@ public class Sequencer implements Runnable {
             }
             synthaxController.setSeqButtonGray(count);
             steps[count].stop();
-            if (sequencerMode == SequencerMode.loop) {
-                count = (count + 1) % nSteps;
-            } else {
-                if (count == 0) {
-                    bollenMode = true;
-                } else if (count == nSteps-1) {
-                    bollenMode = false;
+            switch (sequencerMode) {
+                case loop -> {
+                    count = (count + 1) % nSteps;
                 }
-                if (bollenMode) {
-                    count++;
-                } else {
+                case bollen -> {
+                    if (count == 0) {
+                        bollenMode = true;
+                    } else if (count == nSteps-1) {
+                        bollenMode = false;
+                    }
+                    if (bollenMode) {
+                        count++;
+                    } else {
+                        count--;
+                    }
+                }
+                case reverse -> {
                     count--;
+                    if (count == -1) {
+                        count = 15;
+                    }
                 }
+                case random -> {
+                    Random random = new Random();
+                    count = random.nextInt(16);
+                }
+            }
+            if (count == 16) {
+                count = 0;
             }
         }
     }
