@@ -489,18 +489,18 @@ public class SynthaxView implements Initializable {
         sequencerMode.valueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSequencerMode(newValue);
         });
-        /*
-        cBoXRandomFreq.selectedProperty().addListener((v, oldValue, newValue) -> {
 
+        cBoXRandomFreq.selectedProperty().addListener((v, oldValue, newValue) -> {
+            synthaxController.setRandomFreq(newValue);
         });
         cBoxRandomGain.selectedProperty().addListener((v, oldValue, newValue) -> {
-
+            synthaxController.setRandomGain(newValue);
         });
         cBoxRandomOnOff.selectedProperty().addListener((v, oldValue, newValue) -> {
-
+            synthaxController.setRandomOnOff(newValue);
         });
 
-         */
+
 
 
     }

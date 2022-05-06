@@ -223,6 +223,18 @@ public class SynthaxController {
         synthaxView.setSeqButtonGray(i);
     }
 
+    public void setRandomFreq(boolean randomFreq) {
+        this.randomFreq = randomFreq;
+    }
+
+    public void setRandomGain(boolean randomGain) {
+        this.randomGain = randomGain;
+    }
+
+    public void setRandomOnOff(boolean randomOnOff) {
+        this.randomOnOff = randomOnOff;
+    }
+
     public void randomize(int length) {
         if (randomFreq) {
             randomizeFreq(length);
