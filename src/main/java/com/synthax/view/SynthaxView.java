@@ -273,7 +273,7 @@ public class SynthaxView implements Initializable {
             for (int i = 0; i < arrKnobBehaviorGain.length; i++) {
                 arrKnobBehaviorDetune[i].resetKnob();
                 arrKnobBehaviorGain[i].setValueRotation(1f);
-                arrSeqStepsOnOff[i].setSelected((i <= 4) || (i == 7 || i == 9));
+                arrSeqStepsOnOff[i].setSelected((i <= 4) || (i == 7 || i == 10));
             }
             arrKnobBehaviorFreq[0].setNote(MidiNote.A3);
             arrKnobBehaviorFreq[1].setNote(MidiNote.B3);
@@ -281,7 +281,7 @@ public class SynthaxView implements Initializable {
             arrKnobBehaviorFreq[3].setNote(MidiNote.B3);
             arrKnobBehaviorFreq[4].setNote(MidiNote.Gb5);
             arrKnobBehaviorFreq[7].setNote(MidiNote.Gb5);
-            arrKnobBehaviorFreq[9].setNote(MidiNote.E5);
+            arrKnobBehaviorFreq[10].setNote(MidiNote.E5);
             easterCounter = 0;
         }
         easterCounter++;

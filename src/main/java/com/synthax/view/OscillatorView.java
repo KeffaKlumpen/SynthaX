@@ -214,7 +214,7 @@ public class OscillatorView implements Initializable {
     private void initGainKnob() {
         KnobBehavior behaviorKnobGain = new KnobBehavior(knobGain);
         knobGain.setOnMouseDragged(behaviorKnobGain);
-        behaviorKnobGain.setValueRotation(0, 0.5f);
+        behaviorKnobGain.setValueRotation(0.5f);
         behaviorKnobGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             oscillatorController.setGain(newValue.floatValue());
         });
