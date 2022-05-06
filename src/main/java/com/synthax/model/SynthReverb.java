@@ -9,22 +9,20 @@ import net.beadsproject.beads.ugens.Reverb;
 public class SynthReverb {
 
     private final Reverb reverb;
-    private final Glide wetGlide;
-    private final Glide dryGlide;
+    private final Glide amountGlide;
     private final Gain output;
-    private float cachedDryWetValue;
+    private float cachedAmountValue;
     private boolean isActive = false;
 
     public SynthReverb(UGen filterOutput) {
 
         reverb = new Reverb(AudioContext.getDefaultContext(), 1);
 
-        wetGlide = new Glide(AudioContext.getDefaultContext(), 0.0f, 20f);
-        Gain wetGain = new Gain(AudioContext.getDefaultContext(), 1, wetGlide);
-        wetGain.addInput(reverb);
+        amountGlide = new Glide(AudioContext.getDefaultContext(), 0.0f, 20f);
+        Gain amountGain = new Gain(AudioContext.getDefaultContext(), 1, amountGlide);
+        amountGain.addInput(reverb);
 
-        dryGlide = new Glide(AudioContext.getDefaultContext(), 1.0f, 20f);
-        Gain dryGain = new Gain(AudioContext.getDefaultContext(), 1, dryGlide);
+        Gain dryGain = new Gain(AudioContext.getDefaultContext(), 1, 1.0f);
         dryGain.addInput(filterOutput);
 
         // this controls the size of the reverb
@@ -34,7 +32,7 @@ public class SynthReverb {
         reverb.addInput(filterOutput);
 
         output = new Gain(AudioContext.getDefaultContext(), 1, 1f);
-        output.addInput(wetGain);
+        output.addInput(amountGain);
         output.addInput(dryGain);
     }
 
@@ -50,25 +48,22 @@ public class SynthReverb {
         reverb.setDamping(tone);
     }
 
-    public void setReverbDryWet(float dryWet) {
+    public void setReverbAmount(float amount) {
         if (isActive) {
-            wetGlide.setValue(dryWet);
-            dryGlide.setValue(1f - dryWet);
+            amountGlide.setValue(amount);
         } else {
-            cachedDryWetValue = dryWet;
+            cachedAmountValue = amount;
         }
     }
 
     public void setActive(boolean active) {
-        System.out.println(active);
         isActive = active;
 
         if (active) {
-            setReverbDryWet(cachedDryWetValue);
+            setReverbAmount(cachedAmountValue);
         } else {
-            cachedDryWetValue = wetGlide.getCurrentValue();
-            wetGlide.setValue(0.0f);
-            dryGlide.setValue(1.0f);
+            cachedAmountValue = amountGlide.getCurrentValue();
+            amountGlide.setValue(0.0f);
         }
     }
 }

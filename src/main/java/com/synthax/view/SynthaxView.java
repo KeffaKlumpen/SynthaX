@@ -33,7 +33,6 @@ import org.controlsfx.control.ToggleSwitch;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -57,7 +56,7 @@ public class SynthaxView implements Initializable {
     @FXML private ToggleSwitch tglSwitchDelay;
     @FXML private Button knobReverbSize;
     @FXML private Button knobReverbTone;
-    @FXML private Button knobReverbDW;
+    @FXML private Button knobReverbAmount;
     @FXML private ToggleSwitch tglSwitchReverb;
     @FXML private Button knobLFODepth;
     @FXML private Button knobLFORate;
@@ -548,10 +547,10 @@ public class SynthaxView implements Initializable {
             synthaxController.setReverbTone(newValue.floatValue());
         });
 
-        KnobBehavior bKnobReverbDW = new KnobBehavior(knobReverbDW);
-        knobReverbDW.setOnMouseDragged(bKnobReverbDW);
-        bKnobReverbDW.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setReverbDryWet(newValue.floatValue());
+        KnobBehavior bKnobReverbAmount = new KnobBehavior(knobReverbAmount);
+        knobReverbAmount.setOnMouseDragged(bKnobReverbAmount);
+        bKnobReverbAmount.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            synthaxController.setReverbAmount(newValue.floatValue());
         });
     }
 

@@ -286,8 +286,8 @@ public class SynthaxController {
         reverb.setActive(active);
     }
 
-    public void setReverbDryWet(float dryWet) {
-        reverb.setReverbDryWet(dryWet);
+    public void setReverbAmount(float amount) {
+        reverb.setReverbAmount(amount);
     }
 
     public void setReverbSize(float size) {
