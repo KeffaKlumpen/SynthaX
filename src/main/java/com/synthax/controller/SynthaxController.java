@@ -3,6 +3,7 @@ package com.synthax.controller;
 import com.synthax.model.EQFilters;
 import com.synthax.model.SynthLFO;
 import com.synthax.model.enums.MidiNote;
+import com.synthax.model.enums.Waveforms;
 import com.synthax.model.sequencer.Sequencer;
 import com.synthax.model.sequencer.SequencerMode;
 import com.synthax.view.SynthaxView;
@@ -34,14 +35,16 @@ public class SynthaxController {
         masterGainGlide = new Glide(ac, 0.5f, 50);
         masterGain = new Gain(ac, 1, masterGainGlide);
 
-        synthLFO = new SynthLFO();
         //oscmanager.getoutput.addinput(lfo)
 
         oscillatorManager = OscillatorManager.getInstance();
         Gain oscCombined = oscillatorManager.getFinalOutput();
 
+        synthLFO = new SynthLFO();
+        synthLFO.setInput(oscCombined);
+
         filters = new EQFilters();
-        filters.addInput(oscCombined);
+        filters.addInput(synthLFO.getOutput());
 
         sequencer = new Sequencer(this);
 
@@ -156,6 +159,24 @@ public class SynthaxController {
 
     public void setLPActive(boolean newActive) {
         filters.setLPActive(newActive);
+    }
+    //endregion
+
+    //region LFO (click to open/collapse)
+    public void setLFODepth(float depth) {
+        synthLFO.setDepth(depth);
+    }
+
+    public void setLFORate(float rate) {
+        synthLFO.setRate(rate);
+    }
+
+    public void setLFOWaveform(Waveforms waveform) {
+        synthLFO.setWaveform(waveform);
+    }
+
+    public void setLFOActive(boolean newActive) {
+        synthLFO.setActive(newActive);
     }
     //endregion
 

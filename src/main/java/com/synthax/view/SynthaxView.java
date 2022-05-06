@@ -11,6 +11,7 @@ import com.synthax.model.ADSRValues;
 import com.synthax.model.controls.KnobBehaviorSeqFreq;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.sequencer.SequencerMode;
+import com.synthax.model.enums.Waveforms;
 import com.synthax.util.MidiHelpers;
 
 
@@ -387,7 +388,6 @@ public class SynthaxView implements Initializable {
     //endregion
 
     //region initialize methods (click to open/collapse)
-
     private void initSS() {
         for (int i = 0; i < sequencerFreqKnobs.length; i++) {
             int finali = i;
@@ -533,25 +533,25 @@ public class SynthaxView implements Initializable {
 
     private void initLFO() {
         tglSwitchLFO.selectedProperty().addListener((v, oldValue, newValue) -> {
-
+            synthaxController.setLFOActive(newValue.booleanValue());
         });
 
         KnobBehavior bKnobLFODepth = new KnobBehavior(knobLFODepth);
         knobLFODepth.setOnMouseDragged(bKnobLFODepth);
         bKnobLFODepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setLFODepth(newValue.floatValue());
         });
 
         KnobBehavior bKnobLFORate = new KnobBehavior(knobLFORate);
         knobLFORate.setOnMouseDragged(bKnobLFORate);
         bKnobLFORate.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setLFORate(newValue.floatValue());
         });
 
         KnobBehaviorWave bKnobLFOWaveform = new KnobBehaviorWave(knobLFOWaveForm);
         knobLFOWaveForm.setOnMouseDragged(bKnobLFOWaveform);
         bKnobLFOWaveform.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setLFOWaveform(Waveforms.values()[newValue.intValue()]);
         });
     }
 
