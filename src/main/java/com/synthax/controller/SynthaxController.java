@@ -21,6 +21,7 @@ public class SynthaxController {
     private final OscillatorManager oscillatorManager;
     private final EQFilters filters;
     private final Sequencer sequencer;
+    private SynthReverb reverb;
     //private final Delay delay;
 
     /**
@@ -49,7 +50,7 @@ public class SynthaxController {
         filters = new EQFilters();
         filters.addInput(synthLFO.getOutput());
 
-        SynthReverb reverb = new SynthReverb(filters.getOutput());
+        reverb = new SynthReverb(filters.getOutput());
         masterGain.addInput(reverb.getOutput());
 
         // Send to audio-device
@@ -261,6 +262,26 @@ public class SynthaxController {
     }
 
     //endregion
+
+    //region reverb-GUI-forwarding (click to open/collapse)
+
+    public void setReverbActive(boolean active) {
+        reverb.setActive(active);
+    }
+
+    public void setReverbDryWet(float dryWet) {
+        reverb.setReverbDryWet(dryWet);
+    }
+
+    public void setReverbSize(float size) {
+        reverb.setReverbSize(size);
+    }
+
+    public void setReverbTone(float tone) {
+        reverb.setReverbTone(tone);
+    }
+
+    // endregion
 
     public void setMasterGain(float gain) {
         masterGainGlide.setValue(gain);

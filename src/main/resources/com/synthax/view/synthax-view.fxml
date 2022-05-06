@@ -146,7 +146,7 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobReverbDecay" layoutX="88.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobReverbTone" layoutX="88.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Label layoutX="87.0" layoutY="47.0" styleClass="smallLabel" text="Decay">
                <font>
                   <Font name="Arial" size="10.0" />

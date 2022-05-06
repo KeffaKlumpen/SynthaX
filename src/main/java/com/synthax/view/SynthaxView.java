@@ -55,7 +55,7 @@ public class SynthaxView implements Initializable {
     @FXML private Button knobDelayLevel;
     @FXML private ToggleSwitch tglSwitchDelay;
     @FXML private Button knobReverbSize;
-    @FXML private Button knobReverbDecay;
+    @FXML private Button knobReverbTone;
     @FXML private Button knobReverbDW;
     @FXML private ToggleSwitch tglSwitchReverb;
     @FXML private Button knobLFODepth;
@@ -509,25 +509,25 @@ public class SynthaxView implements Initializable {
 
     private void initReverb() {
         tglSwitchReverb.selectedProperty().addListener((v, oldValue, newValue) -> {
-
+            synthaxController.setReverbActive(newValue);
         });
 
         KnobBehavior bKnobReverbSize = new KnobBehavior(knobReverbSize);
         knobReverbSize.setOnMouseDragged(bKnobReverbSize);
         bKnobReverbSize.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setReverbSize(newValue.floatValue());
         });
 
-        KnobBehavior bKnobReverbDecay = new KnobBehavior(knobReverbDecay);
-        knobReverbDecay.setOnMouseDragged(bKnobReverbDecay);
+        KnobBehavior bKnobReverbDecay = new KnobBehavior(knobReverbTone);
+        knobReverbTone.setOnMouseDragged(bKnobReverbDecay);
         bKnobReverbDecay.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setReverbTone(newValue.floatValue());
         });
 
         KnobBehavior bKnobReverbDW = new KnobBehavior(knobReverbDW);
         knobReverbDW.setOnMouseDragged(bKnobReverbDW);
         bKnobReverbDW.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //code here
+            synthaxController.setReverbDryWet(newValue.floatValue());
         });
     }
 

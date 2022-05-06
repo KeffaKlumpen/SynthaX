@@ -23,7 +23,7 @@ public class SynthReverb {
         Gain wetGain = new Gain(AudioContext.getDefaultContext(), 1, wetGlide);
         wetGain.addInput(reverb);
 
-        dryGlide = new Glide(AudioContext.getDefaultContext(), 0.0f, 20f);
+        dryGlide = new Glide(AudioContext.getDefaultContext(), 1.0f, 20f);
         Gain dryGain = new Gain(AudioContext.getDefaultContext(), 1, dryGlide);
         dryGain.addInput(filterOutput);
 
@@ -60,12 +60,15 @@ public class SynthReverb {
     }
 
     public void setActive(boolean active) {
+        System.out.println(active);
         isActive = active;
 
         if (active) {
             setReverbDryWet(cachedDryWetValue);
         } else {
             cachedDryWetValue = wetGlide.getCurrentValue();
+            wetGlide.setValue(0.0f);
+            dryGlide.setValue(1.0f);
         }
     }
 }
