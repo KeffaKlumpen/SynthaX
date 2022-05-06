@@ -180,12 +180,18 @@
     -fx-text-fill: #000000;
     -fx-font-size: 10px;
 }
+.smallLabel2 {
+    -fx-font-family: "Handel Gothic";
+    -fx-text-fill: #000000;
+    -fx-font-size: 12px;
+}
 
 .filterLabel {
     -fx-font-family: "Handel Gothic";
     -fx-text-fill: #000000;
     -fx-font-size: 14px;
 }
+
 
 .lightLabel {
     -fx-font-family: "Handel Gothic";

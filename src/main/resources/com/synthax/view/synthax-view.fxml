@@ -541,17 +541,17 @@
             <ToggleButton fx:id="btnStepOnOff13" layoutX="403.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
             <ToggleButton fx:id="btnStepOnOff14" layoutX="470.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
             <ToggleButton fx:id="btnStepOnOff15" layoutX="537.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ImageView fitHeight="88.0" fitWidth="90.0" layoutX="647.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="88.0" fitWidth="90.0" layoutX="647.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSSRate" layoutX="671.0" layoutY="194.0" maxWidth="41.0" minHeight="38.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="41.0" styleClass="bigKnob" stylesheets="@../skins.css" />
-            <Button id="btnStartStop" fx:id="SSStartStop" layoutX="600.0" layoutY="51.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="114.0" styleClass="plainButton" text="Start" textAlignment="CENTER" wrapText="true">
+            <Button fx:id="knobSSRate" layoutX="671.0" layoutY="197.0" maxWidth="41.0" minHeight="38.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="41.0" styleClass="bigKnob" stylesheets="@../skins.css" />
+            <Button id="btnStartStop" fx:id="SSStartStop" layoutX="591.0" layoutY="51.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" styleClass="plainButton" text="Start" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="39.0" />
                </font></Button>
-            <Label layoutX="674.0" layoutY="165.0" styleClass="filterLabel" text="Rate">
+            <Label layoutX="674.0" layoutY="168.0" styleClass="filterLabel" text="Rate">
                <font>
                   <Font name="Handel Gothic" size="14.0" />
                </font></Label>
@@ -579,23 +579,23 @@
             <Line endX="-1.0" endY="89.32672119140625" layoutX="385.0" layoutY="260.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
             <Line endX="-1.0" endY="89.32672119140625" layoutX="452.0" layoutY="260.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
             <Line endX="-1.0" endY="89.32672119140625" layoutX="519.0" layoutY="260.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
-            <Spinner fx:id="spinnerSteps" layoutX="591.0" layoutY="192.0" prefHeight="32.0" prefWidth="60.0" />
-            <Label layoutX="600.0" layoutY="165.0" styleClass="filterLabel" text="Steps" />
-            <Label layoutX="639.0" layoutY="104.0" styleClass="filterLabel" text="Mode" />
-            <Spinner fx:id="sequencerMode" layoutX="608.0" layoutY="124.0" prefHeight="25.0" prefWidth="100.0" />
-            <Button fx:id="randomize" layoutX="609.0" layoutY="257.0" mnemonicParsing="false" onAction="#randomizeSequencer" prefHeight="25.0" prefWidth="100.0" styleClass="plainButton" text="Randomize" wrapText="true" />
-            <CheckBox layoutX="618.0" layoutY="303.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" text="Freq">
+            <Spinner fx:id="spinnerSteps" layoutX="591.0" layoutY="195.0" prefHeight="32.0" prefWidth="60.0" />
+            <Label layoutX="600.0" layoutY="168.0" styleClass="filterLabel" text="Steps" />
+            <Label layoutX="629.0" layoutY="104.0" styleClass="filterLabel" text="Mode" />
+            <Spinner fx:id="sequencerMode" layoutX="590.0" layoutY="124.0" prefHeight="25.0" prefWidth="123.0" />
+            <Button fx:id="randomize" layoutX="591.0" layoutY="257.0" mnemonicParsing="false" onAction="#randomizeSequencer" prefHeight="25.0" prefWidth="123.0" styleClass="plainButton" text="Randomize" wrapText="true" />
+            <CheckBox layoutX="594.0" layoutY="303.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" text="Freq">
+               <font>
+                  <Font name="Handel Gothic" size="10.0" />
+               </font>
+            </CheckBox>
+            <Label layoutX="594.0" layoutY="289.0" styleClass="smallLabel2" text="Include:" />
+            <CheckBox layoutX="594.0" layoutY="317.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" text="Gain">
                <font>
                   <Font size="10.0" />
                </font>
             </CheckBox>
-            <Label layoutX="618.0" layoutY="289.0" styleClass="smallLabel" text="Include:" />
-            <CheckBox layoutX="618.0" layoutY="317.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" text="Gain">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </CheckBox>
-            <CheckBox layoutX="618.0" layoutY="331.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" text="On/Off">
+            <CheckBox layoutX="594.0" layoutY="331.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" text="On/Off">
                <font>
                   <Font size="10.0" />
                </font>
