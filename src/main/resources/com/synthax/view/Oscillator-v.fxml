@@ -40,8 +40,8 @@
          <children>
             <AnchorPane prefHeight="121.0" prefWidth="245.0">
                <children>
-                  <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="4.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="202.0" />
-                  <Line endX="131.9237518310547" layoutX="98.0" layoutY="11.0" startX="-94.49999237060547" startY="7.62939453125E-6" stroke="#bfbbb4" strokeWidth="3.0" />
+                  <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="4.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="82.0" />
+                  <Line endX="-2.24871826171875" endY="7.62939453125E-6" layoutX="98.0" layoutY="11.0" startX="-94.49999237060547" startY="7.62939453125E-6" stroke="#bfbbb4" strokeWidth="15.0" />
                   <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="6.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="77.0" />
                   <Label layoutX="9.0" layoutY="1.0" styleClass="bigLabel" text="Controls">
                      <font>
@@ -60,7 +60,7 @@
                   </ImageView>
                   <Button fx:id="knobWave" layoutX="22.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
                   <Button fx:id="knobGain" layoutX="77.0" layoutY="59.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="35.0" styleClass="knob" stylesheets="@../skins.css" />
-                  <Spinner fx:id="octaveSpinner" layoutX="179.0" layoutY="59.0" prefHeight="26.0" prefWidth="66.0" />
+                  <Spinner fx:id="octaveSpinner" layoutX="179.0" layoutY="59.0" prefHeight="31.0" prefWidth="65.0" />
                   <Label layoutX="10.0" layoutY="35.0" prefHeight="16.0" prefWidth="54.0" styleClass="smallLabel" text="Waveform">
                      <font>
                         <Font name="Arial" size="10.0" />
@@ -91,10 +91,10 @@
             </AnchorPane>
             <AnchorPane prefHeight="110.0" prefWidth="136.0">
                <children>
-                  <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="19.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="91.0" />
-                  <Line endX="7.67071533203125" endY="-7.62939453125E-6" layoutX="105.0" layoutY="11.0" startX="-89.88714599609375" startY="-7.62939453125E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="21.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="42.0" />
-                  <Label layoutX="24.0" layoutY="1.0" styleClass="bigLabel" text="LFO">
+                  <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="23.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="47.0" />
+                  <Line endX="7.67071533203125" endY="-7.62939453125E-6" layoutX="109.0" layoutY="11.0" startX="-89.88714599609375" startY="-7.62939453125E-6" stroke="#bfbbb4" strokeWidth="15.0" />
+                  <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="25.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="42.0" />
+                  <Label layoutX="28.0" layoutY="1.0" styleClass="bigLabel" text="LFO">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -121,7 +121,7 @@
                         <Font name="Arial" size="10.0" />
                      </font>
                   </Label>
-                  <Line endX="-100.0" endY="81.0" layoutX="113.0" layoutY="25.0" startX="-100.0" startY="5.0" stroke="#78736b" />
+                  <Line endX="-100.0" endY="81.0" layoutX="113.0" layoutY="25.0" startX="-100.0" startY="-21.500011444091797" stroke="#78736b" />
                </children>
             </AnchorPane>
          </children></HBox>

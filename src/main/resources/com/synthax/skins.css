@@ -93,6 +93,22 @@
     -fx-font-size: 14;
 }
 
+.check-box {
+    -fx-text-fill: black;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 12;
+
+}
+
+.check-box .box {
+    -fx-background-color: #78736b;
+    -fx-background-insets: 0, 0, 0;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #f78000;
+}
+
 .plainButton {
     -fx-background-color: #78736b;
     -fx-text-fill: #d6d1c9;
@@ -100,6 +116,16 @@
     -fx-font-size: 14;
     -fx-body-color: #78736b;
     -fx-background-insets: 0, 0, 0;
+}
+
+.resetButton {
+    -fx-background-color: #78736b;
+    -fx-text-fill: #d6d1c9;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 12;
+    -fx-body-color: #78736b;
+    -fx-background-insets: 0, 0, 0;
+    -fx-padding: 2px;
 }
 
 #btnStartStop {

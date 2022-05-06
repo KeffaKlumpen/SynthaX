@@ -5,6 +5,7 @@ import com.synthax.util.BasicMath;
 
 public class SequencerStep {
     private MidiNote midiNote = MidiNote.F4;
+    private MidiNote oldNote = MidiNote.F4;
     private float detuneCent = 0;
     private int velocity = 127;
     private boolean isOn;
@@ -27,6 +28,7 @@ public class SequencerStep {
     }
 
     public void setMidiNote(MidiNote midiNote) {
+        stop();
         this.midiNote = midiNote;
     }
 
