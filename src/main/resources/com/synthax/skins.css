@@ -99,7 +99,7 @@
     -fx-font-family: "Handel Gothic";
     -fx-font-size: 14;
     -fx-body-color: #78736b;
-    -fx-background-insets: 2, 2, 2;
+    -fx-background-insets: 0, 0, 0;
 }
 
 #btnStartStop {
@@ -122,6 +122,7 @@
     -fx-text-fill: #d6d1c9;
     -fx-font-family: "Handel Gothic";
     -fx-font-size: 10;
+    -fx-background-insets: 0, 0, 0;
 }
 
 .toggleSeq:selected {
@@ -132,7 +133,7 @@
 .titled-pane > .title {
     -fx-background-color: #a6a097;
     -fx-text-fill: black;
-    -fx-body-color: #78736b;
+    -fx-background-insets: 0, 0, 0;
 }
 
 .spinner,

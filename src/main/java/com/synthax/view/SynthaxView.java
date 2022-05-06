@@ -458,14 +458,12 @@ public class SynthaxView implements Initializable {
                 SSStartStop.setStyle("-fx-text-fill: #d6d1c9");
             }
         });
-        spinnerSteps.setEditable(true);
         SpinnerValueFactory<Integer> spf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,16,16);
         spinnerSteps.setValueFactory(spf);
         spinnerSteps.valueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqNSteps(newValue);
         });
 
-        sequencerMode.setEditable(true);
         SpinnerValueFactory<SequencerMode> spfMode = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(SequencerMode.values()));
         sequencerMode.setValueFactory(spfMode);
         sequencerMode.valueProperty().addListener((v, oldValue, newValue) -> {
