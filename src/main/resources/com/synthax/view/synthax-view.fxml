@@ -583,7 +583,7 @@
             <Label layoutX="600.0" layoutY="162.0" styleClass="filterLabel" text="Steps" />
             <Label layoutX="629.0" layoutY="100.0" styleClass="filterLabel" text="Mode" />
             <Spinner fx:id="sequencerMode" layoutX="590.0" layoutY="122.0" prefHeight="25.0" prefWidth="123.0" />
-            <Button fx:id="randomize" layoutX="591.0" layoutY="248.0" mnemonicParsing="false" onAction="#randomizeSequencer" prefHeight="25.0" prefWidth="96.0" styleClass="plainButton" text="Randomize" wrapText="true" />
+            <Button fx:id="btnRandomize" layoutX="591.0" layoutY="248.0" mnemonicParsing="false" onAction="#onActionRandomize" prefHeight="25.0" prefWidth="96.0" styleClass="plainButton" text="Randomize" wrapText="true" />
             <CheckBox fx:id="cBoXRandomFreq" layoutX="594.0" layoutY="294.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" selected="true" text="Freq">
                <font>
                   <Font name="Handel Gothic" size="10.0" />
@@ -600,7 +600,7 @@
                   <Font size="10.0" />
                </font>
             </CheckBox>
-            <Button layoutX="672.0" layoutY="302.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="44.0" styleClass="resetButton" text="Reset knobs" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="btnResetKnobs" layoutX="672.0" layoutY="302.0" mnemonicParsing="false" onAction="#onActionResetKnobs" prefHeight="49.0" prefWidth="44.0" styleClass="resetButton" text="Reset knobs" textAlignment="CENTER" wrapText="true" />
          </children></AnchorPane>
       <AnchorPane layoutX="875.0" layoutY="12.0" prefHeight="345.0" prefWidth="391.0">
          <children>

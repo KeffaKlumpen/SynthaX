@@ -57,4 +57,10 @@ public class KnobBehaviorDetune implements EventHandler<MouseEvent> {
     public FloatProperty knobValueProperty() {
         return knobValue;
     }
+
+    public void resetKnob() {
+        knobValue.setValue(0);
+        knob.setRotate(0);
+        rotation = 0;
+    }
 }

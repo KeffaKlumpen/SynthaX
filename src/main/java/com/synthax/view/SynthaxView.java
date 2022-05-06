@@ -32,7 +32,6 @@ import org.controlsfx.control.ToggleSwitch;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -156,24 +155,25 @@ public class SynthaxView implements Initializable {
     @FXML private ToggleButton btnStepOnOff13;
     @FXML private ToggleButton btnStepOnOff14;
     @FXML private ToggleButton btnStepOnOff15;
-    @FXML private Button randomize;
+    @FXML private Button btnRandomize;
     @FXML private CheckBox cBoXRandomFreq;
     @FXML private CheckBox cBoxRandomOnOff;
     @FXML private CheckBox cBoxRandomGain;
+    @FXML private Button btnResetKnobs;
     //endregion
 
 
     private final HashMap<KeyCode, AtomicBoolean> keyStatus = new HashMap<>();
-    private Button[] sequencerFreqKnobs;
-    private Button[] sequencerDetuneKnobs;
-    private Button[] sequencerGainKnobs;
-    private Button[] EQGain;
-    private Button[] EQFreq;
-    private Button[] EQRange;
-    private ToggleButton[] sequencerSteps;
-    private KnobBehavior[] knobBehaviorsGain = new KnobBehavior[16];
-    private KnobBehaviorDetune[] knobBehaviorDetunes = new KnobBehaviorDetune[16];
-    private KnobBehaviorSeqFreq[] knobBehaviorSeqFreqs = new KnobBehaviorSeqFreq[16];
+    private Button[] arrSeqFreqKnobs;
+    private Button[] arrSeqDetuneKnobs;
+    private Button[] arrSeqGainKnobs;
+    private Button[] arrEQGainKnobs;
+    private Button[] arrEQFreqKnobs;
+    private Button[] arrEQRangeKnobs;
+    private ToggleButton[] arrSeqStepsOnOff;
+    private KnobBehavior[] arrKnobBehaviorGain = new KnobBehavior[16];
+    private KnobBehaviorDetune[] arrKnobBehaviorDetune = new KnobBehaviorDetune[16];
+    private KnobBehaviorSeqFreq[] arrKnobBehaviorFreq = new KnobBehaviorSeqFreq[16];
     private XYChart.Data<Number, Number> point1ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point2ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point3ADSR = new XYChart.Data<>();
@@ -184,24 +184,29 @@ public class SynthaxView implements Initializable {
     private final int attackMax = 3000;
     private final int decayMax = 1500;
     private final int releaseMax = 2000;
+    private int easterCounter = 0;
 
 
 
     public SynthaxView() {
         synthaxController = new SynthaxController(this);
     }
-    @FXML
-    public void randomizeSequencer() {
-        synthaxController.randomize(sequencerSteps.length);
-    }
+
     public void setSequencerStepsOnOff(boolean on, int index) {
-        sequencerSteps[index].setSelected(on);
+        arrSeqStepsOnOff[index].setSelected(on);
     }
+
     public void setSequencerFreqKnobs(MidiNote note, int index) {
-        knobBehaviorSeqFreqs[index].setNote(note);
+        arrKnobBehaviorFreq[index].setNote(note);
     }
+
     public void setSequencerGain(float value, int index) {
-        knobBehaviorsGain[index].setValueRotation(value);
+        arrKnobBehaviorGain[index].setValueRotation(value);
+    }
+
+    @FXML
+    public void onActionRandomize() {
+        synthaxController.randomize(arrSeqStepsOnOff.length);
     }
 
     @FXML
@@ -253,15 +258,43 @@ public class SynthaxView implements Initializable {
         }
     }
 
+    @FXML
+    public void onActionResetKnobs() {
+        if (easterCounter != 4) {
+            for (int i = 0; i < arrKnobBehaviorGain.length; i++) {
+                arrKnobBehaviorFreq[i].setNote(MidiNote.F4);
+                arrKnobBehaviorDetune[i].resetKnob();
+                arrKnobBehaviorGain[i].setValueRotation(1f);
+                arrSeqStepsOnOff[i].setSelected(false);
+            }
+        } else {
+            for (int i = 0; i < arrKnobBehaviorGain.length; i++) {
+                arrKnobBehaviorDetune[i].resetKnob();
+                arrKnobBehaviorGain[i].setValueRotation(1f);
+                arrSeqStepsOnOff[i].setSelected((i <= 4) || (i == 7 || i == 9));
+            }
+            arrKnobBehaviorFreq[0].setNote(MidiNote.A3);
+            arrKnobBehaviorFreq[1].setNote(MidiNote.B3);
+            arrKnobBehaviorFreq[2].setNote(MidiNote.D4);
+            arrKnobBehaviorFreq[3].setNote(MidiNote.B3);
+            arrKnobBehaviorFreq[4].setNote(MidiNote.Gb5);
+            arrKnobBehaviorFreq[7].setNote(MidiNote.Gb5);
+            arrKnobBehaviorFreq[9].setNote(MidiNote.E5);
+            easterCounter = 0;
+        }
+        easterCounter++;
+
+    }
+
     public void setSeqButtonOrange(int i) {
         Platform.runLater(() -> {
-            sequencerSteps[i].setStyle("-fx-background-color: #f78000");
+            arrSeqStepsOnOff[i].setStyle("-fx-background-color: #f78000");
         });
     }
 
     public void setSeqButtonGray(int i) {
         Platform.runLater(()-> {
-            sequencerSteps[i].setStyle("-fx-background-color: #78736b");
+            arrSeqStepsOnOff[i].setStyle("-fx-background-color: #78736b");
 
         });
     }
@@ -283,22 +316,22 @@ public class SynthaxView implements Initializable {
     }
 
     private void initFilterArrays() {
-        EQFreq = new Button[] {
+        arrEQFreqKnobs = new Button[] {
                 knobEQ1Freq,
                 knobEQ2Freq,
                 knobEQ3Freq};
-        EQGain = new Button[] {
+        arrEQGainKnobs = new Button[] {
                 knobEQ1Gain,
                 knobEQ2Gain,
                 knobEQ3Gain};
-        EQRange = new Button[] {
+        arrEQRangeKnobs = new Button[] {
                 knobEQ1Range,
                 knobEQ2Range,
                 knobEQ3Range};
     }
 
     private void initSequencerArrays() {
-        sequencerSteps = new ToggleButton[] {
+        arrSeqStepsOnOff = new ToggleButton[] {
                 btnStepOnOff0,
                 btnStepOnOff1,
                 btnStepOnOff2,
@@ -315,7 +348,7 @@ public class SynthaxView implements Initializable {
                 btnStepOnOff13,
                 btnStepOnOff14,
                 btnStepOnOff15};
-        sequencerFreqKnobs = new Button[] {
+        arrSeqFreqKnobs = new Button[] {
                 knobSS0freq,
                 knobSS1freq,
                 knobSS2freq,
@@ -332,7 +365,7 @@ public class SynthaxView implements Initializable {
                 knobSS13freq,
                 knobSS14freq,
                 knobSS15freq};
-        sequencerDetuneKnobs = new Button[] {
+        arrSeqDetuneKnobs = new Button[] {
                 knobSS0FineTune,
                 knobSS1FineTune,
                 knobSS2FineTune,
@@ -349,7 +382,7 @@ public class SynthaxView implements Initializable {
                 knobSS13FineTune,
                 knobSS14FineTune,
                 knobSS15FineTune};
-        sequencerGainKnobs = new Button[] {
+        arrSeqGainKnobs = new Button[] {
                 knobSS0Gain,
                 knobSS1Gain,
                 knobSS2Gain,
@@ -417,33 +450,33 @@ public class SynthaxView implements Initializable {
     //region initialize methods (click to open/collapse)
 
     private void initSS() {
-        for (int i = 0; i < sequencerFreqKnobs.length; i++) {
+        for (int i = 0; i < arrSeqFreqKnobs.length; i++) {
             int finali = i;
-            knobBehaviorSeqFreqs[i] = new KnobBehaviorSeqFreq(sequencerFreqKnobs[i], MidiNote.F4);
-            sequencerFreqKnobs[i].setOnMouseDragged(knobBehaviorSeqFreqs[i]);
-            knobBehaviorSeqFreqs[i].knobValueProperty().addListener((v, oldValue, newValue) -> {
-                if (sequencerSteps[finali].isSelected()) {
-                    sequencerSteps[finali].textProperty().setValue(knobBehaviorSeqFreqs[finali].getNoteName());
+            arrKnobBehaviorFreq[i] = new KnobBehaviorSeqFreq(arrSeqFreqKnobs[i], MidiNote.F4);
+            arrSeqFreqKnobs[i].setOnMouseDragged(arrKnobBehaviorFreq[i]);
+            arrKnobBehaviorFreq[i].knobValueProperty().addListener((v, oldValue, newValue) -> {
+                if (arrSeqStepsOnOff[finali].isSelected()) {
+                    arrSeqStepsOnOff[finali].textProperty().setValue(arrKnobBehaviorFreq[finali].getNoteName());
                 }
                 synthaxController.setSeqMidiNote(finali, MidiNote.values()[newValue.intValue()]);
             });
         }
 
-        for (int i = 0; i < sequencerDetuneKnobs.length; i++) {
+        for (int i = 0; i < arrSeqDetuneKnobs.length; i++) {
             int finali = i;
-            knobBehaviorDetunes[i] = new KnobBehaviorDetune(sequencerDetuneKnobs[i]);
-            sequencerDetuneKnobs[i].setOnMouseDragged(knobBehaviorDetunes[i]);
-            knobBehaviorDetunes[i].knobValueProperty().addListener((v, oldValue, newValue) -> {
+            arrKnobBehaviorDetune[i] = new KnobBehaviorDetune(arrSeqDetuneKnobs[i]);
+            arrSeqDetuneKnobs[i].setOnMouseDragged(arrKnobBehaviorDetune[i]);
+            arrKnobBehaviorDetune[i].knobValueProperty().addListener((v, oldValue, newValue) -> {
                 synthaxController.setSeqDetuneCent(finali, newValue.floatValue());
             });
         }
 
-        for (int i = 0; i < sequencerGainKnobs.length; i++) {
+        for (int i = 0; i < arrSeqGainKnobs.length; i++) {
             int finalI = i;
-            knobBehaviorsGain[i] = new KnobBehavior(sequencerGainKnobs[i]);
-            knobBehaviorsGain[i].setValueRotation(1.0f);
-            sequencerGainKnobs[i].setOnMouseDragged(knobBehaviorsGain[i]);
-            knobBehaviorsGain[i].knobValueProperty().addListener((v, oldValue, newValue) -> {
+            arrKnobBehaviorGain[i] = new KnobBehavior(arrSeqGainKnobs[i]);
+            arrKnobBehaviorGain[i].setValueRotation(1.0f);
+            arrSeqGainKnobs[i].setOnMouseDragged(arrKnobBehaviorGain[i]);
+            arrKnobBehaviorGain[i].knobValueProperty().addListener((v, oldValue, newValue) -> {
                 synthaxController.setSeqVelocity(finalI, newValue.floatValue());
             });
         }
@@ -455,13 +488,13 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqBPM(newValue.floatValue());
         });
 
-        for (int i = 0; i < sequencerSteps.length; i++) {
+        for (int i = 0; i < arrSeqStepsOnOff.length; i++) {
             int finalI = i;
-            sequencerSteps[i].selectedProperty().addListener((v, oldValue, newValue) -> {
+            arrSeqStepsOnOff[i].selectedProperty().addListener((v, oldValue, newValue) -> {
                 if (newValue) {
-                    sequencerSteps[finalI].textProperty().setValue(knobBehaviorSeqFreqs[finalI].getNoteName());
+                    arrSeqStepsOnOff[finalI].textProperty().setValue(arrKnobBehaviorFreq[finalI].getNoteName());
                 } else {
-                    sequencerSteps[finalI].textProperty().setValue("Off");
+                    arrSeqStepsOnOff[finalI].textProperty().setValue("Off");
                 }
                 synthaxController.setStepOnOff(finalI, newValue);
             });
@@ -499,9 +532,6 @@ public class SynthaxView implements Initializable {
         cBoxRandomOnOff.selectedProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setRandomOnOff(newValue);
         });
-
-
-
 
     }
 
@@ -609,26 +639,26 @@ public class SynthaxView implements Initializable {
 
         });
 
-        for (int i = 0; i < EQGain.length; i++) {
+        for (int i = 0; i < arrEQGainKnobs.length; i++) {
             int finalI = i;
-            KnobBehaviorDetune b = new KnobBehaviorDetune(EQGain[i]);
-            EQGain[i].setOnMouseDragged(b);
+            KnobBehaviorDetune b = new KnobBehaviorDetune(arrEQGainKnobs[i]);
+            arrEQGainKnobs[i].setOnMouseDragged(b);
             b.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
             });
         }
-        for (int i = 0; i < EQRange.length; i++) {
+        for (int i = 0; i < arrEQRangeKnobs.length; i++) {
             int finalI = i;
-            KnobBehavior b = new KnobBehavior(EQRange[i]);
-            EQGain[i].setOnMouseDragged(b);
+            KnobBehavior b = new KnobBehavior(arrEQRangeKnobs[i]);
+            arrEQGainKnobs[i].setOnMouseDragged(b);
             b.knobValueProperty().addListener((v, oldValue, newValue) -> {
                 System.out.println("hej");
             });
         }
-        for (int i = 0; i < EQFreq.length; i++) {
+        for (int i = 0; i < arrEQFreqKnobs.length; i++) {
             int finalI = i;
-            KnobBehavior b = new KnobBehavior(EQFreq[i]);
-            EQFreq[i].setOnMouseDragged(b);
+            KnobBehavior b = new KnobBehavior(arrEQFreqKnobs[i]);
+            arrEQFreqKnobs[i].setOnMouseDragged(b);
             b.knobValueProperty().addListener((v, oldValue, newValue) -> {
 
             });

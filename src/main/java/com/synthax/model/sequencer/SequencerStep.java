@@ -18,17 +18,17 @@ public class SequencerStep {
     public void play() {
         if (isOn) {
             sequencer.playNote(midiNote, velocity, detuneCent);
-            oldNote = midiNote;
         }
     }
 
     public void stop() {
         if (isOn) {
-            sequencer.stopNote(oldNote);
+            sequencer.stopNote(midiNote);
         }
     }
 
     public void setMidiNote(MidiNote midiNote) {
+        stop();
         this.midiNote = midiNote;
     }
 
