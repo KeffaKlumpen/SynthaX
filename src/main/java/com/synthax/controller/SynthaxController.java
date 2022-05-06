@@ -4,7 +4,7 @@ import com.synthax.model.EQFilters;
 import com.synthax.model.SynthLFO;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.sequencer.Sequencer;
-import com.synthax.model.sequencer.SequencerMode;
+import com.synthax.model.enums.SequencerMode;
 import com.synthax.view.SynthaxView;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
@@ -119,7 +119,6 @@ public class SynthaxController {
     }
 
     public void releaseAllVoices() {
-        System.out.println("Synth release all voices");
         oscillatorManager.releaseAllVoices();
     }
     //endregion

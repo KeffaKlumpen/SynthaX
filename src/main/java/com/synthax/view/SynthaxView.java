@@ -10,12 +10,11 @@ import com.synthax.controller.SynthaxController;
 import com.synthax.model.ADSRValues;
 import com.synthax.model.controls.KnobBehaviorSeqFreq;
 import com.synthax.model.enums.MidiNote;
-import com.synthax.model.sequencer.SequencerMode;
+import com.synthax.model.enums.SequencerMode;
 import com.synthax.util.MidiHelpers;
 
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -138,7 +137,7 @@ public class SynthaxView implements Initializable {
     @FXML private Button SSStartStop;
     @FXML private Button knobSSRate;
     @FXML private Spinner<Integer> spinnerSteps;
-    @FXML private Spinner<SequencerMode> sequencerMode;
+    @FXML private Spinner<String> sequencerMode;
     @FXML private ToggleButton btnStepOnOff0;
     @FXML private ToggleButton btnStepOnOff1;
     @FXML private ToggleButton btnStepOnOff2;
@@ -260,7 +259,7 @@ public class SynthaxView implements Initializable {
 
     @FXML
     public void onActionResetKnobs() {
-        if (easterCounter != 4) {
+        if (easterCounter++ != 4) {
             for (int i = 0; i < arrKnobBehaviorGain.length; i++) {
                 arrKnobBehaviorFreq[i].setNote(MidiNote.F4);
                 arrKnobBehaviorDetune[i].resetKnob();
@@ -282,7 +281,7 @@ public class SynthaxView implements Initializable {
             arrKnobBehaviorFreq[9].setNote(MidiNote.E5);
             easterCounter = 0;
         }
-        easterCounter++;
+
 
     }
 
@@ -517,12 +516,11 @@ public class SynthaxView implements Initializable {
             synthaxController.setSeqNSteps(newValue);
         });
 
-        SpinnerValueFactory<SequencerMode> spfMode = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(SequencerMode.values()));
+        SpinnerValueFactory<String> spfMode = new SpinnerValueFactory.ListSpinnerValueFactory<String>(SequencerMode.getNames());
         sequencerMode.setValueFactory(spfMode);
         sequencerMode.valueProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setSequencerMode(newValue);
+            synthaxController.setSequencerMode(SequencerMode.getMode(newValue));
         });
-
         cBoXRandomFreq.selectedProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setRandomFreq(newValue);
         });
@@ -652,7 +650,7 @@ public class SynthaxView implements Initializable {
             KnobBehavior b = new KnobBehavior(arrEQRangeKnobs[i]);
             arrEQGainKnobs[i].setOnMouseDragged(b);
             b.knobValueProperty().addListener((v, oldValue, newValue) -> {
-                System.out.println("hej");
+
             });
         }
         for (int i = 0; i < arrEQFreqKnobs.length; i++) {
@@ -736,7 +734,6 @@ public class SynthaxView implements Initializable {
             if (keyStatus.containsKey(keyCode)) {
                 if (keyStatus.get(keyCode).compareAndSet(false, true)) {
                     MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
-                    System.out.println("++++" + note.name());
                     synthaxController.noteOn(note, 127);
                 }
             }
@@ -746,7 +743,6 @@ public class SynthaxView implements Initializable {
             if (keyStatus.containsKey(keyCode)) {
                 if (keyStatus.get(keyCode).compareAndSet(true, false)) {
                     MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
-                    System.out.println("----" + note.name());
                     synthaxController.noteOff(note);
                 }
             }
