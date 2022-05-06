@@ -179,6 +179,8 @@ public class OscillatorController {
     }
 
     public void setDetuneCent(float detuneCent) {
+        this.detuneCent = detuneCent;
+
         for (OscillatorVoice voice : voices) {
             voice.updateDetune(detuneCent);
         }
