@@ -198,22 +198,23 @@ public class SynthaxView implements Initializable {
         try {
             URL fxmlLocation = MainApplication.class.getResource("view/Oscillator-v.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
-            Node oscillatorView = fxmlLoader.load();
-            OscillatorController oscillatorController = fxmlLoader.getController();
+            Node oscillatorRoot = fxmlLoader.load();
+            OscillatorView oscillatorView = fxmlLoader.getController();
+            OscillatorController oscillatorController = oscillatorView.getOscillatorController();
 
             synthaxController.addOscillator(oscillatorController);
 
-            oscillatorController.getBtnRemoveOscillator().setOnAction(event -> {
+            oscillatorView.getBtnRemoveOscillator().setOnAction(event -> {
                 synthaxController.removeOscillator(oscillatorController);
-                oscillatorChainView.getChildren().remove(oscillatorView);
+                oscillatorChainView.getChildren().remove(oscillatorRoot);
             });
-            oscillatorController.getBtnMoveDown().setOnAction(event -> {
+            oscillatorView.getBtnMoveDown().setOnAction(event -> {
                 Node[] childList = oscillatorChainView.getChildren().toArray(new Node[0]);
-                int oscIndex = oscillatorChainView.getChildren().indexOf(oscillatorView);
+                int oscIndex = oscillatorChainView.getChildren().indexOf(oscillatorRoot);
 
                 if (oscIndex < childList.length - 1) {
                     Node nextOsc = childList[oscIndex + 1];
-                    childList[oscIndex + 1] = oscillatorView;
+                    childList[oscIndex + 1] = oscillatorRoot;
                     childList[oscIndex] = nextOsc;
 
                     oscillatorChainView.getChildren().setAll(childList);
@@ -221,13 +222,13 @@ public class SynthaxView implements Initializable {
                     synthaxController.moveOscillatorDown(oscillatorController);
                 }
             });
-            oscillatorController.getBtnMoveUp().setOnAction(event -> {
+            oscillatorView.getBtnMoveUp().setOnAction(event -> {
                 Node[] childList = oscillatorChainView.getChildren().toArray(new Node[0]);
-                int oscIndex = oscillatorChainView.getChildren().indexOf(oscillatorView);
+                int oscIndex = oscillatorChainView.getChildren().indexOf(oscillatorRoot);
 
                 if (oscIndex > 0) {
                     Node prevOsc = childList[oscIndex - 1];
-                    childList[oscIndex - 1] = oscillatorView;
+                    childList[oscIndex - 1] = oscillatorRoot;
                     childList[oscIndex] = prevOsc;
 
                     oscillatorChainView.getChildren().setAll(childList);
@@ -236,7 +237,7 @@ public class SynthaxView implements Initializable {
                 }
             });
 
-            oscillatorChainView.getChildren().add(oscillatorView);
+            oscillatorChainView.getChildren().add(oscillatorRoot);
         } catch (IOException e) {
             e.printStackTrace();
         }

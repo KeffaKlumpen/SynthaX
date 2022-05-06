@@ -35,7 +35,7 @@ import java.util.ResourceBundle;
  * @author Luke Eales
  * @author Axel Nilsson
  */
-public class OscillatorController implements Initializable {
+public class OscillatorController {
     private final OscillatorVoice[] voices;
     private final int voiceCount = 16;
     private int nextVoice = 0;
@@ -47,21 +47,6 @@ public class OscillatorController implements Initializable {
     //private FloatProperty detuneCent = new SimpleFloatProperty();
     private float detuneCent;
     private final int[] voicePlayingMidi = new int[128]; // each index corresponds to a MIDI-note, stores voice-indexes
-
-    @FXML private ToggleButton tglBtnCombineAdd;
-    @FXML private ToggleButton tglBtnCombineSub;
-    @FXML private ToggleButton tglBtnCombineMult;
-    @FXML private SegmentedButton segBtnCombineMode;
-    @FXML private ToggleSwitch tglSwitchOscillatorOnOff;
-    @FXML private Button btnMoveUp;
-    @FXML private Button btnMoveDown;
-    @FXML private Button btnRemoveOscillator;
-    @FXML private Button knobGain = new Button();
-    @FXML private Button knobWave = new Button();
-    @FXML private Button knobDetune = new Button();
-    @FXML private Button knobLFODepth = new Button();
-    @FXML private Button knobLFORate = new Button();
-    @FXML private Spinner<OctaveOperands> octaveSpinner = new Spinner<>();
 
     /**
      * Setup internal chain structure.
@@ -174,6 +159,37 @@ public class OscillatorController implements Initializable {
         return voiceCount;
     }
 
+    //region GUI-API
+
+    public void setOctaveOperand(OctaveOperands octaveOperand) {
+        updateOctaveOffset(this.octaveOperand, octaveOperand);
+        this.octaveOperand = octaveOperand;
+    }
+
+    public void setLFODepth(float depth) {
+        for (OscillatorVoice voice : voices) {
+            voice.getOscillatorLFO().setDepth(depth);
+        }
+    }
+
+    public void setLFORate(float rate) {
+        for (OscillatorVoice voice : voices) {
+            voice.getOscillatorLFO().setRate(rate);
+        }
+    }
+
+    public void setDetuneCent(float detuneCent) {
+        for (OscillatorVoice voice : voices) {
+            voice.updateDetune(detuneCent);
+        }
+    }
+
+    public void setGain(float gain) {
+        voiceOutputGlide.setValue(gain);
+        System.out.println("OscillatorController.setGain() = " + gain);
+    }
+    //endregion
+
     //region CombineMode Output
     /**
      * @author Joel Eriksson Sinclair
@@ -215,180 +231,6 @@ public class OscillatorController implements Initializable {
             oscillatorOutput.addInput(input);
         }
     }
-    //endregion
-
-    //region GUI stuff
-    /**
-     * initialize-method for the oscillator class
-     * Sets values and adds listeners to GUI components
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     * @author Joel Eriksson Sinclair
-     * @author Luke Eales
-     * @author Axel Nilsson
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        initCombineModeButtons();
-        initGainKnob();
-        initDetuneKnob();
-        initLFOKnobs();
-        initWaveFormKnob();
-        initOnOff();
-        initOctaveSpinner();
-    }
-    /**
-     * Sets behaviour for toggle buttons for the combine modes
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     */
-    private void initCombineModeButtons() {
-        tglBtnCombineAdd.setSelected(true);
-        setOutputType(CombineMode.ADD);
-        System.out.println("ADD");
-
-        tglBtnCombineAdd.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                setOutputType(CombineMode.ADD);
-                System.out.println("ADD");
-            }
-        });
-
-        tglBtnCombineMult.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                setOutputType(CombineMode.MULT);
-                System.out.println("MULT");
-            }
-        });
-
-        tglBtnCombineSub.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                System.err.println("NOT IMPLEMENTED");
-            }
-        });
-    }
-
-    /**
-     * @return The button responsible for removing the oscillator.
-     * @author Joel Eriksson Sinclair
-     */
-    public Button getBtnRemoveOscillator() {
-        return btnRemoveOscillator;
-    }
-
-    /**
-     * @return
-     * @author Joel Eriksson Sinclair
-     */
-    public Button getBtnMoveDown(){
-        return btnMoveDown;
-    }
-
-    /**
-     * @return
-     * @author Joel Eriksson Sinclair
-     */
-    public Button getBtnMoveUp(){
-        return btnMoveUp;
-    }
-
-    /**
-     * Sets behaviour for octave spinner
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     */
-    private void initOctaveSpinner() {
-        SpinnerValueFactory<OctaveOperands> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(OctaveOperands.values()));
-        valueFactory.setValue(OctaveOperands.EIGHT);
-        octaveSpinner.setValueFactory(valueFactory);
-        octaveSpinner.valueProperty().addListener(new ChangeListener<OctaveOperands>() {
-            @Override
-            public void changed(ObservableValue<? extends OctaveOperands> observableValue, OctaveOperands octaveOperands, OctaveOperands t1) {
-                octaveOperand = t1;
-
-                updateOctaveOffset(octaveOperands, t1);
-            }
-        });
-    }
-    private void initOnOff() {
-        tglSwitchOscillatorOnOff.setSelected(true);
-        tglSwitchOscillatorOnOff.selectedProperty().addListener((v, oldValue, newValue) -> {
-            bypassOscillator(newValue);
-        });
-    }
-
-    /**
-     * Sets behaviour for waveform knob
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     */
-    private void initWaveFormKnob() {
-        KnobBehaviorWave behaviorKnobWave = new KnobBehaviorWave(knobWave);
-        knobWave.setOnMouseDragged(behaviorKnobWave);
-        behaviorKnobWave.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            setWaveform(Waveforms.values()[newValue.intValue()]);
-        });
-    }
-
-    /**
-     * Sets behaviour for LFO knobs
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     */
-    private void initLFOKnobs() {
-        KnobBehavior behaviorKnobLFOdepth = new KnobBehavior(knobLFODepth);
-        knobLFODepth.setOnMouseDragged(behaviorKnobLFOdepth);
-        behaviorKnobLFOdepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            for (OscillatorVoice voice : voices) {
-                voice.getOscillatorLFO().setDepth(newValue.floatValue());
-            }
-        });
-
-        KnobBehavior behaviorKnobLFOrate = new KnobBehavior(knobLFORate);
-        knobLFORate.setOnMouseDragged(behaviorKnobLFOrate);
-        behaviorKnobLFOrate.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            for (OscillatorVoice voice : voices) {
-                voice.getOscillatorLFO().setRate(newValue.floatValue());
-            }
-        });
-    }
-
-    /**
-     * Sets behaviour for detune knob
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     */
-    private void initDetuneKnob() {
-        KnobBehaviorDetune behaviorKnobDetune = new KnobBehaviorDetune(knobDetune);
-        knobDetune.setOnMouseDragged(behaviorKnobDetune);
-        //detuneCent.bind(behaviorKnobDetune.knobValueProperty());
-        behaviorKnobDetune.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            detuneCent = newValue.floatValue();
-
-            for (OscillatorVoice voice : voices) {
-                voice.updateDetune(detuneCent);
-            }
-        } );
-    }
-
-    /**
-     * Sets behaviour for gain knob
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     */
-    private void initGainKnob() {
-        KnobBehavior behaviorKnobGain = new KnobBehavior(knobGain);
-        knobGain.setOnMouseDragged(behaviorKnobGain);
-        behaviorKnobGain.setValueRotation(0, 0.5f);
-        behaviorKnobGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            voiceOutputGlide.setValue(newValue.floatValue());
-            System.out.println("GAIN " + newValue.floatValue());
-        });
-    }
-
     //endregion
 
     //region frequency-altering-helpers
@@ -486,4 +328,5 @@ public class OscillatorController implements Initializable {
             voice.getDelay().setActive(active);
         }
     }
+    //endregion
 }
