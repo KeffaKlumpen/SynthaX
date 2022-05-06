@@ -21,6 +21,9 @@ public class SynthaxController {
     private final OscillatorManager oscillatorManager;
     private final EQFilters filters;
     private final Sequencer sequencer;
+    private boolean randomFreq = true;
+    private boolean randomGain = true;
+    private boolean randomOnOff = true;
     //private final Delay delay;
 
     /**
@@ -221,10 +224,26 @@ public class SynthaxController {
     }
 
     public void randomize(int length) {
+        if (randomFreq) {
+            randomizeFreq(length);
+        }
+        if (randomOnOff) {
+            randomizeOnOff(length);
+        }
+        if (randomGain) {
+            randomizeGain(length);
+        }
+    }
+    public void randomizeOnOff(int length) {
         Random random  = new Random();
         for (int i = 0; i < length; i++) {
             int onOff = random.nextInt(2);
             synthaxView.setSequencerStepsOnOff(onOff == 0, i);
+        }
+    }
+    public void randomizeFreq(int length) {
+        Random random  = new Random();
+        for (int i = 0; i < length; i++) {
             int out = 0;
             for (int j = 0; j < 4; j++) {
                 out += random.nextInt(88);
@@ -232,6 +251,19 @@ public class SynthaxController {
             out /= 4;
             out += 21;
             synthaxView.setSequencerFreqKnobs(MidiNote.values()[out], i);
+        }
+    }
+    public void randomizeGain(int length) {
+        Random random  = new Random();
+        for (int i = 0; i < length; i++) {
+            int odds = random.nextInt(100);
+            if (odds < 70) {
+                synthaxView.setSequencerGain(1, i);
+            } else {
+                int b = random.nextInt(100);
+                float f = b / 100f;
+                synthaxView.setSequencerGain(f, i);
+            }
         }
     }
     //endregion

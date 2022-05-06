@@ -44,8 +44,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class SynthaxView implements Initializable {
     //region FXML variables
-    @FXML private Button randomize;
-    @FXML private Spinner<SequencerMode> sequencerMode;
     @FXML private VBox oscillatorChainView;
     @FXML private Button knobNoiseGain;
     @FXML private ToggleSwitch tglSwitchNoise;
@@ -141,6 +139,7 @@ public class SynthaxView implements Initializable {
     @FXML private Button SSStartStop;
     @FXML private Button knobSSRate;
     @FXML private Spinner<Integer> spinnerSteps;
+    @FXML private Spinner<SequencerMode> sequencerMode;
     @FXML private ToggleButton btnStepOnOff0;
     @FXML private ToggleButton btnStepOnOff1;
     @FXML private ToggleButton btnStepOnOff2;
@@ -157,6 +156,10 @@ public class SynthaxView implements Initializable {
     @FXML private ToggleButton btnStepOnOff13;
     @FXML private ToggleButton btnStepOnOff14;
     @FXML private ToggleButton btnStepOnOff15;
+    @FXML private Button randomize;
+    @FXML private CheckBox cBoXRandomFreq;
+    @FXML private CheckBox cBoxRandomOnOff;
+    @FXML private CheckBox cBoxRandomGain;
     //endregion
 
 
@@ -196,6 +199,9 @@ public class SynthaxView implements Initializable {
     }
     public void setSequencerFreqKnobs(MidiNote note, int index) {
         knobBehaviorSeqFreqs[index].setNote(note);
+    }
+    public void setSequencerGain(float value, int index) {
+        knobBehaviorsGain[index].setValueRotation(value);
     }
 
     @FXML
@@ -435,7 +441,7 @@ public class SynthaxView implements Initializable {
         for (int i = 0; i < sequencerGainKnobs.length; i++) {
             int finalI = i;
             knobBehaviorsGain[i] = new KnobBehavior(sequencerGainKnobs[i]);
-            knobBehaviorsGain[i].setValueRotation(150, 1.0f);
+            knobBehaviorsGain[i].setValueRotation(1.0f);
             sequencerGainKnobs[i].setOnMouseDragged(knobBehaviorsGain[i]);
             knobBehaviorsGain[i].knobValueProperty().addListener((v, oldValue, newValue) -> {
                 synthaxController.setSeqVelocity(finalI, newValue.floatValue());
@@ -443,7 +449,7 @@ public class SynthaxView implements Initializable {
         }
 
         KnobBehavior bKnobSSRate = new KnobBehavior(knobSSRate);
-        bKnobSSRate.setValueRotation(0, 0.5f);
+        bKnobSSRate.setValueRotation(0.5f);
         knobSSRate.setOnMouseDragged(bKnobSSRate);
         bKnobSSRate.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqBPM(newValue.floatValue());
@@ -483,6 +489,18 @@ public class SynthaxView implements Initializable {
         sequencerMode.valueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSequencerMode(newValue);
         });
+        /*
+        cBoXRandomFreq.selectedProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        cBoxRandomGain.selectedProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+        cBoxRandomOnOff.selectedProperty().addListener((v, oldValue, newValue) -> {
+
+        });
+
+         */
 
 
     }
@@ -494,7 +512,7 @@ public class SynthaxView implements Initializable {
 
         KnobBehavior bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
         knobNoiseGain.setOnMouseDragged(bKnobNoiseGain);
-        bKnobNoiseGain.setValueRotation(0, 0.5f);
+        bKnobNoiseGain.setValueRotation(0.5f);
         bKnobNoiseGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setNoiseGain(newValue.floatValue());
         });
