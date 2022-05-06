@@ -50,10 +50,10 @@
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="71.0" />
-            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="11.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
-            <Line endX="68.836181640625" layoutX="12.0" layoutY="20.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <Label layoutX="13.0" layoutY="10.0" styleClass="bigLabel" text="Noise">
+            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="16.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="57.0" />
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="18.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
+            <Line endX="59.0" layoutX="18.0" layoutY="20.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="15.0" />
+            <Label layoutX="20.0" layoutY="10.0" styleClass="bigLabel" text="Noise">
                <font>
                   <Font name="Handel Gothic" size="17.0" />
                </font>
@@ -63,7 +63,7 @@
       <AnchorPane layoutX="656.0" layoutY="12.0" prefHeight="121.0" prefWidth="191.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="121.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="207.0" />
-            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
+            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="102.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="11.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="65.0" />
             <Line endX="115.84246826171875" endY="-7.62939453125E-6" layoutX="11.0" layoutY="20.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="6.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
@@ -100,7 +100,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobReverbDW" layoutX="152.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="146.0" layoutY="47.0" styleClass="smallLabel" text="Dry/Wet">
+            <Label layoutX="147.0" layoutY="47.0" styleClass="smallLabel" text="Amount">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -144,7 +144,7 @@
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
+            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="79.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="11.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="39.0" />
             <Line endX="121.1051025390625" endY="-7.62939453125E-6" layoutX="12.0" layoutY="20.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
             <Label layoutX="13.0" layoutY="10.0" styleClass="bigLabel" text="LFO">
@@ -189,7 +189,7 @@
                 <NumberAxis fx:id="yAxis" animated="false" autoRanging="false" lowerBound="-3.0" minorTickVisible="false" opacity="0.0" side="LEFT" tickLabelsVisible="false" tickMarkVisible="false" upperBound="33.0" />
               </yAxis>
             </LineChart>
-            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="189.0" />
+            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="99.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="11.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="58.0" />
             <Line endX="196.30328369140625" layoutX="11.0" layoutY="22.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
             <Label layoutX="14.0" layoutY="12.0" styleClass="bigLabel" text="ADSR">
@@ -203,7 +203,7 @@
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="41.0" layoutX="400.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="60.0" />
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="373.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="430.0" />
-            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="339.0" layoutX="219.0" layoutY="33.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="515.0" />
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="339.0" layoutX="219.0" layoutY="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="515.0" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="49.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
@@ -541,22 +541,22 @@
             <ToggleButton fx:id="btnStepOnOff13" layoutX="403.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
             <ToggleButton fx:id="btnStepOnOff14" layoutX="470.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
             <ToggleButton fx:id="btnStepOnOff15" layoutX="537.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ImageView fitHeight="88.0" fitWidth="90.0" layoutX="647.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="88.0" fitWidth="90.0" layoutX="647.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSSRate" layoutX="671.0" layoutY="197.0" maxWidth="41.0" minHeight="38.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="41.0" styleClass="bigKnob" stylesheets="@../skins.css" />
-            <Button id="btnStartStop" fx:id="SSStartStop" layoutX="591.0" layoutY="51.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" styleClass="plainButton" text="Start" textAlignment="CENTER" wrapText="true">
+            <Button fx:id="knobSSRate" layoutX="671.0" layoutY="191.0" maxWidth="41.0" minHeight="38.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="41.0" styleClass="bigKnob" stylesheets="@../skins.css" />
+            <Button id="btnStartStop" fx:id="SSStartStop" layoutX="593.0" layoutY="49.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" styleClass="plainButton" text="Start" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="39.0" />
                </font></Button>
-            <Label layoutX="674.0" layoutY="168.0" styleClass="filterLabel" text="Rate">
+            <Label layoutX="674.0" layoutY="162.0" styleClass="filterLabel" text="Rate">
                <font>
                   <Font name="Handel Gothic" size="14.0" />
                </font></Label>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#d6d1c9" height="45.0" layoutX="430.0" layoutY="-11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="57.0" />
-            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="11.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="362.0" />
+            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="11.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="213.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="13.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="164.0" />
             <Line endX="408.2060546875" layoutX="13.0" layoutY="21.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
             <Label layoutX="17.0" layoutY="11.0" styleClass="bigLabel" text="16-Step Sequencer">
@@ -579,27 +579,28 @@
             <Line endX="-1.0" endY="89.32672119140625" layoutX="385.0" layoutY="260.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
             <Line endX="-1.0" endY="89.32672119140625" layoutX="452.0" layoutY="260.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
             <Line endX="-1.0" endY="89.32672119140625" layoutX="519.0" layoutY="260.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
-            <Spinner fx:id="spinnerSteps" layoutX="591.0" layoutY="195.0" prefHeight="32.0" prefWidth="60.0" />
-            <Label layoutX="600.0" layoutY="168.0" styleClass="filterLabel" text="Steps" />
-            <Label layoutX="629.0" layoutY="104.0" styleClass="filterLabel" text="Mode" />
-            <Spinner fx:id="sequencerMode" layoutX="590.0" layoutY="124.0" prefHeight="25.0" prefWidth="123.0" />
-            <Button fx:id="randomize" layoutX="591.0" layoutY="257.0" mnemonicParsing="false" onAction="#randomizeSequencer" prefHeight="25.0" prefWidth="123.0" styleClass="plainButton" text="Randomize" wrapText="true" />
-            <CheckBox layoutX="594.0" layoutY="303.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" text="Freq">
+            <Spinner fx:id="spinnerSteps" layoutX="591.0" layoutY="184.0" prefHeight="49.0" prefWidth="60.0" />
+            <Label layoutX="600.0" layoutY="162.0" styleClass="filterLabel" text="Steps" />
+            <Label layoutX="629.0" layoutY="100.0" styleClass="filterLabel" text="Mode" />
+            <Spinner fx:id="sequencerMode" layoutX="590.0" layoutY="122.0" prefHeight="25.0" prefWidth="123.0" />
+            <Button fx:id="randomize" layoutX="591.0" layoutY="248.0" mnemonicParsing="false" onAction="#randomizeSequencer" prefHeight="25.0" prefWidth="96.0" styleClass="plainButton" text="Randomize" wrapText="true" />
+            <CheckBox fx:id="cBoXRandomFreq" layoutX="594.0" layoutY="294.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" selected="true" text="Freq">
                <font>
                   <Font name="Handel Gothic" size="10.0" />
                </font>
             </CheckBox>
-            <Label layoutX="594.0" layoutY="289.0" styleClass="smallLabel2" text="Include:" />
-            <CheckBox layoutX="594.0" layoutY="317.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" text="Gain">
+            <Label layoutX="594.0" layoutY="277.0" styleClass="filterLabel" text="Include:" />
+            <CheckBox fx:id="cBoxRandomGain" layoutX="594.0" layoutY="313.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" selected="true" text="Gain">
                <font>
                   <Font size="10.0" />
                </font>
             </CheckBox>
-            <CheckBox layoutX="594.0" layoutY="331.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" text="On/Off">
+            <CheckBox fx:id="cBoxRandomOnOff" layoutX="594.0" layoutY="332.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" selected="true" text="On/Off">
                <font>
                   <Font size="10.0" />
                </font>
             </CheckBox>
+            <Button layoutX="672.0" layoutY="302.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="44.0" styleClass="resetButton" text="Reset knobs" textAlignment="CENTER" wrapText="true" />
          </children></AnchorPane>
       <AnchorPane layoutX="875.0" layoutY="12.0" prefHeight="345.0" prefWidth="391.0">
          <children>
@@ -607,7 +608,7 @@
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="220.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="279.0" />
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="345.0" layoutX="247.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="146.0" />
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#d6d1c9" height="38.0" layoutX="199.0" layoutY="220.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="48.0" />
-            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="226.0" />
+            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="108.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="11.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="63.0" />
             <Line endX="229.8883056640625" layoutX="11.0" layoutY="20.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
             <Label layoutX="14.0" layoutY="10.0" styleClass="bigLabel" text="Filters">
@@ -615,8 +616,8 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="272.0" layoutY="221.0" styleClass="filterLabel" text="HP" />
-            <ToggleSwitch fx:id="tglSwitchFilterHP" layoutX="265.0" layoutY="241.0" prefHeight="20.0" prefWidth="30.0" />
+            <Label layoutX="273.0" layoutY="220.0" styleClass="filterLabel" text="HP" />
+            <ToggleSwitch fx:id="tglSwitchFilterHP" layoutX="265.0" layoutY="240.0" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="267.0" layoutY="278.0" styleClass="smallLabel" text="Cutoff">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -629,8 +630,8 @@
             </ImageView>
             <Button fx:id="knobFilterHPCutoff" layoutX="268.0" layoutY="299.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Line endX="157.3660888671875" endY="-6.0697174072265625" layoutX="162.0" layoutY="233.0" startX="157.3660888671875" startY="100.56625366210938" stroke="#78736b" />
-            <Label layoutX="347.0" layoutY="221.0" styleClass="filterLabel" text="LP" />
-            <ToggleSwitch fx:id="tglSwitchFilterLP" layoutX="337.0" layoutY="241.0" prefHeight="20.0" prefWidth="30.0" />
+            <Label layoutX="347.0" layoutY="220.0" styleClass="filterLabel" text="LP" />
+            <ToggleSwitch fx:id="tglSwitchFilterLP" layoutX="337.0" layoutY="240.0" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="340.0" layoutY="278.0" styleClass="smallLabel" text="Cutoff">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -742,7 +743,7 @@
       <AnchorPane layoutX="875.0" layoutY="242.0" prefHeight="114.0" prefWidth="237.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="115.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="237.0" />
-            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="114.0" />
+            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="97.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="11.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
             <Line endX="115.84246826171875" endY="-7.62939453125E-6" layoutX="10.0" layoutY="20.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="3.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
@@ -802,7 +803,7 @@
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="195.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="90.0" />
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="8.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="72.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="10.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="68.0" />
-            <Line endX="77.4013671875" layoutX="11.5986328125" layoutY="20.585784912109375" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
+            <Line endX="62.876708984375" endY="-3.0517578125E-5" layoutX="11.5986328125" layoutY="21.585784912109375" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="15.0" />
             <Label layoutX="13.0" layoutY="11.0" styleClass="bigLabel" text="Master">
                <font>
                   <Font size="17.0" />
