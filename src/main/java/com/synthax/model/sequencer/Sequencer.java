@@ -16,6 +16,7 @@ public class Sequencer implements Runnable {
     private int nSteps = 16;
     private SequencerMode sequencerMode = SequencerMode.loop;
     private boolean bollenMode = true;
+    private int count = 0;
 
     public Sequencer(SynthaxController sc) {
         synthaxController = sc;
@@ -23,6 +24,7 @@ public class Sequencer implements Runnable {
     }
 
     public void start() {
+        count = 0;
         if (thread == null) {
             running = true;
             thread = new Thread(this);
@@ -87,7 +89,6 @@ public class Sequencer implements Runnable {
 
     @Override
     public void run() {
-        int count = 0;
         while (running) {
             steps[count].play();
             synthaxController.setSeqButtonOrange(count);
@@ -99,35 +100,41 @@ public class Sequencer implements Runnable {
             synthaxController.setSeqButtonGray(count);
             steps[count].stop();
             switch (sequencerMode) {
-                case loop -> {
-                    count = (count + 1) % nSteps;
-                }
-                case bollen -> {
-                    if (count == 0) {
-                        bollenMode = true;
-                    } else if (count == nSteps-1) {
-                        bollenMode = false;
-                    }
-                    if (bollenMode) {
-                        count++;
-                    } else {
-                        count--;
-                    }
-                }
-                case reverse -> {
-                    count--;
-                    if (count == -1) {
-                        count = 15;
-                    }
-                }
-                case random -> {
-                    Random random = new Random();
-                    count = random.nextInt(16);
-                }
+                case loop -> loopMode();
+                case bollen -> bollenMode();
+                case reverse -> reverseMode();
+                case random -> randomMode();
+                default -> loopMode();
             }
             if (count == 16) {
                 count = 0;
             }
         }
     }
+    private void loopMode() {
+        count = (count + 1) % nSteps;
+    }
+    private void bollenMode() {
+        if (count == 0) {
+            bollenMode = true;
+        } else if (count == nSteps-1) {
+            bollenMode = false;
+        }
+        if (bollenMode) {
+            count++;
+        } else {
+            count--;
+        }
+    }
+    private void reverseMode() {
+        count--;
+        if (count == -1) {
+            count = nSteps-1;
+        }
+    }
+    private void randomMode() {
+        Random random = new Random();
+        count = random.nextInt(nSteps);
+    }
+
 }
