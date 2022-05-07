@@ -22,9 +22,7 @@ public class SequencerStep {
     }
 
     public void stop() {
-        if (isOn) {
-            sequencer.stopNote(midiNote);
-        }
+        sequencer.stopNote(midiNote);
     }
 
     public void setMidiNote(MidiNote midiNote) {
