@@ -8,15 +8,15 @@ import com.synthax.util.BasicMath;
 import java.util.Random;
 
 public class Sequencer implements Runnable {
-    private SynthaxController synthaxController;
-    private SequencerStep[] steps = new SequencerStep[16];
-    private int msBetweenBeats = 100;
-    private boolean running;
+    private final SynthaxController synthaxController;
+    private final SequencerStep[] steps = new SequencerStep[16];
     private Thread thread;
-    private int nSteps = 16;
     private SequencerMode sequencerMode = SequencerMode.loop;
-    private boolean bollenMode = true;
+    private boolean bollenModeAsc = true;
+    private boolean running;
     private int count = 0;
+    private int msBetweenBeats = 100;
+    private int nSteps = 16;
 
     public Sequencer(SynthaxController sc) {
         synthaxController = sc;
@@ -111,27 +111,31 @@ public class Sequencer implements Runnable {
             }
         }
     }
+    
     private void loopMode() {
         count = (count + 1) % nSteps;
     }
+    
     private void bollenMode() {
         if (count == 0) {
-            bollenMode = true;
+            bollenModeAsc = true;
         } else if (count == nSteps-1) {
-            bollenMode = false;
+            bollenModeAsc = false;
         }
-        if (bollenMode) {
+        if (bollenModeAsc) {
             count++;
         } else {
             count--;
         }
     }
+    
     private void reverseMode() {
         count--;
         if (count == -1) {
             count = nSteps-1;
         }
     }
+    
     private void randomMode() {
         Random random = new Random();
         count = random.nextInt(nSteps);

@@ -4,12 +4,12 @@ import com.synthax.model.enums.MidiNote;
 import com.synthax.util.BasicMath;
 
 public class SequencerStep {
+    private Sequencer sequencer;
     private MidiNote midiNote = MidiNote.F4;
-    private MidiNote oldNote = MidiNote.F4;
     private float detuneCent = 0;
     private int velocity = 127;
     private boolean isOn;
-    private Sequencer sequencer;
+
 
     public SequencerStep(Sequencer sequencer) {
         this.sequencer = sequencer;
