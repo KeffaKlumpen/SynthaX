@@ -273,7 +273,7 @@ public class SynthaxView implements Initializable {
             SSStartStop.setText("Stop");
             SSStartStop.setStyle("-fx-text-fill: #f78000");
             bKnobSSRate.setValueRotation(0.38f);
-            
+            spinnerSteps.increment(16);
             synthaxController.startRickRoll();
             easterCounter = 0;
         }
@@ -558,6 +558,7 @@ public class SynthaxView implements Initializable {
         });
 
         SpinnerValueFactory<String> spfMode = new SpinnerValueFactory.ListSpinnerValueFactory<String>(SequencerMode.getNames());
+        spfMode.setWrapAround(true);
         sequencerMode.setValueFactory(spfMode);
         sequencerMode.valueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSequencerMode(SequencerMode.getMode(newValue));
