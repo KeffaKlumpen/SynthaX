@@ -24,11 +24,14 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.ToggleSwitch;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -160,6 +163,7 @@ public class SynthaxView implements Initializable {
     @FXML private CheckBox cBoxRandomOnOff;
     @FXML private CheckBox cBoxRandomGain;
     @FXML private Button btnResetKnobs;
+    @FXML private ImageView ricky;
     //endregion
 
 
@@ -262,6 +266,8 @@ public class SynthaxView implements Initializable {
 
     @FXML
     public void onActionResetKnobs() {
+        synthaxController.sequencerOff();
+
         if (easterCounter++ != 4) {
             for (int i = 0; i < arrKnobBehaviorGain.length; i++) {
                 arrKnobBehaviorFreq[i].setNote(MidiNote.F4);
@@ -269,7 +275,18 @@ public class SynthaxView implements Initializable {
                 arrKnobBehaviorGain[i].setValueRotation(1f);
                 arrSeqStepsOnOff[i].setSelected(false);
             }
+            SSStartStop.setText("Start");
+            SSStartStop.setStyle("-fx-text-fill: ##d6d1c9");
+            if (ricky != null) {
+                ricky.setImage(null);
+            }
         } else {
+            Image image = new Image(String.valueOf(new File(String.valueOf(MainApplication.class.getResource("Images/Ricky.gif")))));
+            System.out.println(image.getUrl());
+            ricky = new ImageView(image);
+            ricky.setX(572);
+            ricky.setY(43);
+            mainPane.getChildren().add(ricky);
             SSStartStop.setText("Stop");
             SSStartStop.setStyle("-fx-text-fill: #f78000");
             bKnobSSRate.setValueRotation(0.38f);
@@ -540,8 +557,7 @@ public class SynthaxView implements Initializable {
             });
         }
         SSStartStop.setOnMousePressed(l -> {
-            boolean running = synthaxController.sequencerIsRunning();
-            if (!running) {
+            if (!synthaxController.sequencerIsRunning()) {
                 synthaxController.sequencerOn();
                 SSStartStop.setText("Stop");
                 SSStartStop.setStyle("-fx-text-fill: #f78000");
@@ -549,6 +565,9 @@ public class SynthaxView implements Initializable {
                 synthaxController.sequencerOff();
                 SSStartStop.setText("Start");
                 SSStartStop.setStyle("-fx-text-fill: #d6d1c9");
+                if (ricky != null) {
+                    ricky.setImage(null);
+                }
             }
         });
         SpinnerValueFactory<Integer> spf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,16,16);
