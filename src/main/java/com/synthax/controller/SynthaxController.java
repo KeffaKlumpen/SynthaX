@@ -323,6 +323,14 @@ public class SynthaxController {
         reverb.setActive(active);
     }
 
+    public void startRickRoll() {
+        sequencer.startRickRoll();
+    }
+
+    public void setUpSteps(int i) {
+        synthaxView.setUpSteps(i);
+    }
+
     public void setReverbAmount(float amount) {
         reverb.setReverbAmount(amount);
     }

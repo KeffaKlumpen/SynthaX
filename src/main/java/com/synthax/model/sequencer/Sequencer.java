@@ -39,6 +39,13 @@ public class Sequencer implements Runnable {
         }
     }
 
+    public void startRickRoll() {
+        count = 0;
+        thread = new Thread(new RickRoll());
+        running = true;
+        thread.start();
+    }
+
     public void setSequencerMode(SequencerMode sequencerMode) {
         this.sequencerMode = sequencerMode;
     }
@@ -139,6 +146,33 @@ public class Sequencer implements Runnable {
     private void randomMode() {
         Random random = new Random();
         count = random.nextInt(nSteps);
+    }
+
+
+    private class RickRoll implements Runnable {
+        @Override
+        public void run() {
+            int x = 0;
+            synthaxController.setUpSteps(x);
+            while (running) {
+                steps[count].play();
+                synthaxController.setSeqButtonOrange(count);
+                try {
+                    Thread.sleep(msBetweenBeats);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                synthaxController.setSeqButtonGray(count);
+                steps[count].stop();
+                loopMode();
+                if (count == 15) {
+                    x = (x + 1) % 4;
+                    synthaxController.setUpSteps(x);
+                }
+
+
+            }
+        }
     }
 
 }

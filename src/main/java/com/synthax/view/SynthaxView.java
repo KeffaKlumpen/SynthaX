@@ -164,6 +164,7 @@ public class SynthaxView implements Initializable {
 
 
     private final HashMap<KeyCode, AtomicBoolean> keyStatus = new HashMap<>();
+    private KnobBehavior bKnobSSRate;
     private Button[] arrSeqFreqKnobs;
     private Button[] arrSeqDetuneKnobs;
     private Button[] arrSeqGainKnobs;
@@ -269,21 +270,60 @@ public class SynthaxView implements Initializable {
                 arrSeqStepsOnOff[i].setSelected(false);
             }
         } else {
-            for (int i = 0; i < arrKnobBehaviorGain.length; i++) {
-                arrKnobBehaviorDetune[i].resetKnob();
-                arrKnobBehaviorGain[i].setValueRotation(1f);
-                arrSeqStepsOnOff[i].setSelected((i <= 4) || (i == 7 || i == 10));
-            }
-            arrKnobBehaviorFreq[0].setNote(MidiNote.A3);
-            arrKnobBehaviorFreq[1].setNote(MidiNote.B3);
-            arrKnobBehaviorFreq[2].setNote(MidiNote.D4);
-            arrKnobBehaviorFreq[3].setNote(MidiNote.B3);
-            arrKnobBehaviorFreq[4].setNote(MidiNote.Gb5);
-            arrKnobBehaviorFreq[7].setNote(MidiNote.Gb5);
-            arrKnobBehaviorFreq[10].setNote(MidiNote.E5);
+            SSStartStop.setText("Stop");
+            SSStartStop.setStyle("-fx-text-fill: #f78000");
+            bKnobSSRate.setValueRotation(0.38f);
+            
+            synthaxController.startRickRoll();
             easterCounter = 0;
         }
 
+
+    }
+
+    public void setUpSteps(int x) {
+        Platform.runLater(() -> {
+            if (x == 0) {
+                for (int i = 0; i < arrKnobBehaviorGain.length; i++) {
+                    arrKnobBehaviorDetune[i].resetKnob();
+                    arrKnobBehaviorGain[i].setValueRotation(1f);
+                    arrSeqStepsOnOff[i].setSelected((i <= 4) || (i == 7 || i == 10));
+                }
+                arrKnobBehaviorFreq[0].setNote(MidiNote.A3);
+                arrKnobBehaviorFreq[1].setNote(MidiNote.B3);
+                arrKnobBehaviorFreq[2].setNote(MidiNote.D4);
+                arrKnobBehaviorFreq[3].setNote(MidiNote.B3);
+                arrKnobBehaviorFreq[4].setNote(MidiNote.Gb5);
+                arrKnobBehaviorFreq[7].setNote(MidiNote.Gb5);
+                arrKnobBehaviorFreq[10].setNote(MidiNote.E5);
+            } else if (x == 1) {
+                arrKnobBehaviorFreq[4].setNote(MidiNote.E5);
+                arrKnobBehaviorFreq[7].setNote(MidiNote.E5);
+                arrKnobBehaviorFreq[10].setNote(MidiNote.D5);
+                arrKnobBehaviorFreq[11].setNote(MidiNote.Db5);
+                arrKnobBehaviorFreq[12].setNote(MidiNote.B4);
+                arrSeqStepsOnOff[11].setSelected(true);
+                arrSeqStepsOnOff[12].setSelected(true);
+            } else if (x == 2) {
+                arrSeqStepsOnOff[11].setSelected(false);
+                arrSeqStepsOnOff[12].setSelected(false);
+                arrSeqStepsOnOff[14].setSelected(true);
+                arrKnobBehaviorFreq[4].setNote(MidiNote.D5);
+                arrKnobBehaviorFreq[10].setNote(MidiNote.Db5);
+                arrKnobBehaviorFreq[14].setNote(MidiNote.A3);
+            } else if (x == 3) {
+                for (int i = 0; i < arrKnobBehaviorFreq.length; i++) {
+                    arrSeqStepsOnOff[i].setSelected((i == 2) || (i >= 4 && i < 8) || (i >= 8));
+                }
+                arrKnobBehaviorFreq[2].setNote(MidiNote.A3);
+                for (int i = 4; i < 8; i++) {
+                    arrKnobBehaviorFreq[i].setNote(MidiNote.E4);
+                }
+                for (int i = 8; i < arrKnobBehaviorFreq.length; i++) {
+                    arrKnobBehaviorFreq[i].setNote(MidiNote.D4);
+                }
+            }
+        });
 
     }
 
@@ -481,7 +521,7 @@ public class SynthaxView implements Initializable {
             });
         }
 
-        KnobBehavior bKnobSSRate = new KnobBehavior(knobSSRate);
+        bKnobSSRate = new KnobBehavior(knobSSRate);
         bKnobSSRate.setValueRotation(0.5f);
         knobSSRate.setOnMouseDragged(bKnobSSRate);
         bKnobSSRate.knobValueProperty().addListener((v, oldValue, newValue) -> {
