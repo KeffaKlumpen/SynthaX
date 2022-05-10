@@ -283,8 +283,8 @@ public class SynthaxView implements Initializable {
         } else {
             Image image = new Image(String.valueOf(new File(String.valueOf(MainApplication.class.getResource("Images/Ricky.gif")))));
             ricky = new ImageView(image);
-            ricky.setX(572);
-            ricky.setY(43);
+            ricky.setX(10);
+            ricky.setY(220);
             mainPane.getChildren().add(ricky);
             SSStartStop.setText("Stop");
             SSStartStop.setStyle("-fx-text-fill: #f78000");
