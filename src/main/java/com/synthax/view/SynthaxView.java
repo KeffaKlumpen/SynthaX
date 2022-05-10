@@ -276,13 +276,12 @@ public class SynthaxView implements Initializable {
                 arrSeqStepsOnOff[i].setSelected(false);
             }
             SSStartStop.setText("Start");
-            SSStartStop.setStyle("-fx-text-fill: ##d6d1c9");
+            SSStartStop.setStyle("-fx-text-fill: #d6d1c9");
             if (ricky != null) {
                 ricky.setImage(null);
             }
         } else {
             Image image = new Image(String.valueOf(new File(String.valueOf(MainApplication.class.getResource("Images/Ricky.gif")))));
-            System.out.println(image.getUrl());
             ricky = new ImageView(image);
             ricky.setX(572);
             ricky.setY(43);
