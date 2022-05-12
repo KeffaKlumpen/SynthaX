@@ -12,6 +12,7 @@ import com.synthax.model.controls.KnobBehaviorSeqFreq;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.SequencerMode;
 import com.synthax.model.enums.Waveforms;
+import com.synthax.util.BasicMath;
 import com.synthax.util.MidiHelpers;
 
 
@@ -27,6 +28,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.ToggleSwitch;
@@ -295,6 +298,25 @@ public class SynthaxView implements Initializable {
         }
 
 
+    }
+
+    public void updateSeqStep(int i, boolean isOn, int velocity, float detuneCent, MidiNote midiNote) {
+        Platform.runLater(() -> {
+            arrSeqStepsOnOff[i].setSelected(isOn);
+            float fVelocity = BasicMath.map(velocity, 0, 127, 0f, 1f);
+            arrKnobBehaviorGain[i].setValueRotation(fVelocity);
+            arrKnobBehaviorDetune[i].setValueRotation(detuneCent);
+            arrKnobBehaviorFreq[i].setNote(midiNote);
+        });
+    }
+
+    public void fakeSequencerStartStopClick() {
+        System.out.println("clicked.");
+        Platform.runLater(() -> {
+            SSStartStop.onMousePressedProperty().get().handle(new MouseEvent(MouseEvent.MOUSE_PRESSED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+        });
     }
 
     public void setUpSteps(int x) {

@@ -10,6 +10,21 @@ public class SequencerStep {
     private int velocity = 127;
     private boolean isOn;
 
+    public MidiNote getMidiNote() {
+        return midiNote;
+    }
+
+    public float getDetuneCent() {
+        return detuneCent;
+    }
+
+    public int getVelocity() {
+        return velocity;
+    }
+
+    public boolean isOn() {
+        return isOn;
+    }
 
     public SequencerStep(Sequencer sequencer) {
         this.sequencer = sequencer;
@@ -41,5 +56,17 @@ public class SequencerStep {
 
     public void setIsOn(boolean b) {
         isOn = b;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("SequencerStep{");
+        sb.append("sequencer=").append(sequencer);
+        sb.append(", midiNote=").append(midiNote);
+        sb.append(", detuneCent=").append(detuneCent);
+        sb.append(", velocity=").append(velocity);
+        sb.append(", isOn=").append(isOn);
+        sb.append('}');
+        return sb.toString();
     }
 }

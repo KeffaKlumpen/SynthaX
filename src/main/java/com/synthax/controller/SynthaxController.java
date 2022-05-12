@@ -8,6 +8,7 @@ import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.Waveforms;
 import com.synthax.model.sequencer.Sequencer;
 import com.synthax.model.enums.SequencerMode;
+import com.synthax.model.sequencer.SequencerStep;
 import com.synthax.view.SynthaxView;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.io.JavaSoundAudioIO;
@@ -21,6 +22,7 @@ import java.util.Random;
  */
 public class SynthaxController {
     private SynthaxView synthaxView;
+    private SeqPresetLoader seqPresetLoader;
 
     private final Gain masterGain;
     private final Glide masterGainGlide;
@@ -45,6 +47,7 @@ public class SynthaxController {
         AudioContext.setDefaultContext(ac);
 
         sequencer = new Sequencer(this);
+        seqPresetLoader = new SeqPresetLoader(sequencer);
 
         masterGainGlide = new Glide(ac, 0.5f, 50);
         masterGain = new Gain(ac, 1, masterGainGlide);
@@ -75,6 +78,38 @@ public class SynthaxController {
      */
     public void moveOscillatorDown(OscillatorController oscillatorController) {
         oscillatorManager.moveOscillatorDown(oscillatorController);
+
+        // TODO: 2022-05-12 Move everything below this TODO to it's own method "onLoadPresetClicked"
+        // delegate the preset-loading to separate thread
+        Thread loader = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // If sequencer is playing, stop it and do the loading after
+                Thread sequencerThread = sequencer.getThread();
+                if(sequencerThread != null) {
+                    synthaxView.fakeSequencerStartStopClick();
+                    try {
+                        sequencerThread.join(250);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if(sequencerThread != null && sequencerThread.isAlive()) {
+                    System.err.println("CANT LOAD WHILE SEQUENCER IS RUNNING!");
+                    return;
+                }
+
+                seqPresetLoader.loadNextPreset();
+
+                // update GUI
+                SequencerStep[] steps = sequencer.getSteps();
+                for (int i = 0; i < steps.length; i++) {
+                    SequencerStep step = steps[i];
+                    updateSeqStepGUI(i, step.isOn(), step.getVelocity(), step.getDetuneCent(), step.getMidiNote());
+                }
+            }
+        });
+        loader.start();
     }
 
     /**
@@ -83,6 +118,31 @@ public class SynthaxController {
      */
     public void moveOscillatorUp(OscillatorController oscillatorController) {
         oscillatorManager.moveOscillatorUp(oscillatorController);
+
+        // TODO: 2022-05-12 Move everything below this TODO to it's own method "onSavePresetClicked"
+        // delegate the preset-loading to separate thread
+        Thread saver = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // If sequencer is playing, stop it and do the loading after
+                Thread sequencerThread = sequencer.getThread();
+                if(sequencerThread != null) {
+                    synthaxView.fakeSequencerStartStopClick();
+                    try {
+                        sequencerThread.join(250);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if(sequencerThread != null && sequencerThread.isAlive()) {
+                    System.err.println("CANT SAVE WHILE SEQUENCER IS RUNNING!");
+                    return;
+                }
+
+                seqPresetLoader.savePresetAsNew("preset");
+            }
+        });
+        saver.start();
     }
 
     /**
@@ -346,6 +406,11 @@ public class SynthaxController {
         reverb.setReverbTone(tone);
     }
     // endregion
+
+    public void updateSeqStepGUI(int i, boolean isOn, int velocity, float detuneCent, MidiNote midiNote) {
+
+        synthaxView.updateSeqStep(i, isOn, velocity, detuneCent, midiNote);
+    }
 
     public void setMasterGain(float gain) {
         masterGainGlide.setValue(gain);

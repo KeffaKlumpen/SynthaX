@@ -82,8 +82,16 @@ public class Sequencer implements Runnable {
         }
     }
 
+    public SequencerStep[] getSteps() {
+        return steps;
+    }
+
     public boolean isRunning() {
         return running;
+    }
+
+    public Thread getThread() {
+        return thread;
     }
 
     public void playNote(MidiNote midiNote, int velocity, float detuneCent) {
@@ -92,6 +100,63 @@ public class Sequencer implements Runnable {
 
     public void stopNote(MidiNote midiNote) {
         synthaxController.noteOff(midiNote);
+    }
+
+    // This whole thing should run on a thread that isn't main...
+    public void saveSequencer() throws InterruptedException {
+        Sequencer myThis = this;
+
+        Thread saver = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName());
+
+                if(thread != null) {
+                    try {
+                        myThis.thread.join(15000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if(thread != null && thread.isAlive()) {
+                    System.err.println("CANT SAVE WHILE SEQUENCER IS RUNNING!");
+                    return;
+                }
+
+                // SeqPresetLoader.getInstance().savePresetToFile(myThis, null); // FIXME: 2022-05-12 Pass in name from GUI
+            }
+        });
+        saver.start();
+    }
+
+    public void loadSequencer() throws InterruptedException {
+        Sequencer myThis = this;
+
+        Thread loader = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName());
+
+                if(thread != null) {
+                    try {
+                        myThis.thread.join(15000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if(thread != null && thread.isAlive()) {
+                    System.err.println("CANT LOAD WHILE SEQUENCER IS RUNNING!");
+                    return;
+                }
+                // SeqPresetLoader.getInstance().loadFromPreset(myThis);
+
+                for (int i = 0; i < steps.length; i++) {
+                    SequencerStep step = steps[i];
+                    synthaxController.updateSeqStepGUI(i, step.isOn(), step.getVelocity(), step.getDetuneCent(), step.getMidiNote());
+                }
+            }
+        });
+        loader.start();
     }
 
     @Override
