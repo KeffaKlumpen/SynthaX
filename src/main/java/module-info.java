@@ -3,6 +3,7 @@ module com.synthax.synthax_beads {
     requires javafx.fxml;
     requires beads;
     requires org.controlsfx.controls;
+    requires java.desktop;
 
 
     exports com.synthax.model;

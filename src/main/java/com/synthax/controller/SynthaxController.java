@@ -1,6 +1,7 @@
 package com.synthax.controller;
 
 import com.synthax.model.EQFilters;
+import com.synthax.model.Midi;
 import com.synthax.model.SynthLFO;
 import com.synthax.model.SynthReverb;
 import com.synthax.model.enums.MidiNote;
@@ -63,6 +64,8 @@ public class SynthaxController {
         // Send to audio-device
         ac.out.addInput(masterGain);
         ac.start();
+
+        new Midi();
     }
 
     //region OscillatorManager (click to open/collapse)
