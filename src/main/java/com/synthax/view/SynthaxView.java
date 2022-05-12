@@ -47,6 +47,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class SynthaxView implements Initializable {
     //region FXML variables
     @FXML private VBox oscillatorChainView;
+    @FXML private ImageView imgClickToAdd;
     @FXML private Button knobNoiseGain;
     @FXML private ToggleSwitch tglSwitchNoise;
     @FXML private Button knobDelayFeedback;
@@ -257,8 +258,9 @@ public class SynthaxView implements Initializable {
                     synthaxController.moveOscillatorUp(oscillatorController);
                 }
             });
-
+            oscillatorChainView.getChildren().remove(imgClickToAdd);
             oscillatorChainView.getChildren().add(oscillatorRoot);
+            oscillatorChainView.getChildren().add(imgClickToAdd);
         } catch (IOException e) {
             e.printStackTrace();
         }
