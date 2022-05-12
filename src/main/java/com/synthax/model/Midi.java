@@ -32,14 +32,11 @@ public class Midi {
     public class MidiReceiver implements Receiver {
 
         public void send(MidiMessage msg, long timeStamp) {
-            byte[] mess = msg.getMessage();
-            int onOff = mess[0];
-            int note = mess[1];
-            int velo = mess[2];
-            if (onOff == -112) {
-                oscillatorManager.noteOn(MidiNote.values()[note], velo);
-            } else if (onOff == -128) {
-                oscillatorManager.noteOff(MidiNote.values()[note]);
+            ShortMessage sm = (ShortMessage) msg;
+            if (sm.getStatus() == ShortMessage.NOTE_ON) {
+                oscillatorManager.noteOn(MidiNote.values()[sm.getData1()], sm.getData2());
+            } else {
+                oscillatorManager.noteOff(MidiNote.values()[sm.getData1()]);
             }
         }
 
