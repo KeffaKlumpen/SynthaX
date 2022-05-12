@@ -33,10 +33,13 @@ public class Midi {
 
         public void send(MidiMessage msg, long timeStamp) {
             ShortMessage sm = (ShortMessage) msg;
-            if (sm.getStatus() == ShortMessage.NOTE_ON) {
-                oscillatorManager.noteOn(MidiNote.values()[sm.getData1()], sm.getData2());
-            } else {
-                oscillatorManager.noteOff(MidiNote.values()[sm.getData1()]);
+            int note = sm.getData1();
+            if (note >= 0 && note <= 108) {
+                if (sm.getStatus() == ShortMessage.NOTE_ON) {
+                    oscillatorManager.noteOn(MidiNote.values()[note], sm.getData2());
+                } else {
+                    oscillatorManager.noteOff(MidiNote.values()[note]);
+                }
             }
         }
 
