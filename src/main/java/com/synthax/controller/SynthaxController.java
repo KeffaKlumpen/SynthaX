@@ -79,7 +79,24 @@ public class SynthaxController {
     public void moveOscillatorDown(OscillatorController oscillatorController) {
         oscillatorManager.moveOscillatorDown(oscillatorController);
 
-        // TODO: 2022-05-12 Move everything below this TODO to it's own method "onLoadPresetClicked"
+        // TESTING PRESETS: //
+        //onLoadNextPreset();
+    }
+
+
+    /**
+     * @param oscillatorController
+     * @author Joel Eriksson Sinclair
+     */
+    public void moveOscillatorUp(OscillatorController oscillatorController) {
+        oscillatorManager.moveOscillatorUp(oscillatorController);
+
+        // TESTING PRESETS: //
+        //onSavePresetAsNew();
+    }
+
+    //region SequencerPreset (click to expand/collapse)
+    public void onLoadNextPreset() {
         // delegate the preset-loading to separate thread
         Thread loader = new Thread(new Runnable() {
             @Override
@@ -112,13 +129,7 @@ public class SynthaxController {
         loader.start();
     }
 
-    /**
-     * @param oscillatorController
-     * @author Joel Eriksson Sinclair
-     */
-    public void moveOscillatorUp(OscillatorController oscillatorController) {
-        oscillatorManager.moveOscillatorUp(oscillatorController);
-
+    public void onSavePresetAsNew() {
         // TODO: 2022-05-12 Move everything below this TODO to it's own method "onSavePresetClicked"
         // delegate the preset-loading to separate thread
         Thread saver = new Thread(new Runnable() {
@@ -144,6 +155,34 @@ public class SynthaxController {
         });
         saver.start();
     }
+
+    public void onSavePreset() {
+        // TODO: 2022-05-12 Move everything below this TODO to it's own method "onSavePresetClicked"
+        // delegate the preset-loading to separate thread
+        Thread saver = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // If sequencer is playing, stop it and do the loading after
+                Thread sequencerThread = sequencer.getThread();
+                if(sequencerThread != null) {
+                    synthaxView.fakeSequencerStartStopClick();
+                    try {
+                        sequencerThread.join(250);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if(sequencerThread != null && sequencerThread.isAlive()) {
+                    System.err.println("CANT SAVE WHILE SEQUENCER IS RUNNING!");
+                    return;
+                }
+
+                seqPresetLoader.savePreset();
+            }
+        });
+        saver.start();
+    }
+    //endregion
 
     /**
      * @param oscillatorController
