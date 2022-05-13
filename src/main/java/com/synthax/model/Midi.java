@@ -33,13 +33,18 @@ public class Midi {
 
         public void send(MidiMessage msg, long timeStamp) {
             ShortMessage sm = (ShortMessage) msg;
-            int note = sm.getData1();
-            if (note >= 0 && note <= 108) {
-                if (sm.getStatus() == ShortMessage.NOTE_ON) {
-                    oscillatorManager.noteOn(MidiNote.values()[note], sm.getData2());
+            int data1 = sm.getData1();
+            int data2 = sm.getData2();
+            int status = msg.getStatus();
+
+            if (status == ShortMessage.NOTE_ON || status == ShortMessage.NOTE_OFF) {
+                if (data2 > 0) {
+                    oscillatorManager.noteOn(MidiNote.values()[data1], data2);
                 } else {
-                    oscillatorManager.noteOff(MidiNote.values()[note]);
+                    oscillatorManager.noteOff(MidiNote.values()[data1]);
                 }
+            } else if (status == ShortMessage.PITCH_BEND) {
+                //TODO: anropa en egen metod för pitchbend.
             }
         }
 
