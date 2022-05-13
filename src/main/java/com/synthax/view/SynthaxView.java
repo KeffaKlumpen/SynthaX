@@ -234,13 +234,12 @@ public class SynthaxView implements Initializable {
                 Node[] childList = oscillatorChainView.getChildren().toArray(new Node[0]);
                 int oscIndex = oscillatorChainView.getChildren().indexOf(oscillatorRoot);
 
-                if (oscIndex < childList.length - 1) {
+                if (oscIndex < childList.length - 2) {
                     Node nextOsc = childList[oscIndex + 1];
                     childList[oscIndex + 1] = oscillatorRoot;
                     childList[oscIndex] = nextOsc;
 
                     oscillatorChainView.getChildren().setAll(childList);
-
                     synthaxController.moveOscillatorDown(oscillatorController);
                 }
             });
@@ -254,7 +253,6 @@ public class SynthaxView implements Initializable {
                     childList[oscIndex] = prevOsc;
 
                     oscillatorChainView.getChildren().setAll(childList);
-
                     synthaxController.moveOscillatorUp(oscillatorController);
                 }
             });

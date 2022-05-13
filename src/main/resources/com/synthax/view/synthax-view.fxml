@@ -27,13 +27,13 @@
             <Image url="@../Images/logoTdigiSv.png" />
          </image>
       </ImageView>
-      <ScrollPane layoutX="8.0" layoutY="179.0" prefHeight="530.0" prefWidth="415.0">
+      <ScrollPane layoutX="12.0" layoutY="179.0" prefHeight="530.0" prefWidth="415.0">
          <content>
             <VBox id="oscBox" fx:id="oscillatorChainView" prefHeight="520.0" prefWidth="367.0">
                <children>
                   <ImageView fx:id="imgClickToAdd" fitHeight="189.0" fitWidth="389.0" onMouseClicked="#onActionAddOscillator" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/Clicktoadd1.png" />
+                        <Image url="@../Images/ClickToAddSharp.png" />
                      </image>
                      <VBox.margin>
                         <Insets top="5.0" />
@@ -819,5 +819,9 @@
             <Slider id="masterSlider" fx:id="sliderMasterGain" blockIncrement="0.1" layoutX="25.0" layoutY="33.0" majorTickUnit="0.05" max="1.0" minorTickCount="1" orientation="VERTICAL" prefHeight="155.0" prefWidth="40.0" value="0.5" />
          </children>
       </AnchorPane>
+      <Button layoutX="84.0" layoutY="141.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="55.0" styleClass="plainButton" text="Help" />
+      <Button layoutX="29.0" layoutY="141.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" styleClass="settingsButton" />
+      <Label layoutX="168.0" layoutY="151.0" text="Mididevice Connected" />
+      <Button layoutX="333.0" layoutY="141.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" styleClass="refreshButton" />
    </children>
 </AnchorPane>

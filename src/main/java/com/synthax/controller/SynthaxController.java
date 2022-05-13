@@ -16,7 +16,7 @@ import net.beadsproject.beads.ugens.*;
 import java.util.Random;
 
 /**
- *
+ * Main controller for the synthesizer
  * @author Joel Eriksson Sinclair
  */
 public class SynthaxController {

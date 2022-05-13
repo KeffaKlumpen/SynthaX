@@ -97,7 +97,6 @@
     -fx-text-fill: black;
     -fx-font-family: "Handel Gothic";
     -fx-font-size: 12;
-
 }
 
 .check-box .box {
@@ -116,6 +115,24 @@
     -fx-font-size: 14;
     -fx-body-color: #78736b;
     -fx-background-insets: 0, 0, 0;
+}
+
+.settingsButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/gear.png");
+    -fx-background-size: 35px, 35px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.refreshButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/circArrow.png");
+    -fx-background-size: 23px, 23px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
 }
 
 .resetButton {
