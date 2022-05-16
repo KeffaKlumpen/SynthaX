@@ -26,6 +26,7 @@
     -fx-background-color: #d6d1c9;
     -fx-control-inner-background: #b0aaa0;
     -fx-shadow-highlight-color: #a6a4a270;
+
 }
 
 .knob:focused {
@@ -132,12 +133,6 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-insets: 0, 1, 2;
-}
-
-.popover > .border  {
-    -fx-effect: null;
-    -fx-stroke-width: 2px;
-    -fx-fill: #a6a097;
 }
 
 .resetButton {

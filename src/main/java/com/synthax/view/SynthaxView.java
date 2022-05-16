@@ -28,9 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.controlsfx.control.PopOver;
 import org.controlsfx.control.ToggleSwitch;
 
 import java.io.File;
@@ -91,8 +89,6 @@ public class SynthaxView implements Initializable {
     @FXML private NumberAxis xAxis = new NumberAxis();
     @FXML private NumberAxis yAxis = new NumberAxis();
     @FXML private LineChart<Number, Number> lineChartADSR = new LineChart<Number, Number>(xAxis, yAxis);
-    @FXML private PopOver popOverHelp;
-    @FXML private Button btnHelp;
     //endregion
     //region Step sequencer buttons
     @FXML private Button knobSS0freq;
@@ -299,12 +295,6 @@ public class SynthaxView implements Initializable {
         }
 
 
-    }
-
-    public void onActionHelp() {
-        popOverHelp = new PopOver();
-        popOverHelp.show(btnHelp);
-        popOverHelp.getRoot().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
     }
 
     public void setUpSteps(int x) {
