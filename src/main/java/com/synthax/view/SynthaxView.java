@@ -327,7 +327,8 @@ public class SynthaxView implements Initializable {
     }
 
     public void onActionHelp() {
-        popOverHelp = new PopOver();
+        ImageView iv = new ImageView(new Image(MainApplication.class.getResource("Images/gear.png").toExternalForm()));
+        popOverHelp = new PopOver(iv);
         popOverHelp.show(btnHelp);
         popOverHelp.getRoot().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
     }

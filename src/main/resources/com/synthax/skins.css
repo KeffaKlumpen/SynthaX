@@ -23,7 +23,7 @@
     -fx-accent: #f78000;
     -fx-focus-color: #f78000;
     -fx-faint-focus-color: #f7800022;
-    -fx-background-color: #d6d1c9;
+
     -fx-control-inner-background: #b0aaa0;
     -fx-shadow-highlight-color: #a6a4a270;
 }
@@ -136,7 +136,7 @@
 
 .popover > .border  {
     -fx-effect: null;
-    -fx-stroke-width: 2px;
+    -fx-stroke-width: 0px;
     -fx-fill: #a6a097;
 }
 
@@ -292,4 +292,8 @@
 
 .contentSquare {
     -fx-fill: -fx-base;
+}
+
+.arcSquare {
+    -fx-fill: derive(-fx-base,20%);
 }
