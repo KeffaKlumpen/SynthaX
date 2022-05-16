@@ -31,7 +31,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.PopOver;
 import org.controlsfx.control.ToggleSwitch;
 
 import java.io.File;
@@ -50,6 +52,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class SynthaxView implements Initializable {
     //region FXML variables
     @FXML private VBox oscillatorChainView;
+    @FXML private ImageView imgClickToAdd;
     @FXML private Button knobNoiseGain;
     @FXML private ToggleSwitch tglSwitchNoise;
     @FXML private Button knobDelayFeedback;
@@ -91,6 +94,8 @@ public class SynthaxView implements Initializable {
     @FXML private NumberAxis xAxis = new NumberAxis();
     @FXML private NumberAxis yAxis = new NumberAxis();
     @FXML private LineChart<Number, Number> lineChartADSR = new LineChart<Number, Number>(xAxis, yAxis);
+    @FXML private PopOver popOverHelp;
+    @FXML private Button btnHelp;
     //endregion
     //region Step sequencer buttons
     @FXML private Button knobSS0freq;
@@ -236,13 +241,12 @@ public class SynthaxView implements Initializable {
                 Node[] childList = oscillatorChainView.getChildren().toArray(new Node[0]);
                 int oscIndex = oscillatorChainView.getChildren().indexOf(oscillatorRoot);
 
-                if (oscIndex < childList.length - 1) {
+                if (oscIndex < childList.length - 2) {
                     Node nextOsc = childList[oscIndex + 1];
                     childList[oscIndex + 1] = oscillatorRoot;
                     childList[oscIndex] = nextOsc;
 
                     oscillatorChainView.getChildren().setAll(childList);
-
                     synthaxController.moveOscillatorDown(oscillatorController);
                 }
             });
@@ -256,12 +260,12 @@ public class SynthaxView implements Initializable {
                     childList[oscIndex] = prevOsc;
 
                     oscillatorChainView.getChildren().setAll(childList);
-
                     synthaxController.moveOscillatorUp(oscillatorController);
                 }
             });
-
+            oscillatorChainView.getChildren().remove(imgClickToAdd);
             oscillatorChainView.getChildren().add(oscillatorRoot);
+            oscillatorChainView.getChildren().add(imgClickToAdd);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -317,6 +321,12 @@ public class SynthaxView implements Initializable {
                     0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
                     true, true, true, true, true, true, null));
         });
+    }
+
+    public void onActionHelp() {
+        popOverHelp = new PopOver();
+        popOverHelp.show(btnHelp);
+        popOverHelp.getRoot().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
     }
 
     public void setUpSteps(int x) {

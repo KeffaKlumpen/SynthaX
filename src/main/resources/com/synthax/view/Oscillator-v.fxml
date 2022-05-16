@@ -16,7 +16,7 @@
 <?import org.controlsfx.control.SegmentedButton?>
 <?import org.controlsfx.control.ToggleSwitch?>
 
-<TitledPane collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="181.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.OscillatorView">
+<TitledPane collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="181.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.OscillatorView">
    <graphic>
       <ToolBar prefHeight="40.0" prefWidth="561.0">
          <items>
