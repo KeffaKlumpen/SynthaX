@@ -96,6 +96,9 @@ public class SynthaxView implements Initializable {
     @FXML private LineChart<Number, Number> lineChartADSR = new LineChart<Number, Number>(xAxis, yAxis);
     @FXML private PopOver popOverHelp;
     @FXML private Button btnHelp;
+    @FXML private Button btnSavePreset;
+    @FXML private Button btnLoadPreset;
+    @FXML private Spinner<String> spinnerPresets;
     //endregion
     //region Step sequencer buttons
     @FXML private Button knobSS0freq;
