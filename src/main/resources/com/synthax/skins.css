@@ -19,7 +19,7 @@
 .root {
     -fx-font-family: "Handel Gothic";
     -fx-base: #bfbbb4;
-    -fx-background: derive(-fx-base,20%);
+    -fx-background: #d6d1c9;
     -fx-accent: #f78000;
     -fx-focus-color: #f78000;
     -fx-faint-focus-color: #f7800022;
@@ -135,8 +135,7 @@
 }
 
 .popover > .border  {
-    -fx-effect: null;
-    -fx-stroke-width: 0px;
+    -fx-stroke-width: 1px;
     -fx-fill: #a6a097;
 }
 
@@ -294,6 +293,3 @@
     -fx-fill: -fx-base;
 }
 
-.arcSquare {
-    -fx-fill: derive(-fx-base,20%);
-}

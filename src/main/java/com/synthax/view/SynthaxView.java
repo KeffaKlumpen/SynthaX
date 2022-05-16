@@ -33,6 +33,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
 import org.controlsfx.control.ToggleSwitch;
 
@@ -327,10 +328,18 @@ public class SynthaxView implements Initializable {
     }
 
     public void onActionHelp() {
-        ImageView iv = new ImageView(new Image(MainApplication.class.getResource("Images/gear.png").toExternalForm()));
-        popOverHelp = new PopOver(iv);
-        popOverHelp.show(btnHelp);
-        popOverHelp.getRoot().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
+        if (popOverHelp == null || !popOverHelp.isShowing()) {
+            ImageView iv = new ImageView(new Image(MainApplication.class.getResource("Images/HelpwindowNormal.png").toExternalForm()));
+            iv.setFitWidth(600);
+            iv.setFitHeight(300);
+            popOverHelp = new PopOver(iv);
+            popOverHelp.setTitle("");
+            popOverHelp.setDetachable(false);
+            popOverHelp.setCloseButtonEnabled(true);
+            popOverHelp.setHeaderAlwaysVisible(true);
+            popOverHelp.show(btnHelp);
+            popOverHelp.getRoot().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
+        }
     }
 
     public void setUpSteps(int x) {
@@ -405,6 +414,7 @@ public class SynthaxView implements Initializable {
         initLFO();
         initReverb();
         initSS();
+        onActionAddOscillator();
         sliderMasterGain.valueProperty().addListener((observableValue, number, t1) -> synthaxController.setMasterGain(t1.floatValue()));
     }
 
