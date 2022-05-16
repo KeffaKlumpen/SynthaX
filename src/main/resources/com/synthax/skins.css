@@ -118,7 +118,7 @@
 
 .settingsButton {
     -fx-background-color: #78736b;
-    -fx-background-image: url("Images/gear.png");
+    -fx-background-image: url("Images/gearNew.png");
     -fx-background-size: 35px, 35px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
@@ -129,6 +129,15 @@
     -fx-background-color: #78736b;
     -fx-background-image: url("Images/circArrow.png");
     -fx-background-size: 23px, 23px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.saveButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/floppy.png");
+    -fx-background-size: 18px, 18px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-insets: 0, 1, 2;

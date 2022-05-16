@@ -608,9 +608,9 @@
                </font>
             </CheckBox>
             <Button fx:id="btnResetKnobs" layoutX="672.0" layoutY="302.0" mnemonicParsing="false" onAction="#onActionResetKnobs" prefHeight="49.0" prefWidth="44.0" styleClass="resetButton" text="Reset knobs" textAlignment="CENTER" wrapText="true" />
-            <Button fx:id="btnSavePreset" layoutX="355.0" layoutY="9.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" styleClass="plainButton" text="S" />
-            <Button fx:id="btnLoadPreset" layoutX="389.0" layoutY="9.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="30.0" styleClass="plainButton" text="L" />
-            <Spinner fx:id="spinnerPresets" layoutX="223.0" layoutY="9.0" prefHeight="25.0" prefWidth="128.0" />
+            <Button fx:id="btnSavePreset" layoutX="357.0" layoutY="8.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" styleClass="saveButton" />
+            <Button fx:id="btnLoadPreset" layoutX="391.0" layoutY="8.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" styleClass="plainButton" text="L" />
+            <Spinner fx:id="spinnerPresets" layoutX="223.0" layoutY="8.0" prefHeight="28.0" prefWidth="128.0" />
          </children></AnchorPane>
       <AnchorPane layoutX="875.0" layoutY="12.0" prefHeight="345.0" prefWidth="391.0">
          <children>
