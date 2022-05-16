@@ -563,7 +563,7 @@
                   <Font name="Handel Gothic" size="14.0" />
                </font></Label>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#d6d1c9" height="45.0" layoutX="430.0" layoutY="-11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="57.0" />
-            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="11.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="213.0" />
+            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="11.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="13.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="164.0" />
             <Line endX="408.2060546875" layoutX="13.0" layoutY="21.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
             <Label layoutX="17.0" layoutY="11.0" styleClass="bigLabel" text="16-Step Sequencer">
@@ -608,6 +608,9 @@
                </font>
             </CheckBox>
             <Button fx:id="btnResetKnobs" layoutX="672.0" layoutY="302.0" mnemonicParsing="false" onAction="#onActionResetKnobs" prefHeight="49.0" prefWidth="44.0" styleClass="resetButton" text="Reset knobs" textAlignment="CENTER" wrapText="true" />
+            <Button layoutX="355.0" layoutY="9.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" styleClass="plainButton" text="S" />
+            <Button layoutX="389.0" layoutY="9.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="30.0" styleClass="plainButton" text="L" />
+            <Spinner layoutX="223.0" layoutY="9.0" prefHeight="25.0" prefWidth="128.0" />
          </children></AnchorPane>
       <AnchorPane layoutX="875.0" layoutY="12.0" prefHeight="345.0" prefWidth="391.0">
          <children>
@@ -819,7 +822,7 @@
             <Slider id="masterSlider" fx:id="sliderMasterGain" blockIncrement="0.1" layoutX="25.0" layoutY="33.0" majorTickUnit="0.05" max="1.0" minorTickCount="1" orientation="VERTICAL" prefHeight="155.0" prefWidth="40.0" value="0.5" />
          </children>
       </AnchorPane>
-      <Button layoutX="84.0" layoutY="141.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="55.0" styleClass="plainButton" text="Help" />
+      <Button fx:id="btnHelp" layoutX="84.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionHelp" prefHeight="32.0" prefWidth="55.0" styleClass="plainButton" text="Help" />
       <Button layoutX="29.0" layoutY="141.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" styleClass="settingsButton" />
       <Label layoutX="168.0" layoutY="151.0" text="Mididevice Connected" />
       <Button layoutX="333.0" layoutY="141.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" styleClass="refreshButton" />
