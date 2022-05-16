@@ -822,9 +822,15 @@
             <Slider id="masterSlider" fx:id="sliderMasterGain" blockIncrement="0.1" layoutX="25.0" layoutY="33.0" majorTickUnit="0.05" max="1.0" minorTickCount="1" orientation="VERTICAL" prefHeight="155.0" prefWidth="40.0" value="0.5" />
          </children>
       </AnchorPane>
-      <Button fx:id="btnHelp" layoutX="84.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionHelp" prefHeight="32.0" prefWidth="55.0" styleClass="plainButton" text="Help" />
+      <Button id="btnHelp" fx:id="btnHelp" layoutX="81.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionHelp" prefHeight="32.0" prefWidth="55.0" styleClass="plainButton" text="Help">
+         <font>
+            <Font size="21.0" />
+         </font></Button>
       <Button layoutX="29.0" layoutY="141.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" styleClass="settingsButton" />
-      <Label layoutX="168.0" layoutY="151.0" text="Mididevice Connected" />
-      <Button layoutX="333.0" layoutY="141.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" styleClass="refreshButton" />
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#d6d1c9" height="32.0" layoutX="155.0" layoutY="141.0" stroke="#78736b" strokeType="INSIDE" width="222.0" />
+      <Label layoutX="167.0" layoutY="149.0" styleClass="filterLabel" text="Mididevice" />
+      <Button fx:id="btnSearchMidiDevice" layoutX="354.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionSearchMidiDevice" prefHeight="32.0" prefWidth="32.0" styleClass="refreshButton" />
+      <Label fx:id="lblNotConnected" layoutX="246.0" layoutY="149.0" styleClass="filterLabel" text="not connected" />
+      <Label fx:id="lblConnected" layoutX="247.0" layoutY="149.0" styleClass="connectedLabel" text="connected" textFill="#f78000" visible="false" />
    </children>
 </AnchorPane>

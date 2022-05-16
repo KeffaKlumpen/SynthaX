@@ -77,9 +77,9 @@
 }
 
 #masterSlider .thumb {
-        -fx-background-size: 40px, 20px;
-        -fx-pref-width: 40px;
-        -fx-pref-height: 20px;
+    -fx-background-size: 40px, 20px;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 20px;
 }
 
 .spinner .increment-arrow-button,
@@ -151,6 +151,11 @@
 
 #btnStartStop {
     -fx-font-size: 20;
+}
+
+#btnHelp {
+    -fx-font-size: 18;
+    -fx-padding: 3px;
 }
 
 .spinner .increment-arrow-button .increment-arrow,
@@ -236,6 +241,12 @@
 .filterLabel {
     -fx-font-family: "Handel Gothic";
     -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+}
+
+.connectedLabel {
+    -fx-font-family: "Handel Gothic";
+    -fx-text-fill: #f78000;
     -fx-font-size: 14px;
 }
 
