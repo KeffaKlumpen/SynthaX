@@ -16,11 +16,12 @@ import java.io.IOException;
 
 public class SampleTest {
 
-    private SamplePlayer kick;
-    private SamplePlayer snare;
-    private SamplePlayer hiHat;
-    private SamplePlayer clap;
-    private final AudioContext ac;
+    SamplePlayer kick;
+    SamplePlayer snare;
+    SamplePlayer hiHat;
+    SamplePlayer clap;
+    Gain master;
+    final AudioContext ac;
 
     public SampleTest(){
         JavaSoundAudioIO jsaio = new JavaSoundAudioIO(512);
@@ -76,7 +77,7 @@ public class SampleTest {
         clap.setKillOnEnd(false);
         clapGain.addInput(clap);
 
-        Gain master = new Gain(ac, 1, 1.0f);
+        master = new Gain(ac, 1, 0.0f);
         master.addInput(kickGain);
         master.addInput(snareGain);
         master.addInput(hiHatGain);
@@ -92,21 +93,25 @@ public class SampleTest {
     }
 
     public void playKick() {
+        master.setGain(1.0f);
         kick.setToLoopStart();
         kick.start();
     }
 
     public void playSnare() {
+        master.setGain(1.0f);
         snare.setToLoopStart();
         snare.start();
     }
 
     public void playHiHat() {
+        master.setGain(1.0f);
         hiHat.setToLoopStart();
         hiHat.start();
     }
 
     public void playClap() {
+        master.setGain(1.0f);
         clap.setToLoopStart();
         clap.start();
     }
