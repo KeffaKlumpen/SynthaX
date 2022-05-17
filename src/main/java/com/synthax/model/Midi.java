@@ -37,7 +37,9 @@ public class Midi {
             int data2 = sm.getData2();
             int status = msg.getStatus();
 
-            if (status == ShortMessage.NOTE_ON || status == ShortMessage.NOTE_OFF) {
+            if (status == ShortMessage.NOTE_OFF) {
+                oscillatorManager.noteOff(MidiNote.values()[data1]);
+            } else if (status == ShortMessage.NOTE_ON) {
                 if (data2 > 0) {
                     oscillatorManager.noteOn(MidiNote.values()[data1], data2);
                 } else {
