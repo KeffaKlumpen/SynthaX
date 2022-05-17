@@ -181,7 +181,7 @@ public class SynthaxView implements Initializable {
     //endregion
 
 
-    private final HashMap<KeyCode, AtomicBoolean> keyStatus = new HashMap<>();
+    private final HashMap<String, AtomicBoolean> keyStatus = new HashMap<>();
     private KnobBehavior bKnobSSRate;
     private Button[] arrSeqFreqKnobs;
     private Button[] arrSeqDetuneKnobs;
@@ -839,36 +839,40 @@ public class SynthaxView implements Initializable {
         });
     }
     private void initKeyHash() {
-        keyStatus.put(KeyCode.A, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.W, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.S, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.E, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.D, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.F, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.T, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.G, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.Y, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.H, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.U, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.J, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.K, new AtomicBoolean(false));
+        keyStatus.put("a", new AtomicBoolean(false));
+        keyStatus.put("w", new AtomicBoolean(false));
+        keyStatus.put("s", new AtomicBoolean(false));
+        keyStatus.put("e", new AtomicBoolean(false));
+        keyStatus.put("d", new AtomicBoolean(false));
+        keyStatus.put("f", new AtomicBoolean(false));
+        keyStatus.put("t", new AtomicBoolean(false));
+        keyStatus.put("g", new AtomicBoolean(false));
+        keyStatus.put("y", new AtomicBoolean(false));
+        keyStatus.put("h", new AtomicBoolean(false));
+        keyStatus.put("u", new AtomicBoolean(false));
+        keyStatus.put("j", new AtomicBoolean(false));
+        keyStatus.put("k", new AtomicBoolean(false));
+        keyStatus.put("l", new AtomicBoolean(false));
+        keyStatus.put("ö", new AtomicBoolean(false));
+        keyStatus.put("ä", new AtomicBoolean(false));
+        keyStatus.put("o", new AtomicBoolean(false));
+        keyStatus.put("p", new AtomicBoolean(false));
     }
     private void initKeyBoardListeners() {
         mainPane.setOnKeyPressed(event -> {
-            KeyCode keyCode = event.getCode();
-            // If it's a valid key, send a noteOn message.
-            if (keyStatus.containsKey(keyCode)) {
-                if (keyStatus.get(keyCode).compareAndSet(false, true)) {
-                    MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
+            String code = event.getText();
+            if (keyStatus.containsKey(code)) {
+                if (keyStatus.get(code).compareAndSet(false, true)) {
+                    MidiNote note = MidiHelpers.stringToMidi(code);
                     synthaxController.noteOn(note, 127);
                 }
             }
         });
         mainPane.setOnKeyReleased(event -> {
-            KeyCode keyCode = event.getCode();
-            if (keyStatus.containsKey(keyCode)) {
-                if (keyStatus.get(keyCode).compareAndSet(true, false)) {
-                    MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
+            String code = event.getText();
+            if (keyStatus.containsKey(code)) {
+                if (keyStatus.get(code).compareAndSet(true, false)) {
+                    MidiNote note = MidiHelpers.stringToMidi(code);
                     synthaxController.noteOff(note);
                 }
             }
