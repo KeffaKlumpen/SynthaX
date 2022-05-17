@@ -96,12 +96,12 @@ public class SynthaxView implements Initializable {
     @FXML private NumberAxis yAxis = new NumberAxis();
     @FXML private LineChart<Number, Number> lineChartADSR = new LineChart<Number, Number>(xAxis, yAxis);
     @FXML private Button btnHelp;
+    @FXML private Button btnSettings;
     @FXML private Button btnSearchMidiDevice;
     @FXML private Label lblNotConnected;
     @FXML private Label lblConnected;
     @FXML private Button btnSavePreset;
-    @FXML private Button btnLoadPreset;
-    @FXML private Spinner<String> spinnerPresets;
+    @FXML private ComboBox<String> cmbPresets;
     //endregion
     //region Step sequencer buttons
     @FXML private Button knobSS0freq;
@@ -199,14 +199,13 @@ public class SynthaxView implements Initializable {
     private XYChart.Data<Number, Number> point4ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point5ADSR = new XYChart.Data<>();
     private PopOver popOverHelp;
+    private PopOver popOverSettings;
 
     private final SynthaxController synthaxController;
     private final int attackMax = 3000;
     private final int decayMax = 1500;
     private final int releaseMax = 2000;
     private int easterCounter = 0;
-
-
 
     public SynthaxView() {
         synthaxController = new SynthaxController(this);
@@ -339,6 +338,23 @@ public class SynthaxView implements Initializable {
             popOverHelp.setHeaderAlwaysVisible(true);
             popOverHelp.show(btnHelp);
             popOverHelp.getRoot().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
+        }
+    }
+
+    public void onActionSettings() {
+        try {
+            URL fxmlLocation = MainApplication.class.getResource("view/Settings-view.fxml");
+            FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
+            Node settingsRoot = fxmlLoader.load();
+            popOverSettings = new PopOver(settingsRoot);
+            popOverSettings.setTitle("Settings");
+            popOverSettings.setDetachable(false);
+            popOverSettings.setHeaderAlwaysVisible(true);
+            popOverSettings.show(btnSettings);
+            popOverSettings.getStyleClass().add("popoverSettings");
+            popOverSettings.getRoot().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

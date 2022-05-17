@@ -116,6 +116,11 @@
     -fx-background-insets: 0, 0, 0;
 }
 
+.presetsComboBox {
+    -fx-background-color: #a6a097;
+    -fx-background-insets: 0, 0, 0;
+}
+
 .settingsButton {
     -fx-background-color: #78736b;
     -fx-background-image: url("Images/gearNew.png");
@@ -148,6 +153,35 @@
     -fx-fill: #a6a097;
 }
 
+.popoverSettings > .border {
+    -fx-stroke-width: 1px;
+    -fx-fill: -fx-base;
+}
+
+.popover > .content > .title > .text,
+.popoverSettings > .content > .title > .text {
+    -fx-text-fill: black;
+    -fx-font-size: 16px;
+}
+
+.popover > .content > .title > .icon > .graphics > .circle,
+.popoverSettings > .content > .title > .icon > .graphics > .circle {
+	-fx-fill: #78736b;
+	-fx-effect: null;
+	-fx-scale-x: 2px;
+	-fx-scale-y: 2px;
+	-fx-scale-z: 2px;
+}
+
+.popover > .content > .title > .icon > .graphics > .line,
+.popover > .content > .title > .icon > .graphics > .line {
+	-fx-stroke: #f78000;
+	-fx-stroke-width: 1px;
+	-fx-scale-x: 2px;
+    -fx-scale-y: 2px;
+   	-fx-scale-z: 2px;
+}
+
 .resetButton {
     -fx-background-color: #78736b;
     -fx-text-fill: #d6d1c9;
@@ -168,7 +202,8 @@
 }
 
 .spinner .increment-arrow-button .increment-arrow,
-.spinner .decrement-arrow-button .decrement-arrow {
+.spinner .decrement-arrow-button .decrement-arrow,
+.presetsComboBox .arrow {
     -fx-background-color: black;
 }
 
