@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCode;
 
 /**
  * @author Joel Eriksson Sinclair
+ * @author Luke Eales
  */
 public class MidiHelpers {
 
@@ -37,58 +38,26 @@ public class MidiHelpers {
         };
     }
 
-    public static int charToMidi(char c){
-        return switch (c){
-            case 'A' -> 57;
-            case 'B' -> 59;
-            case 'C' -> 60;
-            case 'D' -> 62;
-            case 'E' -> 64;
-            case 'F' -> 65;
-            case 'G' -> 67;
-            default -> -1;
-        };
-    }
-
-    public static MidiNote keyCodeToMidi(KeyCode keyCode){
-        if(keyCode == KeyCode.A){
-            return MidiNote.C4;
-        }
-        else if (keyCode == KeyCode.W){
-            return MidiNote.Db4;
-        }
-        else if (keyCode == KeyCode.S){
-            return MidiNote.D4;
-        }
-        else if (keyCode == KeyCode.E){
-            return MidiNote.Eb4;
-        }
-        else if (keyCode == KeyCode.D){
-            return MidiNote.E4;
-        }
-        else if (keyCode == KeyCode.F){
-            return MidiNote.F4;
-        }
-        else if (keyCode == KeyCode.T){
-            return MidiNote.Gb4;
-        }
-        else if (keyCode == KeyCode.G){
-            return MidiNote.G4;
-        }
-        else if (keyCode == KeyCode.Y){
-            return MidiNote.Ab4;
-        }
-        else if (keyCode == KeyCode.H){
-            return MidiNote.A4;
-        }
-        else if (keyCode == KeyCode.U){
-            return MidiNote.Bb4;
-        }
-        else if (keyCode == KeyCode.J){
-            return MidiNote.B4;
-        }
-        else if (keyCode == KeyCode.K){
-            return MidiNote.C5;
+    public static MidiNote stringToMidi(String code) {
+        switch (code) {
+            case "a" -> {return MidiNote.C4;}
+            case "w" -> {return MidiNote.Db4;}
+            case "s" -> {return MidiNote.D4;}
+            case "e" -> {return MidiNote.Eb4;}
+            case "d" -> {return MidiNote.E4;}
+            case "f" -> {return MidiNote.F4;}
+            case "t" -> {return MidiNote.Gb4;}
+            case "g" -> {return MidiNote.G4;}
+            case "y" -> {return MidiNote.Ab4;}
+            case "h" -> {return MidiNote.A4;}
+            case "u" -> {return MidiNote.Bb4;}
+            case "j" -> {return MidiNote.B4;}
+            case "k" -> {return MidiNote.C5;}
+            case "l" -> {return MidiNote.D5;}
+            case "o" -> {return MidiNote.Db5;}
+            case "ö" -> {return MidiNote.E5;}
+            case "ä" -> {return MidiNote.F5;}
+            case "p" -> {return MidiNote.Eb5;}
         }
         return MidiNote.getValues()[0];
     }
