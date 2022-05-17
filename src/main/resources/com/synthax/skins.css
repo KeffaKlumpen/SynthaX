@@ -19,11 +19,11 @@
 .root {
     -fx-font-family: "Handel Gothic";
     -fx-base: #bfbbb4;
-    -fx-background: derive(-fx-base,20%);
+    -fx-background: #d6d1c9;
     -fx-accent: #f78000;
     -fx-focus-color: #f78000;
     -fx-faint-focus-color: #f7800022;
-    -fx-background-color: #d6d1c9;
+
     -fx-control-inner-background: #b0aaa0;
     -fx-shadow-highlight-color: #a6a4a270;
 }
@@ -77,14 +77,13 @@
 }
 
 #masterSlider .thumb {
-        -fx-background-size: 40px, 20px;
-        -fx-pref-width: 40px;
-        -fx-pref-height: 20px;
+    -fx-background-size: 40px, 20px;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 20px;
 }
 
 .spinner .increment-arrow-button,
 .spinner .decrement-arrow-button,
-.toggleOsc,
 .toggle-switch .thumb-area {
     -fx-background-color: #78736b;
     -fx-text-fill: #d6d1c9;
@@ -107,6 +106,7 @@
     -fx-background-color: #f78000;
 }
 
+.toggleOsc,
 .plainButton {
     -fx-background-color: #78736b;
     -fx-text-fill: #d6d1c9;
@@ -118,7 +118,7 @@
 
 .settingsButton {
     -fx-background-color: #78736b;
-    -fx-background-image: url("Images/gear.png");
+    -fx-background-image: url("Images/gearNew.png");
     -fx-background-size: 35px, 35px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
@@ -134,9 +134,17 @@
     -fx-background-insets: 0, 1, 2;
 }
 
+.saveButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/floppy.png");
+    -fx-background-size: 18px, 18px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+}
+
 .popover > .border  {
-    -fx-effect: null;
-    -fx-stroke-width: 2px;
+    -fx-stroke-width: 1px;
     -fx-fill: #a6a097;
 }
 
@@ -154,6 +162,11 @@
     -fx-font-size: 20;
 }
 
+#btnHelp {
+    -fx-font-size: 18;
+    -fx-padding: 3px;
+}
+
 .spinner .increment-arrow-button .increment-arrow,
 .spinner .decrement-arrow-button .decrement-arrow {
     -fx-background-color: black;
@@ -163,6 +176,8 @@
 .toggle-switch:selected .thumb-area {
     -fx-background-color: #f78000;
 }
+
+
 
 .toggleSeq {
     -fx-padding: 0,3px;
@@ -240,6 +255,12 @@
     -fx-font-size: 14px;
 }
 
+.connectedLabel {
+    -fx-font-family: "Handel Gothic";
+    -fx-text-fill: #f78000;
+    -fx-font-size: 14px;
+}
+
 
 .lightLabel {
     -fx-font-family: "Handel Gothic";
@@ -293,3 +314,4 @@
 .contentSquare {
     -fx-fill: -fx-base;
 }
+

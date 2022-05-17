@@ -31,7 +31,6 @@ import java.util.ResourceBundle;
  */
 public class OscillatorView implements Initializable {
     @FXML private ToggleButton tglBtnCombineAdd;
-    @FXML private ToggleButton tglBtnCombineSub;
     @FXML private ToggleButton tglBtnCombineMult;
     @FXML private SegmentedButton segBtnCombineMode;
     @FXML private ToggleSwitch tglSwitchOscillatorOnOff;
@@ -85,27 +84,14 @@ public class OscillatorView implements Initializable {
         oscillatorController.setOutputType(CombineMode.ADD);
         System.out.println("ADD");
 
-        tglBtnCombineAdd.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                oscillatorController.setOutputType(CombineMode.ADD);
-                System.out.println("ADD");
-            }
+        tglBtnCombineAdd.setOnAction(actionEvent -> {
+            oscillatorController.setOutputType(CombineMode.ADD);
+            System.out.println("ADD");
         });
 
-        tglBtnCombineMult.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                oscillatorController.setOutputType(CombineMode.MULT);
-                System.out.println("MULT");
-            }
-        });
-
-        tglBtnCombineSub.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                System.err.println("NOT IMPLEMENTED");
-            }
+        tglBtnCombineMult.setOnAction(actionEvent -> {
+            oscillatorController.setOutputType(CombineMode.MULT);
+            System.out.println("MULT");
         });
     }
 
@@ -142,15 +128,12 @@ public class OscillatorView implements Initializable {
         SpinnerValueFactory<OctaveOperands> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(OctaveOperands.values()));
         valueFactory.setValue(OctaveOperands.EIGHT);
         octaveSpinner.setValueFactory(valueFactory);
-        octaveSpinner.valueProperty().addListener(new ChangeListener<OctaveOperands>() {
-            @Override
-            public void changed(ObservableValue<? extends OctaveOperands> observableValue, OctaveOperands octaveOperands, OctaveOperands t1) {
-                oscillatorController.setOctaveOperand(t1);
+        octaveSpinner.valueProperty().addListener((observableValue, octaveOperands, t1) -> {
+            oscillatorController.setOctaveOperand(t1);
 
 
-                //octaveOperand = t1;
-                //updateOctaveOffset(octaveOperands, t1);
-            }
+            //octaveOperand = t1;
+            //updateOctaveOffset(octaveOperands, t1);
         });
     }
     private void initOnOff() {

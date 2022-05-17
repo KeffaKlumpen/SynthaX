@@ -16,21 +16,21 @@
 <?import org.controlsfx.control.SegmentedButton?>
 <?import org.controlsfx.control.ToggleSwitch?>
 
-<TitledPane collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="181.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.OscillatorView">
+<TitledPane collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="181.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.OscillatorView">
    <graphic>
       <ToolBar prefHeight="40.0" prefWidth="561.0">
          <items>
-            <Label prefHeight="18.0" prefWidth="31.0" text="Osc" />
-            <Button fx:id="btnRemoveOscillator" mnemonicParsing="false" styleClass="plainButton" text="Remove" />
-            <SegmentedButton fx:id="segBtnCombineMode" prefHeight="26.0" prefWidth="91.0">
+            <Label prefHeight="18.0" prefWidth="71.0" text="Oscillator" />
+            <Button fx:id="btnRemoveOscillator" mnemonicParsing="false" prefHeight="26.0" styleClass="plainButton" text="Remove" />
+            <SegmentedButton fx:id="segBtnCombineMode" prefHeight="26.0" prefWidth="64.0">
                <buttons>
-                  <ToggleButton fx:id="tglBtnCombineAdd" mnemonicParsing="false" prefHeight="26.0" prefWidth="35.0" styleClass="toggleOsc" text="+" />
-                  <ToggleButton fx:id="tglBtnCombineSub" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" styleClass="toggleOsc" text="-" />
-                  <ToggleButton fx:id="tglBtnCombineMult" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" styleClass="toggleOsc" text="x" />
+                  <ToggleButton fx:id="tglBtnCombineAdd" mnemonicParsing="false" prefHeight="26.0" prefWidth="32.0" styleClass="toggleOsc" text="+" />
+                  <ToggleButton fx:id="tglBtnCombineMult" mnemonicParsing="false" prefHeight="26.0" prefWidth="32.0" styleClass="toggleOsc" text="x" />
                </buttons>
             </SegmentedButton>
-            <Button fx:id="btnMoveUp" mnemonicParsing="false" styleClass="plainButton" text="Up" />
-            <Button fx:id="btnMoveDown" mnemonicParsing="false" styleClass="plainButton" text="Down" />
+            <Button fx:id="btnMoveUp" mnemonicParsing="false" prefHeight="26.0" styleClass="plainButton" text="^" />
+            <Button fx:id="btnMoveDown" mnemonicParsing="false" prefHeight="26.0" rotate="180.0" styleClass="plainButton" text="^" />
+            <Label prefHeight="16.0" prefWidth="15.0" />
             <ToggleSwitch fx:id="tglSwitchOscillatorOnOff" prefHeight="20.0" prefWidth="38.0" />
          </items>
       </ToolBar>

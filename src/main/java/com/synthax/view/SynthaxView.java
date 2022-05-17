@@ -33,6 +33,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
 import org.controlsfx.control.ToggleSwitch;
 
@@ -94,8 +95,10 @@ public class SynthaxView implements Initializable {
     @FXML private NumberAxis xAxis = new NumberAxis();
     @FXML private NumberAxis yAxis = new NumberAxis();
     @FXML private LineChart<Number, Number> lineChartADSR = new LineChart<Number, Number>(xAxis, yAxis);
-    @FXML private PopOver popOverHelp;
     @FXML private Button btnHelp;
+    @FXML private Button btnSearchMidiDevice;
+    @FXML private Label lblNotConnected;
+    @FXML private Label lblConnected;
     @FXML private Button btnSavePreset;
     @FXML private Button btnLoadPreset;
     @FXML private Spinner<String> spinnerPresets;
@@ -195,6 +198,7 @@ public class SynthaxView implements Initializable {
     private XYChart.Data<Number, Number> point3ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point4ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point5ADSR = new XYChart.Data<>();
+    private PopOver popOverHelp;
 
     private final SynthaxController synthaxController;
     private final int attackMax = 3000;
@@ -303,8 +307,6 @@ public class SynthaxView implements Initializable {
             synthaxController.startRickRoll();
             easterCounter = 0;
         }
-
-
     }
 
     public void updateSeqStep(int i, boolean isOn, int velocity, float detuneCent, MidiNote midiNote) {
@@ -327,9 +329,22 @@ public class SynthaxView implements Initializable {
     }
 
     public void onActionHelp() {
-        popOverHelp = new PopOver();
-        popOverHelp.show(btnHelp);
-        popOverHelp.getRoot().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
+        if (popOverHelp == null || !popOverHelp.isShowing()) {
+            ImageView iv = new ImageView(new Image(MainApplication.class.getResource("Images/helpwindowthinA.png").toExternalForm()));
+            iv.setFitWidth(900);
+            iv.setFitHeight(300);
+            popOverHelp = new PopOver(iv);
+            popOverHelp.setTitle("");
+            popOverHelp.setDetachable(false);
+            popOverHelp.setHeaderAlwaysVisible(true);
+            popOverHelp.show(btnHelp);
+            popOverHelp.getRoot().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
+        }
+    }
+
+    public void onActionSearchMidiDevice() {
+        lblNotConnected.setVisible(!lblNotConnected.isVisible());
+        lblConnected.setVisible(!lblConnected.isVisible());
     }
 
     public void setUpSteps(int x) {
@@ -404,6 +419,7 @@ public class SynthaxView implements Initializable {
         initLFO();
         initReverb();
         initSS();
+        onActionAddOscillator();
         sliderMasterGain.valueProperty().addListener((observableValue, number, t1) -> synthaxController.setMasterGain(t1.floatValue()));
     }
 
