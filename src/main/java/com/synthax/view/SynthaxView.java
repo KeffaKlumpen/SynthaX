@@ -336,7 +336,6 @@ public class SynthaxView implements Initializable {
             popOverHelp = new PopOver(iv);
             popOverHelp.setTitle("");
             popOverHelp.setDetachable(false);
-            popOverHelp.setCloseButtonEnabled(true);
             popOverHelp.setHeaderAlwaysVisible(true);
             popOverHelp.show(btnHelp);
             popOverHelp.getRoot().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
