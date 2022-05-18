@@ -17,6 +17,7 @@ import com.synthax.util.MidiHelpers;
 
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,7 +28,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -38,6 +38,7 @@ import org.controlsfx.control.ToggleSwitch;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -430,6 +431,11 @@ public class SynthaxView implements Initializable {
         });
     }
 
+    public void setSequencerPresetList(String[] presetNames) {
+        cmbPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));
+        cmbPresets.getSelectionModel().selectFirst();
+    }
+
     /**
      * Initialize method
      * Sets values, behaviour and adds listeners to GUI components
@@ -668,6 +674,13 @@ public class SynthaxView implements Initializable {
             synthaxController.setRandomOnOff(newValue);
         });
 
+        initStepSequencerPresetButtons();
+    }
+
+    private void initStepSequencerPresetButtons() {
+        synthaxController.updateSequencerPresetList();
+        btnSavePreset.setOnAction(actionEvent -> synthaxController.onSavePreset(cmbPresets.getValue()));
+        cmbPresets.setOnAction(actionEvent -> synthaxController.onSelectPreset(cmbPresets.getValue()));
     }
 
     private void initNoise() {

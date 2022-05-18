@@ -26,16 +26,16 @@ import java.util.Random;
  * @author Viktor Lenberg
  */
 public class SynthaxController {
-    private SynthaxView synthaxView;
-    private SeqPresetLoader seqPresetLoader;
+    private final SynthaxView synthaxView;
+    private final SeqPresetLoader seqPresetLoader;
 
     private final Gain masterGain;
     private final Glide masterGainGlide;
-    private SynthLFO synthLFO;
+    private final SynthLFO synthLFO;
     private final OscillatorManager oscillatorManager;
     private final EQFilters filters;
     private final Sequencer sequencer;
-    private SynthReverb reverb;
+    private final SynthReverb reverb;
     private boolean randomFreq = true;
     private boolean randomGain = true;
     private boolean randomOnOff = true;
@@ -289,9 +289,9 @@ public class SynthaxController {
     }
 
     //region SequencerPreset (click to expand/collapse)
-    public void onLoadNextPreset() {
+    public void onSavePreset(String currentPresetName) {
         // delegate the preset-loading to separate thread
-        Thread loader = new Thread(new Runnable() {
+        Thread saver = new Thread(new Runnable() {
             @Override
             public void run() {
                 // If sequencer is playing, stop it and do the loading after
@@ -305,75 +305,50 @@ public class SynthaxController {
                     }
                 }
                 if(sequencerThread != null && sequencerThread.isAlive()) {
-                    System.err.println("CANT LOAD WHILE SEQUENCER IS RUNNING!");
+                    System.err.println("CANT SAVE WHILE SEQUENCER IS RUNNING!");
                     return;
                 }
 
-                seqPresetLoader.loadNextPreset();
+                seqPresetLoader.savePreset(currentPresetName);
+            }
+        });
+        saver.start();
+    }
 
-                // update GUI
-                SequencerStep[] steps = sequencer.getSteps();
-                for (int i = 0; i < steps.length; i++) {
-                    SequencerStep step = steps[i];
-                    updateSeqStepGUI(i, step.isOn(), step.getVelocity(), step.getDetuneCent(), step.getMidiNote());
+    public void onSelectPreset(String presetName) {
+        Thread loader = new Thread(() -> {
+            // If sequencer is playing, stop it and do the loading after
+            Thread sequencerThread = sequencer.getThread();
+            if(sequencerThread != null) {
+                synthaxView.fakeSequencerStartStopClick();
+                try {
+                    sequencerThread.join(250);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
+            if(sequencerThread != null && sequencerThread.isAlive()) {
+                System.err.println("CANT LOAD WHILE SEQUENCER IS RUNNING!");
+                return;
+            }
+
+            seqPresetLoader.loadPreset(presetName);
+            updateSequencerStepsGUI();
         });
         loader.start();
     }
 
-    public void onSavePresetAsNew() {
-        // TODO: 2022-05-12 Move everything below this TODO to it's own method "onSavePresetClicked"
-        // delegate the preset-loading to separate thread
-        Thread saver = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // If sequencer is playing, stop it and do the loading after
-                Thread sequencerThread = sequencer.getThread();
-                if(sequencerThread != null) {
-                    synthaxView.fakeSequencerStartStopClick();
-                    try {
-                        sequencerThread.join(250);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if(sequencerThread != null && sequencerThread.isAlive()) {
-                    System.err.println("CANT SAVE WHILE SEQUENCER IS RUNNING!");
-                    return;
-                }
-
-                seqPresetLoader.savePresetAsNew("preset");
-            }
-        });
-        saver.start();
+    public void updateSequencerPresetList() {
+        String[] presetNames = seqPresetLoader.getPresetNames();
+        synthaxView.setSequencerPresetList(presetNames);
     }
 
-    public void onSavePreset() {
-        // TODO: 2022-05-12 Move everything below this TODO to it's own method "onSavePresetClicked"
-        // delegate the preset-loading to separate thread
-        Thread saver = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // If sequencer is playing, stop it and do the loading after
-                Thread sequencerThread = sequencer.getThread();
-                if(sequencerThread != null) {
-                    synthaxView.fakeSequencerStartStopClick();
-                    try {
-                        sequencerThread.join(250);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if(sequencerThread != null && sequencerThread.isAlive()) {
-                    System.err.println("CANT SAVE WHILE SEQUENCER IS RUNNING!");
-                    return;
-                }
-
-                seqPresetLoader.savePreset();
-            }
-        });
-        saver.start();
+    private void updateSequencerStepsGUI() {
+        SequencerStep[] steps = sequencer.getSteps();
+        for (int i = 0; i < steps.length; i++) {
+            SequencerStep step = steps[i];
+            updateSeqStepGUI(i, step.isOn(), step.getVelocity(), step.getDetuneCent(), step.getMidiNote());
+        }
     }
     //endregion sequencer presets
     //endregion sequencer
