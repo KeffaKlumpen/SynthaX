@@ -82,16 +82,17 @@ public class OscillatorView implements Initializable {
     private void initCombineModeButtons() {
         tglBtnCombineAdd.setSelected(true);
         oscillatorController.setOutputType(CombineMode.ADD);
-        System.out.println("ADD");
-
         tglBtnCombineAdd.setOnAction(actionEvent -> {
+            if (!tglBtnCombineAdd.isSelected() && !tglBtnCombineMult.isSelected()) {
+                tglBtnCombineAdd.setSelected(true);
+            }
             oscillatorController.setOutputType(CombineMode.ADD);
-            System.out.println("ADD");
         });
-
         tglBtnCombineMult.setOnAction(actionEvent -> {
+            if (!tglBtnCombineAdd.isSelected() && !tglBtnCombineMult.isSelected()) {
+                tglBtnCombineMult.setSelected(true);
+            }
             oscillatorController.setOutputType(CombineMode.MULT);
-            System.out.println("MULT");
         });
     }
 
