@@ -8,6 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 
+/**
+ * Class that represents the behavior of a rotating frequency knob in the sequencer.
+ * @author Axel Nilsson
+ * @author Luke Eales
+ */
+
 public class KnobBehaviorSeqFreq implements EventHandler<MouseEvent> {
     private Button knob;
     private int knobMaxValue = 108;
