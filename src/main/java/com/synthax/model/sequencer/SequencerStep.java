@@ -3,12 +3,21 @@ package com.synthax.model.sequencer;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.util.HelperMath;
 
+/**
+ * This class controls an individual step in the step sequencer
+ * @author Luke Eales
+ * @author Axel Nilsson
+ */
 public class SequencerStep {
     private Sequencer sequencer;
     private MidiNote midiNote = MidiNote.F4;
     private float detuneCent = 0;
     private int velocity = 127;
     private boolean isOn;
+
+    public SequencerStep(Sequencer sequencer) {
+        this.sequencer = sequencer;
+    }
 
     public MidiNote getMidiNote() {
         return midiNote;
@@ -26,9 +35,6 @@ public class SequencerStep {
         return isOn;
     }
 
-    public SequencerStep(Sequencer sequencer) {
-        this.sequencer = sequencer;
-    }
 
     public void play() {
         if (isOn) {

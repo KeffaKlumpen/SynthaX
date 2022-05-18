@@ -1,12 +1,8 @@
-/*
-  Author: Joel Eriksson Sinclair
-  ID: ai7892
-  Study program: Sys 21h
-*/
-
 package com.synthax.model;
 
 /**
+ * Class that handles setting the ADSR values
+ * Static variables to enable usage from anywhere in the application
  * @author Viktor Lenberg
  * @author Teodor Wegestål
  * @author Joel Eriksson Sinclair

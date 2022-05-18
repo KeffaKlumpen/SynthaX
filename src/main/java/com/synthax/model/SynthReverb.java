@@ -6,6 +6,11 @@ import net.beadsproject.beads.ugens.Gain;
 import net.beadsproject.beads.ugens.Glide;
 import net.beadsproject.beads.ugens.Reverb;
 
+/**
+ * Class that handles the reverb effect
+ * @author Viktor Lenberg
+ * @author Teodor Wegestål
+ */
 public class SynthReverb {
 
     private final Reverb reverb;
@@ -18,6 +23,7 @@ public class SynthReverb {
 
         reverb = new Reverb(AudioContext.getDefaultContext(), 1);
 
+        // this controls the amount of reverb
         amountGlide = new Glide(AudioContext.getDefaultContext(), 0.0f, 20f);
         Gain amountGain = new Gain(AudioContext.getDefaultContext(), 1, amountGlide);
         amountGain.addInput(reverb);

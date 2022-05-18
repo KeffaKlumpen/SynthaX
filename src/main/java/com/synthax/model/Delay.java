@@ -5,7 +5,11 @@ import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.ugens.*;
 
-
+/**
+ * Class that handles the delay effect
+ * @author Teodor Wegestål
+ * @author Viktor Lenberg
+ */
 public class Delay {
     private final float maxDelayTime = 3000.0f;
     private float feedbackDuration = 100.0f;
@@ -58,7 +62,6 @@ public class Delay {
     public Gain getOutput() {
         return output;
     }
-
     public void setActive(boolean active) {
         if(!active) {
             cachedLevelValue = levelGlide.getValue();

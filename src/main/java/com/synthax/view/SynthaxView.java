@@ -32,7 +32,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
 import org.controlsfx.control.ToggleSwitch;
 
@@ -45,9 +44,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Class for synthesizer main view
+ * This class contains all the GUI components and their values
+ * Handles events when GUI components are interacted with and forwards data
  *
  * @author Axel Nilsson
  * @author Luke Eales
+ * @author Viktor Lenberg
+ * @author Teodor Wegestål
+ * @author Joel Eriksson Sinclair
  */
 public class SynthaxView implements Initializable {
     //region FXML variables
@@ -84,7 +88,6 @@ public class SynthaxView implements Initializable {
     @FXML private ToggleSwitch tglSwitchEQ3;
     @FXML private ToggleSwitch tglSwitchFilterLP;
     @FXML private ToggleSwitch tglSwitchFilterHP;
-    @FXML private Button btnAddOscillator;
     @FXML private AnchorPane mainPane = new AnchorPane();
     @FXML private Slider sliderAttack;
     @FXML private Slider sliderDecay;
@@ -228,6 +231,9 @@ public class SynthaxView implements Initializable {
         synthaxController.randomize(arrSeqStepsOnOff.length);
     }
 
+    /**
+     * Adds an oscillator to the GUI and moves the "Add-Oscillator" image to the bottom of the list
+     */
     @FXML
     public void onActionAddOscillator() {
         try {
@@ -327,6 +333,7 @@ public class SynthaxView implements Initializable {
         });
     }
 
+    @FXML
     public void onActionHelp() {
         if (popOverHelp == null || !popOverHelp.isShowing()) {
             ImageView iv = new ImageView(new Image(MainApplication.class.getResource("Images/helpwindowthinA.png").toExternalForm()));
@@ -341,6 +348,7 @@ public class SynthaxView implements Initializable {
         }
     }
 
+    @FXML
     public void onActionSearchMidiDevice() {
         lblNotConnected.setVisible(!lblNotConnected.isVisible());
         lblConnected.setVisible(!lblConnected.isVisible());
@@ -389,7 +397,6 @@ public class SynthaxView implements Initializable {
                 }
             }
         });
-
     }
 
     public void setSeqButtonOrange(int i) {
@@ -405,6 +412,10 @@ public class SynthaxView implements Initializable {
         });
     }
 
+    /**
+     * Initialize method
+     * Sets values, behaviour and adds listeners to GUI components
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initSequencerArrays();
@@ -417,8 +428,54 @@ public class SynthaxView implements Initializable {
         initDelay();
         initLFO();
         initReverb();
-        initSS();
+        initStepSequencer();
+        initMasterGain();
         onActionAddOscillator();
+    }
+
+    private void setupLineChart() {
+        XYChart.Series<Number, Number> seriesADSR = new XYChart.Series<>();
+        point1ADSR.setXValue(0d);
+        point1ADSR.setYValue(0d);
+        point2ADSR.setXValue(0d);
+        point2ADSR.setYValue(30d);
+        point3ADSR.setXValue(0d);
+        point3ADSR.setYValue(30d);
+        point4ADSR.setXValue(40d);
+        point4ADSR.setYValue(30d);
+        point5ADSR.setXValue(40d);
+        point5ADSR.setYValue(0d);
+        seriesADSR.getData().add(point1ADSR);
+        seriesADSR.getData().add(point2ADSR);
+        seriesADSR.getData().add(point3ADSR);
+        seriesADSR.getData().add(point4ADSR);
+        seriesADSR.getData().add(point5ADSR);
+        lineChartADSR.getData().add(seriesADSR);
+    }
+
+    //region Methods for updating linechart (click to open/collapse)
+    private void onAttackDrag() {
+        point2ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d);
+        point3ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d + (sliderDecay.getValue() / decayMax) * 10d);
+    }
+
+    private void onDecayDrag() {
+        point3ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d + (sliderDecay.getValue() / decayMax) * 10d);
+    }
+
+    private void onSustainDrag() {
+        point3ADSR.setYValue(sliderSustain.getValue() * 30d);
+        point4ADSR.setYValue(sliderSustain.getValue() * 30d);
+    }
+
+    private void onReleaseDrag() {
+        point4ADSR.setXValue(40d - (sliderRelease.getValue() / releaseMax) * 10d);
+    }
+    //endregion Methods for updating linechart
+
+    //region initialize methods (click to open/collapse)
+
+    private void initMasterGain() {
         sliderMasterGain.valueProperty().addListener((observableValue, number, t1) -> synthaxController.setMasterGain(t1.floatValue()));
     }
 
@@ -507,55 +564,7 @@ public class SynthaxView implements Initializable {
                 knobSS14Gain,
                 knobSS15Gain};
     }
-
-    private void setupLineChart() {
-        XYChart.Series<Number, Number> seriesADSR = new XYChart.Series<>();
-        point1ADSR.setXValue(0d);
-        point1ADSR.setYValue(0d);
-        point2ADSR.setXValue(0d);
-        point2ADSR.setYValue(30d);
-        point3ADSR.setXValue(0d);
-        point3ADSR.setYValue(30d);
-        point4ADSR.setXValue(40d);
-        point4ADSR.setYValue(30d);
-        point5ADSR.setXValue(40d);
-        point5ADSR.setYValue(0d);
-        seriesADSR.getData().add(point1ADSR);
-        seriesADSR.getData().add(point2ADSR);
-        seriesADSR.getData().add(point3ADSR);
-        seriesADSR.getData().add(point4ADSR);
-        seriesADSR.getData().add(point5ADSR);
-        lineChartADSR.getData().add(seriesADSR);
-    }
-
-    /**
-     * Shifting the points in ADSR linechart to reflect the slider values.
-     *
-     * @author Axel Nilsson
-     * @author Luke Eales
-     */
-    //region Methods for updating linechart (click to open/collapse)
-    private void onAttackDrag() {
-        point2ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d);
-        point3ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d + (sliderDecay.getValue() / decayMax) * 10d);
-    }
-
-    private void onDecayDrag() {
-        point3ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d + (sliderDecay.getValue() / decayMax) * 10d);
-    }
-
-    private void onSustainDrag() {
-        point3ADSR.setYValue(sliderSustain.getValue() * 30d);
-        point4ADSR.setYValue(sliderSustain.getValue() * 30d);
-    }
-
-    private void onReleaseDrag() {
-        point4ADSR.setXValue(40d - (sliderRelease.getValue() / releaseMax) * 10d);
-    }
-    //endregion
-
-    //region initialize methods (click to open/collapse)
-    private void initSS() {
+    private void initStepSequencer() {
         for (int i = 0; i < arrSeqFreqKnobs.length; i++) {
             int finali = i;
             arrKnobBehaviorFreq[i] = new KnobBehaviorSeqFreq(arrSeqFreqKnobs[i], MidiNote.F4);
@@ -712,7 +721,7 @@ public class SynthaxView implements Initializable {
 
     private void initLFO() {
         tglSwitchLFO.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setLFOActive(newValue.booleanValue());
+            synthaxController.setLFOActive(newValue);
         });
 
         KnobBehavior bKnobLFODepth = new KnobBehavior(knobLFODepth);
@@ -857,5 +866,5 @@ public class SynthaxView implements Initializable {
             }
         });
     }
-    //endregion
+    //endregion initialize methods
 }

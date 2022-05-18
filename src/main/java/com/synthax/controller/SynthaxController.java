@@ -18,7 +18,12 @@ import java.util.Random;
 
 /**
  * Main controller for the synthesizer
+ * Handles audio chain setup, internal structure and forwarding messages to different parts of the application
  * @author Joel Eriksson Sinclair
+ * @author Luke Eales
+ * @author Axel Nilsson
+ * @author Teodor Wegestål
+ * @author Viktor Lenberg
  */
 public class SynthaxController {
     private SynthaxView synthaxView;
@@ -34,12 +39,11 @@ public class SynthaxController {
     private boolean randomFreq = true;
     private boolean randomGain = true;
     private boolean randomOnOff = true;
-    //private final Delay delay;
 
     /**
-     * Setup AudioContext, OscillatorManager and create all necessary links.
-     * @author Joel Eriksson Sinclair
-     */
+     * Setup AudioContext, OscillatorManager and defines the chain of effects and sounds
+     * before sending it to the output/system speakers
+     * */
     public SynthaxController(SynthaxView synthaxView) {
         this.synthaxView = synthaxView;
         JavaSoundAudioIO jsaio = new JavaSoundAudioIO(512);
@@ -72,10 +76,6 @@ public class SynthaxController {
     }
 
     //region OscillatorManager (click to open/collapse)
-    /**
-     * @param oscillatorController
-     * @author Joel Eriksson Sinclair
-     */
     public void moveOscillatorDown(OscillatorController oscillatorController) {
         oscillatorManager.moveOscillatorDown(oscillatorController);
 
@@ -84,10 +84,6 @@ public class SynthaxController {
     }
 
 
-    /**
-     * @param oscillatorController
-     * @author Joel Eriksson Sinclair
-     */
     public void moveOscillatorUp(OscillatorController oscillatorController) {
         oscillatorManager.moveOscillatorUp(oscillatorController);
 
@@ -95,132 +91,23 @@ public class SynthaxController {
         //onSavePresetAsNew();
     }
 
-    //region SequencerPreset (click to expand/collapse)
-    public void onLoadNextPreset() {
-        // delegate the preset-loading to separate thread
-        Thread loader = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // If sequencer is playing, stop it and do the loading after
-                Thread sequencerThread = sequencer.getThread();
-                if(sequencerThread != null) {
-                    synthaxView.fakeSequencerStartStopClick();
-                    try {
-                        sequencerThread.join(250);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if(sequencerThread != null && sequencerThread.isAlive()) {
-                    System.err.println("CANT LOAD WHILE SEQUENCER IS RUNNING!");
-                    return;
-                }
-
-                seqPresetLoader.loadNextPreset();
-
-                // update GUI
-                SequencerStep[] steps = sequencer.getSteps();
-                for (int i = 0; i < steps.length; i++) {
-                    SequencerStep step = steps[i];
-                    updateSeqStepGUI(i, step.isOn(), step.getVelocity(), step.getDetuneCent(), step.getMidiNote());
-                }
-            }
-        });
-        loader.start();
-    }
-
-    public void onSavePresetAsNew() {
-        // TODO: 2022-05-12 Move everything below this TODO to it's own method "onSavePresetClicked"
-        // delegate the preset-loading to separate thread
-        Thread saver = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // If sequencer is playing, stop it and do the loading after
-                Thread sequencerThread = sequencer.getThread();
-                if(sequencerThread != null) {
-                    synthaxView.fakeSequencerStartStopClick();
-                    try {
-                        sequencerThread.join(250);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if(sequencerThread != null && sequencerThread.isAlive()) {
-                    System.err.println("CANT SAVE WHILE SEQUENCER IS RUNNING!");
-                    return;
-                }
-
-                seqPresetLoader.savePresetAsNew("preset");
-            }
-        });
-        saver.start();
-    }
-
-    public void onSavePreset() {
-        // TODO: 2022-05-12 Move everything below this TODO to it's own method "onSavePresetClicked"
-        // delegate the preset-loading to separate thread
-        Thread saver = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // If sequencer is playing, stop it and do the loading after
-                Thread sequencerThread = sequencer.getThread();
-                if(sequencerThread != null) {
-                    synthaxView.fakeSequencerStartStopClick();
-                    try {
-                        sequencerThread.join(250);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if(sequencerThread != null && sequencerThread.isAlive()) {
-                    System.err.println("CANT SAVE WHILE SEQUENCER IS RUNNING!");
-                    return;
-                }
-
-                seqPresetLoader.savePreset();
-            }
-        });
-        saver.start();
-    }
-    //endregion
-
-    /**
-     * @param oscillatorController
-     * @author Joel Eriksson Sinclair
-     */
     public void addOscillator(OscillatorController oscillatorController) {
         oscillatorManager.addOscillator(oscillatorController);
     }
 
-    /**
-     * @param oscillatorController
-     * @author Joel Eriksson Sinclair
-     */
     public void removeOscillator(OscillatorController oscillatorController) {
         oscillatorManager.removeOscillator(oscillatorController);
     }
-    //endregion
+    //endregion OscillatorManager
 
     //region MIDI-handling (click to open/collapse)
-    /**
-     * Forward noteOn message
-     * @param midiNote
-     */
     public void noteOn(MidiNote midiNote, int velocity) {
         oscillatorManager.noteOn(midiNote, velocity);
     }
 
-    /**
-     * noteOn for sequencer
-     * @param velocity
-     */
     public void noteOn(MidiNote midiNote, int velocity, float detuneCent) {
         oscillatorManager.noteOn(midiNote, velocity, detuneCent);
     }
-    /**
-     * Forward noteOff message
-     * @param midiNote
-     */
     public void noteOff(MidiNote midiNote){
         oscillatorManager.noteOff(midiNote);
     }
@@ -228,7 +115,7 @@ public class SynthaxController {
     public void releaseAllVoices() {
         oscillatorManager.releaseAllVoices();
     }
-    //endregion
+    //endregion MIDI-handling
 
     //region Filters (click to open/collapse)
     public void setHPCutoff(float cutoff) {
@@ -262,7 +149,7 @@ public class SynthaxController {
     public void setLPActive(boolean newActive) {
         filters.setLPActive(newActive);
     }
-    //endregion
+    //endregion Filters
 
     //region LFO (click to open/collapse)
     public void setLFODepth(float depth) {
@@ -280,9 +167,9 @@ public class SynthaxController {
     public void setLFOActive(boolean newActive) {
         synthLFO.setActive(newActive);
     }
-    //endregion
+    //endregion LFO
 
-    //region Noise-GUI-forwarding (click to open/collapse)
+    //region Noise (click to open/collapse)
     public void setNoiseGain(float gain) {
         oscillatorManager.getNoiseController().setGain(gain);
     }
@@ -290,7 +177,7 @@ public class SynthaxController {
     public void setNoiseActive(boolean isActive) {
         oscillatorManager.getNoiseController().setActive(isActive);
     }
-    //endregion
+    //endregion Noise
 
     //region Sequencer (click to open/collapse)
     public void setStepOnOff(int i, boolean on) {
@@ -396,9 +283,102 @@ public class SynthaxController {
             }
         }
     }
-    //endregion
 
-    //region Delay-GUI-forwarding (click to open/collapse)
+    public void updateSeqStepGUI(int i, boolean isOn, int velocity, float detuneCent, MidiNote midiNote) {
+        synthaxView.updateSeqStep(i, isOn, velocity, detuneCent, midiNote);
+    }
+
+    //region SequencerPreset (click to expand/collapse)
+    public void onLoadNextPreset() {
+        // delegate the preset-loading to separate thread
+        Thread loader = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // If sequencer is playing, stop it and do the loading after
+                Thread sequencerThread = sequencer.getThread();
+                if(sequencerThread != null) {
+                    synthaxView.fakeSequencerStartStopClick();
+                    try {
+                        sequencerThread.join(250);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if(sequencerThread != null && sequencerThread.isAlive()) {
+                    System.err.println("CANT LOAD WHILE SEQUENCER IS RUNNING!");
+                    return;
+                }
+
+                seqPresetLoader.loadNextPreset();
+
+                // update GUI
+                SequencerStep[] steps = sequencer.getSteps();
+                for (int i = 0; i < steps.length; i++) {
+                    SequencerStep step = steps[i];
+                    updateSeqStepGUI(i, step.isOn(), step.getVelocity(), step.getDetuneCent(), step.getMidiNote());
+                }
+            }
+        });
+        loader.start();
+    }
+
+    public void onSavePresetAsNew() {
+        // TODO: 2022-05-12 Move everything below this TODO to it's own method "onSavePresetClicked"
+        // delegate the preset-loading to separate thread
+        Thread saver = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // If sequencer is playing, stop it and do the loading after
+                Thread sequencerThread = sequencer.getThread();
+                if(sequencerThread != null) {
+                    synthaxView.fakeSequencerStartStopClick();
+                    try {
+                        sequencerThread.join(250);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if(sequencerThread != null && sequencerThread.isAlive()) {
+                    System.err.println("CANT SAVE WHILE SEQUENCER IS RUNNING!");
+                    return;
+                }
+
+                seqPresetLoader.savePresetAsNew("preset");
+            }
+        });
+        saver.start();
+    }
+
+    public void onSavePreset() {
+        // TODO: 2022-05-12 Move everything below this TODO to it's own method "onSavePresetClicked"
+        // delegate the preset-loading to separate thread
+        Thread saver = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // If sequencer is playing, stop it and do the loading after
+                Thread sequencerThread = sequencer.getThread();
+                if(sequencerThread != null) {
+                    synthaxView.fakeSequencerStartStopClick();
+                    try {
+                        sequencerThread.join(250);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if(sequencerThread != null && sequencerThread.isAlive()) {
+                    System.err.println("CANT SAVE WHILE SEQUENCER IS RUNNING!");
+                    return;
+                }
+
+                seqPresetLoader.savePreset();
+            }
+        });
+        saver.start();
+    }
+    //endregion sequencer presets
+    //endregion sequencer
+
+    //region Delay (click to open/collapse)
     public void setDelayFeedback(float feedBackDuration) {
         oscillatorManager.setDelayFeedback(feedBackDuration);
     }
@@ -418,9 +398,8 @@ public class SynthaxController {
     public void setDelayActive(boolean active) {
         oscillatorManager.setDelayActive(active);
     }
-    //endregion
-
-    //region reverb-GUI-forwarding (click to open/collapse)
+    //endregion Delay
+    //region Reverb (click to open/collapse)
     public void setReverbActive(boolean active) {
         reverb.setActive(active);
     }
@@ -444,13 +423,7 @@ public class SynthaxController {
     public void setReverbTone(float tone) {
         reverb.setReverbTone(tone);
     }
-    // endregion
-
-    public void updateSeqStepGUI(int i, boolean isOn, int velocity, float detuneCent, MidiNote midiNote) {
-
-        synthaxView.updateSeqStep(i, isOn, velocity, detuneCent, midiNote);
-    }
-
+    // endregion Reverb
     public void setMasterGain(float gain) {
         masterGainGlide.setValue(gain);
     }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * This class is responsible for managing Oscillators, and connecting their input/output.
+ * This class also handles messages to the different oscillators in the list
  * @author Joel Eriksson Sinclair
  */
 public class OscillatorManager {
@@ -34,11 +35,6 @@ public class OscillatorManager {
         finalOutput.addInput(oscillatorOutput);
     }
 
-    /**
-     * @param midiNote
-     * @param velocity
-     * @author Joel Eriksson Sinclair
-     */
     public void noteOn(MidiNote midiNote, int velocity) {
         for (OscillatorController osc : oscillatorControllers) {
             osc.noteOn(midiNote, velocity);
@@ -46,10 +42,6 @@ public class OscillatorManager {
         noiseController.noteOn(midiNote, velocity);
     }
 
-    /**
-     * notOn for sequencer
-     * @param velocity
-     */
     public void noteOn(MidiNote midiNote, int velocity, float detuneCent) {
         for (OscillatorController osc : oscillatorControllers) {
             osc.noteOn(midiNote, velocity, detuneCent);
@@ -57,11 +49,6 @@ public class OscillatorManager {
         noiseController.noteOn(midiNote, velocity);
     }
 
-    /**
-     *
-     * @param midiNote
-     * @author Joel Eriksson Sinclair
-     */
     public void noteOff(MidiNote midiNote) {
         for (OscillatorController osc : oscillatorControllers) {
             osc.noteOff(midiNote);
@@ -119,12 +106,7 @@ public class OscillatorManager {
         }
     }
 
-    //region List Managing
-    /**
-     * Adds an oscillator to the end of the chain.
-     * @param osc Oscillator to be added
-     * @author Joel Eriksson Sinclair
-     */
+    //region List Managing (click to open/collapse)
     public void addOscillator(OscillatorController osc) {
         oscillatorControllers.add(osc);
         setupInOuts(osc);
@@ -162,10 +144,6 @@ public class OscillatorManager {
         }
     }
 
-    /**
-     * @param oscillatorController
-     * @author Joel Eriksson Sinclair
-     */
     public void moveOscillatorDown(OscillatorController oscillatorController) {
         int index = oscillatorControllers.indexOf(oscillatorController);
         if(index < 0) {
@@ -187,10 +165,6 @@ public class OscillatorManager {
         System.out.println(oscillatorControllers);
     }
 
-    /**
-     * @param oscillatorController
-     * @author Joel Eriksson Sinclair
-     */
     public void moveOscillatorUp(OscillatorController oscillatorController) {
         int index = oscillatorControllers.indexOf(oscillatorController);
         if(index < 0) {
@@ -210,13 +184,8 @@ public class OscillatorManager {
 
         System.out.println(oscillatorControllers);
     }
-    //endregion
+    //endregion List Managing
 
-
-    /**
-     * Return the Gain object which all oscillators are chained to.
-     * @return output
-     */
     public Gain getFinalOutput() {
         return finalOutput;
     }
@@ -225,7 +194,7 @@ public class OscillatorManager {
         return noiseController;
     }
 
-    //region delay-setters
+    //region Delay-setters (click to open/collapse)
     public void setDelayFeedback(float feedBackDuration) {
         for(OscillatorController controller : oscillatorControllers) {
             controller.setDelayFeedback(feedBackDuration);
@@ -255,4 +224,5 @@ public class OscillatorManager {
             controller.setDelayActive(active);
         }
     }
+    // endregion Delay-setters
 }
