@@ -1,9 +1,3 @@
-/*
-  Author: Joel Eriksson Sinclair
-  ID: ai7892
-  Study program: Sys 21h
-*/
-
 package com.synthax.controller;
 
 import com.synthax.model.enums.MidiNote;
@@ -16,6 +10,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 import java.util.Arrays;
 
+/**
+ * Responsible for saving and loading the variables of a sequencers steps into .dat files (presets).
+ * @see Sequencer
+ * @see SequencerStep
+ * @author Joel Eriksson Sinclair
+ */
 public class SeqPresetLoader {
     private static final FileNameExtensionFilter FILE_FILTER = new FileNameExtensionFilter("Presets", "dat");
 
