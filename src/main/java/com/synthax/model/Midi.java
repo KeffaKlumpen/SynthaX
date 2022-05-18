@@ -6,11 +6,18 @@ import com.synthax.model.enums.MidiNote;
 import javax.sound.midi.*;
 import java.util.List;
 
+/**
+ * Class that handles the MIDI-device connection
+ * @author Teodor Wegestål
+ * @author Luke Eales
+ * @author Viktor Lenberg
+ * @author Joel Eriksson Sinclair
+ */
+
 public class Midi {
     OscillatorManager oscillatorManager = OscillatorManager.getInstance();
     MidiDevice midiDevice;
     MidiDevice.Info[] info = MidiSystem.getMidiDeviceInfo();
-
     public Midi() {
         for (MidiDevice.Info info : info) {
             try {

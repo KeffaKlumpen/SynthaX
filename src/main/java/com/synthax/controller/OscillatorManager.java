@@ -255,4 +255,6 @@ public class OscillatorManager {
             controller.setDelayActive(active);
         }
     }
+
+    // endregion
 }

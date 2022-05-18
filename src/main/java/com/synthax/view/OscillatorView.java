@@ -28,6 +28,10 @@ import java.util.ResourceBundle;
 /**
  * Handles GUI-communication for OscillatorController
  * @author Joel Eriksson Sinclair
+ * @author Teodor Wegestål
+ * @author Viktor Lenberg
+ * @author Axel Nilsson
+ * @author Luke Eales
  */
 public class OscillatorView implements Initializable {
     @FXML private ToggleButton tglBtnCombineAdd;
@@ -58,11 +62,6 @@ public class OscillatorView implements Initializable {
     /**
      * initialize-method for the oscillator class
      * Sets values and adds listeners to GUI components
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     * @author Joel Eriksson Sinclair
-     * @author Luke Eales
-     * @author Axel Nilsson
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
