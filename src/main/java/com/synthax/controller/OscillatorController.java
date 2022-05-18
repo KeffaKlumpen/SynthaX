@@ -21,8 +21,8 @@ import net.beadsproject.beads.ugens.*;
  * @author Axel Nilsson
  */
 public class OscillatorController {
-    private final OscillatorVoice[] voices;
-    private final int voiceCount = 16;
+    private OscillatorVoice[] voices;
+    private int voiceCount = 16;
     private int nextVoice = 0;
     private final Gain voiceOutput;
     private final Glide voiceOutputGlide;
@@ -39,6 +39,29 @@ public class OscillatorController {
         voiceOutputGlide = new Glide(AudioContext.getDefaultContext(), 0.5f, 50);
         voiceOutput = new Gain(1, voiceOutputGlide);
 
+        setVoiceCount(voiceCount);
+
+        oscillatorOutput = new Add(1, voiceOutput);
+    }
+
+    public void setVoiceCount(int newVoiceCount) {
+        System.out.println("OscController.setVoiceCount(" + newVoiceCount + ")");
+        // clear conncetion
+        voiceOutput.clearDependents();
+        voiceOutput.clearInputConnections();
+
+        // stop old stuff
+        if(voices != null) {
+            for (int i = 0; i < voiceCount; i++) {
+                voices[i].stopPlay(0f);
+            }
+        }
+
+        // set new variable
+        voiceCount = newVoiceCount;
+        // make sure nextVoice is not outside of bounds
+        nextVoice = nextVoice % voiceCount;
+
         VoiceNormalizer voiceGainNormalizer = new VoiceNormalizer(voiceCount);
         voiceOutput.addDependent(voiceGainNormalizer);
 
@@ -53,8 +76,6 @@ public class OscillatorController {
             voiceOutput.addInput(voice.getDelay().getOutput());
             voices[i] = voice;
         }
-
-        oscillatorOutput = new Add(1, voiceOutput);
     }
 
     /**
@@ -98,7 +119,12 @@ public class OscillatorController {
 
     public void noteOff(MidiNote midiNote) {
         int voiceIndex = voicePlayingMidi[midiNote.ordinal()];
-        voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
+        if(voiceIndex < voiceCount) {
+            voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
+        }
+        else {
+            System.err.println("noteOff on a voice that does not exist anymore.");
+        }
     }
 
     // FIXME: 2022-04-07 Bypassing an Mult Oscillator makes it so no sound reaches the output. (Multiplying with the 0-buffer).

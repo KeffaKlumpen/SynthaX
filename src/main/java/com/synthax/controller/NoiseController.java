@@ -12,22 +12,46 @@ import net.beadsproject.beads.ugens.Glide;
  * @author Joel Eriksson Sinclair
  */
 public class NoiseController {
-    private final NoiseVoice[] voices;
-    private final int voiceCount = 16;
+    private static final float MAX_GAIN = 0.3f;
+    private NoiseVoice[] voices;
+    private int voiceCount = 16;
     private int nextVoice = 0;
     private final Gain voiceOutput;
     private final Glide voiceOutputGlide;
     private final int[] voicePlayingMidi = new int[128];
-    private float savedGain = 0.5f;
+    private float savedGain = MAX_GAIN / 2f;
     private boolean isActive = false;
 
     public NoiseController() {
         voiceOutputGlide = new Glide(0f, 50f);
         voiceOutput = new Gain(1, voiceOutputGlide);
 
+        setVoiceCount(voiceCount);
+    }
+
+    public void setVoiceCount(int newVoiceCount) {
+        System.out.println("NoiseController.setVoiceCount(" + newVoiceCount + ")");
+        // clear conncetion
+        voiceOutput.clearDependents();
+        voiceOutput.clearInputConnections();
+
+        // stop old stuff
+        if(voices != null) {
+            for (int i = 0; i < voiceCount; i++) {
+                voices[i].stopPlay(0f);
+            }
+        }
+
+        // set new variable
+        voiceCount = newVoiceCount;
+        // make sure nextVoice is not outside of bounds
+        nextVoice = nextVoice % voiceCount;
+
+
         VoiceNormalizer voiceGainNormalizer = new VoiceNormalizer(voiceCount);
         voiceOutput.addDependent(voiceGainNormalizer);
 
+        // Instantiate voice objects and setup chain.
         voices = new NoiseVoice[voiceCount];
         for (int i = 0; i < voiceCount; i++) {
             NoiseVoice voice = new NoiseVoice();
@@ -60,7 +84,7 @@ public class NoiseController {
     }
 
     public void setGain(float gain) {
-        float mapped = HelperMath.map(gain, 0f, 1f, 0f, 0.5f);
+        float mapped = HelperMath.map(gain, 0f, 1f, 0f, MAX_GAIN);
 
         if(isActive) {
             voiceOutputGlide.setValue(mapped);

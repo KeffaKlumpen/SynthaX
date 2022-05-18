@@ -135,7 +135,28 @@ public class OscillatorManager {
         }
     }
 
+    // TODO: 2022-05-18 Call this from SettingsView stuff
+    public void setTotalVoiceCount(int newVoiceCount) {
+        System.out.println("TotalVoiceCount: " + newVoiceCount);
+
+        // round down, to make sure we don't have more voices than allowed.
+        int voicesPerOscillator = (int) Math.floor((float)newVoiceCount / (oscillatorControllers.size() + 1));
+        voicesPerOscillator = Math.max(voicesPerOscillator, 1);
+        System.out.println("VoicesPerOsc: " + voicesPerOscillator);
+
+        setOscillatorVoiceCount(voicesPerOscillator);
+    }
+
+    public void setOscillatorVoiceCount(int newVoiceCount) {
+        for (OscillatorController osc : oscillatorControllers) {
+            osc.setVoiceCount(newVoiceCount);
+        }
+        noiseController.setVoiceCount(newVoiceCount);
+    }
+
     public void moveOscillatorDown(OscillatorController oscillatorController) {
+        setTotalVoiceCount(2);
+
         int index = oscillatorControllers.indexOf(oscillatorController);
         if(index < 0) {
             return;
