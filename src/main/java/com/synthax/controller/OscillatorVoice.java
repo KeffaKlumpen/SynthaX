@@ -15,8 +15,10 @@ import net.beadsproject.beads.ugens.Glide;
 import net.beadsproject.beads.ugens.WavePlayer;
 
 /**
- * Generates a soundwave.
+ * Class that handles the necessary components to generate a sound wave
  * @author Joel Eriksson Sinclair
+ * @author Viktor Lenberg
+ * @author Teodor Wegestål
  */
 public class OscillatorVoice {
     private final WavePlayer wavePlayer;
@@ -45,12 +47,9 @@ public class OscillatorVoice {
 
     /**
      * Sets the voice to generate sound of the given frequency.
-     * Volume of the sound changes over time by other parameters.
-     * @param freq
-     * @param maxGain
-     * @param attackTime
-     * @param sustainGain
-     * @param decayTime
+     * The frequency is altered by the LFO
+     * Amplitude is altered by the ADSR-envelope
+     * The echo is altered by the Delay-envelope
      */
     public void playFreq(float freq, float maxGain, float attackTime, float sustainGain, float decayTime, float realFrequency){
         this.realFrequency = realFrequency;
@@ -65,44 +64,22 @@ public class OscillatorVoice {
         delay.getEnvelope().addSegment(1f, delay.getFeedbackDuration());
         delay.getEnvelope().addSegment(0f, 10f);
     }
-
-    /**
-     * Notifies the voice to stop playing over a specified time.
-     * @param releaseTime
-     */
     public void stopPlay(float releaseTime){
         gainEnv.clear();
         gainEnv.addSegment(0f, releaseTime);
     }
-
-    /**
-     * Toggle wether the voice generates sound.
-     * @param onOff
-     */
     public void bypass(boolean onOff){
         wavePlayer.pause(!onOff);
     }
 
-    /**
-     * Return the gain before normalization.
-     * @return
-     */
     public Gain getNaturalGain() {
         return naturalGain;
     }
 
-    /**
-     * Return the gain to be normalized.
-     * @return
-     */
     public Gain getNormalizedGain() {
         return normalizedGain;
     }
 
-    /**
-     * Return the glide object to control the normalized gain.
-     * @return
-     */
     public Glide getNormGainGlide() {
         return normGainGlide;
     }
@@ -119,20 +96,16 @@ public class OscillatorVoice {
         return delay;
     }
 
-    /**
-     * Set the shape of the sound to be played.
-     * @param buffer
-     */
     public void setWavePlayerBuffer(Buffer buffer){
         wavePlayer.setBuffer(buffer);
     }
 
-    public void updateDetune(float detuneCent) {
-        float freq = applyDetuning(realFrequency, detuneCent);
+    public void updateDetuneValue(float detuneCent) {
+        float freq = applyDetune(realFrequency, detuneCent);
         oscillatorLFO.setPlayedFrequency(freq);
     }
 
-    private float applyDetuning(float frequency, float detuneCent) {
+    private float applyDetune(float frequency, float detuneCent) {
         return (float)(frequency * (Math.pow(2, (detuneCent/1200))));
     }
 }

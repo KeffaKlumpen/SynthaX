@@ -74,8 +74,7 @@ public class NoiseController {
 
         if(isActive) {
             voiceOutputGlide.setValue(savedGain);
-        }
-        else {
+        } else {
             savedGain = voiceOutputGlide.getTargetValue();
             voiceOutputGlide.setValue(0f);
         }

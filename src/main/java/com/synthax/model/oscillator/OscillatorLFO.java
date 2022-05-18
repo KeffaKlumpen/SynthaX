@@ -7,7 +7,6 @@ import net.beadsproject.beads.ugens.WavePlayer;
 
 /**
  * Class controlling the low frequency oscillator which modulates a frequency of an oscillator.
- *
  * @author Teodor Wegestål
  * @author Viktor Lenberg
  */
@@ -20,9 +19,7 @@ public class OscillatorLFO {
     public OscillatorLFO() {
         lfo = new WavePlayer(AudioContext.getDefaultContext(), 0.1f, Buffer.SINE);
 
-        /**
-         * This function recalculates the sound buffer of the LFO representing its wave.
-         */
+         // This function recalculates the sound buffer of the LFO representing its wave.
         frequencyModulation = new Function(lfo) {
             @Override
             public float calculate() {
@@ -54,6 +51,7 @@ public class OscillatorLFO {
     }
 
     private float convertRate(float rate) {
+        //Converts the passed float value to correspond to the range used by the LFO
         return (float) (rate * 19.9 + 0.1);
     }
 }

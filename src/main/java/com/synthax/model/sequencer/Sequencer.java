@@ -7,6 +7,14 @@ import com.synthax.util.BasicMath;
 
 import java.util.Random;
 
+/**
+ * This class handles the sequencer
+ * It creates, starts and stops the Thread that controls the playing of sound
+ * This class also controls the time interval between steps
+ * @author Luke Eales
+ * @author Axel Nilsson
+ */
+
 public class Sequencer implements Runnable {
     private final SynthaxController synthaxController;
     private final SequencerStep[] steps = new SequencerStep[16];
@@ -213,7 +221,6 @@ public class Sequencer implements Runnable {
         count = random.nextInt(nSteps);
     }
 
-
     private class RickRoll implements Runnable {
         @Override
         public void run() {
@@ -234,10 +241,7 @@ public class Sequencer implements Runnable {
                     x = (x + 1) % 4;
                     synthaxController.setUpSteps(x);
                 }
-
-
             }
         }
     }
-
 }

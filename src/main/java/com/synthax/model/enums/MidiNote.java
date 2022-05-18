@@ -6,6 +6,8 @@ import java.util.Collections;
 /**
  * Maps note names to frequencies.
  * Their index is their Midi-number.
+ * @author Luke Eales
+ * @author Joel Eriksson Sinclair
  */
 public enum MidiNote {
     Cx1(8.18f, -1),

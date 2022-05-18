@@ -1,5 +1,11 @@
 package com.synthax.model.enums;
 
+/**
+ * Enumeration for the octave operands
+ * @author Viktor Lenberg
+ * @author Teodor Wegestål
+ */
+
 public enum OctaveOperands {
     TWO("2'", 0.25f, 2),
     FOUR("4'", 0.5f, 4),

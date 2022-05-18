@@ -5,6 +5,11 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
+/**
+ * Enumeration for the different Sequencer modes
+ * @author Luke Eales
+ * @author Axel Nilsson
+ */
 public enum SequencerMode {
     loop("Loop"),
     bollen("Ping-Pong"),

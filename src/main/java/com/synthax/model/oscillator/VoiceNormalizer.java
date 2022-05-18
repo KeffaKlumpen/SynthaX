@@ -29,8 +29,6 @@ public class VoiceNormalizer extends UGen {
 
     /**
      * Set the un-normalized gain for the voice. Must be set for each voice.
-     * @param inGain
-     * @param index voiceIndex
      */
     public void setInGain(Gain inGain, int index) {
         inGains[index] = inGain;
@@ -38,8 +36,6 @@ public class VoiceNormalizer extends UGen {
 
     /**
      * Set the to-be-normalized gain for the voice. Must be set for each inout.
-     * @param outGain
-     * @param index
      */
     public void setOutGain(Glide outGain, int index) {
         outGains[index] = outGain;

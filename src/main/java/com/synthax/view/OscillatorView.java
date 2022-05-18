@@ -36,7 +36,6 @@ import java.util.ResourceBundle;
 public class OscillatorView implements Initializable {
     @FXML private ToggleButton tglBtnCombineAdd;
     @FXML private ToggleButton tglBtnCombineMult;
-    @FXML private SegmentedButton segBtnCombineMode;
     @FXML private ToggleSwitch tglSwitchOscillatorOnOff;
     @FXML private Button btnMoveUp;
     @FXML private Button btnMoveDown;
@@ -58,10 +57,9 @@ public class OscillatorView implements Initializable {
         return oscillatorController;
     }
 
-    //region GUI stuff
     /**
      * initialize-method for the oscillator class
-     * Sets values and adds listeners to GUI components
+     * Sets values, behaviour and adds listeners to GUI components
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -73,11 +71,7 @@ public class OscillatorView implements Initializable {
         initOnOff();
         initOctaveSpinner();
     }
-    /**
-     * Sets behaviour for toggle buttons for the combine modes
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     */
+
     private void initCombineModeButtons() {
         tglBtnCombineAdd.setSelected(true);
         oscillatorController.setOutputType(CombineMode.ADD);
@@ -94,47 +88,27 @@ public class OscillatorView implements Initializable {
         });
     }
 
-    /**
-     * @return The button responsible for removing the oscillator.
-     * @author Joel Eriksson Sinclair
-     */
     public Button getBtnRemoveOscillator() {
         return btnRemoveOscillator;
     }
 
-    /**
-     * @return
-     * @author Joel Eriksson Sinclair
-     */
     public Button getBtnMoveDown(){
         return btnMoveDown;
     }
 
-    /**
-     * @return
-     * @author Joel Eriksson Sinclair
-     */
     public Button getBtnMoveUp(){
         return btnMoveUp;
     }
 
-    /**
-     * Sets behaviour for octave spinner
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     */
     private void initOctaveSpinner() {
         SpinnerValueFactory<OctaveOperands> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(OctaveOperands.values()));
         valueFactory.setValue(OctaveOperands.EIGHT);
         octaveSpinner.setValueFactory(valueFactory);
         octaveSpinner.valueProperty().addListener((observableValue, octaveOperands, t1) -> {
             oscillatorController.setOctaveOperand(t1);
-
-
-            //octaveOperand = t1;
-            //updateOctaveOffset(octaveOperands, t1);
         });
     }
+
     private void initOnOff() {
         tglSwitchOscillatorOnOff.setSelected(true);
         tglSwitchOscillatorOnOff.selectedProperty().addListener((v, oldValue, newValue) -> {
@@ -142,11 +116,6 @@ public class OscillatorView implements Initializable {
         });
     }
 
-    /**
-     * Sets behaviour for waveform knob
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     */
     private void initWaveFormKnob() {
         KnobBehaviorWave behaviorKnobWave = new KnobBehaviorWave(knobWave);
         knobWave.setOnMouseDragged(behaviorKnobWave);
@@ -155,11 +124,6 @@ public class OscillatorView implements Initializable {
         });
     }
 
-    /**
-     * Sets behaviour for LFO knobs
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     */
     private void initLFOKnobs() {
         KnobBehavior behaviorKnobLFOdepth = new KnobBehavior(knobLFODepth);
         knobLFODepth.setOnMouseDragged(behaviorKnobLFOdepth);
@@ -174,25 +138,14 @@ public class OscillatorView implements Initializable {
         });
     }
 
-    /**
-     * Sets behaviour for detune knob
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     */
     private void initDetuneKnob() {
         KnobBehaviorDetune behaviorKnobDetune = new KnobBehaviorDetune(knobDetune);
         knobDetune.setOnMouseDragged(behaviorKnobDetune);
-        //detuneCent.bind(behaviorKnobDetune.knobValueProperty());
         behaviorKnobDetune.knobValueProperty().addListener((v, oldValue, newValue) -> {
             oscillatorController.setDetuneCent(newValue.floatValue());
         } );
     }
 
-    /**
-     * Sets behaviour for gain knob
-     * @author Teodor Wegestål
-     * @author Viktor Lenberg
-     */
     private void initGainKnob() {
         KnobBehavior behaviorKnobGain = new KnobBehavior(knobGain);
         knobGain.setOnMouseDragged(behaviorKnobGain);
@@ -201,6 +154,4 @@ public class OscillatorView implements Initializable {
             oscillatorController.setGain(newValue.floatValue());
         });
     }
-
-    //endregion
 }
