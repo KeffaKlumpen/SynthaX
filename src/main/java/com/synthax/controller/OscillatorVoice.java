@@ -26,8 +26,8 @@ public class OscillatorVoice {
     private final Envelope gainEnv;
     private final Gain normalizedGain;
     private final Glide normGainGlide;
-    private OscillatorLFO oscillatorLFO;
-    private Delay delay;
+    private final OscillatorLFO oscillatorLFO;
+    private final Delay delay;
     private float realFrequency;
 
     public OscillatorVoice(Buffer waveBuffer){
@@ -76,16 +76,8 @@ public class OscillatorVoice {
         return naturalGain;
     }
 
-    public Gain getNormalizedGain() {
-        return normalizedGain;
-    }
-
     public Glide getNormGainGlide() {
         return normGainGlide;
-    }
-
-    public WavePlayer getWavePlayer() {
-        return wavePlayer;
     }
 
     public OscillatorLFO getOscillatorLFO() {

@@ -101,10 +101,6 @@ public class OscillatorController {
         voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
     }
 
-    public void stopVoice(int voiceIndex){
-        voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
-    }
-
     // FIXME: 2022-04-07 Bypassing an Mult Oscillator makes it so no sound reaches the output. (Multiplying with the 0-buffer).
     public void bypassOscillator(boolean onOff) {
         for (int i = 0; i < voiceCount; i++) {
@@ -116,10 +112,6 @@ public class OscillatorController {
         for (int i = 0; i < voiceCount; i++) {
             voices[i].setWavePlayerBuffer(wf.getBuffer());
         }
-    }
-
-    public int getVoiceCount(){
-        return voiceCount;
     }
 
     //region GUI forwarding (click to open/collapse)

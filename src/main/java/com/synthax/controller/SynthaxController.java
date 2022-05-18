@@ -78,17 +78,11 @@ public class SynthaxController {
     //region OscillatorManager (click to open/collapse)
     public void moveOscillatorDown(OscillatorController oscillatorController) {
         oscillatorManager.moveOscillatorDown(oscillatorController);
-
-        // TESTING PRESETS: //
-        //onLoadNextPreset();
     }
 
 
     public void moveOscillatorUp(OscillatorController oscillatorController) {
         oscillatorManager.moveOscillatorUp(oscillatorController);
-
-        // TESTING PRESETS: //
-        //onSavePresetAsNew();
     }
 
     public void addOscillator(OscillatorController oscillatorController) {
@@ -110,10 +104,6 @@ public class SynthaxController {
     }
     public void noteOff(MidiNote midiNote){
         oscillatorManager.noteOff(midiNote);
-    }
-
-    public void releaseAllVoices() {
-        oscillatorManager.releaseAllVoices();
     }
     //endregion MIDI-handling
 
