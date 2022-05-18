@@ -12,7 +12,7 @@ import com.synthax.model.controls.KnobBehaviorSeqFreq;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.SequencerMode;
 import com.synthax.model.enums.Waveforms;
-import com.synthax.util.BasicMath;
+import com.synthax.util.HelperMath;
 import com.synthax.util.MidiHelpers;
 
 
@@ -31,7 +31,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
@@ -312,7 +311,7 @@ public class SynthaxView implements Initializable {
     public void updateSeqStep(int i, boolean isOn, int velocity, float detuneCent, MidiNote midiNote) {
         Platform.runLater(() -> {
             arrSeqStepsOnOff[i].setSelected(isOn);
-            float fVelocity = BasicMath.map(velocity, 0, 127, 0f, 1f);
+            float fVelocity = HelperMath.map(velocity, 0, 127, 0f, 1f);
             arrKnobBehaviorGain[i].setValueRotation(fVelocity);
             arrKnobBehaviorDetune[i].setValueRotation(detuneCent);
             arrKnobBehaviorFreq[i].setNote(midiNote);

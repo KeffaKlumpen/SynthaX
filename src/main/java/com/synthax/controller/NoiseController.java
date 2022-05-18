@@ -3,7 +3,7 @@ package com.synthax.controller;
 import com.synthax.model.ADSRValues;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.oscillator.VoiceNormalizer;
-import com.synthax.util.BasicMath;
+import com.synthax.util.HelperMath;
 import net.beadsproject.beads.ugens.Gain;
 import net.beadsproject.beads.ugens.Glide;
 
@@ -60,7 +60,7 @@ public class NoiseController {
     }
 
     public void setGain(float gain) {
-        float mapped = BasicMath.map(gain, 0f, 1f, 0f, 0.5f);
+        float mapped = HelperMath.map(gain, 0f, 1f, 0f, 0.5f);
 
         if(isActive) {
             voiceOutputGlide.setValue(mapped);

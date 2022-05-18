@@ -1,6 +1,6 @@
 package com.synthax.model;
 
-import com.synthax.util.BasicMath;
+import com.synthax.util.HelperMath;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.ugens.BiquadFilter;
 
@@ -87,7 +87,7 @@ public class EQFilters {
     }
 
     public void setHPCutoff(float cutoff) {
-        float mapped = BasicMath.map(cutoff, 0f, 1f, HP_MIN_FREQ, HP_MAX_FREQ);
+        float mapped = HelperMath.map(cutoff, 0f, 1f, HP_MIN_FREQ, HP_MAX_FREQ);
         if(hpActive) {
             setHPfreq(mapped);
         } else {
@@ -122,7 +122,7 @@ public class EQFilters {
     }
 
     public void setEQGain(int i, float newVal) {
-        float gain = BasicMath.map(newVal, -50f, 50f, EQ_GAIN_MIN, EQ_GAIN_MAX);
+        float gain = HelperMath.map(newVal, -50f, 50f, EQ_GAIN_MIN, EQ_GAIN_MAX);
         if(eqActive[i]) {
             System.out.println("EQGain: " + gain);
             eqFilters[i].setGain(gain);
@@ -132,19 +132,19 @@ public class EQFilters {
     }
 
     public void setEQRange(int i, float newVal) {
-        float qVal = BasicMath.map(newVal, 0f, 1f, EQ_RANGE_MIN, EQ_RANGE_MAX);
+        float qVal = HelperMath.map(newVal, 0f, 1f, EQ_RANGE_MIN, EQ_RANGE_MAX);
         System.out.println("EQqVal: " + qVal);
         eqFilters[i].setQ(qVal);
     }
 
     public void setEQFrequency(int i, float newVal) {
-        float freq = BasicMath.map(newVal, 0f, 1f, EQ_FREQ_MIN, EQ_FREQ_MAX);
+        float freq = HelperMath.map(newVal, 0f, 1f, EQ_FREQ_MIN, EQ_FREQ_MAX);
         System.out.println("EQfreq: " + freq);
         eqFilters[i].setFrequency(freq);
     }
 
     public void setLPCutoff(float cutoff) {
-        float mapped = BasicMath.map(cutoff, 0f, 1f, LP_MIN_FREQ, LP_MAX_FREQ);
+        float mapped = HelperMath.map(cutoff, 0f, 1f, LP_MIN_FREQ, LP_MAX_FREQ);
         if(lpActive) {
             setLPfreq(mapped);
         } else {

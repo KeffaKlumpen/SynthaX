@@ -9,7 +9,7 @@ package com.synthax.controller;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.sequencer.Sequencer;
 import com.synthax.model.sequencer.SequencerStep;
-import com.synthax.util.BasicMath;
+import com.synthax.util.HelperMath;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -144,7 +144,7 @@ public class SeqPresetLoader {
 
             for (SequencerStep step : steps) {
                 step.setIsOn(dis.readBoolean());
-                float velocity = BasicMath.map(dis.readInt(), 0, 127, 0f, 1f);
+                float velocity = HelperMath.map(dis.readInt(), 0, 127, 0f, 1f);
                 step.setVelocity(velocity);
                 step.setDetuneCent(dis.readFloat());
                 step.setMidiNote(MidiNote.values()[dis.readInt()]);

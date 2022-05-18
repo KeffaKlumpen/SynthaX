@@ -1,6 +1,6 @@
 package com.synthax.model.controls;
 
-import com.synthax.util.BasicMath;
+import com.synthax.util.HelperMath;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.event.EventHandler;
@@ -61,7 +61,7 @@ public class KnobBehaviorDetune implements EventHandler<MouseEvent> {
 
     public void setValueRotation(float value) {
         knobValue.setValue(value);
-        knob.setRotate(BasicMath.map((value+50), 0, 100, 210, 510));
+        knob.setRotate(HelperMath.map((value+50), 0, 100, 210, 510));
         rotation = 0;
     }
 

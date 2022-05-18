@@ -1,12 +1,10 @@
-/*
-  Author: Joel Eriksson Sinclair
-  ID: ai7892
-  Study program: Sys 21h
-*/
-
 package com.synthax.util;
 
-public class BasicMath {
+/**
+ * A collection of useful math functions.
+ * @author Joel Eriksson Sinclair
+ */
+public class HelperMath {
     /**
      * Helper function to map a value from one range to another range.
      */

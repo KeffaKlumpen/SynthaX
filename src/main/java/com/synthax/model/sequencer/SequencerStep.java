@@ -1,7 +1,7 @@
 package com.synthax.model.sequencer;
 
 import com.synthax.model.enums.MidiNote;
-import com.synthax.util.BasicMath;
+import com.synthax.util.HelperMath;
 
 public class SequencerStep {
     private Sequencer sequencer;
@@ -50,7 +50,7 @@ public class SequencerStep {
     }
 
     public void setVelocity(float velocity) {
-        float f = BasicMath.map(velocity, 0,1,0,127);
+        float f = HelperMath.map(velocity, 0,1,0,127);
         this.velocity = (int)f;
     }
 

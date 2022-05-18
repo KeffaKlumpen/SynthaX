@@ -1,6 +1,6 @@
 package com.synthax.model;
 
-import com.synthax.util.BasicMath;
+import com.synthax.util.HelperMath;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.ugens.*;
@@ -86,9 +86,9 @@ public class Delay {
 
     public void setDelayTime(float delayTime) {
         if (!isActive) {
-            cachedDelayTime = BasicMath.map(delayTime, 0, 1, 100, 1000);
+            cachedDelayTime = HelperMath.map(delayTime, 0, 1, 100, 1000);
         } else {
-            delayOut.setDelay(BasicMath.map(delayTime, 0, 1, 100, 1000));
+            delayOut.setDelay(HelperMath.map(delayTime, 0, 1, 100, 1000));
         }
     }
 
@@ -110,9 +110,9 @@ public class Delay {
 
     public void setFeedbackDuration(float feedbackDuration) {
         if (!isActive) {
-            cachedFeedbackDuration = BasicMath.map(feedbackDuration, 0, 1, 100, 2500);
+            cachedFeedbackDuration = HelperMath.map(feedbackDuration, 0, 1, 100, 2500);
         } else {
-            this.feedbackDuration = BasicMath.map(feedbackDuration, 0, 1, 100, 2500);
+            this.feedbackDuration = HelperMath.map(feedbackDuration, 0, 1, 100, 2500);
         }
     }
 

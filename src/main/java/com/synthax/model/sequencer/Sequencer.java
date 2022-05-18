@@ -3,7 +3,7 @@ package com.synthax.model.sequencer;
 import com.synthax.controller.SynthaxController;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.SequencerMode;
-import com.synthax.util.BasicMath;
+import com.synthax.util.HelperMath;
 
 import java.util.Random;
 
@@ -59,7 +59,7 @@ public class Sequencer implements Runnable {
     }
 
     public void setBPM(float rate) {
-        float temp = BasicMath.map(rate, 0, 1, 60, 240);
+        float temp = HelperMath.map(rate, 0, 1, 60, 240);
         temp = 60000 / (temp * 4);
         msBetweenBeats = (int)temp;
     }

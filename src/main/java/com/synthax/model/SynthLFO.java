@@ -1,7 +1,7 @@
 package com.synthax.model;
 
 import com.synthax.model.enums.Waveforms;
-import com.synthax.util.BasicMath;
+import com.synthax.util.HelperMath;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
@@ -66,7 +66,7 @@ public class SynthLFO {
     }
 
     public void setRate(float rate) {
-        float mapped = BasicMath.map(rate, 0f, 1f, MIN_RATE, MAX_RATE);
+        float mapped = HelperMath.map(rate, 0f, 1f, MIN_RATE, MAX_RATE);
         lfo.setFrequency(mapped);
     }
 
