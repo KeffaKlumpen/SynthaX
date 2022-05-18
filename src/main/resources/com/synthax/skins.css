@@ -120,10 +120,6 @@
     -fx-background-insets: 0, 0, 0;
 }
 
-.deletePresetBox {
-    -fx-border-color: red;
-}
-
 .settingsButton {
     -fx-background-color: #78736b;
     -fx-background-image: url("Images/gearNew.png");
