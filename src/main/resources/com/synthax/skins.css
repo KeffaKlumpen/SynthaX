@@ -106,7 +106,6 @@
     -fx-background-color: #f78000;
 }
 
-.toggleOsc,
 .plainButton {
     -fx-background-color: #78736b;
     -fx-text-fill: #d6d1c9;
@@ -119,6 +118,10 @@
 .presetsComboBox {
     -fx-background-color: #a6a097;
     -fx-background-insets: 0, 0, 0;
+}
+
+.deletePresetBox {
+    -fx-border-color: red;
 }
 
 .settingsButton {
@@ -142,6 +145,44 @@
 .saveButton {
     -fx-background-color: #78736b;
     -fx-background-image: url("Images/floppy.png");
+    -fx-background-size: 18px, 18px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.deleteButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/bin.png");
+    -fx-background-size: 18px, 18px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.addButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/add.png");
+    -fx-background-size: 9px, 9px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+    -fx-padding: 0px;
+}
+
+.timesButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/times.png");
+    -fx-background-size: 9px, 9px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+    -fx-padding: 0px;
+}
+
+.arrowButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/arrow.png");
     -fx-background-size: 18px, 18px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
@@ -207,11 +248,11 @@
     -fx-background-color: black;
 }
 
-.toggleOsc:selected,
+.timesButton:selected,
+.addButton:selected,
 .toggle-switch:selected .thumb-area {
     -fx-background-color: #f78000;
 }
-
 
 
 .toggleSeq {
@@ -317,12 +358,6 @@
 .logo {
     -fx-font-family: "Rocket Rinder";
     -fx-text-fill: #f78000;
-}
-
-.logo.label .text {
-    -fx-fill: #f78000;
-    -fx-stroke: #57534d;
-    -fx-stroke-width: 2px;
 }
 
 .chart {

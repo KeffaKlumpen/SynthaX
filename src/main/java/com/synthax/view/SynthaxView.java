@@ -342,19 +342,21 @@ public class SynthaxView implements Initializable {
     }
 
     public void onActionSettings() {
-        try {
-            URL fxmlLocation = MainApplication.class.getResource("view/Settings-view.fxml");
-            FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
-            Node settingsRoot = fxmlLoader.load();
-            popOverSettings = new PopOver(settingsRoot);
-            popOverSettings.setTitle("Settings");
-            popOverSettings.setDetachable(false);
-            popOverSettings.setHeaderAlwaysVisible(true);
-            popOverSettings.show(btnSettings);
-            popOverSettings.getStyleClass().add("popoverSettings");
-            popOverSettings.getRoot().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (popOverSettings == null || !popOverSettings.isShowing()) {
+            try {
+                URL fxmlLocation = MainApplication.class.getResource("view/Settings-view.fxml");
+                FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
+                Node settingsRoot = fxmlLoader.load();
+                popOverSettings = new PopOver(settingsRoot);
+                popOverSettings.setTitle("Settings");
+                popOverSettings.setDetachable(false);
+                popOverSettings.setHeaderAlwaysVisible(true);
+                popOverSettings.show(btnSettings);
+                popOverSettings.getStyleClass().add("popoverSettings");
+                popOverSettings.getRoot().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
