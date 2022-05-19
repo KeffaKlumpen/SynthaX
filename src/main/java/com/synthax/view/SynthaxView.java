@@ -1,14 +1,14 @@
 package com.synthax.view;
 
-import com.synthax.model.controls.KnobBehavior;
+import com.synthax.view.controls.KnobBehavior;
 
-import com.synthax.model.controls.KnobBehaviorDetune;
-import com.synthax.model.controls.KnobBehaviorWave;
+import com.synthax.view.controls.KnobBehaviorDetune;
+import com.synthax.view.controls.KnobBehaviorWave;
 import com.synthax.MainApplication;
 import com.synthax.controller.OscillatorController;
 import com.synthax.controller.SynthaxController;
 import com.synthax.model.SynthaxADSR;
-import com.synthax.model.controls.KnobBehaviorSeqFreq;
+import com.synthax.view.controls.KnobBehaviorSeqFreq;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.SequencerMode;
 import com.synthax.model.enums.Waveforms;
@@ -32,7 +32,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.PopOver;
-import org.controlsfx.control.ToggleSwitch;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,21 +55,31 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class SynthaxView implements Initializable {
     //region FXML variables
     @FXML private AnchorPane mainPane = new AnchorPane();
+
     @FXML private VBox oscillatorChainView;
     @FXML private ImageView imgClickToAddOsc;
+
     @FXML private Button knobNoiseGain;
+
+    //region Delay variables
     @FXML private Button knobDelayFeedback;
     @FXML private Button knobDelayTime;
     @FXML private Button knobDelayDecay;
     @FXML private Button knobDelayLevel;
+    //endregion Delay variables
+
     @FXML private Button knobReverbSize;
     @FXML private Button knobReverbTone;
     @FXML private Button knobReverbAmount;
+
     @FXML private Button knobLFODepth;
     @FXML private Button knobLFORate;
     @FXML private Button knobLFOWaveForm;
+
     @FXML private Button knobFilterHPCutoff;
     @FXML private Button knobFilterLPCutoff;
+
+    //region EQ variables
     @FXML private Button knobEQ1Gain;
     @FXML private Button knobEQ1Freq;
     @FXML private Button knobEQ1Range;
@@ -80,6 +89,9 @@ public class SynthaxView implements Initializable {
     @FXML private Button knobEQ3Gain;
     @FXML private Button knobEQ3Freq;
     @FXML private Button knobEQ3Range;
+    //endregion EQ variables
+
+    //region ADSR variables
     @FXML private Slider sliderAttack;
     @FXML private Slider sliderDecay;
     @FXML private Slider sliderSustain;
@@ -88,13 +100,16 @@ public class SynthaxView implements Initializable {
     @FXML private NumberAxis xAxis = new NumberAxis();
     @FXML private NumberAxis yAxis = new NumberAxis();
     @FXML private LineChart<Number, Number> lineChartADSR = new LineChart<Number, Number>(xAxis, yAxis);
+    //endregion ADSR variables
+
+    //region Controls below logo
     @FXML private Button btnHelp;
     @FXML private Button btnSettings;
     @FXML private Label lblNotConnected;
     @FXML private Label lblConnected;
     @FXML private Button btnSavePreset;
-    @FXML private ComboBox<String> cmbPresets;
-    //endregion
+    //endregion Controls below logo
+    //endregion FXML variables
 
     //region Step Sequencer
     @FXML private Button SSStartStop;
@@ -104,6 +119,7 @@ public class SynthaxView implements Initializable {
     @FXML private CheckBox cBoXRandomFreq;
     @FXML private CheckBox cBoxRandomOnOff;
     @FXML private CheckBox cBoxRandomGain;
+    @FXML private ComboBox<String> cmbPresets;
 
     //region Step Sequencer Steps
     @FXML private Button knobSS0freq;
@@ -176,6 +192,8 @@ public class SynthaxView implements Initializable {
     //endregion Step Sequencer
 
     private final HashMap<String, AtomicBoolean> keyStatus = new HashMap<>();
+
+    //region Step Sequencer collections
     private KnobBehavior bKnobSSRate;
     private Button[] arrSeqFreqKnobs;
     private Button[] arrSeqDetuneKnobs;
@@ -187,11 +205,16 @@ public class SynthaxView implements Initializable {
     private KnobBehavior[] arrKnobBehaviorGain = new KnobBehavior[16];
     private KnobBehaviorDetune[] arrKnobBehaviorDetune = new KnobBehaviorDetune[16];
     private KnobBehaviorSeqFreq[] arrKnobBehaviorFreq = new KnobBehaviorSeqFreq[16];
+    //endregion Step Sequencer collections
+
+    //region ADSR graphics points
     private XYChart.Data<Number, Number> point1ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point2ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point3ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point4ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point5ADSR = new XYChart.Data<>();
+    //endregion ADSR graphics points
+
     private PopOver popOverHelp;
     private PopOver popOverSettings;
 
@@ -212,7 +235,7 @@ public class SynthaxView implements Initializable {
     }
 
     public void setSequencerStepGain(float value, int index) {
-        arrKnobBehaviorGain[index].setValueRotation(value);
+        arrKnobBehaviorGain[index].setRotation(value);
     }
 
     public void setSeqButtonOrange(int i) {
@@ -299,7 +322,7 @@ public class SynthaxView implements Initializable {
             for (int i = 0; i < arrKnobBehaviorGain.length; i++) {
                 arrKnobBehaviorFreq[i].setNote(MidiNote.F4);
                 arrKnobBehaviorDetune[i].resetKnob();
-                arrKnobBehaviorGain[i].setValueRotation(1f);
+                arrKnobBehaviorGain[i].setRotation(1f);
                 arrSeqStepsOnOff[i].setSelected(false);
             }
             SSStartStop.setText("Start");
@@ -315,7 +338,7 @@ public class SynthaxView implements Initializable {
             mainPane.getChildren().add(ricky);
             SSStartStop.setText("Stop");
             SSStartStop.setStyle("-fx-text-fill: #f78000");
-            bKnobSSRate.setValueRotation(0.38f);
+            bKnobSSRate.setRotation(0.38f);
             spinnerSteps.increment(16);
             synthaxController.startRickRoll();
             easterCounter = 0;
@@ -431,8 +454,8 @@ public class SynthaxView implements Initializable {
         Platform.runLater(() -> {
             arrSeqStepsOnOff[i].setSelected(isOn);
             float fVelocity = HelperMath.map(velocity, 0, 127, 0f, 1f);
-            arrKnobBehaviorGain[i].setValueRotation(fVelocity);
-            arrKnobBehaviorDetune[i].setValueRotation(detuneCent);
+            arrKnobBehaviorGain[i].setRotation(fVelocity);
+            arrKnobBehaviorDetune[i].setRotation(detuneCent);
             arrKnobBehaviorFreq[i].setNote(midiNote);
         });
     }
@@ -451,7 +474,7 @@ public class SynthaxView implements Initializable {
             if (x == 0) {
                 for (int i = 0; i < arrKnobBehaviorGain.length; i++) {
                     arrKnobBehaviorDetune[i].resetKnob();
-                    arrKnobBehaviorGain[i].setValueRotation(1f);
+                    arrKnobBehaviorGain[i].setRotation(1f);
                     arrSeqStepsOnOff[i].setSelected((i <= 4) || (i == 7 || i == 10));
                 }
                 arrKnobBehaviorFreq[0].setNote(MidiNote.A3);
@@ -670,7 +693,7 @@ public class SynthaxView implements Initializable {
         for (int i = 0; i < arrSeqGainKnobs.length; i++) {
             int finalI = i;
             arrKnobBehaviorGain[i] = new KnobBehavior(arrSeqGainKnobs[i]);
-            arrKnobBehaviorGain[i].setValueRotation(1.0f);
+            arrKnobBehaviorGain[i].setRotation(1.0f);
             arrSeqGainKnobs[i].setOnMouseDragged(arrKnobBehaviorGain[i]);
             arrKnobBehaviorGain[i].knobValueProperty().addListener((v, oldValue, newValue) -> {
                 synthaxController.setSeqVelocity(finalI, newValue.floatValue());
@@ -678,7 +701,7 @@ public class SynthaxView implements Initializable {
         }
 
         bKnobSSRate = new KnobBehavior(knobSSRate);
-        bKnobSSRate.setValueRotation(0.5f);
+        bKnobSSRate.setRotation(0.5f);
         knobSSRate.setOnMouseDragged(bKnobSSRate);
         bKnobSSRate.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqBPM(newValue.floatValue());
@@ -743,7 +766,7 @@ public class SynthaxView implements Initializable {
     private void initNoise() {
         KnobBehavior bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
         knobNoiseGain.setOnMouseDragged(bKnobNoiseGain);
-        bKnobNoiseGain.setValueRotation(0.5f);
+        bKnobNoiseGain.setRotation(0.5f);
         bKnobNoiseGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setNoiseGain(newValue.floatValue());
         });

@@ -1,9 +1,9 @@
 package com.synthax.view;
 
 import com.synthax.controller.OscillatorController;
-import com.synthax.model.controls.KnobBehavior;
-import com.synthax.model.controls.KnobBehaviorDetune;
-import com.synthax.model.controls.KnobBehaviorWave;
+import com.synthax.view.controls.KnobBehavior;
+import com.synthax.view.controls.KnobBehaviorDetune;
+import com.synthax.view.controls.KnobBehaviorWave;
 import com.synthax.model.enums.CombineMode;
 import com.synthax.model.enums.OctaveOperands;
 import com.synthax.model.enums.Waveforms;
@@ -145,7 +145,7 @@ public class OscillatorView implements Initializable {
     private void initGainKnob() {
         KnobBehavior behaviorKnobGain = new KnobBehavior(knobGain);
         knobGain.setOnMouseDragged(behaviorKnobGain);
-        behaviorKnobGain.setValueRotation(0.5f);
+        behaviorKnobGain.setRotation(0.5f);
         behaviorKnobGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             oscillatorController.setGain(newValue.floatValue());
         });

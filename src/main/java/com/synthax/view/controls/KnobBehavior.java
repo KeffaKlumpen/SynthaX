@@ -1,4 +1,4 @@
-package com.synthax.model.controls;
+package com.synthax.view.controls;
 
 import com.synthax.util.HelperMath;
 import javafx.beans.property.*;
@@ -51,7 +51,7 @@ public class KnobBehavior implements EventHandler<MouseEvent> {
         return knobValue;
     }
 
-    public void setValueRotation(float value) {
+    public void setRotation(float value) {
         knob.setRotate(HelperMath.map(value, 0, 1, 210, 510));
         knobValue.setValue(value);
     }

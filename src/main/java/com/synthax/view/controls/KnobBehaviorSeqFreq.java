@@ -1,4 +1,4 @@
-package com.synthax.model.controls;
+package com.synthax.view.controls;
 
 import com.synthax.model.enums.MidiNote;
 import javafx.beans.property.IntegerProperty;
