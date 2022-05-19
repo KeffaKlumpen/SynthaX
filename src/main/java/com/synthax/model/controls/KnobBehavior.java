@@ -17,11 +17,11 @@ import java.math.RoundingMode;
  */
 public class KnobBehavior implements EventHandler<MouseEvent> {
 
-    private Button knob;
-    private float knobMaxValue = 1;
-    private float knobMinValue = 0;
+    private final Button knob;
+    private final float knobMaxValue = 1;
+    private final float knobMinValue = 0;
     private double lastMousePos;
-    private FloatProperty knobValue = new SimpleFloatProperty(this,"rotation", 0);
+    private final FloatProperty knobValue = new SimpleFloatProperty(this,"rotation", 0);
 
     public KnobBehavior(Button knob) {
         this.knob = knob;

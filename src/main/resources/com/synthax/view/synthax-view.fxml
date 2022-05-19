@@ -32,7 +32,7 @@
          <content>
             <VBox id="oscBox" fx:id="oscillatorChainView" prefHeight="520.0" prefWidth="367.0">
                <children>
-                  <ImageView fx:id="imgClickToAdd" fitHeight="189.0" fitWidth="389.0" onMouseClicked="#onActionAddOscillator" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgClickToAddOsc" fitHeight="189.0" fitWidth="389.0" onMouseClicked="#onActionAddOscillator" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/ClickToAddSharp.png" />
                      </image>

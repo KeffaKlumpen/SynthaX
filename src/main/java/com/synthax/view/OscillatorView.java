@@ -1,25 +1,19 @@
 package com.synthax.view;
 
 import com.synthax.controller.OscillatorController;
-import com.synthax.controller.OscillatorVoice;
 import com.synthax.model.controls.KnobBehavior;
 import com.synthax.model.controls.KnobBehaviorDetune;
 import com.synthax.model.controls.KnobBehaviorWave;
 import com.synthax.model.enums.CombineMode;
 import com.synthax.model.enums.OctaveOperands;
 import com.synthax.model.enums.Waveforms;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.ToggleButton;
-import org.controlsfx.control.SegmentedButton;
 import org.controlsfx.control.ToggleSwitch;
 
 import java.net.URL;
@@ -57,6 +51,19 @@ public class OscillatorView implements Initializable {
         return oscillatorController;
     }
 
+    public Button getBtnRemoveOscillator() {
+        return btnRemoveOscillator;
+    }
+
+    public Button getBtnMoveDown(){
+        return btnMoveDown;
+    }
+
+    public Button getBtnMoveUp(){
+        return btnMoveUp;
+    }
+
+    //region Init methods (click to open/collapse)
     /**
      * initialize-method for the oscillator class
      * Sets values, behaviour and adds listeners to GUI components
@@ -68,7 +75,7 @@ public class OscillatorView implements Initializable {
         initDetuneKnob();
         initLFOKnobs();
         initWaveFormKnob();
-        initOnOff();
+        initOnOffSwitch();
         initOctaveSpinner();
     }
 
@@ -89,28 +96,16 @@ public class OscillatorView implements Initializable {
         });
     }
 
-    public Button getBtnRemoveOscillator() {
-        return btnRemoveOscillator;
-    }
-
-    public Button getBtnMoveDown(){
-        return btnMoveDown;
-    }
-
-    public Button getBtnMoveUp(){
-        return btnMoveUp;
-    }
-
     private void initOctaveSpinner() {
         SpinnerValueFactory<OctaveOperands> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(FXCollections.observableArrayList(OctaveOperands.values()));
         valueFactory.setValue(OctaveOperands.EIGHT);
         octaveSpinner.setValueFactory(valueFactory);
-        octaveSpinner.valueProperty().addListener((observableValue, octaveOperands, t1) -> {
-            oscillatorController.setOctaveOperand(t1);
+        octaveSpinner.valueProperty().addListener((observableValue, octaveOperands, newValue) -> {
+            oscillatorController.setOctaveOperand(newValue);
         });
     }
 
-    private void initOnOff() {
+    private void initOnOffSwitch() {
         tglSwitchOscillatorOnOff.setSelected(true);
         tglSwitchOscillatorOnOff.selectedProperty().addListener((v, oldValue, newValue) -> {
             oscillatorController.bypassOscillator(newValue);
@@ -155,4 +150,5 @@ public class OscillatorView implements Initializable {
             oscillatorController.setGain(newValue.floatValue());
         });
     }
+    //endregion Init methods
 }

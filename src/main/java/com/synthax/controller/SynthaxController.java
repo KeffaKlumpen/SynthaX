@@ -1,9 +1,9 @@
 package com.synthax.controller;
 
-import com.synthax.model.EQFilters;
+import com.synthax.model.SynthaxEQFilters;
 import com.synthax.model.Midi;
-import com.synthax.model.SynthLFO;
-import com.synthax.model.SynthReverb;
+import com.synthax.model.SynthaxLFO;
+import com.synthax.model.SynthaxReverb;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.Waveforms;
 import com.synthax.model.sequencer.Sequencer;
@@ -31,11 +31,11 @@ public class SynthaxController {
 
     private final Gain masterGain;
     private final Glide masterGainGlide;
-    private final SynthLFO synthLFO;
+    private final SynthaxLFO synthaxLFO;
     private final OscillatorManager oscillatorManager;
-    private final EQFilters filters;
+    private final SynthaxEQFilters filters;
     private final Sequencer sequencer;
-    private final SynthReverb reverb;
+    private final SynthaxReverb reverb;
     private boolean randomFreq = true;
     private boolean randomGain = true;
     private boolean randomOnOff = true;
@@ -59,13 +59,13 @@ public class SynthaxController {
         oscillatorManager = OscillatorManager.getInstance();
         Gain oscCombined = oscillatorManager.getFinalOutput();
 
-        synthLFO = new SynthLFO();
-        synthLFO.setInput(oscCombined);
+        synthaxLFO = new SynthaxLFO();
+        synthaxLFO.setInput(oscCombined);
 
-        filters = new EQFilters();
-        filters.addInput(synthLFO.getOutput());
+        filters = new SynthaxEQFilters();
+        filters.addInput(synthaxLFO.getOutput());
 
-        reverb = new SynthReverb(filters.getOutput());
+        reverb = new SynthaxReverb(filters.getOutput());
         masterGain.addInput(reverb.getOutput());
 
         // Send to audio-device
@@ -143,19 +143,19 @@ public class SynthaxController {
 
     //region LFO (click to open/collapse)
     public void setLFODepth(float depth) {
-        synthLFO.setDepth(depth);
+        synthaxLFO.setDepth(depth);
     }
 
     public void setLFORate(float rate) {
-        synthLFO.setRate(rate);
+        synthaxLFO.setRate(rate);
     }
 
     public void setLFOWaveform(Waveforms waveform) {
-        synthLFO.setWaveform(waveform);
+        synthaxLFO.setWaveform(waveform);
     }
 
     public void setLFOActive(boolean newActive) {
-        synthLFO.setActive(newActive);
+        synthaxLFO.setActive(newActive);
     }
     //endregion LFO
 
@@ -245,7 +245,7 @@ public class SynthaxController {
         Random random  = new Random();
         for (int i = 0; i < length; i++) {
             int onOff = random.nextInt(2);
-            synthaxView.setSequencerStepsOnOff(onOff == 0, i);
+            synthaxView.setSequencerStepOnOff(onOff == 0, i);
         }
     }
     public void randomizeFreq(int length) {
@@ -257,7 +257,7 @@ public class SynthaxController {
             }
             out /= 4;
             out += 21;
-            synthaxView.setSequencerFreqKnobs(MidiNote.values()[out], i);
+            synthaxView.setSequencerStepFreq(MidiNote.values()[out], i);
         }
     }
     public void randomizeGain(int length) {
@@ -265,11 +265,11 @@ public class SynthaxController {
         for (int i = 0; i < length; i++) {
             int odds = random.nextInt(100);
             if (odds < 70) {
-                synthaxView.setSequencerGain(1, i);
+                synthaxView.setSequencerStepGain(1, i);
             } else {
                 int b = random.nextInt(100);
                 float f = b / 100f;
-                synthaxView.setSequencerGain(f, i);
+                synthaxView.setSequencerStepGain(f, i);
             }
         }
     }

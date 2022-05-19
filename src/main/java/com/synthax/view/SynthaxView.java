@@ -7,14 +7,13 @@ import com.synthax.model.controls.KnobBehaviorWave;
 import com.synthax.MainApplication;
 import com.synthax.controller.OscillatorController;
 import com.synthax.controller.SynthaxController;
-import com.synthax.model.ADSRValues;
+import com.synthax.model.SynthaxADSR;
 import com.synthax.model.controls.KnobBehaviorSeqFreq;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.SequencerMode;
 import com.synthax.model.enums.Waveforms;
 import com.synthax.util.HelperMath;
 import com.synthax.util.MidiHelpers;
-
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -57,7 +56,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class SynthaxView implements Initializable {
     //region FXML variables
     @FXML private VBox oscillatorChainView;
-    @FXML private ImageView imgClickToAdd;
+    @FXML private ImageView imgClickToAddOsc;
     @FXML private Button knobNoiseGain;
     @FXML private ToggleSwitch tglSwitchNoise;
     @FXML private Button knobDelayFeedback;
@@ -106,7 +105,19 @@ public class SynthaxView implements Initializable {
     @FXML private Button btnSavePreset;
     @FXML private ComboBox<String> cmbPresets;
     //endregion
-    //region Step sequencer buttons
+
+    //region Step Sequencer
+    @FXML private Button SSStartStop;
+    @FXML private Button knobSSRate;
+    @FXML private Spinner<Integer> spinnerSteps;
+    @FXML private Spinner<String> sequencerMode;
+    @FXML private Button btnRandomize;
+    @FXML private CheckBox cBoXRandomFreq;
+    @FXML private CheckBox cBoxRandomOnOff;
+    @FXML private CheckBox cBoxRandomGain;
+    @FXML private Button btnResetKnobs;
+
+    //region Step Sequencer Steps
     @FXML private Button knobSS0freq;
     @FXML private Button knobSS0FineTune;
     @FXML private Button knobSS0Gain;
@@ -155,10 +166,6 @@ public class SynthaxView implements Initializable {
     @FXML private Button knobSS15freq;
     @FXML private Button knobSS15FineTune;
     @FXML private Button knobSS15Gain;
-    @FXML private Button SSStartStop;
-    @FXML private Button knobSSRate;
-    @FXML private Spinner<Integer> spinnerSteps;
-    @FXML private Spinner<String> sequencerMode;
     @FXML private ToggleButton btnStepOnOff0;
     @FXML private ToggleButton btnStepOnOff1;
     @FXML private ToggleButton btnStepOnOff2;
@@ -175,14 +182,10 @@ public class SynthaxView implements Initializable {
     @FXML private ToggleButton btnStepOnOff13;
     @FXML private ToggleButton btnStepOnOff14;
     @FXML private ToggleButton btnStepOnOff15;
-    @FXML private Button btnRandomize;
-    @FXML private CheckBox cBoXRandomFreq;
-    @FXML private CheckBox cBoxRandomOnOff;
-    @FXML private CheckBox cBoxRandomGain;
-    @FXML private Button btnResetKnobs;
-    @FXML private ImageView ricky;
-    //endregion
+    //endregion Step Sequencer Steps
 
+    @FXML private ImageView ricky;
+    //endregion Step Sequencer
 
     private final HashMap<String, AtomicBoolean> keyStatus = new HashMap<>();
     private KnobBehavior bKnobSSRate;
@@ -214,15 +217,15 @@ public class SynthaxView implements Initializable {
         synthaxController = new SynthaxController(this);
     }
 
-    public void setSequencerStepsOnOff(boolean on, int index) {
+    public void setSequencerStepOnOff(boolean on, int index) {
         arrSeqStepsOnOff[index].setSelected(on);
     }
 
-    public void setSequencerFreqKnobs(MidiNote note, int index) {
+    public void setSequencerStepFreq(MidiNote note, int index) {
         arrKnobBehaviorFreq[index].setNote(note);
     }
 
-    public void setSequencerGain(float value, int index) {
+    public void setSequencerStepGain(float value, int index) {
         arrKnobBehaviorGain[index].setValueRotation(value);
     }
 
@@ -275,9 +278,9 @@ public class SynthaxView implements Initializable {
                     synthaxController.moveOscillatorUp(oscillatorController);
                 }
             });
-            oscillatorChainView.getChildren().remove(imgClickToAdd);
+            oscillatorChainView.getChildren().remove(imgClickToAddOsc);
             oscillatorChainView.getChildren().add(oscillatorRoot);
-            oscillatorChainView.getChildren().add(imgClickToAdd);
+            oscillatorChainView.getChildren().add(imgClickToAddOsc);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -367,6 +370,7 @@ public class SynthaxView implements Initializable {
             }
         }
     }
+
     @FXML
     public void onActionSearchMidiDevice() {
         lblNotConnected.setVisible(!lblNotConnected.isVisible());
@@ -833,15 +837,15 @@ public class SynthaxView implements Initializable {
         sliderAttack.setMin(10);
         sliderAttack.setBlockIncrement(50);
         sliderAttack.valueProperty().addListener((observableValue, number, t1) -> {
-            ADSRValues.setAttackValue(t1.floatValue());
+            SynthaxADSR.setAttackValue(t1.floatValue());
             onAttackDrag();
         });
 
-        sliderDecay.setMax(1500);
+        sliderDecay.setMax(decayMax);
         sliderDecay.setMin(10);
         sliderDecay.setBlockIncrement(50);
         sliderDecay.valueProperty().addListener((observableValue, number, t1) -> {
-            ADSRValues.setDecayValue(t1.floatValue());
+            SynthaxADSR.setDecayValue(t1.floatValue());
             onDecayDrag();
         });
 
@@ -849,7 +853,7 @@ public class SynthaxView implements Initializable {
         sliderSustain.setValue(1);
         sliderSustain.setBlockIncrement(0.1);
         sliderSustain.valueProperty().addListener((observableValue, number, t1) -> {
-            ADSRValues.setSustainValue(t1.floatValue());
+            SynthaxADSR.setSustainValue(t1.floatValue());
             onSustainDrag();
         });
 
@@ -857,7 +861,7 @@ public class SynthaxView implements Initializable {
         sliderRelease.setMin(10);
         sliderRelease.setBlockIncrement(50);
         sliderRelease.valueProperty().addListener((observableValue, number, t1) -> {
-            ADSRValues.setReleaseValue(t1.floatValue());
+            SynthaxADSR.setReleaseValue(t1.floatValue());
             onReleaseDrag();
         });
     }

@@ -11,7 +11,7 @@ import net.beadsproject.beads.ugens.Reverb;
  * @author Viktor Lenberg
  * @author Teodor Wegestål
  */
-public class SynthReverb {
+public class SynthaxReverb {
 
     private final Reverb reverb;
     private final Glide amountGlide;
@@ -19,7 +19,7 @@ public class SynthReverb {
     private float cachedAmountValue;
     private boolean isActive = false;
 
-    public SynthReverb(UGen filterOutput) {
+    public SynthaxReverb(UGen filterOutput) {
 
         reverb = new Reverb(AudioContext.getDefaultContext(), 1);
 

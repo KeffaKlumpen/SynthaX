@@ -8,7 +8,7 @@ import net.beadsproject.beads.ugens.BiquadFilter;
  * Manages filters that modify the amplitude of specific frequencies.
  * @author Joel Eriksson Sinclair
  */
-public class EQFilters {
+public class SynthaxEQFilters {
     private static final float HP_MIN_FREQ = 400f;
     private static final float HP_MAX_FREQ = 2000f;
     private static final float LP_MIN_FREQ = 100f;
@@ -42,7 +42,7 @@ public class EQFilters {
     /**
      * Sets up the internal chain. Send the incoming audio through the HP-, EQ- and finally LP-filters.
      */
-    public EQFilters() {
+    public SynthaxEQFilters() {
         highPassFilters = new BiquadFilter[FILTER_STACK_COUNT];
         for (int i = 0; i < FILTER_STACK_COUNT; i++) {
             BiquadFilter filter = new BiquadFilter(1, BiquadFilter.BESSEL_HP);

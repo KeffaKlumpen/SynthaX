@@ -2,7 +2,7 @@ package com.synthax.controller;
 
 import com.synthax.model.oscillator.VoiceNormalizer;
 import com.synthax.model.enums.Waveforms;
-import com.synthax.model.ADSRValues;
+import com.synthax.model.SynthaxADSR;
 import com.synthax.model.enums.CombineMode;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.OctaveOperands;
@@ -48,7 +48,7 @@ public class OscillatorController {
             OscillatorVoice voice = new OscillatorVoice(Buffer.SINE);
 
             voiceGainNormalizer.setInGain(voice.getNaturalGain(), i);
-            voiceGainNormalizer.setOutGain(voice.getNormGainGlide(), i);
+            voiceGainNormalizer.setOutGain(voice.getNormalizedGainGlide(), i);
 
             voiceOutput.addInput(voice.getDelay().getOutput());
             voices[i] = voice;
@@ -70,8 +70,8 @@ public class OscillatorController {
         freq = applyDetuning(freq);
 
         float maxGain = velocity / 127f;
-        float sustainGain = maxGain * ADSRValues.getSustainValue();
-        voices[nextVoice].playFreq(freq, maxGain, ADSRValues.getAttackValue(), sustainGain, ADSRValues.getDecayValue(), realFrequency);
+        float sustainGain = maxGain * SynthaxADSR.getSustainValue();
+        voices[nextVoice].playFreq(freq, maxGain, SynthaxADSR.getAttackValue(), sustainGain, SynthaxADSR.getDecayValue(), realFrequency);
 
         nextVoice = ++nextVoice % voiceCount;
     }
@@ -90,15 +90,15 @@ public class OscillatorController {
         freq = applyDetuning(freq);
 
         float maxGain = velocity / 127f;
-        float sustainGain = maxGain * ADSRValues.getSustainValue();
-        voices[nextVoice].playFreq(freq, maxGain, ADSRValues.getAttackValue(), sustainGain, ADSRValues.getDecayValue(), realFrequency);
+        float sustainGain = maxGain * SynthaxADSR.getSustainValue();
+        voices[nextVoice].playFreq(freq, maxGain, SynthaxADSR.getAttackValue(), sustainGain, SynthaxADSR.getDecayValue(), realFrequency);
 
         nextVoice = ++nextVoice % voiceCount;
     }
 
     public void noteOff(MidiNote midiNote) {
         int voiceIndex = voicePlayingMidi[midiNote.ordinal()];
-        voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
+        voices[voiceIndex].stopPlay(SynthaxADSR.getReleaseValue());
     }
 
     // FIXME: 2022-04-07 Bypassing an Mult Oscillator makes it so no sound reaches the output. (Multiplying with the 0-buffer).
@@ -222,6 +222,7 @@ public class OscillatorController {
     private float applyDetuning(float frequency) {
         return (float)(frequency * (Math.pow(2, (detuneCent/1200))));
     }
+
     private float applyDetuning(float frequency, float detuneCent) {
         return (float)(frequency * (Math.pow(2, (detuneCent/1200))));
     }
