@@ -172,11 +172,9 @@ public class SynthaxView implements Initializable {
     @FXML private ToggleButton btnStepOnOff13;
     @FXML private ToggleButton btnStepOnOff14;
     @FXML private ToggleButton btnStepOnOff15;
-    @FXML private Button btnRandomize;
     @FXML private CheckBox cBoXRandomFreq;
     @FXML private CheckBox cBoxRandomOnOff;
     @FXML private CheckBox cBoxRandomGain;
-    @FXML private Button btnResetKnobs;
     @FXML private ImageView ricky;
     //endregion
 
@@ -223,6 +221,7 @@ public class SynthaxView implements Initializable {
         arrKnobBehaviorGain[index].setValueRotation(value);
     }
 
+    //region onAction  (click to open/collapse)
     @FXML
     public void onActionRandomize() {
         synthaxController.randomize(arrSeqStepsOnOff.length);
@@ -308,25 +307,7 @@ public class SynthaxView implements Initializable {
         }
     }
 
-    public void updateSeqStep(int i, boolean isOn, int velocity, float detuneCent, MidiNote midiNote) {
-        Platform.runLater(() -> {
-            arrSeqStepsOnOff[i].setSelected(isOn);
-            float fVelocity = BasicMath.map(velocity, 0, 127, 0f, 1f);
-            arrKnobBehaviorGain[i].setValueRotation(fVelocity);
-            arrKnobBehaviorDetune[i].setValueRotation(detuneCent);
-            arrKnobBehaviorFreq[i].setNote(midiNote);
-        });
-    }
-
-    public void fakeSequencerStartStopClick() {
-        System.out.println("clicked.");
-        Platform.runLater(() -> {
-            SSStartStop.onMousePressedProperty().get().handle(new MouseEvent(MouseEvent.MOUSE_PRESSED, 0,
-                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
-                    true, true, true, true, true, true, null));
-        });
-    }
-
+    @FXML
     public void onActionHelp() {
         if (popOverHelp == null || !popOverHelp.isShowing()) {
             ImageView iv = new ImageView(new Image(MainApplication.class.getResource("Images/helpwindowthinA.png").toExternalForm()));
@@ -341,6 +322,7 @@ public class SynthaxView implements Initializable {
         }
     }
 
+    @FXML
     public void onActionSettings() {
         if (popOverSettings == null || !popOverSettings.isShowing()) {
             try {
@@ -360,9 +342,30 @@ public class SynthaxView implements Initializable {
         }
     }
 
+    @FXML
     public void onActionSearchMidiDevice() {
         lblNotConnected.setVisible(!lblNotConnected.isVisible());
         lblConnected.setVisible(!lblConnected.isVisible());
+    }
+    //endregion onAction
+
+    public void updateSeqStep(int i, boolean isOn, int velocity, float detuneCent, MidiNote midiNote) {
+        Platform.runLater(() -> {
+            arrSeqStepsOnOff[i].setSelected(isOn);
+            float fVelocity = BasicMath.map(velocity, 0, 127, 0f, 1f);
+            arrKnobBehaviorGain[i].setValueRotation(fVelocity);
+            arrKnobBehaviorDetune[i].setValueRotation(detuneCent);
+            arrKnobBehaviorFreq[i].setNote(midiNote);
+        });
+    }
+
+    public void fakeSequencerStartStopClick() {
+        System.out.println("clicked.");
+        Platform.runLater(() -> {
+            SSStartStop.onMousePressedProperty().get().handle(new MouseEvent(MouseEvent.MOUSE_PRESSED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+        });
     }
 
     public void setUpSteps(int x) {

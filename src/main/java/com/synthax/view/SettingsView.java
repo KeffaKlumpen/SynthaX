@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Spinner;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -11,8 +12,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SettingsView implements Initializable {
-    @FXML private Button btnDelete;
     @FXML private VBox presetsList;
+    @FXML private Spinner<Integer> voiceCountSpinner;
 
     @FXML
     public void onActionDelete() {
@@ -23,6 +24,16 @@ public class SettingsView implements Initializable {
                 i--;
             }
         }
+    }
+
+    @FXML
+    public void onActionChooseFile() {
+
+    }
+
+    @FXML
+    public void onActionMonophonic() {
+        
     }
 
     private void populatePresetsBox() {
