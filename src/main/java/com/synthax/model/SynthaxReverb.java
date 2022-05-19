@@ -62,10 +62,10 @@ public class SynthaxReverb {
         }
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setActive() {
+        isActive = !isActive;
 
-        if (active) {
+        if (isActive) {
             setReverbAmount(cachedAmountValue);
         } else {
             cachedAmountValue = amountGlide.getCurrentValue();

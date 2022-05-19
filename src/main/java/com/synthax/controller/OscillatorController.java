@@ -253,9 +253,9 @@ public class OscillatorController {
         }
     }
 
-    public void setDelayActive(boolean active) {
+    public void setDelayActive() {
         for (OscillatorVoice voice : voices) {
-            voice.getDelay().setActive(active);
+            voice.getDelay().setActive();
         }
     }
     //endregion delay-setters

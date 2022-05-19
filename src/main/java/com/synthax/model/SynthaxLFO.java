@@ -82,8 +82,8 @@ public class SynthaxLFO {
         }
     }
 
-    public void setActive(boolean newActive) {
-        isActive = newActive;
+    public void setActive() {
+        isActive = !isActive;
 
         if(isActive) {
             depth.setValue(savedDepth);

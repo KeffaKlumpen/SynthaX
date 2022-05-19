@@ -210,9 +210,9 @@ public class OscillatorManager {
         }
     }
 
-    public void setDelayActive(boolean active) {
+    public void setDelayActive() {
         for (OscillatorController controller : oscillatorControllers) {
-            controller.setDelayActive(active);
+            controller.setDelayActive();
         }
     }
     // endregion Delay-setters

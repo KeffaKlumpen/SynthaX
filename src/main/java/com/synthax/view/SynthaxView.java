@@ -55,23 +55,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class SynthaxView implements Initializable {
     //region FXML variables
+    @FXML private AnchorPane mainPane = new AnchorPane();
     @FXML private VBox oscillatorChainView;
     @FXML private ImageView imgClickToAddOsc;
     @FXML private Button knobNoiseGain;
-    @FXML private ToggleSwitch tglSwitchNoise;
     @FXML private Button knobDelayFeedback;
     @FXML private Button knobDelayTime;
     @FXML private Button knobDelayDecay;
     @FXML private Button knobDelayLevel;
-    @FXML private ToggleSwitch tglSwitchDelay;
     @FXML private Button knobReverbSize;
     @FXML private Button knobReverbTone;
     @FXML private Button knobReverbAmount;
-    @FXML private ToggleSwitch tglSwitchReverb;
     @FXML private Button knobLFODepth;
     @FXML private Button knobLFORate;
     @FXML private Button knobLFOWaveForm;
-    @FXML private ToggleSwitch tglSwitchLFO;
     @FXML private Button knobFilterHPCutoff;
     @FXML private Button knobFilterLPCutoff;
     @FXML private Button knobEQ1Gain;
@@ -83,12 +80,6 @@ public class SynthaxView implements Initializable {
     @FXML private Button knobEQ3Gain;
     @FXML private Button knobEQ3Freq;
     @FXML private Button knobEQ3Range;
-    @FXML private ToggleSwitch tglSwitchEQ1;
-    @FXML private ToggleSwitch tglSwitchEQ2;
-    @FXML private ToggleSwitch tglSwitchEQ3;
-    @FXML private ToggleSwitch tglSwitchFilterLP;
-    @FXML private ToggleSwitch tglSwitchFilterHP;
-    @FXML private AnchorPane mainPane = new AnchorPane();
     @FXML private Slider sliderAttack;
     @FXML private Slider sliderDecay;
     @FXML private Slider sliderSustain;
@@ -99,7 +90,6 @@ public class SynthaxView implements Initializable {
     @FXML private LineChart<Number, Number> lineChartADSR = new LineChart<Number, Number>(xAxis, yAxis);
     @FXML private Button btnHelp;
     @FXML private Button btnSettings;
-    @FXML private Button btnSearchMidiDevice;
     @FXML private Label lblNotConnected;
     @FXML private Label lblConnected;
     @FXML private Button btnSavePreset;
@@ -111,11 +101,9 @@ public class SynthaxView implements Initializable {
     @FXML private Button knobSSRate;
     @FXML private Spinner<Integer> spinnerSteps;
     @FXML private Spinner<String> sequencerMode;
-    @FXML private Button btnRandomize;
     @FXML private CheckBox cBoXRandomFreq;
     @FXML private CheckBox cBoxRandomOnOff;
     @FXML private CheckBox cBoxRandomGain;
-    @FXML private Button btnResetKnobs;
 
     //region Step Sequencer Steps
     @FXML private Button knobSS0freq;
@@ -208,9 +196,7 @@ public class SynthaxView implements Initializable {
     private PopOver popOverSettings;
 
     private final SynthaxController synthaxController;
-    private final int attackMax = 3000;
-    private final int decayMax = 1500;
-    private final int releaseMax = 2000;
+
     private int easterCounter = 0;
 
     public SynthaxView() {
@@ -227,6 +213,24 @@ public class SynthaxView implements Initializable {
 
     public void setSequencerStepGain(float value, int index) {
         arrKnobBehaviorGain[index].setValueRotation(value);
+    }
+
+    public void setSeqButtonOrange(int i) {
+        Platform.runLater(() -> {
+            arrSeqStepsOnOff[i].setStyle("-fx-background-color: #f78000");
+        });
+    }
+
+    public void setSeqButtonGray(int i) {
+        Platform.runLater(()-> {
+            arrSeqStepsOnOff[i].setStyle("-fx-background-color: #78736b");
+
+        });
+    }
+
+    public void setSequencerPresetList(String[] presetNames) {
+        cmbPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));
+        cmbPresets.getSelectionModel().selectFirst();
     }
 
     //region onAction  (click to open/collapse)
@@ -358,6 +362,51 @@ public class SynthaxView implements Initializable {
         lblNotConnected.setVisible(!lblNotConnected.isVisible());
         lblConnected.setVisible(!lblConnected.isVisible());
     }
+
+    @FXML
+    public void onActionNoiseBypass() {
+        synthaxController.setNoiseActive();
+    }
+
+    @FXML
+    public void onActionLFOBypass() {
+        synthaxController.setLFOActive();
+    }
+
+    @FXML
+    public void onActionReverbBypass() {
+        synthaxController.setReverbActive();
+    }
+
+    @FXML
+    public void onActionDelayBypass() {
+        synthaxController.setDelayActive();
+    }
+
+    @FXML
+    public void onActionEQ1Bypass() {
+        synthaxController.setEQActive(0);
+    }
+
+    @FXML
+    public void onActionEQ2Bypass() {
+        synthaxController.setEQActive(1);
+    }
+
+    @FXML
+    public void onActionEQ3Bypass() {
+        synthaxController.setEQActive(2);
+    }
+
+    @FXML
+    public void onActionHPBypass() {
+        synthaxController.setHPActive();
+    }
+
+    @FXML
+    public void onActionLPBypass() {
+        synthaxController.setLPActive();
+    }
     //endregion onAction
 
     public void updateSeqStep(int i, boolean isOn, int velocity, float detuneCent, MidiNote midiNote) {
@@ -424,24 +473,6 @@ public class SynthaxView implements Initializable {
         });
     }
 
-    public void setSeqButtonOrange(int i) {
-        Platform.runLater(() -> {
-            arrSeqStepsOnOff[i].setStyle("-fx-background-color: #f78000");
-        });
-    }
-
-    public void setSeqButtonGray(int i) {
-        Platform.runLater(()-> {
-            arrSeqStepsOnOff[i].setStyle("-fx-background-color: #78736b");
-
-        });
-    }
-
-    public void setSequencerPresetList(String[] presetNames) {
-        cmbPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));
-        cmbPresets.getSelectionModel().selectFirst();
-    }
-
     /**
      * Initialize method
      * Sets values, behaviour and adds listeners to GUI components
@@ -485,12 +516,14 @@ public class SynthaxView implements Initializable {
 
     //region Methods for updating linechart (click to open/collapse)
     private void onAttackDrag() {
-        point2ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d);
-        point3ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d + (sliderDecay.getValue() / decayMax) * 10d);
+        point2ADSR.setXValue((sliderAttack.getValue() / SynthaxADSR.ATTACK_MAX) * 10d);
+        point3ADSR.setXValue((sliderAttack.getValue() / SynthaxADSR.ATTACK_MAX) * 10d +
+                (sliderDecay.getValue() / SynthaxADSR.DECAY_MAX) * 10d);
     }
 
     private void onDecayDrag() {
-        point3ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d + (sliderDecay.getValue() / decayMax) * 10d);
+        point3ADSR.setXValue((sliderAttack.getValue() / SynthaxADSR.ATTACK_MAX) * 10d +
+                (sliderDecay.getValue() / SynthaxADSR.DECAY_MAX) * 10d);
     }
 
     private void onSustainDrag() {
@@ -499,7 +532,7 @@ public class SynthaxView implements Initializable {
     }
 
     private void onReleaseDrag() {
-        point4ADSR.setXValue(40d - (sliderRelease.getValue() / releaseMax) * 10d);
+        point4ADSR.setXValue(40d - (sliderRelease.getValue() / SynthaxADSR.RELEASE_MAX) * 10d);
     }
     //endregion Methods for updating linechart
 
@@ -690,10 +723,6 @@ public class SynthaxView implements Initializable {
     }
 
     private void initNoise() {
-        tglSwitchNoise.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setNoiseActive(newValue);
-        });
-
         KnobBehavior bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
         knobNoiseGain.setOnMouseDragged(bKnobNoiseGain);
         bKnobNoiseGain.setValueRotation(0.5f);
@@ -703,10 +732,6 @@ public class SynthaxView implements Initializable {
     }
 
     private void initDelay() {
-        tglSwitchDelay.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setDelayActive(newValue);
-        });
-
         KnobBehavior bKnobDelayFeedback = new KnobBehavior(knobDelayFeedback);
         knobDelayFeedback.setOnMouseDragged(bKnobDelayFeedback);
         bKnobDelayFeedback.knobValueProperty().addListener((v, oldValue, newValue) -> {
@@ -733,10 +758,6 @@ public class SynthaxView implements Initializable {
     }
 
     private void initReverb() {
-        tglSwitchReverb.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setReverbActive(newValue);
-        });
-
         KnobBehavior bKnobReverbSize = new KnobBehavior(knobReverbSize);
         knobReverbSize.setOnMouseDragged(bKnobReverbSize);
         bKnobReverbSize.knobValueProperty().addListener((v, oldValue, newValue) -> {
@@ -757,10 +778,6 @@ public class SynthaxView implements Initializable {
     }
 
     private void initLFO() {
-        tglSwitchLFO.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setLFOActive(newValue);
-        });
-
         KnobBehavior bKnobLFODepth = new KnobBehavior(knobLFODepth);
         knobLFODepth.setOnMouseDragged(bKnobLFODepth);
         bKnobLFODepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
@@ -781,18 +798,6 @@ public class SynthaxView implements Initializable {
     }
 
     private void initFilter() {
-        tglSwitchFilterHP.selectedProperty().addListener((v, oldValue, newValue) -> synthaxController.setHPActive(newValue));
-        tglSwitchFilterLP.selectedProperty().addListener((v, oldValue, newValue) -> synthaxController.setLPActive(newValue));
-        tglSwitchEQ1.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setEQActive(0, newValue);
-        });
-        tglSwitchEQ2.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setEQActive(1, newValue);
-        });
-        tglSwitchEQ3.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setEQActive(2, newValue);
-        });
-
         for (int i = 0; i < arrEQGainKnobs.length; i++) {
             int finalI = i;
             KnobBehaviorDetune b = new KnobBehaviorDetune(arrEQGainKnobs[i]);
@@ -835,35 +840,31 @@ public class SynthaxView implements Initializable {
     private void initADSR() {
         setupLineChart();
 
-        sliderAttack.setMax(attackMax);
-        sliderAttack.setMin(10);
-        sliderAttack.setBlockIncrement(50);
-        sliderAttack.valueProperty().addListener((observableValue, number, t1) -> {
-            SynthaxADSR.setAttackValue(t1.floatValue());
+        sliderAttack.setMax(SynthaxADSR.ATTACK_MAX);
+        sliderAttack.setMin(SynthaxADSR.ATTACK_MIN);
+        sliderAttack.valueProperty().addListener((observableValue, number, newValue) -> {
+            SynthaxADSR.setAttackValue(newValue.floatValue());
             onAttackDrag();
         });
 
-        sliderDecay.setMax(decayMax);
-        sliderDecay.setMin(10);
-        sliderDecay.setBlockIncrement(50);
-        sliderDecay.valueProperty().addListener((observableValue, number, t1) -> {
-            SynthaxADSR.setDecayValue(t1.floatValue());
+        sliderDecay.setMax(SynthaxADSR.DECAY_MAX);
+        sliderDecay.setMin(SynthaxADSR.DECAY_MIN);
+        sliderDecay.valueProperty().addListener((observableValue, number, newValue) -> {
+            SynthaxADSR.setDecayValue(newValue.floatValue());
             onDecayDrag();
         });
 
-        sliderSustain.setMax(1);
-        sliderSustain.setValue(1);
-        sliderSustain.setBlockIncrement(0.1);
-        sliderSustain.valueProperty().addListener((observableValue, number, t1) -> {
-            SynthaxADSR.setSustainValue(t1.floatValue());
+        sliderSustain.setMax(SynthaxADSR.SUSTAIN_MAX);
+        sliderSustain.setValue(SynthaxADSR.getSustainValue());
+        sliderSustain.valueProperty().addListener((observableValue, number, newValue) -> {
+            SynthaxADSR.setSustainValue(newValue.floatValue());
             onSustainDrag();
         });
 
-        sliderRelease.setMax(2000);
-        sliderRelease.setMin(10);
-        sliderRelease.setBlockIncrement(50);
-        sliderRelease.valueProperty().addListener((observableValue, number, t1) -> {
-            SynthaxADSR.setReleaseValue(t1.floatValue());
+        sliderRelease.setMax(SynthaxADSR.RELEASE_MAX);
+        sliderRelease.setMin(SynthaxADSR.RELEASE_MIN);
+        sliderRelease.valueProperty().addListener((observableValue, number, newValue) -> {
+            SynthaxADSR.setReleaseValue(newValue.floatValue());
             onReleaseDrag();
         });
     }

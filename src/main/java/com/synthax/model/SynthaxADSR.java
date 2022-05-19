@@ -8,10 +8,18 @@ package com.synthax.model;
  * @author Joel Eriksson Sinclair
  */
 public class SynthaxADSR {
-    private static float attackValue = 10;
-    private static float decayValue = 10;
-    private static float sustainValue = 1f;
-    private static float releaseValue = 10;
+    public static final int ATTACK_MAX = 3000;
+    public static final int DECAY_MAX = 1500;
+    public static final int RELEASE_MAX = 2000;
+    public static final int SUSTAIN_MAX = 1;
+    public static final int ATTACK_MIN = 10;
+    public static final int DECAY_MIN = 10;
+    public static final int RELEASE_MIN = 10;
+    public static final int SUSTAIN_MIN = 0;
+    private static float attackValue = ATTACK_MIN;
+    private static float decayValue = DECAY_MIN;
+    private static float sustainValue = SUSTAIN_MAX;
+    private static float releaseValue = RELEASE_MIN;
 
     public static float getAttackValue() {
         return attackValue;

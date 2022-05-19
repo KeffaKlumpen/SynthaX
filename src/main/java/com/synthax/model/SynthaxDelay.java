@@ -62,8 +62,10 @@ public class SynthaxDelay {
     public Gain getOutput() {
         return output;
     }
-    public void setActive(boolean active) {
-        if(!active) {
+
+    public void setActive() {
+        isActive = !isActive;
+        if(!isActive) {
             cachedLevelValue = levelGlide.getValue();
             levelGlide.setValue(0.0f);
 
@@ -75,15 +77,11 @@ public class SynthaxDelay {
 
             cachedFeedbackDuration = feedbackDuration;
             feedbackDuration = 0.0f;
-
-            isActive = false;
         } else {
             levelGlide.setValue(cachedLevelValue);
             delayOut.setDelay(cachedDelayTime);
             decayGlide.setValue(cachedDecayValue);
             feedbackDuration = cachedFeedbackDuration;
-
-            isActive = true;
         }
     }
 
