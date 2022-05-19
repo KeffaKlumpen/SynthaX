@@ -113,12 +113,12 @@ public class SynthaxController {
         filters.setHPCutoff(cutoff);
     }
 
-    public void setHPActive(boolean newActive) {
-        filters.setHPActive(newActive);
+    public void setHPActive() {
+        filters.setHPActive();
     }
 
-    public void setEQActive(int i, boolean newVal) {
-        filters.setEQActive(i, newVal);
+    public void setEQActive(int i) {
+        filters.setEQActive(i);
     }
 
     public void setEQGain(int i, float newVal) {
@@ -137,8 +137,8 @@ public class SynthaxController {
         filters.setLPCutoff(cutoff);
     }
 
-    public void setLPActive(boolean newActive) {
-        filters.setLPActive(newActive);
+    public void setLPActive() {
+        filters.setLPActive();
     }
     //endregion Filters
 
@@ -155,8 +155,8 @@ public class SynthaxController {
         synthaxLFO.setWaveform(waveform);
     }
 
-    public void setLFOActive(boolean newActive) {
-        synthaxLFO.setActive(newActive);
+    public void setLFOActive() {
+        synthaxLFO.setActive();
     }
     //endregion LFO
 
@@ -165,8 +165,8 @@ public class SynthaxController {
         oscillatorManager.getNoiseController().setGain(gain);
     }
 
-    public void setNoiseActive(boolean isActive) {
-        oscillatorManager.getNoiseController().setActive(isActive);
+    public void setNoiseActive() {
+        oscillatorManager.getNoiseController().setActive();
     }
     //endregion Noise
 
@@ -361,13 +361,13 @@ public class SynthaxController {
         oscillatorManager.setDelayLevel(levelValue);
     }
 
-    public void setDelayActive(boolean active) {
-        oscillatorManager.setDelayActive(active);
+    public void setDelayActive() {
+        oscillatorManager.setDelayActive();
     }
     //endregion Delay
     //region Reverb (click to open/collapse)
-    public void setReverbActive(boolean active) {
-        reverb.setActive(active);
+    public void setReverbActive() {
+        reverb.setActive();
     }
 
     public void startRickRoll() {

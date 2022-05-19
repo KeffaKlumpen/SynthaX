@@ -69,8 +69,8 @@ public class NoiseController {
         }
     }
 
-    public void setActive(boolean newActive) {
-        isActive = newActive;
+    public void setActive() {
+        isActive = !isActive;
 
         if(isActive) {
             voiceOutputGlide.setValue(savedGain);

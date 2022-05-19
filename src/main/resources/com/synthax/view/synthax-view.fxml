@@ -52,7 +52,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobNoiseGain" layoutX="30.0" layoutY="85.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ToggleSwitch fx:id="tglSwitchNoise" layoutX="26.0" layoutY="36.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch layoutX="26.0" layoutY="36.0" onMouseClicked="#onActionNoiseBypass" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="33.0" layoutY="63.0" styleClass="smallLabel" text="Gain">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -85,7 +85,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <ToggleSwitch fx:id="tglSwitchReverb" layoutX="154.0" layoutY="10.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch layoutX="154.0" layoutY="10.0" onMouseClicked="#onActionReverbBypass" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="28.0" layoutY="47.0" styleClass="smallLabel" text="Size">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -124,7 +124,7 @@
                </image>
             </ImageView>
             <Button fx:id="knobLFODepth" layoutX="23.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ToggleSwitch fx:id="tglSwitchLFO" layoutX="156.0" layoutY="10.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch layoutX="156.0" layoutY="10.0" onMouseClicked="#onActionLFOBypass" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="23.0" layoutY="47.0" styleClass="smallLabel" text="Depth">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -165,10 +165,10 @@
       <AnchorPane layoutX="433.0" layoutY="143.0" prefHeight="181.0" prefWidth="430.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="430.0" />
-            <Slider fx:id="sliderAttack" blockIncrement="0.1" layoutX="21.0" layoutY="44.0" max="1.0" minorTickCount="0" orientation="VERTICAL" prefHeight="100.0" prefWidth="16.0" />
-            <Slider fx:id="sliderDecay" blockIncrement="0.1" layoutX="71.0" layoutY="44.0" max="1.0" orientation="VERTICAL" prefHeight="101.0" prefWidth="16.0" />
+            <Slider fx:id="sliderAttack" blockIncrement="299.0" layoutX="21.0" layoutY="44.0" max="1.0" minorTickCount="0" orientation="VERTICAL" prefHeight="100.0" prefWidth="16.0" />
+            <Slider fx:id="sliderDecay" blockIncrement="149.0" layoutX="71.0" layoutY="44.0" max="1.0" orientation="VERTICAL" prefHeight="101.0" prefWidth="16.0" />
             <Slider fx:id="sliderSustain" blockIncrement="0.1" layoutX="121.0" layoutY="44.0" max="1.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="16.0" value="1.0" />
-            <Slider fx:id="sliderRelease" blockIncrement="0.1" layoutX="171.0" layoutY="44.0" max="1.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="16.0" />
+            <Slider fx:id="sliderRelease" blockIncrement="199.0" layoutX="171.0" layoutY="44.0" max="1.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="16.0" />
             <Label layoutX="17.0" layoutY="156.0" styleClass="smallLabel" text="Attack">
                <font>
                   <Font size="10.0" />
@@ -627,7 +627,7 @@
                </font>
             </Label>
             <Label layoutX="273.0" layoutY="220.0" styleClass="filterLabel" text="HP" />
-            <ToggleSwitch fx:id="tglSwitchFilterHP" layoutX="265.0" layoutY="240.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch layoutX="265.0" layoutY="240.0" onMouseClicked="#onActionHPBypass" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="267.0" layoutY="278.0" styleClass="smallLabel" text="Cutoff">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -641,7 +641,7 @@
             <Button fx:id="knobFilterHPCutoff" layoutX="268.0" layoutY="299.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Line endX="157.3660888671875" endY="-6.0697174072265625" layoutX="162.0" layoutY="233.0" startX="157.3660888671875" startY="100.56625366210938" stroke="#78736b" />
             <Label layoutX="347.0" layoutY="220.0" styleClass="filterLabel" text="LP" />
-            <ToggleSwitch fx:id="tglSwitchFilterLP" layoutX="337.0" layoutY="240.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch layoutX="337.0" layoutY="240.0" onMouseClicked="#onActionLPBypass" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="340.0" layoutY="278.0" styleClass="smallLabel" text="Cutoff">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -654,7 +654,7 @@
             </ImageView>
             <Button fx:id="knobFilterLPCutoff" layoutX="341.0" layoutY="299.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Label layoutX="34.0" layoutY="42.0" styleClass="filterLabel" text="EQ" />
-            <ToggleSwitch fx:id="tglSwitchEQ1" layoutX="69.0" layoutY="40.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch layoutX="69.0" layoutY="40.0" onMouseClicked="#onActionEQ1Bypass" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="33.0" layoutY="87.0" styleClass="smallLabel" text="Gain" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="55.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -686,7 +686,7 @@
             <Button fx:id="knobEQ1Range" layoutX="73.0" layoutY="170.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Line endX="-1.0" endY="123.681640625" layoutX="134.0" layoutY="79.0" startX="-1.0" startY="-32.91435623168945" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
             <Label layoutX="160.0" layoutY="42.0" styleClass="filterLabel" text="EQ" />
-            <ToggleSwitch fx:id="tglSwitchEQ2" layoutX="195.0" layoutY="40.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch layoutX="195.0" layoutY="40.0" onMouseClicked="#onActionEQ2Bypass" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="159.0" layoutY="87.0" styleClass="smallLabel" text="Gain" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="181.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -718,7 +718,7 @@
             <Button fx:id="knobEQ2Range" layoutX="199.0" layoutY="170.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Line endX="-1.0" endY="123.681640625" layoutX="262.0" layoutY="79.0" startX="-1.0" startY="-32.91435623168945" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
             <Label layoutX="288.0" layoutY="42.0" styleClass="filterLabel" text="EQ" />
-            <ToggleSwitch fx:id="tglSwitchEQ3" layoutX="322.0" layoutY="40.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch layoutX="322.0" layoutY="40.0" onMouseClicked="#onActionEQ3Bypass" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="286.0" layoutY="87.0" styleClass="smallLabel" text="Gain" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="308.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -767,7 +767,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <ToggleSwitch fx:id="tglSwitchDelay" layoutX="183.0" layoutY="10.0" prefHeight="20.0" prefWidth="30.0" />
+            <ToggleSwitch layoutX="183.0" layoutY="10.0" onMouseClicked="#onActionDelayBypass" prefHeight="20.0" prefWidth="30.0" />
             <Label layoutX="12.0" layoutY="47.0" styleClass="smallLabel" text="Feedback">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -829,7 +829,7 @@
       <Button fx:id="btnSettings" layoutX="29.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionSettings" prefHeight="32.0" prefWidth="32.0" styleClass="settingsButton" />
       <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#d6d1c9" height="32.0" layoutX="155.0" layoutY="141.0" stroke="#78736b" strokeType="INSIDE" width="222.0" />
       <Label layoutX="167.0" layoutY="149.0" styleClass="filterLabel" text="Mididevice" />
-      <Button fx:id="btnSearchMidiDevice" layoutX="354.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionSearchMidiDevice" prefHeight="32.0" prefWidth="32.0" styleClass="refreshButton" />
+      <Button layoutX="354.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionSearchMidiDevice" prefHeight="32.0" prefWidth="32.0" styleClass="refreshButton" />
       <Label fx:id="lblNotConnected" layoutX="246.0" layoutY="149.0" styleClass="filterLabel" text="not connected" />
       <Label fx:id="lblConnected" layoutX="247.0" layoutY="149.0" styleClass="connectedLabel" text="connected" textFill="#f78000" visible="false" />
    </children>
