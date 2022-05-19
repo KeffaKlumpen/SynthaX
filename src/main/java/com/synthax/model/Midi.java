@@ -94,7 +94,7 @@ public class Midi {
             }
         }
     }
-    //TODO Try and fix updating the midi label
+
     private class MidiConnection implements Runnable {
         @Override
         public void run() {
@@ -106,9 +106,9 @@ public class Midi {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                // Solves the issue if someone abruptly disconnects their midikeyboard
                 try {
-                    Transmitter receiver = MidiSystem.getTransmitter();
-                    System.out.println(receiver);
+                    MidiSystem.getTransmitter();
                 } catch (MidiUnavailableException e) {
                     synthaxController.updateMidiLabel(false);
                     running = false;
