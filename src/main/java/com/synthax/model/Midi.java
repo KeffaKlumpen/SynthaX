@@ -14,9 +14,7 @@ import java.util.List;
  * @author Joel Eriksson Sinclair
  */
 public class Midi {
-    OscillatorManager oscillatorManager = OscillatorManager.getInstance();
-    MidiDevice midiDevice;
-    MidiDevice.Info[] info = MidiSystem.getMidiDeviceInfo();
+    private MidiDevice midiDevice;
 
     /**
      * Searches computer for plugged in MIDI transmitters
@@ -24,27 +22,33 @@ public class Midi {
      * MIDI device is opened to be able to transmit MIDI signals to the application
      */
     public Midi() {
-        for (MidiDevice.Info info : info) {
+        connectMidi();
+    }
+
+    public boolean connectMidi() {
+        if (midiDevice != null) {
+            midiDevice.close();
+        }
+        
+        for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
             try {
                 midiDevice = MidiSystem.getMidiDevice(info);
-                List<Transmitter> transmitters = midiDevice.getTransmitters();
-                for (Transmitter transmitter : transmitters) {
-                    transmitter.setReceiver(new MidiReceiver());
-                }
-                Transmitter trans = midiDevice.getTransmitter();
-                trans.setReceiver(new MidiReceiver());
+                Transmitter transmitter = midiDevice.getTransmitter();
+                transmitter.setReceiver(new MidiReceiver());
                 midiDevice.open();
+
             } catch (MidiUnavailableException e) {
                 System.err.println("unavailable");
             }
         }
+        return midiDevice.isOpen();
     }
 
     /**
      * Class implementing the Receiver interface
      */
     public class MidiReceiver implements Receiver {
-
+        OscillatorManager oscillatorManager = OscillatorManager.getInstance();
         /**
          * Overriding the send method to be able to receive MIDI-messages
          * and extract the relevant data
@@ -72,10 +76,11 @@ public class Midi {
         }
 
         public void close() {
+            System.out.println("shutup");
             //TODO call this on System.exit
-            if (midiDevice.isOpen()) {
-                midiDevice.close();
-            }
+                if (midiDevice.isOpen()) {
+                    midiDevice.close();
+                }
         }
     }
 }
