@@ -44,7 +44,7 @@ public class Midi {
         }
         boolean isOpen = midiDevice.isOpen();
         if (isOpen) {
-            //new Thread(new MidiConnection()).start();
+            new Thread(new MidiConnection()).start();
         }
         return isOpen;
     }
@@ -64,7 +64,12 @@ public class Midi {
          */
 
         public void send(MidiMessage msg, long timeStamp) {
-            ShortMessage sm = (ShortMessage) msg;
+            ShortMessage sm;
+            try {
+                sm = (ShortMessage) msg;
+            } catch (ClassCastException e) {
+                return;
+            }
             int data1 = sm.getData1();
             int data2 = sm.getData2();
             int status = msg.getStatus();
@@ -101,6 +106,16 @@ public class Midi {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                try {
+                    Transmitter receiver = MidiSystem.getTransmitter();
+                    System.out.println(receiver);
+                } catch (MidiUnavailableException e) {
+                    synthaxController.updateMidiLabel(false);
+                    running = false;
+                    midiDevice.close();
+                }
+
+
             }
         }
     }
