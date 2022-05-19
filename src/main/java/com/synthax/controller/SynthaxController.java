@@ -73,7 +73,8 @@ public class SynthaxController {
         ac.out.addInput(masterGain);
         ac.start();
 
-        midi = new Midi();
+        midi = new Midi(this);
+        synthaxView.updateMidiLabel(midi.connectMidi());
     }
 
     //region OscillatorManager (click to open/collapse)
@@ -396,5 +397,9 @@ public class SynthaxController {
 
     public boolean connectMidi() {
         return midi.connectMidi();
+    }
+
+    public void updateMidiLabel(boolean visable) {
+        synthaxView.updateMidiLabel(visable);
     }
 }

@@ -359,8 +359,26 @@ public class SynthaxView implements Initializable {
 
     @FXML
     public void onActionSearchMidiDevice() {
-        lblNotConnected.setVisible(!lblNotConnected.isVisible());
-        lblConnected.setVisible(!lblConnected.isVisible());
+        if (synthaxController.connectMidi()) {
+            lblConnected.setVisible(true);
+            lblNotConnected.setVisible(false);
+        } else {
+            lblConnected.setVisible(false);
+            lblNotConnected.setVisible(true);
+        }
+
+    }
+
+    public void updateMidiLabel(boolean visable) {
+        Platform.runLater(() -> {
+            if (visable) {
+                lblConnected.setVisible(true);
+                lblNotConnected.setVisible(false);
+            } else {
+                lblConnected.setVisible(false);
+                lblNotConnected.setVisible(true);
+            }
+        });
     }
 
     @FXML
