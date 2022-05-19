@@ -39,6 +39,7 @@ public class SynthaxController {
     private boolean randomFreq = true;
     private boolean randomGain = true;
     private boolean randomOnOff = true;
+    private Midi midi;
 
     /**
      * Setup AudioContext, OscillatorManager and defines the chain of effects and sounds
@@ -72,7 +73,7 @@ public class SynthaxController {
         ac.out.addInput(masterGain);
         ac.start();
 
-        new Midi();
+        midi = new Midi();
     }
 
     //region OscillatorManager (click to open/collapse)
@@ -391,5 +392,9 @@ public class SynthaxController {
     // endregion Reverb
     public void setMasterGain(float gain) {
         masterGainGlide.setValue(gain);
+    }
+
+    public boolean connectMidi() {
+        return midi.connectMidi();
     }
 }
