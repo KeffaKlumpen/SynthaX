@@ -1,13 +1,14 @@
 package com.synthax.model;
 
 import com.synthax.controller.OscillatorManager;
+import com.synthax.controller.SynthaxController;
 import com.synthax.model.enums.MidiNote;
 
 import javax.sound.midi.*;
-import java.util.List;
 
 /**
  * Class that handles the MIDI-device connection
+ *
  * @author Teodor Wegestål
  * @author Luke Eales
  * @author Viktor Lenberg
@@ -15,44 +16,50 @@ import java.util.List;
  */
 public class Midi {
     private MidiDevice midiDevice;
+    private SynthaxController synthaxController;
 
     /**
      * Searches computer for plugged in MIDI transmitters
      * When found a MIDI-device is handed a MIDI Receiver
      * MIDI device is opened to be able to transmit MIDI signals to the application
      */
-    public Midi() {
-        connectMidi();
+    public Midi(SynthaxController synthaxController) {
+        this.synthaxController = synthaxController;
     }
 
     public boolean connectMidi() {
         if (midiDevice != null) {
             midiDevice.close();
         }
-        
+
         for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
             try {
                 midiDevice = MidiSystem.getMidiDevice(info);
                 Transmitter transmitter = midiDevice.getTransmitter();
                 transmitter.setReceiver(new MidiReceiver());
                 midiDevice.open();
-
             } catch (MidiUnavailableException e) {
                 System.err.println("unavailable");
             }
         }
-        return midiDevice.isOpen();
+        boolean isOpen = midiDevice.isOpen();
+        if (isOpen) {
+            //new Thread(new MidiConnection()).start();
+        }
+        return isOpen;
     }
 
     /**
      * Class implementing the Receiver interface
      */
-    public class MidiReceiver implements Receiver {
+    private class MidiReceiver implements Receiver {
         OscillatorManager oscillatorManager = OscillatorManager.getInstance();
+
         /**
          * Overriding the send method to be able to receive MIDI-messages
          * and extract the relevant data
-         * @param msg the MIDI message to send
+         *
+         * @param msg       the MIDI message to send
          * @param timeStamp the time-stamp for the message, in microseconds
          */
 
@@ -76,11 +83,25 @@ public class Midi {
         }
 
         public void close() {
-            System.out.println("shutup");
             //TODO call this on System.exit
-                if (midiDevice.isOpen()) {
-                    midiDevice.close();
+            if (midiDevice.isOpen()) {
+                midiDevice.close();
+            }
+        }
+    }
+    //TODO Try and fix updating the midi label
+    private class MidiConnection implements Runnable {
+        @Override
+        public void run() {
+            boolean running = true;
+            while (running) {
+                System.out.println("Im running");
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+            }
         }
     }
 }
