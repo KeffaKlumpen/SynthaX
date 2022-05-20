@@ -3,9 +3,11 @@ package com.synthax;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * This class launches the application
@@ -19,6 +21,7 @@ public class MainApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(getClass().getResource("skins.css").toExternalForm());
         stage.setTitle("Synthax");
+        stage.getIcons().add(new Image(MainApplication.class.getResource("Images/knob3d.png").toExternalForm()));
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
