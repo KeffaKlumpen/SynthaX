@@ -260,6 +260,18 @@
     -fx-background-insets: 0, 0, 0;
 }
 
+#btnSamplePad {
+    -fx-base: #78736b;
+}
+
+#btnSamplePad:pressed {
+    -fx-text-fill: #f78000;
+}
+
+#tglSampleSeq:selected {
+    -fx-background-color: #f78000;
+}
+
 .toggleSeq:selected {
     -fx-text-fill: #f78000;
 }

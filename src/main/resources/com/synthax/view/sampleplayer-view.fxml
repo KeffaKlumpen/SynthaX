@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -12,15 +13,15 @@
    <children>
       <AnchorPane layoutX="286.0" layoutY="14.0" prefHeight="300.0" prefWidth="300.0">
          <children>
-            <Button fx:id="pad0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button fx:id="pad1" layoutX="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button fx:id="pad2" layoutX="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button fx:id="pad3" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button fx:id="pad4" layoutX="100.0" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button fx:id="pad5" layoutX="200.0" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button fx:id="pad6" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button fx:id="pad7" layoutX="100.0" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button fx:id="pad8" layoutX="200.0" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
+            <Button id="btnSamplePad" fx:id="pad0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
+            <Button id="btnSamplePad" fx:id="pad1" layoutX="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
+            <Button id="btnSamplePad" fx:id="pad2" layoutX="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
+            <Button id="btnSamplePad" fx:id="pad3" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
+            <Button id="btnSamplePad" fx:id="pad4" layoutX="100.0" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
+            <Button id="btnSamplePad" fx:id="pad5" layoutX="200.0" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
+            <Button id="btnSamplePad" fx:id="pad6" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
+            <Button id="btnSamplePad" fx:id="pad7" layoutX="100.0" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
+            <Button id="btnSamplePad" fx:id="pad8" layoutX="200.0" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
          </children>
       </AnchorPane>
       <VBox fx:id="vBoxPadView" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="250.0" />
@@ -55,160 +56,160 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="31.0" />
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="31.0" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="31.0" GridPane.columnIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" GridPane.columnIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" GridPane.columnIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="31.0" GridPane.columnIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="31.0" GridPane.columnIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" GridPane.columnIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" GridPane.columnIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="9" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="10" />
-            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" GridPane.columnIndex="11" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="12" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" GridPane.columnIndex="13" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" GridPane.columnIndex="14" />
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" GridPane.columnIndex="15" />
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="31.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="31.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="9" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="31.0" GridPane.columnIndex="10" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="11" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" GridPane.columnIndex="12" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" GridPane.columnIndex="13" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="31.0" GridPane.columnIndex="14" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" GridPane.columnIndex="15" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="30.0" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="31.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="31.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="31.0" GridPane.columnIndex="8" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="31.0" GridPane.columnIndex="9" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" GridPane.columnIndex="10" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="11" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="31.0" GridPane.columnIndex="12" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="13" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="31.0" GridPane.columnIndex="14" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" GridPane.columnIndex="15" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="30.0" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="30.0" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="30.0" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="30.0" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="30.0" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="30.0" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="31.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="31.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" GridPane.columnIndex="7" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="31.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="31.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="31.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" GridPane.columnIndex="8" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="31.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" GridPane.columnIndex="4" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" GridPane.columnIndex="4" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="31.0" GridPane.columnIndex="5" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" GridPane.columnIndex="5" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="31.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" GridPane.columnIndex="6" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" GridPane.columnIndex="6" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="31.0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="31.0" GridPane.columnIndex="7" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" GridPane.columnIndex="7" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" GridPane.columnIndex="7" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="31.0" GridPane.columnIndex="7" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" GridPane.columnIndex="8" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="31.0" GridPane.columnIndex="8" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="31.0" GridPane.columnIndex="8" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="31.0" GridPane.columnIndex="8" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" GridPane.columnIndex="8" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" GridPane.columnIndex="9" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" GridPane.columnIndex="9" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" GridPane.columnIndex="9" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" GridPane.columnIndex="9" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" GridPane.columnIndex="9" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" GridPane.columnIndex="9" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" GridPane.columnIndex="10" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" GridPane.columnIndex="10" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" GridPane.columnIndex="10" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" GridPane.columnIndex="10" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" GridPane.columnIndex="10" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" GridPane.columnIndex="10" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" GridPane.columnIndex="11" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="31.0" GridPane.columnIndex="11" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="31.0" GridPane.columnIndex="11" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" GridPane.columnIndex="11" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="11" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" GridPane.columnIndex="11" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="31.0" GridPane.columnIndex="12" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" GridPane.columnIndex="12" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="31.0" GridPane.columnIndex="12" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" GridPane.columnIndex="12" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" GridPane.columnIndex="12" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" GridPane.columnIndex="12" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="31.0" GridPane.columnIndex="13" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" GridPane.columnIndex="13" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" GridPane.columnIndex="13" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" GridPane.columnIndex="13" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" GridPane.columnIndex="14" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="15" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" GridPane.columnIndex="14" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" GridPane.columnIndex="15" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" GridPane.columnIndex="13" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="13" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="31.0" GridPane.columnIndex="14" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="31.0" GridPane.columnIndex="15" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" GridPane.columnIndex="14" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="31.0" GridPane.columnIndex="15" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" GridPane.columnIndex="14" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" GridPane.columnIndex="15" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" GridPane.columnIndex="14" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" GridPane.columnIndex="15" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="30.0" prefWidth="31.0" styleClass="toggleSeq" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="30.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="30.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="32.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="32.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="9" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="10" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="11" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="12" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="13" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="14" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="15" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="toggleSeq" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="33.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="32.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="9" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="32.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="10" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="11" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="12" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="13" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="47.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="14" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="15" GridPane.rowIndex="1" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="39.0" prefWidth="30.0" styleClass="toggleSeq" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="45.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="33.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="45.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="43.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="9" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="10" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="11" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="32.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="12" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="13" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="46.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="14" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="15" GridPane.rowIndex="2" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="41.0" prefWidth="30.0" styleClass="toggleSeq" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="30.0" styleClass="toggleSeq" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="38.0" prefWidth="30.0" styleClass="toggleSeq" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="38.0" prefWidth="30.0" styleClass="toggleSeq" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="33.0" prefWidth="30.0" styleClass="toggleSeq" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="35.0" prefWidth="30.0" styleClass="toggleSeq" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="46.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="33.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="47.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="43.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="43.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="33.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="52.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="43.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="6" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="33.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="46.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="7" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="7" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="32.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="7" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="8" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="70.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="8" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="45.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="8" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="47.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="8" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="8" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="9" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="9" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="9" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="9" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="9" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="9" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="10" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="10" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="10" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="10" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="10" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="10" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="11" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="48.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="11" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="47.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="11" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="11" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="11" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="11" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="33.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="12" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="12" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="43.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="12" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="38.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="12" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="12" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="12" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="42.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="13" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="13" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="13" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="13" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="41.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="14" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="15" GridPane.rowIndex="3" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="14" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="44.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="15" GridPane.rowIndex="4" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="13" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="13" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="42.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="14" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="49.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="15" GridPane.rowIndex="5" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="35.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="14" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="33.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="15" GridPane.rowIndex="6" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="36.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="14" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="39.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="15" GridPane.rowIndex="7" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="37.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="14" GridPane.rowIndex="8" />
+            <ToggleButton id="tglSampleSeq" mnemonicParsing="false" prefHeight="40.0" prefWidth="31.0" styleClass="toggleSeq" GridPane.columnIndex="15" GridPane.rowIndex="8" />
          </children>
       </GridPane>
-      <Label layoutX="3.0" layoutY="332.0" prefHeight="30.0" prefWidth="95.0" text="lblchannel1" />
-      <Label layoutX="3.0" layoutY="362.0" prefHeight="30.0" prefWidth="95.0" text="lblchannel2" />
-      <Label layoutX="3.0" layoutY="392.0" prefHeight="30.0" prefWidth="95.0" text="lblchannel3" />
-      <Label layoutX="3.0" layoutY="422.0" prefHeight="30.0" prefWidth="95.0" text="lblchannel4" />
-      <Label layoutX="3.0" layoutY="451.0" prefHeight="30.0" prefWidth="95.0" text="lblchannel5" />
-      <Label layoutX="3.0" layoutY="481.0" prefHeight="30.0" prefWidth="95.0" text="lblchannel6" />
-      <Label layoutX="3.0" layoutY="511.0" prefHeight="30.0" prefWidth="95.0" text="lblchannel7" />
-      <Label layoutX="3.0" layoutY="541.0" prefHeight="30.0" prefWidth="95.0" text="lblchannel8" />
-      <Label layoutX="3.0" layoutY="571.0" prefHeight="30.0" prefWidth="95.0" text="lblchannel9" />
+      <Label fx:id="lblChannel1" layoutX="3.0" layoutY="332.0" prefHeight="30.0" prefWidth="95.0" />
+      <Label fx:id="lblChannel2" layoutX="3.0" layoutY="362.0" prefHeight="30.0" prefWidth="95.0" />
+      <Label fx:id="lblChannel3" layoutX="3.0" layoutY="392.0" prefHeight="30.0" prefWidth="95.0" />
+      <Label fx:id="lblChannel4" layoutX="3.0" layoutY="422.0" prefHeight="30.0" prefWidth="95.0" />
+      <Label fx:id="lblChannel5" layoutX="3.0" layoutY="451.0" prefHeight="30.0" prefWidth="95.0" />
+      <Label fx:id="lblChannel6" layoutX="3.0" layoutY="481.0" prefHeight="30.0" prefWidth="95.0" />
+      <Label fx:id="lblChannel7" layoutX="3.0" layoutY="511.0" prefHeight="30.0" prefWidth="95.0" />
+      <Label fx:id="lblChannel8" layoutX="3.0" layoutY="541.0" prefHeight="30.0" prefWidth="95.0" />
+      <Label fx:id="lblChannel9" layoutX="3.0" layoutY="571.0" prefHeight="30.0" prefWidth="95.0" />
    </children>
 </AnchorPane>
