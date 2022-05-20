@@ -21,6 +21,8 @@ public class MainApplication extends Application {
         stage.setTitle("Synthax");
         stage.setScene(scene);
         stage.show();
+        stage.setResizable(false);
+        
 
         // auto close Synth when we exit window
         stage.setOnCloseRequest(event -> {
