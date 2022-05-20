@@ -32,20 +32,21 @@ public class SamplePlayerView implements Initializable {
     @FXML private Button pad7;
     @FXML private Button pad8;
 
-    @FXML private Label lblChannel1;
-    @FXML private Label lblChannel2;
-    @FXML private Label lblChannel3;
-    @FXML private Label lblChannel4;
-    @FXML private Label lblChannel5;
-    @FXML private Label lblChannel6;
-    @FXML private Label lblChannel7;
-    @FXML private Label lblChannel8;
-    @FXML private Label lblChannel9;
+    @FXML private Label lblChannel1 = new Label();
+    @FXML private Label lblChannel2 = new Label();
+    @FXML private Label lblChannel3 = new Label();
+    @FXML private Label lblChannel4 = new Label();
+    @FXML private Label lblChannel5 = new Label();
+    @FXML private Label lblChannel6 = new Label();
+    @FXML private Label lblChannel7 = new Label();
+    @FXML private Label lblChannel8 = new Label();
+    @FXML private Label lblChannel9 = new Label();
 
     @FXML private GridPane gridPane;
 
     @FXML private Button knobSamplePlayerRate;
     @FXML private Button btnSamplePlayerStart;
+
     @FXML private Slider sliderSamplePlayerGain;
 
     @FXML private VBox vBoxPadView = new VBox();
@@ -61,11 +62,14 @@ public class SamplePlayerView implements Initializable {
         initPadView();
         initPadButtons();
         initGridPane();
+        initSamplePlayerGain();
+    }
+
+    private void initSamplePlayerGain() {
+        sliderSamplePlayerGain.valueProperty().addListener((observableValue, number, t1) -> samplePlayerController.setMasterGain(t1.floatValue()));
     }
 
     private void initGridPane() {
-        int x = 0;
-        int y = 0;
         ToggleButton[][] toggleButtons = new ToggleButton[9][16];
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 16; j++) {
@@ -76,11 +80,7 @@ public class SamplePlayerView implements Initializable {
                 toggleButtons[i][j] = tb;
                 gridPane.add(tb, j, i);
             }
-
-
         }
-
-
     }
 
     private void initPadView() {
@@ -104,5 +104,19 @@ public class SamplePlayerView implements Initializable {
         pad6.setOnAction(actionEvent -> samplePlayerController.playPad(6));
         pad7.setOnAction(actionEvent -> samplePlayerController.playPad(7));
         pad8.setOnAction(actionEvent -> samplePlayerController.playPad(8));
+    }
+
+    public void setSequencerLabel(String fileName, int padIndex) {
+        switch (padIndex) {
+            case 1 -> lblChannel1.setText(fileName);
+            case 2 -> lblChannel2.setText(fileName);
+            case 3 -> lblChannel3.setText(fileName);
+            case 4 -> lblChannel4.setText(fileName);
+            case 5 -> lblChannel5.setText(fileName);
+            case 6 -> lblChannel6.setText(fileName);
+            case 7 -> lblChannel7.setText(fileName);
+            case 8 -> lblChannel8.setText(fileName);
+            case 9 -> lblChannel9.setText(fileName);
+        }
     }
 }

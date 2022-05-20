@@ -60,15 +60,15 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <Label fx:id="lblChannel1" layoutX="3.0" layoutY="332.0" prefHeight="30.0" prefWidth="95.0" />
-      <Label fx:id="lblChannel2" layoutX="3.0" layoutY="362.0" prefHeight="30.0" prefWidth="95.0" />
-      <Label fx:id="lblChannel3" layoutX="3.0" layoutY="392.0" prefHeight="30.0" prefWidth="95.0" />
-      <Label fx:id="lblChannel4" layoutX="3.0" layoutY="422.0" prefHeight="30.0" prefWidth="95.0" />
-      <Label fx:id="lblChannel5" layoutX="3.0" layoutY="451.0" prefHeight="30.0" prefWidth="95.0" />
-      <Label fx:id="lblChannel6" layoutX="3.0" layoutY="481.0" prefHeight="30.0" prefWidth="95.0" />
-      <Label fx:id="lblChannel7" layoutX="3.0" layoutY="511.0" prefHeight="30.0" prefWidth="95.0" />
-      <Label fx:id="lblChannel8" layoutX="3.0" layoutY="541.0" prefHeight="30.0" prefWidth="95.0" />
-      <Label fx:id="lblChannel9" layoutX="3.0" layoutY="571.0" prefHeight="30.0" prefWidth="95.0" />
+      <Label fx:id="lblChannel1" layoutX="3.0" layoutY="317.0" prefHeight="30.0" prefWidth="95.0" text="Pad 1" />
+      <Label fx:id="lblChannel2" layoutX="3.0" layoutY="347.0" prefHeight="30.0" prefWidth="95.0" text="Pad 2" />
+      <Label fx:id="lblChannel3" layoutX="3.0" layoutY="377.0" prefHeight="30.0" prefWidth="95.0" text="Pad 3" />
+      <Label fx:id="lblChannel4" layoutX="3.0" layoutY="405.0" prefHeight="30.0" prefWidth="95.0" text="Pad 4" />
+      <Label fx:id="lblChannel5" layoutX="3.0" layoutY="437.0" prefHeight="30.0" prefWidth="95.0" text="Pad 5" />
+      <Label fx:id="lblChannel6" layoutX="3.0" layoutY="468.0" prefHeight="30.0" prefWidth="95.0" text="Pad 6" />
+      <Label fx:id="lblChannel7" layoutX="3.0" layoutY="498.0" prefHeight="30.0" prefWidth="95.0" text="Pad 7" />
+      <Label fx:id="lblChannel8" layoutX="3.0" layoutY="527.0" prefHeight="30.0" prefWidth="95.0" text="Pad 8" />
+      <Label fx:id="lblChannel9" layoutX="3.0" layoutY="557.0" prefHeight="30.0" prefWidth="95.0" text="Pad 9" />
       <Button fx:id="btnSamplePlayerStart" layoutX="616.0" layoutY="529.0" mnemonicParsing="false" styleClass="plainButton" text="Start" />
       <ImageView fitHeight="88.0" fitWidth="88.0" layoutX="601.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
          <image>

@@ -28,15 +28,15 @@ public class SamplePlayerController {
         String sourceSnare = "src/main/resources/com/synthax/samples/snare.wav";
         for (int i = 0; i < padCount; i++) {
             if (i == 0) {
-                pads[i] = new Pad(sourceClap);
+                pads[i] = new Pad(sourceClap, this, i+1);
             } else if (i == 1) {
-                pads[i] = new Pad(sourceHiHat);
+                pads[i] = new Pad(sourceHiHat, this, i+1);
             } else if (i == 2) {
-                pads[i] = new Pad(sourceKick);
+                pads[i] = new Pad(sourceKick, this, i+1);
             } else if (i == 3) {
-                pads[i] = new Pad(sourceSnare);
+                pads[i] = new Pad(sourceSnare, this, i+1);
             } else {
-                pads[i] = new Pad(sourceSnare);
+                pads[i] = new Pad(sourceSnare, this, i+1);
             }
         }
         for (Pad p : pads) {
@@ -50,5 +50,9 @@ public class SamplePlayerController {
 
     public void setMasterGain(float gain) {
         masterGain.setGain(gain);
+    }
+
+    public void setSequencerLabel(String fileName, int padIndex) {
+        samplePlayerView.setSequencerLabel(fileName, padIndex);
     }
 }

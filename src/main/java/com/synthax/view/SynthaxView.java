@@ -536,20 +536,6 @@ public class SynthaxView implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        samplePlayerStart.setOnAction(l -> {
-            Parent root;
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/sampleplayer-view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                scene.getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
-                Stage stage = new Stage();
-                stage.setTitle("Johnny Trummas trummaskin, går på smör o margarin");
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
         initSequencerArrays();
         initFilterArrays();
         initKeyHash();
@@ -562,6 +548,7 @@ public class SynthaxView implements Initializable {
         initReverb();
         initStepSequencer();
         initMasterGain();
+        initSamplePlayer();
         onActionAddOscillator();
     }
 
@@ -611,6 +598,23 @@ public class SynthaxView implements Initializable {
 
     private void initMasterGain() {
         sliderMasterGain.valueProperty().addListener((observableValue, number, t1) -> synthaxController.setMasterGain(t1.floatValue()));
+    }
+
+    private void initSamplePlayer() {
+        samplePlayerStart.setOnAction(l -> {
+            Parent root;
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/sampleplayer-view.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                scene.getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
+                Stage stage = new Stage();
+                stage.setTitle("SynthaX Sample Player");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void initFilterArrays() {

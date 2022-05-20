@@ -1,6 +1,7 @@
 package com.synthax.sample_player.model;
 
 import com.synthax.model.SynthaxReverb;
+import com.synthax.sample_player.controller.SamplePlayerController;
 import net.beadsproject.beads.data.Sample;
 import net.beadsproject.beads.data.audiofile.FileFormatException;
 import net.beadsproject.beads.data.audiofile.OperationUnsupportedException;
@@ -16,8 +17,12 @@ public class Pad {
     private Gain padGain;
     private SynthaxReverb reverb;
     private String fileName;
+    private SamplePlayerController samplePlayerController;
+    private int padIndex;
 
-    public Pad(String path) {
+    public Pad(String path, SamplePlayerController samplePlayerController, int padIndex) {
+        this.padIndex = padIndex;
+        this.samplePlayerController = samplePlayerController;
         setFileName(path);
         padGain = new Gain(1, 0.0f);
         initPad(path);
@@ -57,6 +62,7 @@ public class Pad {
         File file = new File(path);
         fileName = file.getName();
         fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+        samplePlayerController.setSequencerLabel(fileName, padIndex);
     }
 
     public void setGain(float gain) {
