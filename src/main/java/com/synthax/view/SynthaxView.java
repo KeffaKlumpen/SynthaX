@@ -17,10 +17,14 @@ import com.synthax.util.MidiHelpers;
 
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -32,6 +36,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
 import org.controlsfx.control.ToggleSwitch;
 
@@ -181,6 +186,8 @@ public class SynthaxView implements Initializable {
     @FXML private Button btnResetKnobs;
     @FXML private ImageView ricky;
     //endregion
+
+    @FXML private Button samplePlayerStart;
 
 
     private final HashMap<KeyCode, AtomicBoolean> keyStatus = new HashMap<>();
@@ -418,6 +425,23 @@ public class SynthaxView implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        samplePlayerStart.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Parent root;
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/sampleplayer-view.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load());
+                    Stage stage = new Stage();
+                    stage.setTitle("Johnny Trummas trummaskin, går på smör o margarin");
+                    stage.setScene(scene);
+                    stage.show();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         initSequencerArrays();
         initFilterArrays();
         initKeyHash();

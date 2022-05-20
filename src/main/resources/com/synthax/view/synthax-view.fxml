@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.ToggleSwitch?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.SynthaxView">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.SynthaxView">
    <children>
       <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="121.0" layoutX="14.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="407.0" />
       <ImageView fitHeight="282.0" fitWidth="427.0" layoutX="10.0" layoutY="-51.0" pickOnBounds="true" preserveRatio="true">
@@ -832,5 +832,6 @@
       <Button fx:id="btnSearchMidiDevice" layoutX="354.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionSearchMidiDevice" prefHeight="32.0" prefWidth="32.0" styleClass="refreshButton" />
       <Label fx:id="lblNotConnected" layoutX="246.0" layoutY="149.0" styleClass="filterLabel" text="not connected" />
       <Label fx:id="lblConnected" layoutX="247.0" layoutY="149.0" styleClass="connectedLabel" text="connected" textFill="#f78000" visible="false" />
+      <Button fx:id="samplePlayerStart" layoutX="395.0" layoutY="60.0" mnemonicParsing="false" text="TRUMMOR" />
    </children>
 </AnchorPane>

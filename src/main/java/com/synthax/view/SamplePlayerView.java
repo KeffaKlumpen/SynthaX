@@ -1,10 +1,13 @@
-package com.synthax.sample_player.view;
+package com.synthax.view;
 
 import com.synthax.sample_player.controller.SamplePlayerController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 
-import java.awt.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,14 +35,14 @@ public class SamplePlayerView implements Initializable {
     }
 
     private void initPadButtons() {
-        pad0.addActionListener(l -> samplePlayerController.playPad(0));
-        pad1.addActionListener(l -> samplePlayerController.playPad(1));
-        pad2.addActionListener(l -> samplePlayerController.playPad(2));
-        pad3.addActionListener(l -> samplePlayerController.playPad(3));
-        pad4.addActionListener(l -> samplePlayerController.playPad(4));
-        pad5.addActionListener(l -> samplePlayerController.playPad(5));
-        pad6.addActionListener(l -> samplePlayerController.playPad(6));
-        pad7.addActionListener(l -> samplePlayerController.playPad(7));
-        pad8.addActionListener(l -> samplePlayerController.playPad(8));
+        pad0.setOnAction(actionEvent -> samplePlayerController.playPad(0));
+        pad1.setOnAction(actionEvent -> samplePlayerController.playPad(1));
+        pad2.setOnAction(actionEvent -> samplePlayerController.playPad(2));
+        pad3.setOnAction(actionEvent -> samplePlayerController.playPad(3));
+        pad4.setOnAction(actionEvent -> samplePlayerController.playPad(4));
+        pad5.setOnAction(actionEvent -> samplePlayerController.playPad(5));
+        pad6.setOnAction(actionEvent -> samplePlayerController.playPad(6));
+        pad7.setOnAction(actionEvent -> samplePlayerController.playPad(7));
+        pad8.setOnAction(actionEvent -> samplePlayerController.playPad(8));
     }
 }
