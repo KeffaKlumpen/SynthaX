@@ -668,6 +668,7 @@ public class SynthaxView implements Initializable {
                 knobSS14Gain,
                 knobSS15Gain};
     }
+
     private void initStepSequencer() {
         for (int i = 0; i < arrSeqFreqKnobs.length; i++) {
             int finali = i;
@@ -909,6 +910,7 @@ public class SynthaxView implements Initializable {
             onReleaseDrag();
         });
     }
+
     private void initKeyHash() {
         keyStatus.put("a", new AtomicBoolean(false));
         keyStatus.put("w", new AtomicBoolean(false));
@@ -929,6 +931,7 @@ public class SynthaxView implements Initializable {
         keyStatus.put("o", new AtomicBoolean(false));
         keyStatus.put("p", new AtomicBoolean(false));
     }
+    
     private void initKeyBoardListeners() {
         mainPane.setOnKeyPressed(event -> {
             String code = event.getText();
