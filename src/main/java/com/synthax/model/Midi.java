@@ -51,6 +51,10 @@ public class Midi {
         return isOpen;
     }
 
+    public boolean midiConnected() {
+        return midiDevice.isOpen();
+    }
+
     /**
      * Class implementing the Receiver interface
      */

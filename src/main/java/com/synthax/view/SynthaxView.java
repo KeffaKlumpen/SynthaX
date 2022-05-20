@@ -250,10 +250,18 @@ public class SynthaxView implements Initializable {
 
         });
     }
-
     public void setSequencerPresetList(String[] presetNames) {
-        cmbPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));
-        cmbPresets.getSelectionModel().selectFirst();
+        setSequencerPresetList(presetNames, "");
+    }
+    public void setSequencerPresetList(String[] presetNames, String chosenPreset) {
+        Platform.runLater(() -> {
+            cmbPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));
+            if (chosenPreset.equals("")) {
+                cmbPresets.getSelectionModel().selectFirst();
+            } else {
+                cmbPresets.getSelectionModel().select(chosenPreset);
+            }
+        });
     }
 
     //region onAction  (click to open/collapse)
@@ -384,14 +392,15 @@ public class SynthaxView implements Initializable {
 
     @FXML
     public void onActionSearchMidiDevice() {
-        if (synthaxController.connectMidi()) {
-            lblConnected.setVisible(true);
-            lblNotConnected.setVisible(false);
-        } else {
-            lblConnected.setVisible(false);
-            lblNotConnected.setVisible(true);
+        if (!synthaxController.midiConnected()) {
+            if (synthaxController.connectMidi()) {
+                lblConnected.setVisible(true);
+                lblNotConnected.setVisible(false);
+            } else {
+                lblConnected.setVisible(false);
+                lblNotConnected.setVisible(true);
+            }
         }
-
     }
 
     public void updateMidiLabel(boolean visable) {

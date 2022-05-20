@@ -97,9 +97,10 @@ public class SeqPresetLoader {
             File[] children = presetRoot.listFiles();
             if(children != null) {
                 File saveFile = new File(presetRoot.getPath(), presetName + ".dat");
-
+                boolean fileExist = false;
                 for (File child : children) {
                     if(child.equals(saveFile)) {
+                        fileExist = true;
                         int answer = JOptionPane.showConfirmDialog(null, "Preset already exists, do you want to overwrite?");
                         if(answer == JOptionPane.YES_OPTION) {
                             savePreset(saveFile);
@@ -108,6 +109,9 @@ public class SeqPresetLoader {
                             savePresetAsNew(currentPresetName);
                         }
                     }
+                }
+                if (!fileExist) {
+                    savePreset(saveFile);
                 }
             } else {
                 System.err.println("SeqPresetLoader.savePreset(): Root has no children.");

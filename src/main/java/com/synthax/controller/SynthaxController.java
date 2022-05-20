@@ -302,9 +302,11 @@ public class SynthaxController {
                 }
 
                 seqPresetLoader.savePreset(currentPresetName);
+                updateSequencerPresetList(currentPresetName);
             }
         });
         saver.start();
+
     }
 
     public void onSelectPreset(String presetName) {
@@ -329,10 +331,12 @@ public class SynthaxController {
         });
         loader.start();
     }
-
-    public void updateSequencerPresetList() {
+    public void updateSequencerPresetList(String chosenPreset) {
         String[] presetNames = seqPresetLoader.getPresetNames();
-        synthaxView.setSequencerPresetList(presetNames);
+        synthaxView.setSequencerPresetList(presetNames, chosenPreset);
+    }
+    public void updateSequencerPresetList() {
+        updateSequencerPresetList("");
     }
 
     public String[] getSequencerPresetList() {
@@ -409,5 +413,9 @@ public class SynthaxController {
 
     public void deletePreset(String text) {
         seqPresetLoader.deleteFile(text);
+    }
+
+    public boolean midiConnected() {
+        return midi.midiConnected();
     }
 }
