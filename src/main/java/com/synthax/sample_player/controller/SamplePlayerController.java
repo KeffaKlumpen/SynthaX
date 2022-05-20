@@ -6,8 +6,8 @@ import net.beadsproject.beads.ugens.Gain;
 
 public class SamplePlayerController {
     
-    private Gain masterGain;
-    private Pad[] pads;
+    private final Gain masterGain;
+    private final Pad[] pads;
     private final int padCount = 9;
 
     public SamplePlayerController() {

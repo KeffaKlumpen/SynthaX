@@ -432,6 +432,7 @@ public class SynthaxView implements Initializable {
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/sampleplayer-view.fxml"));
                     Scene scene = new Scene(fxmlLoader.load());
+                    scene.getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
                     Stage stage = new Stage();
                     stage.setTitle("Johnny Trummas trummaskin, går på smör o margarin");
                     stage.setScene(scene);
