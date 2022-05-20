@@ -45,18 +45,39 @@
    -fx-cursor:hand;
  }
 */
-.alert.confirmation.dialog-pane,
-.text-input-dialog.dialog-pane {
+.alert.confirmation.dialog-pane {
     -fx-graphic: url("Images/knobIcon.png");
 }
 
-.dialog-pane:header .header-panel .graphic-container {
-    -fx-min-height: 70px;
-    -fx-max-height: 70px;
-    -fx-scale-x: 0.5px;
-        	-fx-scale-y: 0.5px;
-        	-fx-scale-z: 0.5px;
+.alert.confirmation.dialog-pane:header .header-panel .graphic-container {
+    -fx-min-height: 80px;
+    -fx-max-height: 80px;
+    -fx-scale-x: 0.6px;
+    -fx-scale-y: 0.6px;
+    -fx-scale-z: 0.6px;
 }
+
+.text-input-dialog.dialog-pane {
+     -fx-graphic: url("Images/fileIconsvart.png");
+
+}
+
+.text-input-dialog.dialog-pane:header .header-panel .graphic-container {
+    -fx-min-height: 80px;
+    -fx-max-height: 80px;
+    -fx-scale-x: 0.3px;
+    -fx-scale-y: 0.3px;
+
+}
+
+/* Till fileiconsmall:
+.text-input-dialog.dialog-pane:header .header-panel .graphic-container {
+    -fx-min-height: 80px;
+    -fx-max-height: 80px;
+    -fx-scale-x: 0.6px;
+    -fx-scale-y: 0.6px;
+    -fx-scale-z: 0.6px;
+}*/
 
 .knob:focused {
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;

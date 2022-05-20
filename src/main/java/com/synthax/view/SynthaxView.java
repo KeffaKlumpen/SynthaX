@@ -266,7 +266,7 @@ public class SynthaxView implements Initializable {
 
     @FXML
     public void onActionTextInput() {
-        String result = Dialogs.getTextInput("Save Preset", "Enter preset name:", "Preset name");
+        String result = Dialogs.getTextInput("Save Preset", "Preset naming", "Preset name");
         if (result != null) {
             System.out.println(result);
         }

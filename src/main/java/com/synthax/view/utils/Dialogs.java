@@ -4,6 +4,8 @@ import com.synthax.MainApplication;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.util.Optional;
 
@@ -29,6 +31,7 @@ public class Dialogs {
         TextInputDialog inputDialog = new TextInputDialog(promptText);
         inputDialog.getDialogPane().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
         inputDialog.getDialogPane().getStyleClass().add("dialogPane");
+        inputDialog.setContentText("Enter preset name:");
         inputDialog.setTitle(title);
         inputDialog.setHeaderText(contentText);
         Optional<String> result = inputDialog.showAndWait();
