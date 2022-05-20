@@ -16,7 +16,9 @@ public class SettingsView implements Initializable {
     private SynthaxView synthaxView;
 
 
-
+    // TODO: 2022-05-20 Only pass call to controller,
+    //  then let controller create thread and call on SeqPresetLoader
+    //  and when that thread is done - callBack to update GUI.
     @FXML
     public void onActionDelete() {
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);

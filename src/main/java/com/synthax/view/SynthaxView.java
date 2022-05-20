@@ -33,6 +33,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.PopOver;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -780,8 +781,25 @@ public class SynthaxView implements Initializable {
 
     private void initStepSequencerPresetButtons() {
         synthaxController.updateSequencerPresetList();
-        btnSavePreset.setOnAction(actionEvent -> synthaxController.onSavePreset(cmbPresets.getValue()));
+        btnSavePreset.setOnAction(actionEvent -> {
+            String currentPresetName = cmbPresets.getValue();
+            // show name selection pop-up
+            String presetName = JOptionPane.showInputDialog(null, "Preset Name:", currentPresetName);
+            if(presetName != null) {
+                synthaxController.onSavePreset(presetName);
+            }
+        });
         cmbPresets.setOnAction(actionEvent -> synthaxController.onSelectPreset(cmbPresets.getValue()));
+    }
+
+    public void showPresetSaveConflictPopup(String presetName) {
+        int answer = JOptionPane.showConfirmDialog(null, "Preset already exists, do you want to overwrite?");
+        if(answer == JOptionPane.YES_OPTION) {
+            synthaxController.savePreset(presetName);
+        }
+        else if(answer == JOptionPane.NO_OPTION) {
+            synthaxController.savePresetAsNew(presetName);
+        }
     }
 
     private void initNoise() {

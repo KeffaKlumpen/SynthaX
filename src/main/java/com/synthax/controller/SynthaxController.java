@@ -281,60 +281,68 @@ public class SynthaxController {
     }
 
     //region SequencerPreset (click to expand/collapse)
-    public void onSavePreset(String currentPresetName) {
-        // delegate the preset-loading to separate thread
-        Thread saver = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // If sequencer is playing, stop it and do the loading after
-                Thread sequencerThread = sequencer.getThread();
-                if(sequencerThread != null) {
-                    synthaxView.fakeSequencerStartStopClick();
-                    try {
-                        sequencerThread.join(250);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if(sequencerThread != null && sequencerThread.isAlive()) {
-                    System.err.println("CANT SAVE WHILE SEQUENCER IS RUNNING!");
-                    return;
-                }
+    public void savePresetAsNew(String presetName) {
+        presetName = seqPresetLoader.getIndexedName(presetName);
+        savePreset(presetName);
+    }
 
-                seqPresetLoader.savePreset(currentPresetName);
-                updateSequencerPresetList(currentPresetName);
+    private boolean waitForSequencerToStop(int timeout, String errorMessage) {
+        Thread sequencerThread = sequencer.getThread();
+        if(sequencerThread != null) {
+            synthaxView.fakeSequencerStartStopClick();
+            try {
+                sequencerThread.join(timeout);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+        }
+        if(sequencerThread != null && sequencerThread.isAlive()) {
+            System.err.println(errorMessage);
+            return false;
+        }
+        return true;
+    }
+
+    public void savePreset(String presetName) {
+        // delegate the preset-loading to separate thread
+        Thread saver = new Thread(() -> {
+            // If sequencer is playing, stop it and do the loading after
+            waitForSequencerToStop(250, "CANT SAVE WHILE SEQUENCER IS RUNNING!");
+
+            seqPresetLoader.savePreset(presetName);
+            updateSequencerPresetList(presetName);
         });
         saver.start();
+    }
 
+    public void onSavePreset(String presetName) {
+        // Is there a conflict?
+        boolean presetNameConflict = seqPresetLoader.presetExists(presetName);
+        if(presetNameConflict) {
+            synthaxView.showPresetSaveConflictPopup(presetName);
+        } else {
+            savePreset(presetName);
+        }
     }
 
     public void onSelectPreset(String presetName) {
         Thread loader = new Thread(() -> {
             // If sequencer is playing, stop it and do the loading after
-            Thread sequencerThread = sequencer.getThread();
-            if(sequencerThread != null) {
-                synthaxView.fakeSequencerStartStopClick();
-                try {
-                    sequencerThread.join(250);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(sequencerThread != null && sequencerThread.isAlive()) {
-                System.err.println("CANT LOAD WHILE SEQUENCER IS RUNNING!");
-                return;
-            }
+            boolean stopSuccessful = waitForSequencerToStop(250, "CANT LOAD WHILE SEQUENCER IS RUNNING!");
 
-            seqPresetLoader.loadPreset(presetName);
-            updateSequencerStepsGUI();
+            if(stopSuccessful) {
+                seqPresetLoader.loadPreset(presetName);
+                updateSequencerStepsGUI();
+            }
         });
         loader.start();
     }
+
     public void updateSequencerPresetList(String chosenPreset) {
         String[] presetNames = seqPresetLoader.getPresetNames();
         synthaxView.setSequencerPresetList(presetNames, chosenPreset);
     }
+
     public void updateSequencerPresetList() {
         updateSequencerPresetList("");
     }

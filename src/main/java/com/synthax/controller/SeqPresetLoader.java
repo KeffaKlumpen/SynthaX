@@ -7,7 +7,6 @@ import com.synthax.util.HelperMath;
 
 import javax.swing.*;
 import java.io.*;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -18,6 +17,8 @@ import java.util.Arrays;
  * @author Joel Eriksson Sinclair
  */
 public class SeqPresetLoader {
+    private final static String PRESET_FILE_EXTENSION = ".dat";
+
     private final Sequencer sequencer;
     private File presetRoot = new File("src/main/resources/com/synthax/sequencer_presets");
 
@@ -30,7 +31,8 @@ public class SeqPresetLoader {
     }
 
     // TODO: 2022-05-18 Call this from the settings panel
-    public void browseAndSetPresetRoot() {
+    // TODO: Move the fileChooser to view class..
+    public void setPresetRoot() {
         JFileChooser fileChooser = new JFileChooser(presetRoot);
         fileChooser.setMultiSelectionEnabled(false);
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -52,7 +54,7 @@ public class SeqPresetLoader {
             for(File child : children) {
                 if(child.isFile()) {
                     String childName = child.getName();
-                    if(childName.endsWith(".dat")) {
+                    if(childName.endsWith(PRESET_FILE_EXTENSION)) {
                         childName = childName.substring(0, childName.length() - 4);
                         presetNames.add(childName);
                     }
@@ -63,12 +65,63 @@ public class SeqPresetLoader {
         return presetNames.toArray(new String[0]);
     }
 
+    public boolean presetExists(String presetName) {
+        File presetFile = getFileFromPresetName(presetName);
+        boolean fileExists = false;
+
+        File[] children = presetRoot.listFiles();
+        if(children != null) {
+            for (File child : children) {
+                if(child.equals(presetFile)) {
+                    fileExists = true;
+                    break;
+                }
+            }
+        }
+
+        return fileExists;
+    }
+
+    public String getIndexedName(String name) {
+        File[] children = presetRoot.listFiles();
+        int presetCounter = -1;
+        if(children != null) {
+            Arrays.sort(children);
+
+            for (File child : children) {
+                String childName = child.getName();
+                System.out.println(childName);
+
+                if (childName.equals(name + "-" + (presetCounter + 1) + PRESET_FILE_EXTENSION)) {
+                    System.out.println("preset file found.");
+                    presetCounter++;
+                }
+            }
+
+            System.out.println("presetCounter: " + presetCounter);
+            name = name + "-" + (presetCounter + 1);
+        }
+
+        return name;
+    }
+
+    /**
+     * Save the current sequencer setting to a file.
+     * @param presetName Name of the currently selected preset
+     */
+    public void savePreset(String presetName) {
+        if(presetName != null) {
+            File saveFile = getFileFromPresetName(presetName);
+            savePreset(saveFile);
+        }
+    }
+
     /**
      * Attempt to load a preset with the given name, searching in the current presetRoot for a matching .dat file.
      * @param presetName Name of preset to be loaded
      */
     public void loadPreset(String presetName) {
-        File presetToLoad = new File(presetRoot.getPath(), presetName + ".dat");
+        File presetToLoad = getFileFromPresetName(presetName);
         boolean loadOk = false;
 
         File[] children = presetRoot.listFiles();
@@ -87,43 +140,25 @@ public class SeqPresetLoader {
         }
     }
 
-    /**
-     * Save the current sequencer setting, either with a new name or overwriting.
-     * @param currentPresetName Name of the currently selected preset
-     */
-    public void savePreset(String currentPresetName) {
-        String presetName = JOptionPane.showInputDialog(null, "Preset Name:", currentPresetName);
+    public void deleteFile(String presetName) {
         if(presetName != null) {
             File[] children = presetRoot.listFiles();
             if(children != null) {
-                File saveFile = new File(presetRoot.getPath(), presetName + ".dat");
-                boolean fileExist = false;
+                File deleteFile = getFileFromPresetName(presetName);
+
                 for (File child : children) {
-                    if(child.equals(saveFile)) {
-                        fileExist = true;
-                        int answer = JOptionPane.showConfirmDialog(null, "Preset already exists, do you want to overwrite?");
-                        if(answer == JOptionPane.YES_OPTION) {
-                            savePreset(saveFile);
-                        }
-                        else if(answer == JOptionPane.NO_OPTION) {
-                            savePresetAsNew(currentPresetName);
+                    if(child.equals(deleteFile)) {
+                        if(deleteFile.delete()) {
+                            System.out.println(presetName + " deleted.");
+                        } else {
+                            System.err.println(presetName + " could not be deleted.");
                         }
                     }
                 }
-                if (!fileExist) {
-                    savePreset(saveFile);
-                }
             } else {
-                System.err.println("SeqPresetLoader.savePreset(): Root has no children.");
+                System.err.println("SeqPresetLoader.deletePreset(): Root has no children.");
             }
         }
-    }
-
-    private void savePresetAsNew(String name) {
-        name = getIndexedName(name);
-
-        File saveFile = new File(presetRoot, name + ".dat");
-        savePreset(saveFile);
     }
 
     private void savePreset(File saveFile) {
@@ -164,44 +199,8 @@ public class SeqPresetLoader {
         }
     }
 
-    private String getIndexedName(String name) {
-        File[] children = presetRoot.listFiles();
-        int presetCounter = -1;
-        if(children != null) {
-            Arrays.sort(children);
-
-            for (File child : children) {
-                String childName = child.getName();
-                System.out.println(childName);
-
-                if (childName.equals(name + "-" + (presetCounter + 1) + ".dat")) {
-                    System.out.println("preset file found.");
-                    presetCounter++;
-                }
-            }
-
-            System.out.println("presetCounter: " + presetCounter);
-            name = name + "-" + (presetCounter + 1);
-        }
-
-        return name;
+    private File getFileFromPresetName(String presetName) {
+        return new File(presetRoot, presetName + PRESET_FILE_EXTENSION);
     }
 
-    public void deleteFile(String presetName) {
-        if(presetName != null) {
-            File[] children = presetRoot.listFiles();
-            if(children != null) {
-                File deleteFile = new File(presetRoot.getPath(), presetName + ".dat");
-
-                for (File child : children) {
-                    if(child.equals(deleteFile)) {
-                        deleteFile.delete();
-                    }
-                }
-            } else {
-                System.err.println("SeqPresetLoader.savePreset(): Root has no children.");
-            }
-        }
-
-    }
 }
