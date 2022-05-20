@@ -20,9 +20,11 @@ public class MainApplication extends Application {
         scene.getStylesheets().add(getClass().getResource("skins.css").toExternalForm());
         stage.setTitle("Synthax");
         stage.setScene(scene);
+        stage.sizeToScene();
         stage.show();
         stage.setResizable(false);
-        
+
+
 
         // auto close Synth when we exit window
         stage.setOnCloseRequest(event -> {
