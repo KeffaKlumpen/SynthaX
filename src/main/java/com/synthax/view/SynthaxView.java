@@ -367,6 +367,8 @@ public class SynthaxView implements Initializable {
                 URL fxmlLocation = MainApplication.class.getResource("view/Settings-view.fxml");
                 FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
                 Node settingsRoot = fxmlLoader.load();
+                SettingsView settingsView = fxmlLoader.getController();
+                settingsView.populatePresetsBox(synthaxController.getSequencerPresetList(), this);
                 popOverSettings = new PopOver(settingsRoot);
                 popOverSettings.setTitle("Settings");
                 popOverSettings.setDetachable(false);

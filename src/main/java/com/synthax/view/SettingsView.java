@@ -14,6 +14,9 @@ import java.util.ResourceBundle;
 public class SettingsView implements Initializable {
     @FXML private VBox presetsList;
     @FXML private Spinner<Integer> voiceCountSpinner;
+    private SynthaxView synthaxView;
+
+
 
     @FXML
     public void onActionDelete() {
@@ -21,6 +24,7 @@ public class SettingsView implements Initializable {
             CheckBox c = (CheckBox) presetsList.getChildren().get(i);
             if (c.isSelected()) {
                 presetsList.getChildren().remove(i);
+               // synthaxView.removePreset();
                 i--;
             }
         }
@@ -36,26 +40,16 @@ public class SettingsView implements Initializable {
         
     }
 
-    private void populatePresetsBox() {
-
+    public void populatePresetsBox(String[] presetName, SynthaxView synthaxView) {
+        this.synthaxView = synthaxView;
+        for (String s : presetName) {
+            presetsList.getChildren().add(new CheckBox(s));
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        presetsList.getChildren().addAll(new CheckBox("Luke"),
-                new CheckBox("Luke"),
-                new CheckBox("Luke"),
-                new CheckBox("Luke"),
-                new CheckBox("Luke"),
-                new CheckBox("Luke"),
-                new CheckBox("Lukeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"),
-                new CheckBox("Luke"),
-                new CheckBox("Luke"),
-                new CheckBox("Luke"),
-                new CheckBox("Luke"),
-                new CheckBox("Luke"),
-                new CheckBox("Luke"),
-                new CheckBox("Luke"));
+
 
 
     }

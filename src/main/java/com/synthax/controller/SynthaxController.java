@@ -335,6 +335,10 @@ public class SynthaxController {
         synthaxView.setSequencerPresetList(presetNames);
     }
 
+    public String[] getSequencerPresetList() {
+        return seqPresetLoader.getPresetNames();
+    }
+
     private void updateSequencerStepsGUI() {
         SequencerStep[] steps = sequencer.getSteps();
         for (int i = 0; i < steps.length; i++) {
