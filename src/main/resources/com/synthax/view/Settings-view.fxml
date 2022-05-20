@@ -15,7 +15,7 @@
       <Label layoutX="18.0" layoutY="64.0" styleClass="smallLabel2" text="Monophonic" />
       <Label layoutX="18.0" layoutY="115.0" styleClass="smallLabel2" text="Number of voices" />
       <Spinner layoutX="18.0" layoutY="132.0" prefHeight="25.0" prefWidth="88.0" />
-      <ToggleSwitch layoutX="101.0" layoutY="63.0" prefHeight="20.0" prefWidth="30.0" selected="true" />
+      <ToggleSwitch layoutX="101.0" layoutY="63.0" prefHeight="20.0" prefWidth="30.0" />
       <Button layoutX="409.0" layoutY="41.0" mnemonicParsing="false" onAction="#onActionDelete" prefHeight="25.0" prefWidth="25.0" styleClass="deleteButton" />
       <Label layoutX="183.0" layoutY="94.0" prefHeight="16.0" prefWidth="96.0" styleClass="smallLabel" text="Path to file" />
       <Button layoutX="182.0" layoutY="66.0" mnemonicParsing="false" styleClass="plainButton" text="Choose file" />

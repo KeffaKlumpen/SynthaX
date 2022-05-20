@@ -832,5 +832,7 @@
       <Button layoutX="354.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionSearchMidiDevice" prefHeight="32.0" prefWidth="32.0" styleClass="refreshButton" />
       <Label fx:id="lblNotConnected" layoutX="246.0" layoutY="149.0" styleClass="filterLabel" text="not connected" />
       <Label fx:id="lblConnected" layoutX="247.0" layoutY="149.0" styleClass="connectedLabel" text="connected" textFill="#f78000" visible="false" />
+      <Button layoutX="167.0" layoutY="63.0" mnemonicParsing="false" onAction="#onActionAlert" text="Alert" />
+      <Button layoutX="164.0" layoutY="27.0" mnemonicParsing="false" onAction="#onActionTextInput" text="Text Input" />
    </children>
 </AnchorPane>

@@ -23,10 +23,8 @@ public class MainApplication extends Application {
         stage.getIcons().add(new Image(MainApplication.class.getResource("Images/knobIcon.png").toExternalForm()));
         stage.setScene(scene);
         stage.sizeToScene();
-        stage.show();
         stage.setResizable(false);
-
-
+        stage.show();
 
         // auto close Synth when we exit window
         stage.setOnCloseRequest(event -> System.exit(0));

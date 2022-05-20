@@ -23,9 +23,39 @@
     -fx-accent: #f78000;
     -fx-focus-color: #f78000;
     -fx-faint-focus-color: #f7800022;
-
     -fx-control-inner-background: #b0aaa0;
     -fx-shadow-highlight-color: #a6a4a270;
+}
+
+.confirmationBox .button,
+.dialogPane .button{
+    -fx-background-color: #78736b;
+    -fx-text-fill: #d6d1c9;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 14;
+    -fx-body-color: #78736b;
+    -fx-background-insets: 0, 0, 0;
+}
+/*
+.dialog-pane .button{
+   -fx-background-color:black;
+   -fx-text-fill:white;
+   -fx-wrap-text: true;
+   -fx-effect: dropshadow( three-pass-box, yellow, 10.0, 0.0, 0.0, 0.0);
+   -fx-cursor:hand;
+ }
+*/
+.alert.confirmation.dialog-pane,
+.text-input-dialog.dialog-pane {
+    -fx-graphic: url("Images/knobIcon.png");
+}
+
+.dialog-pane:header .header-panel .graphic-container {
+    -fx-min-height: 70px;
+    -fx-max-height: 70px;
+    -fx-scale-x: 0.5px;
+        	-fx-scale-y: 0.5px;
+        	-fx-scale-z: 0.5px;
 }
 
 .knob:focused {
@@ -46,6 +76,7 @@
     -fx-min-height: 30px;
     -fx-max-width: 30px;
     -fx-max-height: 30px;
+    -fx-cursor: v_resize;
 }
 
 .bigKnob:focused {
@@ -65,6 +96,7 @@
     -fx-min-height: 40px;
     -fx-max-width: 40px;
     -fx-max-height: 40px;
+    -fx-cursor: v_resize;
 }
 
 .slider .thumb {

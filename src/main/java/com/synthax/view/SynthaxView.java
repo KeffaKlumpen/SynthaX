@@ -15,6 +15,7 @@ import com.synthax.model.enums.Waveforms;
 import com.synthax.util.HelperMath;
 import com.synthax.util.MidiHelpers;
 
+import com.synthax.view.utils.Dialogs;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -38,6 +39,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -257,6 +259,20 @@ public class SynthaxView implements Initializable {
     }
 
     //region onAction  (click to open/collapse)
+    @FXML
+    public void onActionAlert() {
+        Boolean result = Dialogs.getConfirmationBox("Warning!", "Are you sure?");
+    }
+
+    @FXML
+    public void onActionTextInput() {
+        String result = Dialogs.getTextInput("Save Preset", "Enter preset name:", "Preset name");
+        if (result != null) {
+            System.out.println(result);
+        }
+
+    }
+
     @FXML
     public void onActionRandomize() {
         synthaxController.randomize(arrSeqStepsOnOff.length);

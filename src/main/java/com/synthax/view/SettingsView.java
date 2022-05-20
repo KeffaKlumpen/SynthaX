@@ -1,11 +1,9 @@
 package com.synthax.view;
 
+import com.synthax.MainApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,13 +12,13 @@ public class SettingsView implements Initializable {
     @FXML private VBox presetsList;
     @FXML private Spinner<Integer> voiceCountSpinner;
     private SynthaxView synthaxView;
-
-
+    private Alert alertDialog = new Alert(Alert.AlertType.CONFIRMATION);
 
     @FXML
     public void onActionDelete() {
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        if (a.showAndWait().get() == ButtonType.OK) {
+
+
+        if (alertDialog.showAndWait().get() == ButtonType.OK) {
             for (int i = 0; i < presetsList.getChildren().size(); i++) {
                 CheckBox c = (CheckBox) presetsList.getChildren().get(i);
                 if (c.isSelected()) {
@@ -52,8 +50,8 @@ public class SettingsView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
+        alertDialog.getDialogPane().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
+        alertDialog.setTitle("gay");
 
     }
 }
