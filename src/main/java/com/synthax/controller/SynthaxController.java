@@ -406,4 +406,8 @@ public class SynthaxController {
     public void updateMidiLabel(boolean visable) {
         synthaxView.updateMidiLabel(visable);
     }
+
+    public void deletePreset(String text) {
+        seqPresetLoader.deleteFile(text);
+    }
 }

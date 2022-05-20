@@ -954,5 +954,13 @@ public class SynthaxView implements Initializable {
             }
         });
     }
+
+    public void deletePreset(String text) {
+        synthaxController.deletePreset(text);
+    }
+
+    public void updateSequencerPresetList() {
+        synthaxController.updateSequencerPresetList();
+    }
     //endregion initialize methods
 }

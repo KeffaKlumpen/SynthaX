@@ -7,6 +7,7 @@ import com.synthax.util.HelperMath;
 
 import javax.swing.*;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -180,5 +181,23 @@ public class SeqPresetLoader {
         }
 
         return name;
+    }
+
+    public void deleteFile(String presetName) {
+        if(presetName != null) {
+            File[] children = presetRoot.listFiles();
+            if(children != null) {
+                File deleteFile = new File(presetRoot.getPath(), presetName + ".dat");
+
+                for (File child : children) {
+                    if(child.equals(deleteFile)) {
+                        deleteFile.delete();
+                    }
+                }
+            } else {
+                System.err.println("SeqPresetLoader.savePreset(): Root has no children.");
+            }
+        }
+
     }
 }

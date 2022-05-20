@@ -24,10 +24,11 @@ public class SettingsView implements Initializable {
             CheckBox c = (CheckBox) presetsList.getChildren().get(i);
             if (c.isSelected()) {
                 presetsList.getChildren().remove(i);
-               // synthaxView.removePreset();
+                synthaxView.deletePreset(c.getText());
                 i--;
             }
         }
+        synthaxView.updateSequencerPresetList();
     }
 
     @FXML
