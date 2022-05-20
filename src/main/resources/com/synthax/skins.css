@@ -251,7 +251,8 @@
 }
 
 
-.toggleSeq {
+.toggleSeq,
+.tglSampleSeq {
     -fx-padding: 0,3px;
     -fx-background-color: #78736b;
     -fx-text-fill: #d6d1c9;
@@ -268,7 +269,7 @@
     -fx-text-fill: #f78000;
 }
 
-#tglSampleSeq:selected {
+.tglSampleSeq:selected {
     -fx-background-color: #f78000;
 }
 

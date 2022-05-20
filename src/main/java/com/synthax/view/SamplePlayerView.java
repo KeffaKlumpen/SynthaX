@@ -9,6 +9,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 
@@ -27,16 +31,59 @@ public class SamplePlayerView implements Initializable {
     @FXML private Button pad6;
     @FXML private Button pad7;
     @FXML private Button pad8;
+
+    @FXML private Label lblChannel1;
+    @FXML private Label lblChannel2;
+    @FXML private Label lblChannel3;
+    @FXML private Label lblChannel4;
+    @FXML private Label lblChannel5;
+    @FXML private Label lblChannel6;
+    @FXML private Label lblChannel7;
+    @FXML private Label lblChannel8;
+    @FXML private Label lblChannel9;
+
+    @FXML private GridPane gridPane;
+
+    @FXML private Button knobSamplePlayerRate;
+    @FXML private Button btnSamplePlayerStart;
+    @FXML private Slider sliderSamplePlayerGain;
+
     @FXML private VBox vBoxPadView = new VBox();
 
     private final SamplePlayerController samplePlayerController;
 
     public SamplePlayerView() {
-        samplePlayerController = new SamplePlayerController();
+        samplePlayerController = new SamplePlayerController(this);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        initPadView();
+        initPadButtons();
+        initGridPane();
+    }
+
+    private void initGridPane() {
+        int x = 0;
+        int y = 0;
+        ToggleButton[][] toggleButtons = new ToggleButton[9][16];
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 16; j++) {
+                ToggleButton tb = new ToggleButton();
+                tb.setPrefHeight(27);
+                tb.setPrefWidth(27);
+                tb.getStyleClass().add("tglSampleSeq");
+                toggleButtons[i][j] = tb;
+                gridPane.add(tb, j, i);
+            }
+
+
+        }
+
+
+    }
+
+    private void initPadView() {
         try {
             URL fxmlLocation = MainApplication.class.getResource("view/padview.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
@@ -45,7 +92,6 @@ public class SamplePlayerView implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        initPadButtons();
     }
 
     private void initPadButtons() {

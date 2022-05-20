@@ -1,6 +1,7 @@
 package com.synthax.sample_player.controller;
 
 import com.synthax.sample_player.model.Pad;
+import com.synthax.view.SamplePlayerView;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.ugens.Gain;
 
@@ -9,8 +10,10 @@ public class SamplePlayerController {
     private final Gain masterGain;
     private final Pad[] pads;
     private final int padCount = 9;
+    private SamplePlayerView samplePlayerView;
 
-    public SamplePlayerController() {
+    public SamplePlayerController(SamplePlayerView samplePlayerView) {
+        this.samplePlayerView = samplePlayerView;
         pads = new Pad[padCount];
         
         masterGain = new Gain(1, 1.0f);

@@ -24,7 +24,7 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobReverbSize" layoutX="24.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobPadReverbSize" layoutX="24.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Label layoutX="14.0" layoutY="10.0" styleClass="bigLabel" text="Reverb">
                <font>
                   <Font size="17.0" />
@@ -41,7 +41,7 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobReverbTone" layoutX="88.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobPadReverbTone" layoutX="88.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Label layoutX="90.0" layoutY="47.0" styleClass="smallLabel" text="Tone">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -52,7 +52,7 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobReverbAmount" layoutX="152.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobPadReverbAmount" layoutX="152.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Label layoutX="147.0" layoutY="47.0" styleClass="smallLabel" text="Amount">
                <font>
                   <Font name="Arial" size="10.0" />
@@ -60,13 +60,13 @@
             </Label>
          </children>
       </AnchorPane>
-      <ComboBox focusTraversable="false" layoutX="53.0" layoutY="138.0" prefWidth="150.0" styleClass="presetsComboBox" />
+      <ComboBox fx:id="comboBoxPadFile" focusTraversable="false" layoutX="53.0" layoutY="138.0" prefWidth="150.0" styleClass="presetsComboBox" />
       <ImageView fitHeight="88.0" fitWidth="88.0" layoutX="84.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/KnobBlackSteps.png" />
          </image>
       </ImageView>
-      <Button focusTraversable="false" layoutX="108.0" layoutY="223.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" styleClass="bigKnob" />
+      <Button fx:id="knobPadGain" focusTraversable="false" layoutX="108.0" layoutY="223.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" styleClass="bigKnob" />
       <Label layoutX="112.0" layoutY="189.0" styleClass="filterLabel" text="Gain" />
    </children>
 </AnchorPane>
