@@ -452,6 +452,15 @@ public class SynthaxView implements Initializable {
     }
     //endregion onAction
 
+    //region forwarding from SettingsView (click to open/collapse)
+    public void deletePreset(String text) {
+        synthaxController.deletePreset(text);
+    }
+
+    public void updateSequencerPresetList() {
+        synthaxController.updateSequencerPresetList();
+    }
+    //endregion forwarding from SettingsView
     public void updateSeqStep(int i, boolean isOn, int velocity, float detuneCent, MidiNote midiNote) {
         Platform.runLater(() -> {
             arrSeqStepsOnOff[i].setSelected(isOn);
@@ -955,12 +964,6 @@ public class SynthaxView implements Initializable {
         });
     }
 
-    public void deletePreset(String text) {
-        synthaxController.deletePreset(text);
-    }
 
-    public void updateSequencerPresetList() {
-        synthaxController.updateSequencerPresetList();
-    }
     //endregion initialize methods
 }
