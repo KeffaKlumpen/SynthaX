@@ -21,7 +21,7 @@ public class MainApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(getClass().getResource("skins.css").toExternalForm());
         stage.setTitle("Synthax");
-        stage.getIcons().add(new Image(MainApplication.class.getResource("Images/knob3d.png").toExternalForm()));
+        stage.getIcons().add(new Image(MainApplication.class.getResource("Images/knobIcon.png").toExternalForm()));
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
