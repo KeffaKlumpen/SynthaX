@@ -37,7 +37,9 @@ public class Midi {
                 midiDevice = MidiSystem.getMidiDevice(info);
                 Transmitter transmitter = midiDevice.getTransmitter();
                 transmitter.setReceiver(new MidiReceiver());
-                midiDevice.open();
+                if (!midiDevice.getDeviceInfo().getName().equalsIgnoreCase("Real Time Sequencer")) {
+                    midiDevice.open();
+                }
             } catch (MidiUnavailableException e) {
                 System.err.println("unavailable");
             }
@@ -102,7 +104,10 @@ public class Midi {
             while (running) {
                 System.out.println("Im running");
                 try {
-                    Thread.sleep(5000);
+                    for (int i = 1; i<=5; i++){
+                        System.out.println(i);
+                        Thread.sleep(1000);
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -114,8 +119,6 @@ public class Midi {
                     running = false;
                     midiDevice.close();
                 }
-
-
             }
         }
     }
