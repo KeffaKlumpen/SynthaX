@@ -10,7 +10,7 @@ import net.beadsproject.beads.ugens.*;
  * @author Teodor Wegestål
  * @author Viktor Lenberg
  */
-public class Delay {
+public class SynthaxDelay {
     private final float maxDelayTime = 3000.0f;
     private float feedbackDuration = 100.0f;
 
@@ -27,7 +27,7 @@ public class Delay {
     private Glide levelGlide;
     private Gain output;
 
-    public Delay(UGen filterOutput) {
+    public SynthaxDelay(UGen filterOutput) {
         Gain synthGain = new Gain(AudioContext.getDefaultContext(), 1, 1.0f);
         synthGain.addInput(filterOutput);
 
@@ -62,8 +62,10 @@ public class Delay {
     public Gain getOutput() {
         return output;
     }
-    public void setActive(boolean active) {
-        if(!active) {
+
+    public void setActive() {
+        isActive = !isActive;
+        if(!isActive) {
             cachedLevelValue = levelGlide.getValue();
             levelGlide.setValue(0.0f);
 
@@ -75,15 +77,11 @@ public class Delay {
 
             cachedFeedbackDuration = feedbackDuration;
             feedbackDuration = 0.0f;
-
-            isActive = false;
         } else {
             levelGlide.setValue(cachedLevelValue);
             delayOut.setDelay(cachedDelayTime);
             decayGlide.setValue(cachedDecayValue);
             feedbackDuration = cachedFeedbackDuration;
-
-            isActive = true;
         }
     }
 

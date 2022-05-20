@@ -1,6 +1,6 @@
 package com.synthax.controller;
 
-import com.synthax.model.ADSRValues;
+import com.synthax.model.SynthaxADSR;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.oscillator.VoiceNormalizer;
 import com.synthax.util.HelperMath;
@@ -44,15 +44,15 @@ public class NoiseController {
         voicePlayingMidi[midiNote.ordinal()] = nextVoice;
 
         float maxGain = velocity / 127f;
-        float sustainGain = maxGain * ADSRValues.getSustainValue();
-        voices[nextVoice].playNoise(maxGain, ADSRValues.getAttackValue(), sustainGain, ADSRValues.getDecayValue());
+        float sustainGain = maxGain * SynthaxADSR.getSustainValue();
+        voices[nextVoice].playNoise(maxGain, SynthaxADSR.getAttackValue(), sustainGain, SynthaxADSR.getDecayValue());
 
         nextVoice = ++nextVoice % voiceCount;
     }
 
     public void noteOff(MidiNote midiNote) {
         int voiceIndex = voicePlayingMidi[midiNote.ordinal()];
-        voices[voiceIndex].stopPlay(ADSRValues.getReleaseValue());
+        voices[voiceIndex].stopPlay(SynthaxADSR.getReleaseValue());
     }
 
     public Gain getVoiceOutput() {
@@ -69,8 +69,8 @@ public class NoiseController {
         }
     }
 
-    public void setActive(boolean newActive) {
-        isActive = newActive;
+    public void setActive() {
+        isActive = !isActive;
 
         if(isActive) {
             voiceOutputGlide.setValue(savedGain);

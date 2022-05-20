@@ -1,4 +1,4 @@
-package com.synthax.model.controls;
+package com.synthax.view.controls;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

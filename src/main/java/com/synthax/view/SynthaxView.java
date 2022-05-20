@@ -1,24 +1,22 @@
 package com.synthax.view;
 
-import com.synthax.model.controls.KnobBehavior;
+import com.synthax.view.controls.KnobBehavior;
 
-import com.synthax.model.controls.KnobBehaviorDetune;
-import com.synthax.model.controls.KnobBehaviorWave;
+import com.synthax.view.controls.KnobBehaviorDetune;
+import com.synthax.view.controls.KnobBehaviorWave;
 import com.synthax.MainApplication;
 import com.synthax.controller.OscillatorController;
 import com.synthax.controller.SynthaxController;
-import com.synthax.model.ADSRValues;
-import com.synthax.model.controls.KnobBehaviorSeqFreq;
+import com.synthax.model.SynthaxADSR;
+import com.synthax.view.controls.KnobBehaviorSeqFreq;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.SequencerMode;
 import com.synthax.model.enums.Waveforms;
 import com.synthax.util.HelperMath;
 import com.synthax.util.MidiHelpers;
 
-
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,18 +29,17 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
-import org.controlsfx.control.ToggleSwitch;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -60,25 +57,32 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class SynthaxView implements Initializable {
     //region FXML variables
+    @FXML private AnchorPane mainPane = new AnchorPane();
+
     @FXML private VBox oscillatorChainView;
-    @FXML private ImageView imgClickToAdd;
+    @FXML private ImageView imgClickToAddOsc;
+
     @FXML private Button knobNoiseGain;
-    @FXML private ToggleSwitch tglSwitchNoise;
+
+    //region Delay variables
     @FXML private Button knobDelayFeedback;
     @FXML private Button knobDelayTime;
     @FXML private Button knobDelayDecay;
     @FXML private Button knobDelayLevel;
-    @FXML private ToggleSwitch tglSwitchDelay;
+    //endregion Delay variables
+
     @FXML private Button knobReverbSize;
     @FXML private Button knobReverbTone;
     @FXML private Button knobReverbAmount;
-    @FXML private ToggleSwitch tglSwitchReverb;
+
     @FXML private Button knobLFODepth;
     @FXML private Button knobLFORate;
     @FXML private Button knobLFOWaveForm;
-    @FXML private ToggleSwitch tglSwitchLFO;
+
     @FXML private Button knobFilterHPCutoff;
     @FXML private Button knobFilterLPCutoff;
+
+    //region EQ variables
     @FXML private Button knobEQ1Gain;
     @FXML private Button knobEQ1Freq;
     @FXML private Button knobEQ1Range;
@@ -88,12 +92,9 @@ public class SynthaxView implements Initializable {
     @FXML private Button knobEQ3Gain;
     @FXML private Button knobEQ3Freq;
     @FXML private Button knobEQ3Range;
-    @FXML private ToggleSwitch tglSwitchEQ1;
-    @FXML private ToggleSwitch tglSwitchEQ2;
-    @FXML private ToggleSwitch tglSwitchEQ3;
-    @FXML private ToggleSwitch tglSwitchFilterLP;
-    @FXML private ToggleSwitch tglSwitchFilterHP;
-    @FXML private AnchorPane mainPane = new AnchorPane();
+    //endregion EQ variables
+
+    //region ADSR variables
     @FXML private Slider sliderAttack;
     @FXML private Slider sliderDecay;
     @FXML private Slider sliderSustain;
@@ -102,15 +103,28 @@ public class SynthaxView implements Initializable {
     @FXML private NumberAxis xAxis = new NumberAxis();
     @FXML private NumberAxis yAxis = new NumberAxis();
     @FXML private LineChart<Number, Number> lineChartADSR = new LineChart<Number, Number>(xAxis, yAxis);
+    //endregion ADSR variables
+
+    //region Controls below logo
     @FXML private Button btnHelp;
-    @FXML private Button btnSearchMidiDevice;
+    @FXML private Button btnSettings;
     @FXML private Label lblNotConnected;
     @FXML private Label lblConnected;
     @FXML private Button btnSavePreset;
-    @FXML private Button btnLoadPreset;
-    @FXML private Spinner<String> spinnerPresets;
-    //endregion
-    //region Step sequencer buttons
+    //endregion Controls below logo
+    //endregion FXML variables
+
+    //region Step Sequencer
+    @FXML private Button SSStartStop;
+    @FXML private Button knobSSRate;
+    @FXML private Spinner<Integer> spinnerSteps;
+    @FXML private Spinner<String> sequencerMode;
+    @FXML private CheckBox cBoXRandomFreq;
+    @FXML private CheckBox cBoxRandomOnOff;
+    @FXML private CheckBox cBoxRandomGain;
+    @FXML private ComboBox<String> cmbPresets;
+
+    //region Step Sequencer Steps
     @FXML private Button knobSS0freq;
     @FXML private Button knobSS0FineTune;
     @FXML private Button knobSS0Gain;
@@ -159,10 +173,6 @@ public class SynthaxView implements Initializable {
     @FXML private Button knobSS15freq;
     @FXML private Button knobSS15FineTune;
     @FXML private Button knobSS15Gain;
-    @FXML private Button SSStartStop;
-    @FXML private Button knobSSRate;
-    @FXML private Spinner<Integer> spinnerSteps;
-    @FXML private Spinner<String> sequencerMode;
     @FXML private ToggleButton btnStepOnOff0;
     @FXML private ToggleButton btnStepOnOff1;
     @FXML private ToggleButton btnStepOnOff2;
@@ -179,18 +189,16 @@ public class SynthaxView implements Initializable {
     @FXML private ToggleButton btnStepOnOff13;
     @FXML private ToggleButton btnStepOnOff14;
     @FXML private ToggleButton btnStepOnOff15;
-    @FXML private Button btnRandomize;
-    @FXML private CheckBox cBoXRandomFreq;
-    @FXML private CheckBox cBoxRandomOnOff;
-    @FXML private CheckBox cBoxRandomGain;
-    @FXML private Button btnResetKnobs;
-    @FXML private ImageView ricky;
-    //endregion
+    //endregion Step Sequencer Steps
 
+    @FXML private ImageView ricky;
+    //endregion Step Sequencer
+
+    private final HashMap<String, AtomicBoolean> keyStatus = new HashMap<>();
     @FXML private Button samplePlayerStart;
 
 
-    private final HashMap<KeyCode, AtomicBoolean> keyStatus = new HashMap<>();
+    //region Step Sequencer collections
     private KnobBehavior bKnobSSRate;
     private Button[] arrSeqFreqKnobs;
     private Button[] arrSeqDetuneKnobs;
@@ -202,37 +210,58 @@ public class SynthaxView implements Initializable {
     private KnobBehavior[] arrKnobBehaviorGain = new KnobBehavior[16];
     private KnobBehaviorDetune[] arrKnobBehaviorDetune = new KnobBehaviorDetune[16];
     private KnobBehaviorSeqFreq[] arrKnobBehaviorFreq = new KnobBehaviorSeqFreq[16];
+    //endregion Step Sequencer collections
+
+    //region ADSR graphics points
     private XYChart.Data<Number, Number> point1ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point2ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point3ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point4ADSR = new XYChart.Data<>();
     private XYChart.Data<Number, Number> point5ADSR = new XYChart.Data<>();
+    //endregion ADSR graphics points
+
     private PopOver popOverHelp;
+    private PopOver popOverSettings;
 
     private final SynthaxController synthaxController;
-    private final int attackMax = 3000;
-    private final int decayMax = 1500;
-    private final int releaseMax = 2000;
+
     private int easterCounter = 0;
-
-
 
     public SynthaxView() {
         synthaxController = new SynthaxController(this);
     }
 
-    public void setSequencerStepsOnOff(boolean on, int index) {
+    public void setSequencerStepOnOff(boolean on, int index) {
         arrSeqStepsOnOff[index].setSelected(on);
     }
 
-    public void setSequencerFreqKnobs(MidiNote note, int index) {
+    public void setSequencerStepFreq(MidiNote note, int index) {
         arrKnobBehaviorFreq[index].setNote(note);
     }
 
-    public void setSequencerGain(float value, int index) {
-        arrKnobBehaviorGain[index].setValueRotation(value);
+    public void setSequencerStepGain(float value, int index) {
+        arrKnobBehaviorGain[index].setRotation(value);
     }
 
+    public void setSeqButtonOrange(int i) {
+        Platform.runLater(() -> {
+            arrSeqStepsOnOff[i].setStyle("-fx-background-color: #f78000");
+        });
+    }
+
+    public void setSeqButtonGray(int i) {
+        Platform.runLater(()-> {
+            arrSeqStepsOnOff[i].setStyle("-fx-background-color: #78736b");
+
+        });
+    }
+
+    public void setSequencerPresetList(String[] presetNames) {
+        cmbPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));
+        cmbPresets.getSelectionModel().selectFirst();
+    }
+
+    //region onAction  (click to open/collapse)
     @FXML
     public void onActionRandomize() {
         synthaxController.randomize(arrSeqStepsOnOff.length);
@@ -282,9 +311,9 @@ public class SynthaxView implements Initializable {
                     synthaxController.moveOscillatorUp(oscillatorController);
                 }
             });
-            oscillatorChainView.getChildren().remove(imgClickToAdd);
+            oscillatorChainView.getChildren().remove(imgClickToAddOsc);
             oscillatorChainView.getChildren().add(oscillatorRoot);
-            oscillatorChainView.getChildren().add(imgClickToAdd);
+            oscillatorChainView.getChildren().add(imgClickToAddOsc);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -298,7 +327,7 @@ public class SynthaxView implements Initializable {
             for (int i = 0; i < arrKnobBehaviorGain.length; i++) {
                 arrKnobBehaviorFreq[i].setNote(MidiNote.F4);
                 arrKnobBehaviorDetune[i].resetKnob();
-                arrKnobBehaviorGain[i].setValueRotation(1f);
+                arrKnobBehaviorGain[i].setRotation(1f);
                 arrSeqStepsOnOff[i].setSelected(false);
             }
             SSStartStop.setText("Start");
@@ -314,30 +343,11 @@ public class SynthaxView implements Initializable {
             mainPane.getChildren().add(ricky);
             SSStartStop.setText("Stop");
             SSStartStop.setStyle("-fx-text-fill: #f78000");
-            bKnobSSRate.setValueRotation(0.38f);
+            bKnobSSRate.setRotation(0.38f);
             spinnerSteps.increment(16);
             synthaxController.startRickRoll();
             easterCounter = 0;
         }
-    }
-
-    public void updateSeqStep(int i, boolean isOn, int velocity, float detuneCent, MidiNote midiNote) {
-        Platform.runLater(() -> {
-            arrSeqStepsOnOff[i].setSelected(isOn);
-            float fVelocity = HelperMath.map(velocity, 0, 127, 0f, 1f);
-            arrKnobBehaviorGain[i].setValueRotation(fVelocity);
-            arrKnobBehaviorDetune[i].setValueRotation(detuneCent);
-            arrKnobBehaviorFreq[i].setNote(midiNote);
-        });
-    }
-
-    public void fakeSequencerStartStopClick() {
-        System.out.println("clicked.");
-        Platform.runLater(() -> {
-            SSStartStop.onMousePressedProperty().get().handle(new MouseEvent(MouseEvent.MOUSE_PRESSED, 0,
-                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
-                    true, true, true, true, true, true, null));
-        });
     }
 
     @FXML
@@ -356,9 +366,123 @@ public class SynthaxView implements Initializable {
     }
 
     @FXML
+    public void onActionSettings() {
+        if (popOverSettings == null || !popOverSettings.isShowing()) {
+            try {
+                URL fxmlLocation = MainApplication.class.getResource("view/Settings-view.fxml");
+                FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
+                Node settingsRoot = fxmlLoader.load();
+                SettingsView settingsView = fxmlLoader.getController();
+                settingsView.populatePresetsBox(synthaxController.getSequencerPresetList(), this);
+                popOverSettings = new PopOver(settingsRoot);
+                popOverSettings.setTitle("Settings");
+                popOverSettings.setDetachable(false);
+                popOverSettings.setHeaderAlwaysVisible(true);
+                popOverSettings.show(btnSettings);
+                popOverSettings.getStyleClass().add("popoverSettings");
+                popOverSettings.getRoot().getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
     public void onActionSearchMidiDevice() {
-        lblNotConnected.setVisible(!lblNotConnected.isVisible());
-        lblConnected.setVisible(!lblConnected.isVisible());
+        if (synthaxController.connectMidi()) {
+            lblConnected.setVisible(true);
+            lblNotConnected.setVisible(false);
+        } else {
+            lblConnected.setVisible(false);
+            lblNotConnected.setVisible(true);
+        }
+
+    }
+
+    public void updateMidiLabel(boolean visable) {
+        Platform.runLater(() -> {
+            if (visable) {
+                lblConnected.setVisible(true);
+                lblNotConnected.setVisible(false);
+            } else {
+                lblConnected.setVisible(false);
+                lblNotConnected.setVisible(true);
+            }
+        });
+    }
+
+    @FXML
+    public void onActionNoiseBypass() {
+        synthaxController.setNoiseActive();
+    }
+
+    @FXML
+    public void onActionLFOBypass() {
+        synthaxController.setLFOActive();
+    }
+
+    @FXML
+    public void onActionReverbBypass() {
+        synthaxController.setReverbActive();
+    }
+
+    @FXML
+    public void onActionDelayBypass() {
+        synthaxController.setDelayActive();
+    }
+
+    @FXML
+    public void onActionEQ1Bypass() {
+        synthaxController.setEQActive(0);
+    }
+
+    @FXML
+    public void onActionEQ2Bypass() {
+        synthaxController.setEQActive(1);
+    }
+
+    @FXML
+    public void onActionEQ3Bypass() {
+        synthaxController.setEQActive(2);
+    }
+
+    @FXML
+    public void onActionHPBypass() {
+        synthaxController.setHPActive();
+    }
+
+    @FXML
+    public void onActionLPBypass() {
+        synthaxController.setLPActive();
+    }
+    //endregion onAction
+
+    //region forwarding from SettingsView (click to open/collapse)
+    public void deletePreset(String text) {
+        synthaxController.deletePreset(text);
+    }
+
+    public void updateSequencerPresetList() {
+        synthaxController.updateSequencerPresetList();
+    }
+    //endregion forwarding from SettingsView
+    public void updateSeqStep(int i, boolean isOn, int velocity, float detuneCent, MidiNote midiNote) {
+        Platform.runLater(() -> {
+            arrSeqStepsOnOff[i].setSelected(isOn);
+            float fVelocity = HelperMath.map(velocity, 0, 127, 0f, 1f);
+            arrKnobBehaviorGain[i].setRotation(fVelocity);
+            arrKnobBehaviorDetune[i].setRotation(detuneCent);
+            arrKnobBehaviorFreq[i].setNote(midiNote);
+        });
+    }
+
+    public void fakeSequencerStartStopClick() {
+        System.out.println("clicked.");
+        Platform.runLater(() -> {
+            SSStartStop.onMousePressedProperty().get().handle(new MouseEvent(MouseEvent.MOUSE_PRESSED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+        });
     }
 
     public void setUpSteps(int x) {
@@ -366,7 +490,7 @@ public class SynthaxView implements Initializable {
             if (x == 0) {
                 for (int i = 0; i < arrKnobBehaviorGain.length; i++) {
                     arrKnobBehaviorDetune[i].resetKnob();
-                    arrKnobBehaviorGain[i].setValueRotation(1f);
+                    arrKnobBehaviorGain[i].setRotation(1f);
                     arrSeqStepsOnOff[i].setSelected((i <= 4) || (i == 7 || i == 10));
                 }
                 arrKnobBehaviorFreq[0].setNote(MidiNote.A3);
@@ -403,19 +527,6 @@ public class SynthaxView implements Initializable {
                     arrKnobBehaviorFreq[i].setNote(MidiNote.D4);
                 }
             }
-        });
-    }
-
-    public void setSeqButtonOrange(int i) {
-        Platform.runLater(() -> {
-            arrSeqStepsOnOff[i].setStyle("-fx-background-color: #f78000");
-        });
-    }
-
-    public void setSeqButtonGray(int i) {
-        Platform.runLater(()-> {
-            arrSeqStepsOnOff[i].setStyle("-fx-background-color: #78736b");
-
         });
     }
 
@@ -480,12 +591,14 @@ public class SynthaxView implements Initializable {
 
     //region Methods for updating linechart (click to open/collapse)
     private void onAttackDrag() {
-        point2ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d);
-        point3ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d + (sliderDecay.getValue() / decayMax) * 10d);
+        point2ADSR.setXValue((sliderAttack.getValue() / SynthaxADSR.ATTACK_MAX) * 10d);
+        point3ADSR.setXValue((sliderAttack.getValue() / SynthaxADSR.ATTACK_MAX) * 10d +
+                (sliderDecay.getValue() / SynthaxADSR.DECAY_MAX) * 10d);
     }
 
     private void onDecayDrag() {
-        point3ADSR.setXValue((sliderAttack.getValue() / attackMax) * 10d + (sliderDecay.getValue() / decayMax) * 10d);
+        point3ADSR.setXValue((sliderAttack.getValue() / SynthaxADSR.ATTACK_MAX) * 10d +
+                (sliderDecay.getValue() / SynthaxADSR.DECAY_MAX) * 10d);
     }
 
     private void onSustainDrag() {
@@ -494,7 +607,7 @@ public class SynthaxView implements Initializable {
     }
 
     private void onReleaseDrag() {
-        point4ADSR.setXValue(40d - (sliderRelease.getValue() / releaseMax) * 10d);
+        point4ADSR.setXValue(40d - (sliderRelease.getValue() / SynthaxADSR.RELEASE_MAX) * 10d);
     }
     //endregion Methods for updating linechart
 
@@ -589,6 +702,7 @@ public class SynthaxView implements Initializable {
                 knobSS14Gain,
                 knobSS15Gain};
     }
+
     private void initStepSequencer() {
         for (int i = 0; i < arrSeqFreqKnobs.length; i++) {
             int finali = i;
@@ -614,7 +728,7 @@ public class SynthaxView implements Initializable {
         for (int i = 0; i < arrSeqGainKnobs.length; i++) {
             int finalI = i;
             arrKnobBehaviorGain[i] = new KnobBehavior(arrSeqGainKnobs[i]);
-            arrKnobBehaviorGain[i].setValueRotation(1.0f);
+            arrKnobBehaviorGain[i].setRotation(1.0f);
             arrSeqGainKnobs[i].setOnMouseDragged(arrKnobBehaviorGain[i]);
             arrKnobBehaviorGain[i].knobValueProperty().addListener((v, oldValue, newValue) -> {
                 synthaxController.setSeqVelocity(finalI, newValue.floatValue());
@@ -622,7 +736,7 @@ public class SynthaxView implements Initializable {
         }
 
         bKnobSSRate = new KnobBehavior(knobSSRate);
-        bKnobSSRate.setValueRotation(0.5f);
+        bKnobSSRate.setRotation(0.5f);
         knobSSRate.setOnMouseDragged(bKnobSSRate);
         bKnobSSRate.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqBPM(newValue.floatValue());
@@ -675,26 +789,25 @@ public class SynthaxView implements Initializable {
             synthaxController.setRandomOnOff(newValue);
         });
 
+        initStepSequencerPresetButtons();
+    }
+
+    private void initStepSequencerPresetButtons() {
+        synthaxController.updateSequencerPresetList();
+        btnSavePreset.setOnAction(actionEvent -> synthaxController.onSavePreset(cmbPresets.getValue()));
+        cmbPresets.setOnAction(actionEvent -> synthaxController.onSelectPreset(cmbPresets.getValue()));
     }
 
     private void initNoise() {
-        tglSwitchNoise.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setNoiseActive(newValue);
-        });
-
         KnobBehavior bKnobNoiseGain = new KnobBehavior(knobNoiseGain);
         knobNoiseGain.setOnMouseDragged(bKnobNoiseGain);
-        bKnobNoiseGain.setValueRotation(0.5f);
+        bKnobNoiseGain.setRotation(0.5f);
         bKnobNoiseGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setNoiseGain(newValue.floatValue());
         });
     }
 
     private void initDelay() {
-        tglSwitchDelay.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setDelayActive(newValue);
-        });
-
         KnobBehavior bKnobDelayFeedback = new KnobBehavior(knobDelayFeedback);
         knobDelayFeedback.setOnMouseDragged(bKnobDelayFeedback);
         bKnobDelayFeedback.knobValueProperty().addListener((v, oldValue, newValue) -> {
@@ -721,10 +834,6 @@ public class SynthaxView implements Initializable {
     }
 
     private void initReverb() {
-        tglSwitchReverb.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setReverbActive(newValue);
-        });
-
         KnobBehavior bKnobReverbSize = new KnobBehavior(knobReverbSize);
         knobReverbSize.setOnMouseDragged(bKnobReverbSize);
         bKnobReverbSize.knobValueProperty().addListener((v, oldValue, newValue) -> {
@@ -745,10 +854,6 @@ public class SynthaxView implements Initializable {
     }
 
     private void initLFO() {
-        tglSwitchLFO.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setLFOActive(newValue);
-        });
-
         KnobBehavior bKnobLFODepth = new KnobBehavior(knobLFODepth);
         knobLFODepth.setOnMouseDragged(bKnobLFODepth);
         bKnobLFODepth.knobValueProperty().addListener((v, oldValue, newValue) -> {
@@ -769,18 +874,6 @@ public class SynthaxView implements Initializable {
     }
 
     private void initFilter() {
-        tglSwitchFilterHP.selectedProperty().addListener((v, oldValue, newValue) -> synthaxController.setHPActive(newValue));
-        tglSwitchFilterLP.selectedProperty().addListener((v, oldValue, newValue) -> synthaxController.setLPActive(newValue));
-        tglSwitchEQ1.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setEQActive(0, newValue);
-        });
-        tglSwitchEQ2.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setEQActive(1, newValue);
-        });
-        tglSwitchEQ3.selectedProperty().addListener((v, oldValue, newValue) -> {
-            synthaxController.setEQActive(2, newValue);
-        });
-
         for (int i = 0; i < arrEQGainKnobs.length; i++) {
             int finalI = i;
             KnobBehaviorDetune b = new KnobBehaviorDetune(arrEQGainKnobs[i]);
@@ -823,73 +916,77 @@ public class SynthaxView implements Initializable {
     private void initADSR() {
         setupLineChart();
 
-        sliderAttack.setMax(attackMax);
-        sliderAttack.setMin(10);
-        sliderAttack.setBlockIncrement(50);
-        sliderAttack.valueProperty().addListener((observableValue, number, t1) -> {
-            ADSRValues.setAttackValue(t1.floatValue());
+        sliderAttack.setMax(SynthaxADSR.ATTACK_MAX);
+        sliderAttack.setMin(SynthaxADSR.ATTACK_MIN);
+        sliderAttack.valueProperty().addListener((observableValue, number, newValue) -> {
+            SynthaxADSR.setAttackValue(newValue.floatValue());
             onAttackDrag();
         });
 
-        sliderDecay.setMax(1500);
-        sliderDecay.setMin(10);
-        sliderDecay.setBlockIncrement(50);
-        sliderDecay.valueProperty().addListener((observableValue, number, t1) -> {
-            ADSRValues.setDecayValue(t1.floatValue());
+        sliderDecay.setMax(SynthaxADSR.DECAY_MAX);
+        sliderDecay.setMin(SynthaxADSR.DECAY_MIN);
+        sliderDecay.valueProperty().addListener((observableValue, number, newValue) -> {
+            SynthaxADSR.setDecayValue(newValue.floatValue());
             onDecayDrag();
         });
 
-        sliderSustain.setMax(1);
-        sliderSustain.setValue(1);
-        sliderSustain.setBlockIncrement(0.1);
-        sliderSustain.valueProperty().addListener((observableValue, number, t1) -> {
-            ADSRValues.setSustainValue(t1.floatValue());
+        sliderSustain.setMax(SynthaxADSR.SUSTAIN_MAX);
+        sliderSustain.setValue(SynthaxADSR.getSustainValue());
+        sliderSustain.valueProperty().addListener((observableValue, number, newValue) -> {
+            SynthaxADSR.setSustainValue(newValue.floatValue());
             onSustainDrag();
         });
 
-        sliderRelease.setMax(2000);
-        sliderRelease.setMin(10);
-        sliderRelease.setBlockIncrement(50);
-        sliderRelease.valueProperty().addListener((observableValue, number, t1) -> {
-            ADSRValues.setReleaseValue(t1.floatValue());
+        sliderRelease.setMax(SynthaxADSR.RELEASE_MAX);
+        sliderRelease.setMin(SynthaxADSR.RELEASE_MIN);
+        sliderRelease.valueProperty().addListener((observableValue, number, newValue) -> {
+            SynthaxADSR.setReleaseValue(newValue.floatValue());
             onReleaseDrag();
         });
     }
+
     private void initKeyHash() {
-        keyStatus.put(KeyCode.A, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.W, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.S, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.E, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.D, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.F, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.T, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.G, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.Y, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.H, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.U, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.J, new AtomicBoolean(false));
-        keyStatus.put(KeyCode.K, new AtomicBoolean(false));
+        keyStatus.put("a", new AtomicBoolean(false));
+        keyStatus.put("w", new AtomicBoolean(false));
+        keyStatus.put("s", new AtomicBoolean(false));
+        keyStatus.put("e", new AtomicBoolean(false));
+        keyStatus.put("d", new AtomicBoolean(false));
+        keyStatus.put("f", new AtomicBoolean(false));
+        keyStatus.put("t", new AtomicBoolean(false));
+        keyStatus.put("g", new AtomicBoolean(false));
+        keyStatus.put("y", new AtomicBoolean(false));
+        keyStatus.put("h", new AtomicBoolean(false));
+        keyStatus.put("u", new AtomicBoolean(false));
+        keyStatus.put("j", new AtomicBoolean(false));
+        keyStatus.put("k", new AtomicBoolean(false));
+        keyStatus.put("l", new AtomicBoolean(false));
+        keyStatus.put("ö", new AtomicBoolean(false));
+        keyStatus.put("ä", new AtomicBoolean(false));
+        keyStatus.put("o", new AtomicBoolean(false));
+        keyStatus.put("p", new AtomicBoolean(false));
     }
+
     private void initKeyBoardListeners() {
         mainPane.setOnKeyPressed(event -> {
-            KeyCode keyCode = event.getCode();
-            // If it's a valid key, send a noteOn message.
-            if (keyStatus.containsKey(keyCode)) {
-                if (keyStatus.get(keyCode).compareAndSet(false, true)) {
-                    MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
+            String code = event.getText();
+            if (keyStatus.containsKey(code)) {
+                if (keyStatus.get(code).compareAndSet(false, true)) {
+                    MidiNote note = MidiHelpers.stringToMidi(code);
                     synthaxController.noteOn(note, 127);
                 }
             }
         });
         mainPane.setOnKeyReleased(event -> {
-            KeyCode keyCode = event.getCode();
-            if (keyStatus.containsKey(keyCode)) {
-                if (keyStatus.get(keyCode).compareAndSet(true, false)) {
-                    MidiNote note = MidiHelpers.keyCodeToMidi(keyCode);
+            String code = event.getText();
+            if (keyStatus.containsKey(code)) {
+                if (keyStatus.get(code).compareAndSet(true, false)) {
+                    MidiNote note = MidiHelpers.stringToMidi(code);
                     synthaxController.noteOff(note);
                 }
             }
         });
     }
+
+
     //endregion initialize methods
 }

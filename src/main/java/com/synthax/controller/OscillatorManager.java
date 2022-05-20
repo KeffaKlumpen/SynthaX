@@ -57,15 +57,6 @@ public class OscillatorManager {
         noiseController.noteOff(midiNote);
     }
 
-    public void releaseAllVoices() {
-        for (OscillatorController osc : oscillatorControllers) {
-            int voiceCount = osc.getVoiceCount();
-            for (int i = 0; i < voiceCount; i++) {
-                osc.stopVoice(i);
-            }
-        }
-    }
-
     /**
      * Setup input and output connections for the provided Oscillator and it's neighbours.
      * @param oscillatorController Oscillator to setup
@@ -219,9 +210,9 @@ public class OscillatorManager {
         }
     }
 
-    public void setDelayActive(boolean active) {
+    public void setDelayActive() {
         for (OscillatorController controller : oscillatorControllers) {
-            controller.setDelayActive(active);
+            controller.setDelayActive();
         }
     }
     // endregion Delay-setters

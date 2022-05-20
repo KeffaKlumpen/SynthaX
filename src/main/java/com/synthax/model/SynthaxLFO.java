@@ -7,7 +7,12 @@ import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.*;
 
-public class SynthLFO {
+/**
+ * An LFO that modifies the amplitude of an incoming signal as determined by the depth and rate of the LFO.
+ * Specify the rate and depth with the setRate()- and setDepth()-methods.
+ * @author Joel Eriksson Sinclair
+ */
+public class SynthaxLFO {
     private static final float MIN_RATE = 0.1f;
     private static final float MAX_RATE = 20f;
     private static final float DEPTH_DISABLE = 0f;
@@ -19,8 +24,7 @@ public class SynthLFO {
     private float savedDepth = DEPTH_DISABLE;
     private boolean isActive = false;
 
-
-    public SynthLFO() {
+    public SynthaxLFO() {
         AudioContext ac = AudioContext.getDefaultContext();
         depth = new Static(DEPTH_DISABLE);
         lfo = new WavePlayer(ac, MIN_RATE, Buffer.SINE);
@@ -78,8 +82,8 @@ public class SynthLFO {
         }
     }
 
-    public void setActive(boolean newActive) {
-        isActive = newActive;
+    public void setActive() {
+        isActive = !isActive;
 
         if(isActive) {
             depth.setValue(savedDepth);

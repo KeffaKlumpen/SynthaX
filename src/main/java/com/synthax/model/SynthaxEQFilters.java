@@ -8,7 +8,7 @@ import net.beadsproject.beads.ugens.BiquadFilter;
  * Manages filters that modify the amplitude of specific frequencies.
  * @author Joel Eriksson Sinclair
  */
-public class EQFilters {
+public class SynthaxEQFilters {
     private static final float HP_MIN_FREQ = 400f;
     private static final float HP_MAX_FREQ = 2000f;
     private static final float LP_MIN_FREQ = 100f;
@@ -42,7 +42,7 @@ public class EQFilters {
     /**
      * Sets up the internal chain. Send the incoming audio through the HP-, EQ- and finally LP-filters.
      */
-    public EQFilters() {
+    public SynthaxEQFilters() {
         highPassFilters = new BiquadFilter[FILTER_STACK_COUNT];
         for (int i = 0; i < FILTER_STACK_COUNT; i++) {
             BiquadFilter filter = new BiquadFilter(1, BiquadFilter.BESSEL_HP);
@@ -92,31 +92,29 @@ public class EQFilters {
             setHPfreq(mapped);
         } else {
             savedHPCutoff = mapped;
-            System.out.println("Saved HP: " + savedHPCutoff);
         }
     }
 
-    public void setHPActive(boolean newActive) {
-        hpActive = newActive;
+    public void setHPActive() {
+        hpActive = !hpActive;
 
         if(hpActive) {
             setHPfreq(savedHPCutoff);
         } else {
             savedHPCutoff = highPassFilters[0].getFrequency();
-            System.out.println("Saved HP: " + savedHPCutoff);
             setHPfreq(HP_DISABLED_FREQ);
         }
     }
 
-    public void setEQActive(int i, boolean newVal) {
-        System.out.println("EQActive: " + newVal);
-        eqActive[i] = newVal;
+    public void setEQActive(int i) {
+        //System.out.println("EQActive: " + !eqActive[i]);
+        eqActive[i] = !eqActive[i];
         if(eqActive[i]) {
             eqFilters[i].setGain(eqSavedGain[i]);
         }
         else {
             eqSavedGain[i] = eqFilters[i].getGain();
-            System.out.println("saved: " + eqSavedGain[i]);
+            //System.out.println("saved: " + eqSavedGain[i]);
             eqFilters[i].setGain(EQ_GAIN_DISABLED);
         }
     }
@@ -124,7 +122,7 @@ public class EQFilters {
     public void setEQGain(int i, float newVal) {
         float gain = HelperMath.map(newVal, -50f, 50f, EQ_GAIN_MIN, EQ_GAIN_MAX);
         if(eqActive[i]) {
-            System.out.println("EQGain: " + gain);
+            //System.out.println("EQGain: " + gain);
             eqFilters[i].setGain(gain);
         } else {
             eqSavedGain[i] = gain;
@@ -133,7 +131,7 @@ public class EQFilters {
 
     public void setEQRange(int i, float newVal) {
         float qVal = HelperMath.map(newVal, 0f, 1f, EQ_RANGE_MIN, EQ_RANGE_MAX);
-        System.out.println("EQqVal: " + qVal);
+        //System.out.println("EQqVal: " + qVal);
         eqFilters[i].setQ(qVal);
     }
 
@@ -149,18 +147,16 @@ public class EQFilters {
             setLPfreq(mapped);
         } else {
             savedLPCutoff = mapped;
-            System.out.println("Saved LP: " + savedHPCutoff);
         }
     }
 
-    public void setLPActive(boolean newActive) {
-        lpActive = newActive;
+    public void setLPActive() {
+        lpActive = !lpActive;
 
         if(lpActive) {
             setLPfreq(savedLPCutoff);
         } else {
             savedLPCutoff = lowPassFilters[0].getFrequency();
-            System.out.println("Saved LP: " + savedLPCutoff);
             setLPfreq(LP_DISABLED_FREQ);
         }
     }

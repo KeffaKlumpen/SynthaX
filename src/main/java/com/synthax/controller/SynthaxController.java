@@ -1,9 +1,9 @@
 package com.synthax.controller;
 
-import com.synthax.model.EQFilters;
+import com.synthax.model.SynthaxEQFilters;
 import com.synthax.model.Midi;
-import com.synthax.model.SynthLFO;
-import com.synthax.model.SynthReverb;
+import com.synthax.model.SynthaxLFO;
+import com.synthax.model.SynthaxReverb;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.Waveforms;
 import com.synthax.model.sequencer.Sequencer;
@@ -26,19 +26,20 @@ import java.util.Random;
  * @author Viktor Lenberg
  */
 public class SynthaxController {
-    private SynthaxView synthaxView;
-    private SeqPresetLoader seqPresetLoader;
+    private final SynthaxView synthaxView;
+    private final SeqPresetLoader seqPresetLoader;
 
     private final Gain masterGain;
     private final Glide masterGainGlide;
-    private SynthLFO synthLFO;
+    private final SynthaxLFO synthaxLFO;
     private final OscillatorManager oscillatorManager;
-    private final EQFilters filters;
+    private final SynthaxEQFilters filters;
     private final Sequencer sequencer;
-    private SynthReverb reverb;
+    private final SynthaxReverb reverb;
     private boolean randomFreq = true;
     private boolean randomGain = true;
     private boolean randomOnOff = true;
+    private Midi midi;
 
     /**
      * Setup AudioContext, OscillatorManager and defines the chain of effects and sounds
@@ -59,36 +60,31 @@ public class SynthaxController {
         oscillatorManager = OscillatorManager.getInstance();
         Gain oscCombined = oscillatorManager.getFinalOutput();
 
-        synthLFO = new SynthLFO();
-        synthLFO.setInput(oscCombined);
+        synthaxLFO = new SynthaxLFO();
+        synthaxLFO.setInput(oscCombined);
 
-        filters = new EQFilters();
-        filters.addInput(synthLFO.getOutput());
+        filters = new SynthaxEQFilters();
+        filters.addInput(synthaxLFO.getOutput());
 
-        reverb = new SynthReverb(filters.getOutput());
+        reverb = new SynthaxReverb(filters.getOutput());
         masterGain.addInput(reverb.getOutput());
 
         // Send to audio-device
         ac.out.addInput(masterGain);
         ac.start();
 
-        new Midi();
+        midi = new Midi(this);
+        synthaxView.updateMidiLabel(midi.connectMidi());
     }
 
     //region OscillatorManager (click to open/collapse)
     public void moveOscillatorDown(OscillatorController oscillatorController) {
         oscillatorManager.moveOscillatorDown(oscillatorController);
-
-        // TESTING PRESETS: //
-        //onLoadNextPreset();
     }
 
 
     public void moveOscillatorUp(OscillatorController oscillatorController) {
         oscillatorManager.moveOscillatorUp(oscillatorController);
-
-        // TESTING PRESETS: //
-        //onSavePresetAsNew();
     }
 
     public void addOscillator(OscillatorController oscillatorController) {
@@ -111,10 +107,6 @@ public class SynthaxController {
     public void noteOff(MidiNote midiNote){
         oscillatorManager.noteOff(midiNote);
     }
-
-    public void releaseAllVoices() {
-        oscillatorManager.releaseAllVoices();
-    }
     //endregion MIDI-handling
 
     //region Filters (click to open/collapse)
@@ -122,12 +114,12 @@ public class SynthaxController {
         filters.setHPCutoff(cutoff);
     }
 
-    public void setHPActive(boolean newActive) {
-        filters.setHPActive(newActive);
+    public void setHPActive() {
+        filters.setHPActive();
     }
 
-    public void setEQActive(int i, boolean newVal) {
-        filters.setEQActive(i, newVal);
+    public void setEQActive(int i) {
+        filters.setEQActive(i);
     }
 
     public void setEQGain(int i, float newVal) {
@@ -146,26 +138,26 @@ public class SynthaxController {
         filters.setLPCutoff(cutoff);
     }
 
-    public void setLPActive(boolean newActive) {
-        filters.setLPActive(newActive);
+    public void setLPActive() {
+        filters.setLPActive();
     }
     //endregion Filters
 
     //region LFO (click to open/collapse)
     public void setLFODepth(float depth) {
-        synthLFO.setDepth(depth);
+        synthaxLFO.setDepth(depth);
     }
 
     public void setLFORate(float rate) {
-        synthLFO.setRate(rate);
+        synthaxLFO.setRate(rate);
     }
 
     public void setLFOWaveform(Waveforms waveform) {
-        synthLFO.setWaveform(waveform);
+        synthaxLFO.setWaveform(waveform);
     }
 
-    public void setLFOActive(boolean newActive) {
-        synthLFO.setActive(newActive);
+    public void setLFOActive() {
+        synthaxLFO.setActive();
     }
     //endregion LFO
 
@@ -174,8 +166,8 @@ public class SynthaxController {
         oscillatorManager.getNoiseController().setGain(gain);
     }
 
-    public void setNoiseActive(boolean isActive) {
-        oscillatorManager.getNoiseController().setActive(isActive);
+    public void setNoiseActive() {
+        oscillatorManager.getNoiseController().setActive();
     }
     //endregion Noise
 
@@ -255,7 +247,7 @@ public class SynthaxController {
         Random random  = new Random();
         for (int i = 0; i < length; i++) {
             int onOff = random.nextInt(2);
-            synthaxView.setSequencerStepsOnOff(onOff == 0, i);
+            synthaxView.setSequencerStepOnOff(onOff == 0, i);
         }
     }
     public void randomizeFreq(int length) {
@@ -267,7 +259,7 @@ public class SynthaxController {
             }
             out /= 4;
             out += 21;
-            synthaxView.setSequencerFreqKnobs(MidiNote.values()[out], i);
+            synthaxView.setSequencerStepFreq(MidiNote.values()[out], i);
         }
     }
     public void randomizeGain(int length) {
@@ -275,11 +267,11 @@ public class SynthaxController {
         for (int i = 0; i < length; i++) {
             int odds = random.nextInt(100);
             if (odds < 70) {
-                synthaxView.setSequencerGain(1, i);
+                synthaxView.setSequencerStepGain(1, i);
             } else {
                 int b = random.nextInt(100);
                 float f = b / 100f;
-                synthaxView.setSequencerGain(f, i);
+                synthaxView.setSequencerStepGain(f, i);
             }
         }
     }
@@ -289,9 +281,9 @@ public class SynthaxController {
     }
 
     //region SequencerPreset (click to expand/collapse)
-    public void onLoadNextPreset() {
+    public void onSavePreset(String currentPresetName) {
         // delegate the preset-loading to separate thread
-        Thread loader = new Thread(new Runnable() {
+        Thread saver = new Thread(new Runnable() {
             @Override
             public void run() {
                 // If sequencer is playing, stop it and do the loading after
@@ -305,75 +297,54 @@ public class SynthaxController {
                     }
                 }
                 if(sequencerThread != null && sequencerThread.isAlive()) {
-                    System.err.println("CANT LOAD WHILE SEQUENCER IS RUNNING!");
+                    System.err.println("CANT SAVE WHILE SEQUENCER IS RUNNING!");
                     return;
                 }
 
-                seqPresetLoader.loadNextPreset();
+                seqPresetLoader.savePreset(currentPresetName);
+            }
+        });
+        saver.start();
+    }
 
-                // update GUI
-                SequencerStep[] steps = sequencer.getSteps();
-                for (int i = 0; i < steps.length; i++) {
-                    SequencerStep step = steps[i];
-                    updateSeqStepGUI(i, step.isOn(), step.getVelocity(), step.getDetuneCent(), step.getMidiNote());
+    public void onSelectPreset(String presetName) {
+        Thread loader = new Thread(() -> {
+            // If sequencer is playing, stop it and do the loading after
+            Thread sequencerThread = sequencer.getThread();
+            if(sequencerThread != null) {
+                synthaxView.fakeSequencerStartStopClick();
+                try {
+                    sequencerThread.join(250);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
+            if(sequencerThread != null && sequencerThread.isAlive()) {
+                System.err.println("CANT LOAD WHILE SEQUENCER IS RUNNING!");
+                return;
+            }
+
+            seqPresetLoader.loadPreset(presetName);
+            updateSequencerStepsGUI();
         });
         loader.start();
     }
 
-    public void onSavePresetAsNew() {
-        // TODO: 2022-05-12 Move everything below this TODO to it's own method "onSavePresetClicked"
-        // delegate the preset-loading to separate thread
-        Thread saver = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // If sequencer is playing, stop it and do the loading after
-                Thread sequencerThread = sequencer.getThread();
-                if(sequencerThread != null) {
-                    synthaxView.fakeSequencerStartStopClick();
-                    try {
-                        sequencerThread.join(250);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if(sequencerThread != null && sequencerThread.isAlive()) {
-                    System.err.println("CANT SAVE WHILE SEQUENCER IS RUNNING!");
-                    return;
-                }
-
-                seqPresetLoader.savePresetAsNew("preset");
-            }
-        });
-        saver.start();
+    public void updateSequencerPresetList() {
+        String[] presetNames = seqPresetLoader.getPresetNames();
+        synthaxView.setSequencerPresetList(presetNames);
     }
 
-    public void onSavePreset() {
-        // TODO: 2022-05-12 Move everything below this TODO to it's own method "onSavePresetClicked"
-        // delegate the preset-loading to separate thread
-        Thread saver = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // If sequencer is playing, stop it and do the loading after
-                Thread sequencerThread = sequencer.getThread();
-                if(sequencerThread != null) {
-                    synthaxView.fakeSequencerStartStopClick();
-                    try {
-                        sequencerThread.join(250);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if(sequencerThread != null && sequencerThread.isAlive()) {
-                    System.err.println("CANT SAVE WHILE SEQUENCER IS RUNNING!");
-                    return;
-                }
+    public String[] getSequencerPresetList() {
+        return seqPresetLoader.getPresetNames();
+    }
 
-                seqPresetLoader.savePreset();
-            }
-        });
-        saver.start();
+    private void updateSequencerStepsGUI() {
+        SequencerStep[] steps = sequencer.getSteps();
+        for (int i = 0; i < steps.length; i++) {
+            SequencerStep step = steps[i];
+            updateSeqStepGUI(i, step.isOn(), step.getVelocity(), step.getDetuneCent(), step.getMidiNote());
+        }
     }
     //endregion sequencer presets
     //endregion sequencer
@@ -395,13 +366,13 @@ public class SynthaxController {
         oscillatorManager.setDelayLevel(levelValue);
     }
 
-    public void setDelayActive(boolean active) {
-        oscillatorManager.setDelayActive(active);
+    public void setDelayActive() {
+        oscillatorManager.setDelayActive();
     }
     //endregion Delay
     //region Reverb (click to open/collapse)
-    public void setReverbActive(boolean active) {
-        reverb.setActive(active);
+    public void setReverbActive() {
+        reverb.setActive();
     }
 
     public void startRickRoll() {
@@ -426,5 +397,17 @@ public class SynthaxController {
     // endregion Reverb
     public void setMasterGain(float gain) {
         masterGainGlide.setValue(gain);
+    }
+
+    public boolean connectMidi() {
+        return midi.connectMidi();
+    }
+
+    public void updateMidiLabel(boolean visable) {
+        synthaxView.updateMidiLabel(visable);
+    }
+
+    public void deletePreset(String text) {
+        seqPresetLoader.deleteFile(text);
     }
 }

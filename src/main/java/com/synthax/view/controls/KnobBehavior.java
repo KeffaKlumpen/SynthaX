@@ -1,4 +1,4 @@
-package com.synthax.model.controls;
+package com.synthax.view.controls;
 
 import com.synthax.util.HelperMath;
 import javafx.beans.property.*;
@@ -17,11 +17,11 @@ import java.math.RoundingMode;
  */
 public class KnobBehavior implements EventHandler<MouseEvent> {
 
-    private Button knob;
-    private float knobMaxValue = 1;
-    private float knobMinValue = 0;
+    private final Button knob;
+    private final float knobMaxValue = 1;
+    private final float knobMinValue = 0;
     private double lastMousePos;
-    private FloatProperty knobValue = new SimpleFloatProperty(this,"rotation", 0);
+    private final FloatProperty knobValue = new SimpleFloatProperty(this,"rotation", 0);
 
     public KnobBehavior(Button knob) {
         this.knob = knob;
@@ -51,7 +51,7 @@ public class KnobBehavior implements EventHandler<MouseEvent> {
         return knobValue;
     }
 
-    public void setValueRotation(float value) {
+    public void setRotation(float value) {
         knob.setRotate(HelperMath.map(value, 0, 1, 210, 510));
         knobValue.setValue(value);
     }
