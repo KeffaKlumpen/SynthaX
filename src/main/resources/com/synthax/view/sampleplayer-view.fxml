@@ -29,7 +29,7 @@
          </children>
       </AnchorPane>
       <VBox fx:id="vBoxPadView" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="250.0" />
-      <GridPane fx:id="gridPane" layoutX="103.0" layoutY="332.0" prefHeight="268.0" prefWidth="495.0">
+      <GridPane fx:id="gridPane" layoutX="121.0" layoutY="317.0" prefHeight="270.0" prefWidth="480.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
