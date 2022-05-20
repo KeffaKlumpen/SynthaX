@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * This class launches the application
@@ -30,9 +29,7 @@ public class MainApplication extends Application {
 
 
         // auto close Synth when we exit window
-        stage.setOnCloseRequest(event -> {
-            System.exit(0);
-        });
+        stage.setOnCloseRequest(event -> System.exit(0));
     }
 
     public static void main(String[] args) {
