@@ -1,6 +1,6 @@
 package com.synthax.sample_player.model;
 
-import com.synthax.model.SynthReverb;
+import com.synthax.model.SynthaxReverb;
 import net.beadsproject.beads.data.Sample;
 import net.beadsproject.beads.data.audiofile.FileFormatException;
 import net.beadsproject.beads.data.audiofile.OperationUnsupportedException;
@@ -14,14 +14,14 @@ public class Pad {
 
     private SamplePlayer samplePlayer;
     private Gain padGain;
-    private SynthReverb reverb;
+    private SynthaxReverb reverb;
     private String fileName;
 
     public Pad(String path) {
         setFileName(path);
         padGain = new Gain(1, 0.0f);
         initPad(path);
-        reverb = new SynthReverb(padGain);
+        reverb = new SynthaxReverb(padGain);
     }
 
     private void initPad(String path) {
