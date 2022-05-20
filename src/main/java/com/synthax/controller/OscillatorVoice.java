@@ -1,12 +1,7 @@
-/*
-  Author: Joel Eriksson Sinclair
-  ID: ai7892
-  Study program: Sys 21h
-*/
-
 package com.synthax.controller;
 
 import com.synthax.model.Delay;
+import com.synthax.model.enums.MidiNote;
 import com.synthax.model.oscillator.OscillatorLFO;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Envelope;
@@ -21,16 +16,23 @@ import net.beadsproject.beads.ugens.WavePlayer;
  * @author Teodor Wegestål
  */
 public class OscillatorVoice {
+    private final OscillatorController controller;
+    private final int voiceIndex;
+
     private final WavePlayer wavePlayer;
     private final Gain naturalGain;
     private final Envelope gainEnv;
-    private final Gain normalizedGain;
     private final Glide normGainGlide;
+
     private final OscillatorLFO oscillatorLFO;
     private final Delay delay;
-    private float realFrequency;
 
-    public OscillatorVoice(Buffer waveBuffer){
+    private MidiNote currentNote;
+
+    public OscillatorVoice(Buffer waveBuffer, OscillatorController controller, int voiceIndex){
+        this.controller = controller;
+        this.voiceIndex = voiceIndex;
+
         oscillatorLFO = new OscillatorLFO();
         wavePlayer = new WavePlayer(oscillatorLFO.getFrequencyModulation(), waveBuffer);
 
@@ -39,35 +41,52 @@ public class OscillatorVoice {
         naturalGain.addInput(wavePlayer);
 
         normGainGlide = new Glide(0f, 10f);
-        normalizedGain = new Gain(1, normGainGlide);
+        Gain normalizedGain = new Gain(1, normGainGlide);
         normalizedGain.addInput(naturalGain);
 
         delay = new Delay(normalizedGain);
     }
 
     /**
-     * Sets the voice to generate sound of the given frequency.
+     * Sets the voice to generate sound of the given note. Amplitude modifed over time by the other parameters.
      * The frequency is altered by the LFO
      * Amplitude is altered by the ADSR-envelope
      * The echo is altered by the Delay-envelope
      */
-    public void playFreq(float freq, float maxGain, float attackTime, float sustainGain, float decayTime, float realFrequency){
-        this.realFrequency = realFrequency;
-        oscillatorLFO.setPlayedFrequency(freq);
+    public void noteOn(MidiNote note, float detunedFrequency, float maxGain, float attackTime, float sustainGain, float decayTime) {
+        currentNote = note;
+
+        oscillatorLFO.setPlayedFrequency(detunedFrequency);
+
         gainEnv.clear();
         gainEnv.addSegment(maxGain, attackTime);
         gainEnv.addSegment(sustainGain, decayTime);
-
 
         delay.getEnvelope().clear();
         delay.getEnvelope().addSegment(1f, 10f);
         delay.getEnvelope().addSegment(1f, delay.getFeedbackDuration());
         delay.getEnvelope().addSegment(0f, 10f);
+
+        if(sustainGain <= 0.01f) {
+            float maxPlayTime = attackTime + decayTime;
+            controller.notifyAvailableVoice(voiceIndex, maxPlayTime);
+        }
     }
-    public void stopPlay(float releaseTime){
+
+    public void noteOff(MidiNote note, float releaseTime) {
+        // IF midiNote = oldMidiNote..
+        if(note == currentNote) {
+            gainEnv.clear();
+            gainEnv.addSegment(0f, releaseTime);
+
+            controller.notifyAvailableVoice(voiceIndex, releaseTime);
+        }
+    }
+
+    public void stopPlay(){
         gainEnv.clear();
-        gainEnv.addSegment(0f, releaseTime);
     }
+
     public void bypass(boolean onOff){
         wavePlayer.pause(!onOff);
     }
@@ -93,8 +112,8 @@ public class OscillatorVoice {
     }
 
     public void updateDetuneValue(float detuneCent) {
-        float freq = applyDetune(realFrequency, detuneCent);
-        oscillatorLFO.setPlayedFrequency(freq);
+        float detunedFrequency = applyDetune(currentNote.getFrequency(), detuneCent);
+        oscillatorLFO.setPlayedFrequency(detunedFrequency);
     }
 
     private float applyDetune(float frequency, float detuneCent) {
