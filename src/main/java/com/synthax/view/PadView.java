@@ -21,6 +21,7 @@ public class PadView implements Initializable {
     @FXML private Button knobPadReverbSize;
     @FXML private Button knobPadReverbTone;
     @FXML private Button knobPadReverbAmount;
+
     @FXML private ComboBox<String> cmbAvailableSamples;
 
 
@@ -48,7 +49,6 @@ public class PadView implements Initializable {
                 if (sampleName.endsWith(".wav")) {
                     sampleName = sampleName.substring(0, sampleName.length() - 4);
                     samples.add(sampleName);
-                    System.out.println(sampleName);
                 }
             }
         }
@@ -87,5 +87,6 @@ public class PadView implements Initializable {
 
     @FXML
     private void onActionReverbBypass(MouseEvent mouseEvent) {
+
     }
 }

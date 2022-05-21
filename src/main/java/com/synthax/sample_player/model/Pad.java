@@ -11,6 +11,11 @@ import net.beadsproject.beads.ugens.SamplePlayer;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Class containing data for a single Pad in the Sample Player
+ * @author Teodor Wegestål
+ * @author Viktor Lenberg
+ */
 public class Pad {
 
     private SamplePlayer samplePlayer;

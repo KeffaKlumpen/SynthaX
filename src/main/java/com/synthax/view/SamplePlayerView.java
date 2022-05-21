@@ -21,8 +21,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Class for Sample Player view
+ * This class contains all the GUI components and their values
+ * Handles events when GUI components are interacted with and forwards data
+ * @author Teodor Wegestål
+ * @author Viktor Lenberg
+ * @author Axel Nilsson
+ */
 public class SamplePlayerView implements Initializable {
-
+    // region FXML Pad Buttons (click to open/collapse)
     @FXML private Button pad0;
     @FXML private Button pad1;
     @FXML private Button pad2;
@@ -32,7 +40,9 @@ public class SamplePlayerView implements Initializable {
     @FXML private Button pad6;
     @FXML private Button pad7;
     @FXML private Button pad8;
+    //endregion FXML Pad Buttons
 
+    //region FXML Sequencer Variables (click to open/collapse)
     @FXML private Label lblChannel1;
     @FXML private Label lblChannel2;
     @FXML private Label lblChannel3;
@@ -47,12 +57,12 @@ public class SamplePlayerView implements Initializable {
 
     @FXML private Button knobSamplePlayerRate;
     @FXML private Button btnSamplePlayerStart;
-    private KnobBehavior behaviorRate;
+    //endregion FXML Sequencer Variables
 
     @FXML private Slider sliderSamplePlayerGain;
-
     @FXML private VBox vBoxPadView = new VBox();
 
+    private KnobBehavior behaviorRate;
     private SamplePlayerController samplePlayerController;
 
     @Override
@@ -64,7 +74,7 @@ public class SamplePlayerView implements Initializable {
         initSamplePlayerSequencer();
         samplePlayerController = new SamplePlayerController(this);
     }
-
+    //region Initialize methods (click to open/collapse)
     private void initSamplePlayerSequencer() {
         behaviorRate = new KnobBehavior(knobSamplePlayerRate);
         behaviorRate.setRotation(0.5f);
@@ -106,7 +116,7 @@ public class SamplePlayerView implements Initializable {
             e.printStackTrace();
         }
     }
-
+    //endregion Initialize methods
     private void initPadButtons() {
         pad0.setOnAction(actionEvent -> samplePlayerController.playPad(0));
         pad1.setOnAction(actionEvent -> samplePlayerController.playPad(1));

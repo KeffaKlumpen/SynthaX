@@ -5,6 +5,11 @@ import com.synthax.view.SamplePlayerView;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.ugens.Gain;
 
+/**
+ * Controller class for the Sample Player
+ * @author Teodor Wegestål
+ * @author Viktor Lenberg
+ */
 public class SamplePlayerController {
     
     private final Gain masterGain;
