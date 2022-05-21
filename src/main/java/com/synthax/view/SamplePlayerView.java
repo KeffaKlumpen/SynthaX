@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
- * Class for Sample Player view
+ * Class for Sample Player View
  * This class contains all the GUI components and their values
  * Handles events when GUI components are interacted with and forwards data
  * @author Teodor Wegestål
@@ -85,6 +85,7 @@ public class SamplePlayerView implements Initializable {
         initPadGain();
         initReverb();
         initAvailableSamples();
+        initPadGainValues();
     }
     //region Initialize methods (click to open/collapse)
     private void initSamplePlayerSequencer() {
@@ -103,7 +104,6 @@ public class SamplePlayerView implements Initializable {
     private void initAvailableSamples() {
         cmbAvailableSamples.setItems(FXCollections.observableList(Arrays.stream(getAvailableSamples()).toList()));
         cmbAvailableSamples.valueProperty().addListener((observableValue, s, t1) -> samplePlayerController.setPadSample(t1));
-        System.out.println("Here");
     }
 
     private String[] getAvailableSamples() {
@@ -154,6 +154,10 @@ public class SamplePlayerView implements Initializable {
         behaviorPadGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
             samplePlayerController.setPadGain(newValue.floatValue());
         });
+    }
+
+    private void initPadGainValues() {
+        samplePlayerController.setAllGainValues();
     }
 
     private void initSamplePlayerGain() {

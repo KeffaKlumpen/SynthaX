@@ -23,7 +23,7 @@ public class Pad {
     private SynthaxReverb reverb;
     private String fileName;
     private SamplePlayerController samplePlayerController;
-    private int padIndex;
+    private final int padIndex;
 
     public Pad(String path, SamplePlayerController samplePlayerController, int padIndex) {
         this.padIndex = padIndex;

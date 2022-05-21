@@ -52,7 +52,6 @@ public class SamplePlayerController {
         for (Pad p : pads) {
             masterGain.addInput(p.getPadOutput());
         }
-        currentPad = pads[0];
         fillSourceMap(sourceClap, sourceHiHat, sourceKick, sourceSnare);
     }
 
@@ -109,5 +108,17 @@ public class SamplePlayerController {
 
     public void bypassPadReverb() {
         currentPad.bypassReverb();
+    }
+
+    public void setAllGainValues() {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        for (Pad p : pads) {
+            p.setGain(0.5f);
+        }
+        setCurrentPad(0);
     }
 }
