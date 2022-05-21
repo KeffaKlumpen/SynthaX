@@ -90,7 +90,7 @@ public class Dialogs {
 
         Label context = new Label(contextText);
         context.setFont(new Font("Handel Gothic",17));
-        ImageView iv = new ImageView(new Image(MainApplication.class.getResource("Images/alertIcon.png").toExternalForm()));
+        ImageView iv = new ImageView(new Image(MainApplication.class.getResource("Images/alertIconOrange.png").toExternalForm()));
         iv.setFitHeight(80);
         iv.setFitWidth(80);
 
@@ -111,7 +111,7 @@ public class Dialogs {
         });
 
         HBox topPane = new HBox(80);
-        topPane.setPadding(new Insets(10,10,0,10));
+        topPane.setPadding(new Insets(10,10,0,20));
         topPane.getChildren().addAll(context, iv);
         topPane.setAlignment(Pos.CENTER);
 
