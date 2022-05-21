@@ -121,15 +121,15 @@ public class SamplePlayerView implements Initializable {
 
     public void setSequencerLabel(String fileName, int padIndex) {
         switch (padIndex) {
-            case 1 -> lblChannel1.setText(fileName);
-            case 2 -> lblChannel2.setText(fileName);
-            case 3 -> lblChannel3.setText(fileName);
-            case 4 -> lblChannel4.setText(fileName);
-            case 5 -> lblChannel5.setText(fileName);
-            case 6 -> lblChannel6.setText(fileName);
-            case 7 -> lblChannel7.setText(fileName);
-            case 8 -> lblChannel8.setText(fileName);
-            case 9 -> lblChannel9.setText(fileName);
+            case 1 -> lblChannel1.setText("Pad 1: " + fileName);
+            case 2 -> lblChannel2.setText("Pad 2: " + fileName);
+            case 3 -> lblChannel3.setText("Pad 3: " + fileName);
+            case 4 -> lblChannel4.setText("Pad 4: " + fileName);
+            case 5 -> lblChannel5.setText("Pad 5: " + fileName);
+            case 6 -> lblChannel6.setText("Pad 6: " + fileName);
+            case 7 -> lblChannel7.setText("Pad 7: " + fileName);
+            case 8 -> lblChannel8.setText("Pad 8: " + fileName);
+            case 9 -> lblChannel9.setText("Pad 9: " + fileName);
         }
     }
 }

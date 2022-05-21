@@ -11,11 +11,11 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.ToggleSwitch?>
 
-<AnchorPane prefHeight="300.0" prefWidth="255.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.PadView">
+<AnchorPane prefHeight="330.0" prefWidth="290.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.PadView">
    <children>
-      <AnchorPane layoutX="26.0" layoutY="9.0" prefHeight="121.0" prefWidth="191.0">
+      <AnchorPane layoutX="-3.0" prefHeight="330.0" prefWidth="290.0" styleClass="contentSquare">
          <children>
-            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="273.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="207.0" />
+            <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="330.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="290.0" />
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="102.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="11.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="65.0" />
             <Line endX="115.84246826171875" endY="-7.62939453125E-6" layoutX="11.0" layoutY="20.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
@@ -58,15 +58,33 @@
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
+            <Line endX="160.0" endY="89.32672119140625" layoutX="129.0" layoutY="134.0" startX="-125.5" startY="89.32672119140625" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="8.0" layoutY="232.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="102.0" />
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="10.0" layoutY="234.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="65.0" />
+            <Line endX="115.84246826171875" endY="-7.62939453125E-6" layoutX="10.0" layoutY="244.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
+            <Label layoutX="13.0" layoutY="234.0" styleClass="bigLabel" text="Volume">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cmbAvailableSamples" focusTraversable="false" layoutX="125.0" layoutY="165.0" prefWidth="150.0" styleClass="presetsComboBox" />
+            <Line endX="160.0" endY="89.32672119140625" layoutX="129.0" layoutY="41.0" startX="-125.5" startY="89.32672119140625" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
+            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="8.0" layoutY="143.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="102.0" />
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="10.0" layoutY="145.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="65.0" />
+            <Line endX="115.84246826171875" endY="-7.62939453125E-6" layoutX="10.0" layoutY="155.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
+            <Label layoutX="13.0" layoutY="145.0" styleClass="bigLabel" text="Sample">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
-      <ComboBox fx:id="cmbAvailableSamples" focusTraversable="false" layoutX="53.0" layoutY="138.0" prefWidth="150.0" styleClass="presetsComboBox" />
-      <ImageView fitHeight="88.0" fitWidth="88.0" layoutX="84.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="88.0" fitWidth="88.0" layoutX="150.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/KnobBlackSteps.png" />
          </image>
       </ImageView>
-      <Button fx:id="knobPadGain" focusTraversable="false" layoutX="108.0" layoutY="223.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" styleClass="bigKnob" />
-      <Label layoutX="112.0" layoutY="189.0" styleClass="filterLabel" text="Gain" />
+      <Button fx:id="knobPadGain" focusTraversable="false" layoutX="174.0" layoutY="268.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" styleClass="bigKnob" />
+      <Label layoutX="178.0" layoutY="234.0" styleClass="filterLabel" text="Level" />
    </children>
 </AnchorPane>

@@ -10,26 +10,53 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.SamplePlayerView">
+<AnchorPane prefHeight="706.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.synthax.view.SamplePlayerView">
    <children>
-      <AnchorPane layoutX="298.0" layoutY="14.0" prefHeight="300.0" prefWidth="300.0">
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="330.0" layoutX="328.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="427.0" />
+      <AnchorPane layoutX="359.0" layoutY="14.0" prefHeight="300.0" prefWidth="300.0">
          <children>
-            <Button id="btnSamplePad" fx:id="pad0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button id="btnSamplePad" fx:id="pad1" layoutX="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button id="btnSamplePad" fx:id="pad2" layoutX="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button id="btnSamplePad" fx:id="pad3" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button id="btnSamplePad" fx:id="pad4" layoutX="100.0" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button id="btnSamplePad" fx:id="pad5" layoutX="200.0" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button id="btnSamplePad" fx:id="pad6" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button id="btnSamplePad" fx:id="pad7" layoutX="100.0" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
-            <Button id="btnSamplePad" fx:id="pad8" layoutX="200.0" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" />
+            <Button id="btnSamplePad" fx:id="pad0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="1" />
+            <Button id="btnSamplePad" fx:id="pad1" layoutX="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="2" />
+            <Button id="btnSamplePad" fx:id="pad2" layoutX="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="3" />
+            <Button id="btnSamplePad" fx:id="pad3" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="4" />
+            <Button id="btnSamplePad" fx:id="pad4" layoutX="100.0" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="5" />
+            <Button id="btnSamplePad" fx:id="pad5" layoutX="200.0" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="6" />
+            <Button id="btnSamplePad" fx:id="pad6" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="7" />
+            <Button id="btnSamplePad" fx:id="pad7" layoutX="100.0" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="8" />
+            <Button id="btnSamplePad" fx:id="pad8" layoutX="200.0" layoutY="200.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="9" />
          </children>
       </AnchorPane>
-      <VBox fx:id="vBoxPadView" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="250.0" />
-      <GridPane fx:id="gridPane" layoutX="121.0" layoutY="317.0" prefHeight="270.0" prefWidth="480.0">
+      <VBox fx:id="vBoxPadView" layoutX="17.0" layoutY="3.0" prefHeight="330.0" prefWidth="290.0" />
+      <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="670.0" layoutY="69.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="72.0" />
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#d6d1c9" height="20.0" layoutX="672.0" layoutY="71.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="68.0" />
+      <Label layoutX="675.0" layoutY="71.0" styleClass="bigLabel" text="Master">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Slider id="masterSlider" fx:id="sliderSamplePlayerGain" blockIncrement="0.1" layoutX="687.0" layoutY="93.0" majorTickUnit="0.05" max="1.0" minorTickCount="1" orientation="VERTICAL" prefHeight="155.0" prefWidth="40.0" value="0.5" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="339.0" layoutX="7.0" layoutY="363.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="748.0" />
+      <Button fx:id="btnSamplePlayerStart" layoutX="677.0" layoutY="611.0" mnemonicParsing="false" styleClass="plainButton" text="Start" />
+      <ImageView fitHeight="88.0" fitWidth="88.0" layoutX="662.0" layoutY="519.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/KnobBlackSteps.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="knobSamplePlayerRate" layoutX="686.0" layoutY="545.0" mnemonicParsing="false" styleClass="bigKnob" />
+      <Label fx:id="lblChannel1" layoutX="23.0" layoutY="429.0" prefHeight="30.0" prefWidth="140.0" text="Pad 1" />
+      <Label fx:id="lblChannel2" layoutX="23.0" layoutY="459.0" prefHeight="30.0" prefWidth="140.0" text="Pad 2" />
+      <Label fx:id="lblChannel3" layoutX="23.0" layoutY="489.0" prefHeight="30.0" prefWidth="140.0" text="Pad 3" />
+      <Label fx:id="lblChannel4" layoutX="23.0" layoutY="517.0" prefHeight="30.0" prefWidth="140.0" text="Pad 4" />
+      <Label fx:id="lblChannel5" layoutX="23.0" layoutY="549.0" prefHeight="30.0" prefWidth="140.0" text="Pad 5" />
+      <Label fx:id="lblChannel6" layoutX="23.0" layoutY="580.0" prefHeight="30.0" prefWidth="140.0" text="Pad 6" />
+      <Label fx:id="lblChannel7" layoutX="23.0" layoutY="610.0" prefHeight="30.0" prefWidth="140.0" text="Pad 7" />
+      <Label fx:id="lblChannel8" layoutX="23.0" layoutY="639.0" prefHeight="30.0" prefWidth="140.0" text="Pad 8" />
+      <Label fx:id="lblChannel9" layoutX="23.0" layoutY="669.0" prefHeight="30.0" prefWidth="140.0" text="Pad 9" />
+      <GridPane fx:id="gridPane" layoutX="182.0" layoutY="429.0" prefHeight="270.0" prefWidth="480.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -60,32 +87,16 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <Label fx:id="lblChannel1" layoutX="3.0" layoutY="317.0" prefHeight="30.0" prefWidth="95.0" text="Pad 1" />
-      <Label fx:id="lblChannel2" layoutX="3.0" layoutY="347.0" prefHeight="30.0" prefWidth="95.0" text="Pad 2" />
-      <Label fx:id="lblChannel3" layoutX="3.0" layoutY="377.0" prefHeight="30.0" prefWidth="95.0" text="Pad 3" />
-      <Label fx:id="lblChannel4" layoutX="3.0" layoutY="405.0" prefHeight="30.0" prefWidth="95.0" text="Pad 4" />
-      <Label fx:id="lblChannel5" layoutX="3.0" layoutY="437.0" prefHeight="30.0" prefWidth="95.0" text="Pad 5" />
-      <Label fx:id="lblChannel6" layoutX="3.0" layoutY="468.0" prefHeight="30.0" prefWidth="95.0" text="Pad 6" />
-      <Label fx:id="lblChannel7" layoutX="3.0" layoutY="498.0" prefHeight="30.0" prefWidth="95.0" text="Pad 7" />
-      <Label fx:id="lblChannel8" layoutX="3.0" layoutY="527.0" prefHeight="30.0" prefWidth="95.0" text="Pad 8" />
-      <Label fx:id="lblChannel9" layoutX="3.0" layoutY="557.0" prefHeight="30.0" prefWidth="95.0" text="Pad 9" />
-      <Button fx:id="btnSamplePlayerStart" layoutX="616.0" layoutY="529.0" mnemonicParsing="false" styleClass="plainButton" text="Start" />
-      <ImageView fitHeight="88.0" fitWidth="88.0" layoutX="601.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Images/KnobBlackSteps.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="knobSamplePlayerRate" layoutX="625.0" layoutY="463.0" mnemonicParsing="false" styleClass="bigKnob" />
-      <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="609.0" layoutY="33.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="72.0" />
-      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#d6d1c9" height="20.0" layoutX="611.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="68.0" />
-      <Label layoutX="614.0" layoutY="35.0" styleClass="bigLabel" text="Master">
+      <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="671.0" layoutY="490.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="72.0" />
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#d6d1c9" height="20.0" layoutX="673.0" layoutY="492.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="68.0" />
+      <Label layoutX="687.0" layoutY="492.0" styleClass="bigLabel" text="Rate" />
+      <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="182.0" layoutY="385.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="259.0" />
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="186.0" layoutY="387.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="225.0" />
+      <Line endX="254.0" layoutX="187.0" layoutY="397.0" startX="-3.98712158203125" stroke="#bfbbb4" strokeWidth="2.0" />
+      <Label layoutX="189.0" layoutY="387.0" prefHeight="20.0" prefWidth="219.0" styleClass="bigLabel" text="Sample Player Sequencer">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Slider id="masterSlider" fx:id="sliderSamplePlayerGain" blockIncrement="0.1" layoutX="626.0" layoutY="57.0" majorTickUnit="0.05" max="1.0" minorTickCount="1" orientation="VERTICAL" prefHeight="155.0" prefWidth="40.0" value="0.5" />
-      <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="610.0" layoutY="408.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="72.0" />
-      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#d6d1c9" height="20.0" layoutX="612.0" layoutY="410.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="68.0" />
-      <Label layoutX="626.0" layoutY="410.0" styleClass="bigLabel" text="Rate" />
    </children>
 </AnchorPane>
