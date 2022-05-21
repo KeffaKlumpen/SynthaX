@@ -261,16 +261,16 @@ public class SynthaxView implements Initializable {
     //region onAction  (click to open/collapse)
     @FXML
     public void onActionAlert() {
-        Boolean result = Dialogs.getConfirmationBox("Warning!", "Are you sure?");
+        Boolean result = Dialogs.getConfirmation("Warning!", "Are you sure?");
+        System.out.println(result);
     }
 
     @FXML
     public void onActionTextInput() {
-        String result = Dialogs.getTextInput("Save Preset", "Preset naming", "Preset name");
-        if (result != null) {
+        String result = Dialogs.getTextInput("Save Preset", "Enter preset name:", "Preset name");
+        if (!result.equals("")) {
             System.out.println(result);
         }
-
     }
 
     @FXML

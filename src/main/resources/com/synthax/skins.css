@@ -27,56 +27,22 @@
     -fx-shadow-highlight-color: #a6a4a270;
 }
 
-.confirmationBox .button,
-.dialogPane .button{
+.button {
+    -fx-background-color: #78736b;
+        -fx-text-fill: #d6d1c9;
+        -fx-font-family: "Handel Gothic";
+        -fx-font-size: 14;
+        -fx-body-color: #78736b;
+        -fx-background-insets: 0, 0, 0;
+}
+/*
+.plainButton {
     -fx-background-color: #78736b;
     -fx-text-fill: #d6d1c9;
     -fx-font-family: "Handel Gothic";
     -fx-font-size: 14;
     -fx-body-color: #78736b;
     -fx-background-insets: 0, 0, 0;
-}
-/*
-.dialog-pane .button{
-   -fx-background-color:black;
-   -fx-text-fill:white;
-   -fx-wrap-text: true;
-   -fx-effect: dropshadow( three-pass-box, yellow, 10.0, 0.0, 0.0, 0.0);
-   -fx-cursor:hand;
- }
-*/
-.alert.confirmation.dialog-pane {
-    -fx-graphic: url("Images/knobIcon.png");
-}
-
-.alert.confirmation.dialog-pane:header .header-panel .graphic-container {
-    -fx-min-height: 80px;
-    -fx-max-height: 80px;
-    -fx-scale-x: 0.6px;
-    -fx-scale-y: 0.6px;
-    -fx-scale-z: 0.6px;
-}
-
-.text-input-dialog.dialog-pane {
-     -fx-graphic: url("Images/fileIconsvart.png");
-
-}
-
-.text-input-dialog.dialog-pane:header .header-panel .graphic-container {
-    -fx-min-height: 80px;
-    -fx-max-height: 80px;
-    -fx-scale-x: 0.3px;
-    -fx-scale-y: 0.3px;
-
-}
-
-/* Till fileiconsmall:
-.text-input-dialog.dialog-pane:header .header-panel .graphic-container {
-    -fx-min-height: 80px;
-    -fx-max-height: 80px;
-    -fx-scale-x: 0.6px;
-    -fx-scale-y: 0.6px;
-    -fx-scale-z: 0.6px;
 }*/
 
 .knob:focused {
@@ -157,15 +123,6 @@
 
 .check-box:selected .mark {
     -fx-background-color: #f78000;
-}
-
-.plainButton {
-    -fx-background-color: #78736b;
-    -fx-text-fill: #d6d1c9;
-    -fx-font-family: "Handel Gothic";
-    -fx-font-size: 14;
-    -fx-body-color: #78736b;
-    -fx-background-insets: 0, 0, 0;
 }
 
 .presetsComboBox {
