@@ -60,7 +60,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <ComboBox fx:id="comboBoxPadFile" focusTraversable="false" layoutX="53.0" layoutY="138.0" prefWidth="150.0" styleClass="presetsComboBox" />
+      <ComboBox fx:id="cmbAvailableSamples" focusTraversable="false" layoutX="53.0" layoutY="138.0" prefWidth="150.0" styleClass="presetsComboBox" />
       <ImageView fitHeight="88.0" fitWidth="88.0" layoutX="84.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/KnobBlackSteps.png" />

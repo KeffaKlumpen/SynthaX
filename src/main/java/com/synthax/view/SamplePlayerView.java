@@ -2,6 +2,7 @@ package com.synthax.view;
 
 import com.synthax.MainApplication;
 import com.synthax.sample_player.controller.SamplePlayerController;
+import com.synthax.view.controls.KnobBehavior;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,30 +33,27 @@ public class SamplePlayerView implements Initializable {
     @FXML private Button pad7;
     @FXML private Button pad8;
 
-    @FXML private Label lblChannel1 = new Label();
-    @FXML private Label lblChannel2 = new Label();
-    @FXML private Label lblChannel3 = new Label();
-    @FXML private Label lblChannel4 = new Label();
-    @FXML private Label lblChannel5 = new Label();
-    @FXML private Label lblChannel6 = new Label();
-    @FXML private Label lblChannel7 = new Label();
-    @FXML private Label lblChannel8 = new Label();
-    @FXML private Label lblChannel9 = new Label();
+    @FXML private Label lblChannel1;
+    @FXML private Label lblChannel2;
+    @FXML private Label lblChannel3;
+    @FXML private Label lblChannel4;
+    @FXML private Label lblChannel5;
+    @FXML private Label lblChannel6;
+    @FXML private Label lblChannel7;
+    @FXML private Label lblChannel8;
+    @FXML private Label lblChannel9;
 
     @FXML private GridPane gridPane;
 
     @FXML private Button knobSamplePlayerRate;
     @FXML private Button btnSamplePlayerStart;
+    private KnobBehavior behaviorRate;
 
     @FXML private Slider sliderSamplePlayerGain;
 
     @FXML private VBox vBoxPadView = new VBox();
 
-    private final SamplePlayerController samplePlayerController;
-
-    public SamplePlayerView() {
-        samplePlayerController = new SamplePlayerController(this);
-    }
+    private SamplePlayerController samplePlayerController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,6 +61,21 @@ public class SamplePlayerView implements Initializable {
         initPadButtons();
         initGridPane();
         initSamplePlayerGain();
+        initSamplePlayerSequencer();
+        samplePlayerController = new SamplePlayerController(this);
+    }
+
+    private void initSamplePlayerSequencer() {
+        behaviorRate = new KnobBehavior(knobSamplePlayerRate);
+        behaviorRate.setRotation(0.5f);
+        knobSamplePlayerRate.setOnMouseDragged(behaviorRate);
+        behaviorRate.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            //TODO Sample player sequencer class rate behavior
+        });
+
+        btnSamplePlayerStart.setOnMousePressed(l -> {
+            //TODO start sample player sequencer
+        });
     }
 
     private void initSamplePlayerGain() {
