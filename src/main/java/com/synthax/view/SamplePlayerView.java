@@ -1,24 +1,24 @@
 package com.synthax.view;
 
-import com.synthax.MainApplication;
 import com.synthax.sample_player.controller.SamplePlayerController;
 import com.synthax.view.controls.KnobBehavior;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import org.controlsfx.control.ToggleSwitch;
 
 
-import java.io.IOException;
+import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
@@ -52,31 +52,43 @@ public class SamplePlayerView implements Initializable {
     @FXML private Label lblChannel7;
     @FXML private Label lblChannel8;
     @FXML private Label lblChannel9;
-
     @FXML private GridPane gridPane;
-
     @FXML private Button knobSamplePlayerRate;
     @FXML private Button btnSamplePlayerStart;
     //endregion FXML Sequencer Variables
 
-    @FXML private Slider sliderSamplePlayerGain;
-    @FXML private VBox vBoxPadView = new VBox();
+    // region Pad Settings (click to open/collapse)
+    @FXML private Button knobPadGain;
+    @FXML private Button knobPadReverbSize;
+    @FXML private Button knobPadReverbTone;
+    @FXML private Button knobPadReverbAmount;
+    @FXML private ToggleSwitch tglBypassReverb;
+    @FXML private ComboBox<String> cmbAvailableSamples;
 
-    private KnobBehavior behaviorRate;
+    private KnobBehavior behaviorPadGain;
+    private KnobBehavior behaviorPadReverbSize;
+    private KnobBehavior behaviorPadReverbTone;
+    private KnobBehavior behaviorPadReverbAmount;
+    // endregion Pad Settings
+
+    @FXML private Slider sliderSamplePlayerGain;
+
     private SamplePlayerController samplePlayerController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initPadView();
+        samplePlayerController = new SamplePlayerController(this);
         initPadButtons();
         initGridPane();
         initSamplePlayerGain();
         initSamplePlayerSequencer();
-        samplePlayerController = new SamplePlayerController(this);
+        initPadGain();
+        initReverb();
+        initAvailableSamples();
     }
     //region Initialize methods (click to open/collapse)
     private void initSamplePlayerSequencer() {
-        behaviorRate = new KnobBehavior(knobSamplePlayerRate);
+        KnobBehavior behaviorRate = new KnobBehavior(knobSamplePlayerRate);
         behaviorRate.setRotation(0.5f);
         knobSamplePlayerRate.setOnMouseDragged(behaviorRate);
         behaviorRate.knobValueProperty().addListener((v, oldValue, newValue) -> {
@@ -85,6 +97,62 @@ public class SamplePlayerView implements Initializable {
 
         btnSamplePlayerStart.setOnMousePressed(l -> {
             //TODO start sample player sequencer
+        });
+    }
+
+    private void initAvailableSamples() {
+        cmbAvailableSamples.setItems(FXCollections.observableList(Arrays.stream(getAvailableSamples()).toList()));
+        cmbAvailableSamples.valueProperty().addListener((observableValue, s, t1) -> samplePlayerController.setPadSample(t1));
+        System.out.println("Here");
+    }
+
+    private String[] getAvailableSamples() {
+        ArrayList<String> samples = new ArrayList<>();
+
+        File root = new File("src/main/resources/com/synthax/samples");
+
+        File[] sampleFiles = root.listFiles();
+        if (sampleFiles != null) {
+            for (File file : sampleFiles) {
+                String sampleName = file.getName();
+                if (sampleName.endsWith(".wav")) {
+                    sampleName = sampleName.substring(0, sampleName.length() - 4);
+                    samples.add(sampleName);
+                }
+            }
+        }
+        return samples.toArray(new String[0]);
+    }
+
+    private void initReverb() {
+        behaviorPadReverbSize = new KnobBehavior(knobPadReverbSize);
+        knobPadReverbSize.setOnMouseDragged(behaviorPadReverbSize);
+        behaviorPadReverbSize.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            samplePlayerController.setPadReverbSize(newValue.floatValue());
+        });
+
+        behaviorPadReverbTone = new KnobBehavior(knobPadReverbTone);
+        knobPadReverbTone.setOnMouseDragged(behaviorPadReverbTone);
+        behaviorPadReverbTone.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            samplePlayerController.setPadReverbTone(newValue.floatValue());
+        });
+
+        behaviorPadReverbAmount = new KnobBehavior(knobPadReverbAmount);
+        knobPadReverbAmount.setOnMouseDragged(behaviorPadReverbAmount);
+        behaviorPadReverbAmount.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            samplePlayerController.setPadReverbAmount(newValue.floatValue());
+        });
+
+        tglBypassReverb.selectedProperty().addListener((observableValue, aBoolean, t1) -> samplePlayerController.bypassPadReverb());
+
+    }
+
+    private void initPadGain() {
+        behaviorPadGain = new KnobBehavior(knobPadGain);
+        knobPadGain.setOnMouseDragged(behaviorPadGain);
+        behaviorPadGain.setRotation(0.5f);
+        behaviorPadGain.knobValueProperty().addListener((v, oldValue, newValue) -> {
+            samplePlayerController.setPadGain(newValue.floatValue());
         });
     }
 
@@ -106,28 +174,45 @@ public class SamplePlayerView implements Initializable {
         }
     }
 
-    private void initPadView() {
-        try {
-            URL fxmlLocation = MainApplication.class.getResource("view/padview.fxml");
-            FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
-            Node padRoot = fxmlLoader.load();
-            vBoxPadView.getChildren().add(padRoot);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void initPadButtons() {
+        pad0.setOnAction(actionEvent -> {
+            samplePlayerController.playPad(0);
+            samplePlayerController.setCurrentPad(0);
+        });
+        pad1.setOnAction(actionEvent -> {
+            samplePlayerController.playPad(1);
+            samplePlayerController.setCurrentPad(1);
+        });
+        pad2.setOnAction(actionEvent -> {
+            samplePlayerController.playPad(2);
+            samplePlayerController.setCurrentPad(2);
+        });
+        pad3.setOnAction(actionEvent -> {
+            samplePlayerController.playPad(3);
+            samplePlayerController.setCurrentPad(3);
+        });
+        pad4.setOnAction(actionEvent -> {
+            samplePlayerController.playPad(4);
+            samplePlayerController.setCurrentPad(4);
+        });
+        pad5.setOnAction(actionEvent -> {
+            samplePlayerController.playPad(5);
+            samplePlayerController.setCurrentPad(5);
+        });
+        pad6.setOnAction(actionEvent -> {
+            samplePlayerController.playPad(6);
+            samplePlayerController.setCurrentPad(6);
+        });
+        pad7.setOnAction(actionEvent -> {
+            samplePlayerController.playPad(7);
+            samplePlayerController.setCurrentPad(7);
+        });
+        pad8.setOnAction(actionEvent -> {
+            samplePlayerController.playPad(8);
+            samplePlayerController.setCurrentPad(8);
+        });
     }
     //endregion Initialize methods
-    private void initPadButtons() {
-        pad0.setOnAction(actionEvent -> samplePlayerController.playPad(0));
-        pad1.setOnAction(actionEvent -> samplePlayerController.playPad(1));
-        pad2.setOnAction(actionEvent -> samplePlayerController.playPad(2));
-        pad3.setOnAction(actionEvent -> samplePlayerController.playPad(3));
-        pad4.setOnAction(actionEvent -> samplePlayerController.playPad(4));
-        pad5.setOnAction(actionEvent -> samplePlayerController.playPad(5));
-        pad6.setOnAction(actionEvent -> samplePlayerController.playPad(6));
-        pad7.setOnAction(actionEvent -> samplePlayerController.playPad(7));
-        pad8.setOnAction(actionEvent -> samplePlayerController.playPad(8));
-    }
 
     public void setSequencerLabel(String fileName, int padIndex) {
         switch (padIndex) {
@@ -141,5 +226,14 @@ public class SamplePlayerView implements Initializable {
             case 8 -> lblChannel8.setText("Pad 8: " + fileName);
             case 9 -> lblChannel9.setText("Pad 9: " + fileName);
         }
+    }
+
+    public void setValuesInPadView(String fileName, float gainValue, float reverbAmount, float reverbSize, float reverbTone, boolean reverbActive) {
+        cmbAvailableSamples.getSelectionModel().select(fileName);
+        behaviorPadGain.setRotation(gainValue);
+        behaviorPadReverbAmount.setRotation(reverbAmount);
+        behaviorPadReverbSize.setRotation(reverbSize);
+        behaviorPadReverbTone.setRotation(reverbTone);
+        tglBypassReverb.setSelected(reverbActive);
     }
 }

@@ -47,7 +47,6 @@ public class Pad {
     }
 
     public void playPad() {
-        padGain.setGain(1.0f);
         samplePlayer.setToLoopStart();
         samplePlayer.start();
     }
@@ -74,8 +73,48 @@ public class Pad {
         padGain.setGain(gain);
     }
 
-    public Gain getPadGain() {
+    public Gain getPadOutput() {
         return reverb.getOutput();
+    }
+
+    public float getGain() {
+        return padGain.getGain();
+    }
+
+    public String getSampleName() {
+        return fileName;
+    }
+
+    public void setReverbSize(float size) {
+        reverb.setReverbSize(size);
+    }
+
+    public float getReverbSize() {
+        return reverb.getReverbSize();
+    }
+
+    public void setReverbTone(float tone) {
+        reverb.setReverbTone(tone);
+    }
+
+    public float getReverbTone() {
+        return reverb.getReverbTone();
+    }
+
+    public void setReverbAmount(float amount) {
+        reverb.setReverbAmount(amount);
+    }
+
+    public float getReverbAmount() {
+        return reverb.getReverbAmount();
+    }
+
+    public void bypassReverb() {
+        reverb.setActive();
+    }
+
+    public boolean getReverbActive() {
+        return reverb.getReverbIsActive();
     }
 }
 
