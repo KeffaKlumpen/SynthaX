@@ -39,7 +39,7 @@ public class SampleTest {
     private void init() {
         String sourceKick = "src/main/resources/com/synthax/samples/kick.wav";
         String sourceSnare = "src/main/resources/com/synthax/samples/snare.wav";
-        String sourceHiHat = "src/main/resources/com/synthax/samples/hihat.wav";
+        String sourceHiHat = "src/main/resources/com/synthax/samples/ClHat.wav";
         String sourceClap = "src/main/resources/com/synthax/samples/clap.wav";
         Sample kickSample;
         Sample snareSample;
