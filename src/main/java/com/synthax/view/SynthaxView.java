@@ -18,6 +18,7 @@ import com.synthax.util.MidiHelpers;
 import com.synthax.view.utils.Dialogs;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,6 +36,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.controlsfx.control.PopOver;
 
 import java.io.File;
@@ -195,6 +197,7 @@ public class SynthaxView implements Initializable {
     //endregion Step Sequencer
 
     private final HashMap<String, AtomicBoolean> keyStatus = new HashMap<>();
+
     //region SamplePlayer Variables
     @FXML private Button samplePlayerStart;
     private SamplePlayerView samplePlayerView;
@@ -641,28 +644,35 @@ public class SynthaxView implements Initializable {
     }
 
     private void initSamplePlayer() {
-        samplePlayerStart.setOnAction(l -> {
-            if (samplePlayerView == null) {
-                Parent root;
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/sampleplayer-view.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load());
-                    scene.getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
-                    Stage stage = new Stage();
-                    stage.setTitle("SynthaX Sample Player");
-                    stage.setScene(scene);
-                    stage.show();
-                    samplePlayerView = fxmlLoader.getController();
-                    samplePlayerView.setSynthaxView(this);
-                    samplePlayerView.setRate(bKnobSSRate.knobValueProperty().floatValue());
-                } catch (IOException e) {
-                    e.printStackTrace();
+        Parent root;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/sampleplayer-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            scene.getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
+            Stage stage = new Stage();
+            stage.setTitle("SynthaX Sample Player");
+            stage.setScene(scene);
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    Scene scene = samplePlayerView.getScene();
+                    Stage stage = (Stage) scene.getWindow();
+                    stage.hide();
                 }
-            } else {
-                Scene scene = samplePlayerView.getScene();
-                Stage stage = (Stage) scene.getWindow();
-                stage.toFront();
-            }
+            });
+            samplePlayerView = fxmlLoader.getController();
+            samplePlayerView.setSynthaxView(this);
+            samplePlayerView.setRate(bKnobSSRate.knobValueProperty().floatValue());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        samplePlayerStart.setOnAction(l -> {
+            Scene scene = samplePlayerView.getScene();
+            Stage stage = (Stage) scene.getWindow();
+            stage.toFront();
+            stage.show();
+            samplePlayerView.setAllGainValues();
         });
     }
 
