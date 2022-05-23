@@ -68,34 +68,34 @@
             <Label fx:id="lblChannel9" layoutX="16.0" layoutY="301.0" prefHeight="30.0" prefWidth="130.0" styleClass="filterLabel" text="Pad 9" />
             <GridPane fx:id="gridPane" hgap="3.0" layoutX="142.0" layoutY="36.0" maxHeight="294.0" maxWidth="477.0" prefHeight="294.0" prefWidth="477.0" vgap="3.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
-                  <ColumnConstraints hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="30.0" prefWidth="30.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints fillHeight="false" maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints fillHeight="false" maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints fillHeight="false" maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints fillHeight="false" maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints fillHeight="false" maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints fillHeight="false" maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                  <RowConstraints fillHeight="false" maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                <RowConstraints fillHeight="false" maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                <RowConstraints fillHeight="false" maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                <RowConstraints fillHeight="false" maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
               </rowConstraints>
             </GridPane>
             <Label layoutX="669.0" layoutY="129.0" styleClass="bigLabel" text="Rate" />
