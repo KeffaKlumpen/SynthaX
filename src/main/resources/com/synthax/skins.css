@@ -116,14 +116,22 @@
 .check-box {
     -fx-text-fill: black;
     -fx-font-family: "Handel Gothic";
-    -fx-font-size: 12;
+    -fx-font-size: 12px
 }
 
+.check-box-big {
+    -fx-text-fill: black;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 17px
+}
+
+.check-box-big .box,
 .check-box .box {
     -fx-background-color: #78736b;
     -fx-background-insets: 0, 0, 0;
 }
 
+.check-box-big:selected . mark,
 .check-box:selected .mark {
     -fx-background-color: #f78000;
 }
@@ -146,6 +154,15 @@
     -fx-background-color: #78736b;
     -fx-background-image: url("Images/circArrow.png");
     -fx-background-size: 23px, 23px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.drumButton {
+    -fx-background-color: #78736b;
+    -fx-background-image: url("Images/drumIcon.png");
+    -fx-background-size: 25px, 25px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-insets: 0, 1, 2;
@@ -198,6 +215,31 @@
     -fx-background-insets: 0, 1, 2;
 }
 
+.sampleButton {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    /*
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;*/
+}
+
+.sampleButton:focused {
+    -fx-background-color: -fx-focus-color, -fx-inner-border, -fx-body-color, -fx-faint-focus-color, -fx-body-color;
+    -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
+    -fx-background-radius: 3, 2, 1, 4, 1;
+}
+
+#btnSamplePad {
+    -fx-base: #78736b;
+}
+
+#btnSamplePad:pressed {
+    -fx-text-fill: #f78000;
+}
+
 .popover > .border  {
     -fx-stroke-width: 1px;
     -fx-fill: #a6a097;
@@ -242,9 +284,11 @@
     -fx-padding: 2px;
 }
 
-#btnStartStop {
+#btnStartStop,
+#btnStartStopDrums {
     -fx-font-size: 20;
 }
+
 
 #btnHelp {
     -fx-font-size: 18;
@@ -272,14 +316,6 @@
     -fx-font-family: "Handel Gothic";
     -fx-font-size: 10;
     -fx-background-insets: 0, 0, 0;
-}
-
-#btnSamplePad {
-    -fx-base: #78736b;
-}
-
-#btnSamplePad:pressed {
-    -fx-text-fill: #f78000;
 }
 
 .tglSampleSeq:selected {

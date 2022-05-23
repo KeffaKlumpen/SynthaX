@@ -272,7 +272,9 @@ public class SynthaxView implements Initializable {
             }
         });
     }
-
+    public void updateSequencerRate(float value) {
+        bKnobSSRate.setRotation(value);
+    }
     public void updateMidiLabel(boolean visable) {
         Platform.runLater(() -> {
             if (visable) {
@@ -546,6 +548,28 @@ public class SynthaxView implements Initializable {
         });
     }
 
+    public void forceStartSequencer() {
+        if (!synthaxController.sequencerIsRunning()) {
+            synthaxController.sequencerOn();
+            SSStartStop.setText("Stop");
+            SSStartStop.setStyle("-fx-text-fill: #f78000");
+        } else {
+            synthaxController.sequencerOff();
+            synthaxController.sequencerOn();
+        }
+    }
+
+    public void forceStopSequencer() {
+        synthaxController.sequencerOff();
+        SSStartStop.setText("Start");
+        SSStartStop.setStyle("-fx-text-fill: #d6d1c9");
+    }
+
+    public Thread getSequencerThread() {
+        return synthaxController.getSequencerThread();
+    }
+
+
     /**
      * Initialize method
      * Sets values, behaviour and adds listeners to GUI components
@@ -629,6 +653,8 @@ public class SynthaxView implements Initializable {
                     stage.setScene(scene);
                     stage.show();
                     samplePlayerView = fxmlLoader.getController();
+                    samplePlayerView.setSynthaxView(this);
+                    samplePlayerView.setRate(bKnobSSRate.knobValueProperty().floatValue());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1031,6 +1057,10 @@ public class SynthaxView implements Initializable {
                 }
             }
         });
+    }
+
+    public boolean sequencerIsRunning() {
+        return synthaxController.sequencerIsRunning();
     }
 
 
