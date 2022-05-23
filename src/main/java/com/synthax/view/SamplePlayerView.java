@@ -2,15 +2,12 @@ package com.synthax.view;
 
 import com.synthax.sample_player.controller.SamplePlayerController;
 import com.synthax.view.controls.KnobBehavior;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import org.controlsfx.control.ToggleSwitch;
 
@@ -57,6 +54,10 @@ public class SamplePlayerView implements Initializable {
     @FXML private Button btnSamplePlayerStart;
     //endregion FXML Sequencer Variables
 
+    //region Sequencer Variables (click to open/collapse)
+    ToggleButton[][] sequencerSteps;
+    //endregion Sequencer Variables
+
     // region Pad Settings (click to open/collapse)
     @FXML private Button knobPadGain;
     @FXML private Button knobPadReverbSize;
@@ -93,11 +94,17 @@ public class SamplePlayerView implements Initializable {
         behaviorRate.setRotation(0.5f);
         knobSamplePlayerRate.setOnMouseDragged(behaviorRate);
         behaviorRate.knobValueProperty().addListener((v, oldValue, newValue) -> {
-            //TODO Sample player sequencer class rate behavior
+            samplePlayerController.setSequencerRate(newValue.floatValue());
         });
 
         btnSamplePlayerStart.setOnMousePressed(l -> {
-            //TODO start sample player sequencer
+            if (!samplePlayerController.sequencerIsRunning()) {
+                samplePlayerController.startSequencer();
+                //TODO: litta GUI-grejor
+            } else {
+                samplePlayerController.stopSequencer();
+                //TODO: litta GUI-grejor
+            }
         });
     }
 
@@ -165,14 +172,22 @@ public class SamplePlayerView implements Initializable {
     }
 
     private void initGridPane() {
-        ToggleButton[][] toggleButtons = new ToggleButton[9][16];
+        sequencerSteps = new ToggleButton[9][16];
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 16; j++) {
                 ToggleButton tb = new ToggleButton();
                 tb.setPrefHeight(27);
                 tb.setPrefWidth(27);
                 tb.getStyleClass().add("tglSampleSeq");
-                toggleButtons[i][j] = tb;
+                int finalI = i;
+                int finalJ = j;
+                tb.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        samplePlayerController.setSequencerStep(tb.isSelected(), finalJ, finalI);
+                    }
+                });
+                sequencerSteps[i][j] = tb;
                 gridPane.add(tb, j, i);
             }
         }

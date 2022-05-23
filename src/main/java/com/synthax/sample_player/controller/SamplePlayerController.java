@@ -1,6 +1,7 @@
 package com.synthax.sample_player.controller;
 
 import com.synthax.sample_player.model.Pad;
+import com.synthax.sample_player.model.SamplePlayerSequencer;
 import com.synthax.view.SamplePlayerView;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.ugens.Gain;
@@ -21,11 +22,13 @@ public class SamplePlayerController {
     private Pad currentPad;
     private SamplePlayerView samplePlayerView;
     private HashMap<String, String> sourceMap;
+    private SamplePlayerSequencer sequencer;
 
     public SamplePlayerController(SamplePlayerView samplePlayerView) {
         this.samplePlayerView = samplePlayerView;
         pads = new Pad[padCount];
-        
+        sequencer = new SamplePlayerSequencer(this, pads);
+
         masterGain = new Gain(1, 1.0f);
         initPads();
         AudioContext.getDefaultContext().out.addInput(masterGain);
@@ -103,6 +106,29 @@ public class SamplePlayerController {
                 currentPad.getReverbTone(),
                 currentPad.getReverbActive());
     }
+
+    //region Sequencer GUI-forwarding (click to open/collapse)
+    public void setSequencerStep(boolean activated, int step, int pad) {
+        sequencer.setPadActive(activated, step, pad);
+    }
+
+    public void setSequencerRate(float rate) {
+        sequencer.setBPM(rate);
+    }
+
+    public void startSequencer() {
+        sequencer.start();
+    }
+
+    public void stopSequencer() {
+        sequencer.stop();
+    }
+
+    public boolean sequencerIsRunning() {
+        return sequencer.isRunning();
+    }
+
+    //endregion Sequencer GUI-forwarding
 
     public void setPadGain(float gain) {
         currentPad.setGain(gain);
