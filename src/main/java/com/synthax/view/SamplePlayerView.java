@@ -190,17 +190,6 @@ public class SamplePlayerView implements Initializable {
                 btnSamplePlayerStart.setStyle("-fx-text-fill: #d6d1c9");
             }
         });
-        stepIndicators = new Rectangle[16];
-        double x = 142, y = 45;
-        for (int i = 0; i < stepIndicators.length; i++) {
-            Rectangle r = new Rectangle(x,y,27,12);
-            r.setFill(Color.web("#a6a097"));
-            r.setArcHeight(10);
-            r.setArcWidth(10);
-            stepIndicators[i] = r;
-            x += 30d;
-            sequencerMainPane.getChildren().add(r);
-        }
     }
 
     private void initAvailableSamples() {
@@ -267,18 +256,37 @@ public class SamplePlayerView implements Initializable {
     }
 
     private void initGridPane() {
+        stepIndicators = new Rectangle[16];
+        double x = 142, y = 45;
+        for (int i = 0; i < stepIndicators.length; i++) {
+            /*
+            Rectangle r = new Rectangle(x,y,27,12);
+            r.setFill(Color.web("#a6a097"));
+            r.setArcHeight(10);
+            r.setArcWidth(10);
+            stepIndicators[i] = r;
+            x += 30d;
+            sequencerMainPane.getChildren().add(r);
+             */
+            Rectangle r = new Rectangle(27,12);
+            r.setFill(Color.web("#a6a097"));
+            r.setArcHeight(10);
+            r.setArcWidth(10);
+            stepIndicators[i] = r;
+            gridPane.add(r,i,0);
+        }
         sequencerSteps = new ToggleButton[9][16];
-        for (int i = 0; i < 9; i++) {
+        for (int i = 1; i < 10; i++) {
             for (int j = 0; j < 16; j++) {
                 ToggleButton tb = new ToggleButton();
                 tb.setPrefHeight(27);
                 tb.setPrefWidth(27);
                 tb.getStyleClass().add("tglSampleSeq");
                 tb.setFocusTraversable(false);
-                int finalI = i;
+                int finalI = i-1;
                 int finalJ = j;
                 tb.setOnAction(actionEvent -> samplePlayerController.setSequencerStep(tb.isSelected(), finalJ, finalI));
-                sequencerSteps[i][j] = tb;
+                sequencerSteps[finalI][finalJ] = tb;
                 gridPane.add(tb, j, i);
             }
         }
