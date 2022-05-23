@@ -50,8 +50,16 @@ public class SynthaxReverb {
         reverb.setSize(size);
     }
 
+    public float getReverbSize() {
+        return reverb.getSize();
+    }
+
     public void setReverbTone(float tone) {
         reverb.setDamping(tone);
+    }
+
+    public float getReverbTone() {
+        return reverb.getDamping();
     }
 
     public void setReverbAmount(float amount) {
@@ -59,6 +67,14 @@ public class SynthaxReverb {
             amountGlide.setValue(amount);
         } else {
             cachedAmountValue = amount;
+        }
+    }
+
+    public float getReverbAmount() {
+        if (isActive) {
+            return amountGlide.getCurrentValue();
+        } else {
+            return cachedAmountValue;
         }
     }
 
@@ -71,5 +87,21 @@ public class SynthaxReverb {
             cachedAmountValue = amountGlide.getCurrentValue();
             amountGlide.setValue(0.0f);
         }
+    }
+
+
+    public void setPadActive(boolean isActive) {
+        this.isActive = isActive;
+
+        if (isActive) {
+            setReverbAmount(cachedAmountValue);
+        } else {
+            cachedAmountValue = amountGlide.getCurrentValue();
+            amountGlide.setValue(0.0f);
+        }
+    }
+
+    public boolean getReverbIsActive() {
+        return isActive;
     }
 }

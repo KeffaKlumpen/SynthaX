@@ -264,13 +264,26 @@
 }
 
 
-.toggleSeq {
+.toggleSeq,
+.tglSampleSeq {
     -fx-padding: 0,3px;
     -fx-background-color: #78736b;
     -fx-text-fill: #d6d1c9;
     -fx-font-family: "Handel Gothic";
     -fx-font-size: 10;
     -fx-background-insets: 0, 0, 0;
+}
+
+#btnSamplePad {
+    -fx-base: #78736b;
+}
+
+#btnSamplePad:pressed {
+    -fx-text-fill: #f78000;
+}
+
+.tglSampleSeq:selected {
+    -fx-background-color: #f78000;
 }
 
 .toggleSeq:selected {

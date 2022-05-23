@@ -22,6 +22,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -32,6 +34,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
 
 import java.io.File;
@@ -192,6 +195,8 @@ public class SynthaxView implements Initializable {
     //endregion Step Sequencer
 
     private final HashMap<String, AtomicBoolean> keyStatus = new HashMap<>();
+    @FXML private Button samplePlayerStart;
+
 
     //region Step Sequencer collections
     private KnobBehavior bKnobSSRate;
@@ -557,6 +562,7 @@ public class SynthaxView implements Initializable {
         initReverb();
         initStepSequencer();
         initMasterGain();
+        initSamplePlayer();
         onActionAddOscillator();
     }
 
@@ -606,6 +612,23 @@ public class SynthaxView implements Initializable {
 
     private void initMasterGain() {
         sliderMasterGain.valueProperty().addListener((observableValue, number, t1) -> synthaxController.setMasterGain(t1.floatValue()));
+    }
+
+    private void initSamplePlayer() {
+        samplePlayerStart.setOnAction(l -> {
+            Parent root;
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/sampleplayer-view.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                scene.getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
+                Stage stage = new Stage();
+                stage.setTitle("SynthaX Sample Player");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void initFilterArrays() {
@@ -979,7 +1002,7 @@ public class SynthaxView implements Initializable {
         keyStatus.put("o", new AtomicBoolean(false));
         keyStatus.put("p", new AtomicBoolean(false));
     }
-    
+
     private void initKeyBoardListeners() {
         mainPane.setOnKeyPressed(event -> {
             String code = event.getText();
