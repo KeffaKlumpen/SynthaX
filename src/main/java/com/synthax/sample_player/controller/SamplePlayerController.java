@@ -6,6 +6,8 @@ import com.synthax.view.SamplePlayerView;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.ugens.Gain;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -24,6 +26,8 @@ public class SamplePlayerController {
     private HashMap<String, String> sourceMap;
     private SamplePlayerSequencer sequencer;
 
+    private final File fileRoot = new File("src/main/resources/com/synthax/samples");
+
     public SamplePlayerController(SamplePlayerView samplePlayerView) {
         this.samplePlayerView = samplePlayerView;
         pads = new Pad[padCount];
@@ -35,53 +39,23 @@ public class SamplePlayerController {
     }
 
     private void initPads() {
-        String sourceClap = "src/main/resources/com/synthax/samples/clap.wav";
-        String sourceClHat = "src/main/resources/com/synthax/samples/ClHat.wav";
-        String sourceKick = "src/main/resources/com/synthax/samples/kick.wav";
-        String sourceSnare = "src/main/resources/com/synthax/samples/snare.wav";
-        String sourceCrash = "src/main/resources/com/synthax/samples/crash.wav";
-        String sourceRide = "src/main/resources/com/synthax/samples/ride.wav";
-        String sourceTom1 = "src/main/resources/com/synthax/samples/tom1.wav";
-        String sourceTom2 = "src/main/resources/com/synthax/samples/tom2.wav";
-        String sourceOpHat = "src/main/resources/com/synthax/samples/OpHat.wav";
+        String[] sources = getSourceFiles();
+
         for (int i = 0; i < padCount; i++) {
-            if (i == 0) {
-                pads[i] = new Pad(sourceKick, this, i+1);
-            } else if (i == 1) {
-                pads[i] = new Pad(sourceSnare, this, i+1);
-            } else if (i == 2) {
-                pads[i] = new Pad(sourceClap, this, i+1);
-            } else if (i == 3) {
-                pads[i] = new Pad(sourceClHat, this, i+1);
-            } else if (i == 4) {
-                pads[i] = new Pad(sourceOpHat, this, i+1);
-            } else if (i == 5) {
-                pads[i] = new Pad(sourceTom1, this, i+1);
-            } else if (i == 6) {
-                pads[i] = new Pad(sourceTom2, this, i+1);
-            } else if (i == 7) {
-                pads[i] = new Pad(sourceCrash, this, i+1);
-            } else {
-                pads[i] = new Pad(sourceRide, this, i+1);
-            }
+            pads[i] = new Pad(sources[i], this, i+1);
         }
+
         for (Pad p : pads) {
             masterGain.addInput(p.getPadOutput());
         }
-        fillSourceMap(sourceClap, sourceClHat, sourceKick, sourceSnare, sourceOpHat, sourceTom1, sourceTom2, sourceCrash, sourceRide);
+        fillSourceMap(sources);
     }
 
-    private void fillSourceMap(String sourceClap, String sourceClHat, String sourceKick, String sourceSnare, String sourceOpHat, String sourceTom1, String sourceTom2, String sourceCrash, String sourceRide) {
+    private void fillSourceMap(String[] sources) {
         sourceMap = new HashMap<>();
-        sourceMap.put(sourceClap.substring(sourceClap.lastIndexOf("/") + 1, sourceClap.lastIndexOf(".")), sourceClap);
-        sourceMap.put(sourceClHat.substring(sourceClHat.lastIndexOf("/") + 1 , sourceClHat.lastIndexOf(".")), sourceClHat);
-        sourceMap.put(sourceKick.substring(sourceKick.lastIndexOf("/") + 1, sourceKick.lastIndexOf(".")), sourceKick);
-        sourceMap.put(sourceSnare.substring(sourceSnare.lastIndexOf("/") + 1, sourceSnare.lastIndexOf(".")), sourceSnare);
-        sourceMap.put(sourceOpHat.substring(sourceOpHat.lastIndexOf("/") + 1, sourceOpHat.lastIndexOf(".")), sourceOpHat);
-        sourceMap.put(sourceTom1.substring(sourceTom1.lastIndexOf("/") + 1, sourceTom1.lastIndexOf(".")), sourceTom1);
-        sourceMap.put(sourceTom2.substring(sourceTom2.lastIndexOf("/") + 1, sourceTom2.lastIndexOf(".")), sourceTom2);
-        sourceMap.put(sourceCrash.substring(sourceCrash.lastIndexOf("/") + 1, sourceCrash.lastIndexOf(".")), sourceCrash);
-        sourceMap.put(sourceRide.substring(sourceRide.lastIndexOf("/") + 1, sourceRide.lastIndexOf(".")), sourceRide);
+        for (String s : sources) {
+            sourceMap.put(s.substring(s.lastIndexOf("/") + 1, s.lastIndexOf(".")), s);
+        }
     }
 
     public void playPad(int index) {
@@ -105,6 +79,16 @@ public class SamplePlayerController {
                 currentPad.getReverbSize(),
                 currentPad.getReverbTone(),
                 currentPad.getReverbActive());
+    }
+
+    private String[] getSourceFiles() {
+        File[] files = fileRoot.listFiles();
+        assert files != null;
+        String[] sourceFiles = new String[files.length];
+        for (int i = 0; i < files.length; i++) {
+            sourceFiles[i] = files[i].getPath();
+        }
+        return sourceFiles;
     }
 
     //region Sequencer GUI-forwarding (click to open/collapse)
