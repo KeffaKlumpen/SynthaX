@@ -116,6 +116,14 @@ public class SamplePlayerController {
         sequencer.setBPM(rate);
     }
 
+    public void setStepIndicatorOrange(int index) {
+        samplePlayerView.setStepIndicatorOrange(index);
+    }
+
+    public void setStepIndicatorGray(int index) {
+        samplePlayerView.setStepIndicatorGray(index);
+    }
+
     public void startSequencer() {
         sequencer.start();
     }
