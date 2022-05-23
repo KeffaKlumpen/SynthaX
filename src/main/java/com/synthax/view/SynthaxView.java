@@ -44,6 +44,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -1071,7 +1072,7 @@ public class SynthaxView implements Initializable {
 
     private void initKeyBoardListeners() {
         mainPane.setOnKeyPressed(event -> {
-            String code = event.getText();
+            String code = event.getText().toLowerCase();
             if (keyStatus.containsKey(code)) {
                 if (keyStatus.get(code).compareAndSet(false, true)) {
                     MidiNote note = MidiHelpers.stringToMidi(code);
@@ -1080,7 +1081,7 @@ public class SynthaxView implements Initializable {
             }
         });
         mainPane.setOnKeyReleased(event -> {
-            String code = event.getText();
+            String code = event.getText().toLowerCase();
             if (keyStatus.containsKey(code)) {
                 if (keyStatus.get(code).compareAndSet(true, false)) {
                     MidiNote note = MidiHelpers.stringToMidi(code);
