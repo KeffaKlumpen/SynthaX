@@ -39,6 +39,7 @@ public class SamplePlayerView implements Initializable {
     @FXML private Button pad6;
     @FXML private Button pad7;
     @FXML private Button pad8;
+    private Button[] pads;
     //endregion FXML Pad Buttons
 
     //region FXML Sequencer Variables (click to open/collapse)
@@ -205,17 +206,6 @@ public class SamplePlayerView implements Initializable {
                 btnSamplePlayerStart.setStyle("-fx-text-fill: #d6d1c9");
             }
         });
-        stepIndicators = new Rectangle[16];
-        double x = 142, y = 45;
-        for (int i = 0; i < stepIndicators.length; i++) {
-            Rectangle r = new Rectangle(x,y,27,12);
-            r.setFill(Color.web("#a6a097"));
-            r.setArcHeight(10);
-            r.setArcWidth(10);
-            stepIndicators[i] = r;
-            x += 30d;
-            sequencerMainPane.getChildren().add(r);
-        }
     }
 
     private void initAvailableSamples() {
@@ -278,28 +268,63 @@ public class SamplePlayerView implements Initializable {
     }
 
     private void initGridPane() {
+        stepIndicators = new Rectangle[16];
+        double x = 142, y = 45;
+        for (int i = 0; i < stepIndicators.length; i++) {
+            /*
+            Rectangle r = new Rectangle(x,y,27,12);
+            r.setFill(Color.web("#a6a097"));
+            r.setArcHeight(10);
+            r.setArcWidth(10);
+            stepIndicators[i] = r;
+            x += 30d;
+            sequencerMainPane.getChildren().add(r);
+             */
+            Rectangle r = new Rectangle(27,12);
+            r.setFill(Color.web("#a6a097"));
+            r.setArcHeight(10);
+            r.setArcWidth(10);
+            stepIndicators[i] = r;
+            gridPane.add(r,i,0);
+        }
         sequencerSteps = new ToggleButton[9][16];
-        for (int i = 0; i < 9; i++) {
+        for (int i = 1; i < 10; i++) {
             for (int j = 0; j < 16; j++) {
                 ToggleButton tb = new ToggleButton();
-                tb.setPrefHeight(30);
-                tb.setPrefWidth(30);
-
+                tb.setPrefHeight(27);
+                tb.setPrefWidth(27);
                 if (j % 4 == 0) {
                     tb.getStyleClass().add("tglSampleSeqFourths");
                 } else {
                     tb.getStyleClass().add("tglSampleSeq");
                 }
-                int finalI = i;
+                tb.setFocusTraversable(false);
+                int finalI = i-1;
                 int finalJ = j;
                 tb.setOnAction(actionEvent -> samplePlayerController.setSequencerStep(tb.isSelected(), finalJ, finalI));
-                sequencerSteps[i][j] = tb;
+                sequencerSteps[finalI][finalJ] = tb;
                 gridPane.add(tb, j, i);
             }
         }
     }
 
     private void initPadButtons() {
+        pads = new Button[] {pad0,pad1,pad2,pad3,pad4,pad5,pad6,pad7,pad8};
+        for (int i = 0; i < pads.length; i++) {
+            int finalI = i;
+            pads[i].setOnAction(actionEvent -> {
+                samplePlayerController.playPad(finalI);
+                samplePlayerController.setCurrentPad(finalI);
+                lblPadView.setText("Pad " + (finalI +1));
+            });
+            pads[i].focusedProperty().addListener((observableValue, oldValue, newValue) -> {
+                if (newValue) {
+                    samplePlayerController.setCurrentPad(finalI);
+                    lblPadView.setText("Pad " + (finalI+1));
+                }
+            });
+        }
+        /*
         pad0.setOnAction(actionEvent -> {
             samplePlayerController.playPad(0);
             samplePlayerController.setCurrentPad(0);
@@ -345,6 +370,8 @@ public class SamplePlayerView implements Initializable {
             samplePlayerController.setCurrentPad(8);
             lblPadView.setText("Pad 9");
         });
+
+         */
     }
     //endregion Initialize methods
 
