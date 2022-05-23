@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import org.controlsfx.control.ToggleSwitch;
@@ -256,5 +257,9 @@ public class SamplePlayerView implements Initializable {
         behaviorPadReverbSize.setRotation(reverbSize);
         behaviorPadReverbTone.setRotation(reverbTone);
         tglBypassReverb.setSelected(reverbActive);
+    }
+
+    public Scene getScene() {
+        return pad0.getScene();
     }
 }

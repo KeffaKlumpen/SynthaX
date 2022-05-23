@@ -195,8 +195,10 @@ public class SynthaxView implements Initializable {
     //endregion Step Sequencer
 
     private final HashMap<String, AtomicBoolean> keyStatus = new HashMap<>();
+    //region SamplePlayer Variables
     @FXML private Button samplePlayerStart;
-
+    private SamplePlayerView samplePlayerView;
+    //endregion
 
     //region Step Sequencer collections
     private KnobBehavior bKnobSSRate;
@@ -616,17 +618,24 @@ public class SynthaxView implements Initializable {
 
     private void initSamplePlayer() {
         samplePlayerStart.setOnAction(l -> {
-            Parent root;
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/sampleplayer-view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                scene.getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
-                Stage stage = new Stage();
-                stage.setTitle("SynthaX Sample Player");
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (samplePlayerView == null) {
+                Parent root;
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/sampleplayer-view.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load());
+                    scene.getStylesheets().add(MainApplication.class.getResource("skins.css").toExternalForm());
+                    Stage stage = new Stage();
+                    stage.setTitle("SynthaX Sample Player");
+                    stage.setScene(scene);
+                    stage.show();
+                    samplePlayerView = fxmlLoader.getController();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Scene scene = samplePlayerView.getScene();
+                Stage stage = (Stage) scene.getWindow();
+                stage.toFront();
             }
         });
     }
