@@ -213,7 +213,7 @@ public class SamplePlayerView implements Initializable {
             r.setArcHeight(10);
             r.setArcWidth(10);
             stepIndicators[i] = r;
-            x += 30.21d;
+            x += 30d;
             sequencerMainPane.getChildren().add(r);
         }
     }
@@ -282,8 +282,8 @@ public class SamplePlayerView implements Initializable {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 16; j++) {
                 ToggleButton tb = new ToggleButton();
-                tb.setPrefHeight(27);
-                tb.setPrefWidth(27);
+                tb.setPrefHeight(30);
+                tb.setPrefWidth(30);
 
                 if (j % 4 == 0) {
                     tb.getStyleClass().add("tglSampleSeqFourths");
