@@ -17,7 +17,7 @@ import java.util.Arrays;
  * @author Joel Eriksson Sinclair
  */
 public class SeqPresetLoader {
-    private final static String PRESET_FILE_EXTENSION = ".dat";
+    private final static String PRESET_FILE_EXTENSION = ".stx";
 
     private final Sequencer sequencer;
     private File presetRoot = new File("src/main/resources/com/synthax/sequencer_presets");
