@@ -109,8 +109,8 @@ public class Pad {
         return reverb.getReverbAmount();
     }
 
-    public void bypassReverb() {
-        reverb.setActive();
+    public void bypassReverb(boolean isActive) {
+        reverb.setPadActive(isActive);
     }
 
     public boolean getReverbActive() {

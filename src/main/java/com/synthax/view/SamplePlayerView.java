@@ -143,7 +143,7 @@ public class SamplePlayerView implements Initializable {
             samplePlayerController.setPadReverbAmount(newValue.floatValue());
         });
 
-        tglBypassReverb.selectedProperty().addListener((observableValue, aBoolean, t1) -> samplePlayerController.bypassPadReverb());
+        tglBypassReverb.selectedProperty().addListener((observableValue, aBoolean, newValue) -> samplePlayerController.bypassPadReverb(newValue));
 
     }
 

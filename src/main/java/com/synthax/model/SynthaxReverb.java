@@ -89,6 +89,18 @@ public class SynthaxReverb {
         }
     }
 
+
+    public void setPadActive(boolean isActive) {
+        this.isActive = isActive;
+
+        if (isActive) {
+            setReverbAmount(cachedAmountValue);
+        } else {
+            cachedAmountValue = amountGlide.getCurrentValue();
+            amountGlide.setValue(0.0f);
+        }
+    }
+
     public boolean getReverbIsActive() {
         return isActive;
     }

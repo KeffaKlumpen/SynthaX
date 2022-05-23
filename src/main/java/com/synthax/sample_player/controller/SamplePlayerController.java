@@ -124,13 +124,13 @@ public class SamplePlayerController {
         currentPad.setReverbAmount(amount);
     }
 
-    public void bypassPadReverb() {
-        currentPad.bypassReverb();
+    public void bypassPadReverb(boolean isActive) {
+        currentPad.bypassReverb(isActive);
     }
 
     public void setAllGainValues() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(1200);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
