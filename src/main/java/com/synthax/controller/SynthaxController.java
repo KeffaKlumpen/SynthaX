@@ -430,4 +430,8 @@ public class SynthaxController {
     public boolean midiConnected() {
         return midi.midiConnected();
     }
+
+    public void setOscVoiceCount(int voiceCount) {
+        oscillatorManager.setOscillatorVoiceCount(voiceCount);
+    }
 }

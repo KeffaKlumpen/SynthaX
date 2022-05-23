@@ -5,10 +5,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.ToggleSwitch;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SettingsView implements Initializable {
+    @FXML private ToggleSwitch toggleMonophonic;
     @FXML private VBox presetsList;
     @FXML private Spinner<Integer> voiceCountSpinner;
     private SynthaxView synthaxView;
@@ -39,9 +42,12 @@ public class SettingsView implements Initializable {
 
     }
 
-    @FXML
-    public void onActionMonophonic() {
-        
+    private void setMonophonicState(boolean monophonic) {
+        if(monophonic) {
+            synthaxView.setOscVoiceCount(0);
+        } else {
+            synthaxView.setOscVoiceCount(voiceCountSpinner.getValue());
+        }
     }
 
     public void populatePresetsBox(String[] presetName, SynthaxView synthaxView) {
@@ -53,7 +59,17 @@ public class SettingsView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        toggleMonophonic.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
+            setMonophonicState(newValue);
+        });
 
-
+        SpinnerValueFactory<Integer> svf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 64, 8);
+        voiceCountSpinner.setValueFactory(svf);
+        voiceCountSpinner.valueProperty().addListener((observableValue, oldValue, newValue) -> {
+            synthaxView.setOscVoiceCount(newValue);
+            if(toggleMonophonic.isSelected()) {
+                toggleMonophonic.setSelected(false);
+            }
+        });
     }
 }

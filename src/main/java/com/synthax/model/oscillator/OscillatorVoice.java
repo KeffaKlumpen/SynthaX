@@ -4,6 +4,7 @@ import com.synthax.controller.OscillatorController;
 import com.synthax.model.SynthaxDelay;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.oscillator.OscillatorLFO;
+import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.Envelope;
 import net.beadsproject.beads.ugens.Gain;
@@ -16,34 +17,19 @@ import net.beadsproject.beads.ugens.WavePlayer;
  * @author Viktor Lenberg
  * @author Teodor Wegestål
  */
-public class OscillatorVoice {
-    private final OscillatorController controller;
-    private final int voiceIndex;
-
+public class OscillatorVoice extends Voice {
     private final WavePlayer wavePlayer;
-    private final Gain naturalGain;
-    private final Envelope gainEnv;
-    private final Glide normalizedGainGlide;
 
     private final OscillatorLFO oscillatorLFO;
     private final SynthaxDelay delay;
 
-    private MidiNote currentNote;
-
     public OscillatorVoice(Buffer waveBuffer, OscillatorController controller, int voiceIndex) {
-        this.controller = controller;
-        this.voiceIndex = voiceIndex;
+        super(controller, voiceIndex);
 
         oscillatorLFO = new OscillatorLFO();
         wavePlayer = new WavePlayer(oscillatorLFO.getFrequencyModulation(), waveBuffer);
 
-        gainEnv = new Envelope();
-        naturalGain = new Gain(1, gainEnv);
         naturalGain.addInput(wavePlayer);
-
-        normalizedGainGlide = new Glide(0f, 10f);
-        Gain normalizedGain = new Gain(1, normalizedGainGlide);
-        normalizedGain.addInput(naturalGain);
 
         delay = new SynthaxDelay(normalizedGain);
     }
@@ -54,38 +40,34 @@ public class OscillatorVoice {
      * Amplitude is altered by the ADSR-envelope
      * The echo is altered by the Delay-envelope
      */
+    @Override
     public void noteOn(MidiNote note, float detunedFrequency, float maxGain, float attackTime, float sustainGain, float decayTime) {
-        currentNote = note;
+        super.noteOn(note, detunedFrequency, maxGain, attackTime, sustainGain, decayTime);
 
         oscillatorLFO.setPlayedFrequency(detunedFrequency);
-
-        gainEnv.clear();
-        gainEnv.addSegment(maxGain, attackTime);
-        gainEnv.addSegment(sustainGain, decayTime);
 
         delay.getEnvelope().clear();
         delay.getEnvelope().addSegment(1f, 10f);
         delay.getEnvelope().addSegment(1f, delay.getFeedbackDuration());
         delay.getEnvelope().addSegment(0f, 10f);
-
-        if(sustainGain <= 0.01f) {
-            float maxPlayTime = attackTime + decayTime;
-            controller.notifyAvailableVoice(voiceIndex, maxPlayTime);
-        }
     }
 
-    public void noteOff(MidiNote note, float releaseTime) {
-        // IF midiNote = oldMidiNote..
-        if(note == currentNote) {
-            gainEnv.clear();
-            gainEnv.addSegment(0f, releaseTime);
+    // SEQUENCER STUPID SHIT
+    public void noteOn(MidiNote note, float detunedFrequency, float maxGain, float attackTime, float sustainGain, float decayTime, float seqDetune) {
+        super.noteOn(note, detunedFrequency, maxGain, attackTime, sustainGain, decayTime);
 
-            controller.notifyAvailableVoice(voiceIndex, releaseTime);
-        }
+        // apply more detuning, nice sequencer stuff
+        oscillatorLFO.setPlayedFrequency(detunedFrequency);
+
+        delay.getEnvelope().clear();
+        delay.getEnvelope().addSegment(1f, 10f);
+        delay.getEnvelope().addSegment(1f, delay.getFeedbackDuration());
+        delay.getEnvelope().addSegment(0f, 10f);
     }
 
-    public void stopPlay() {
-        gainEnv.clear();
+    @Override
+    public UGen getOutput() {
+        return delay.getOutput();
     }
 
     public void bypass(boolean onOff) {
@@ -98,14 +80,6 @@ public class OscillatorVoice {
     }
 
     //region Getters&Setters (click to open/collapse)
-    public Gain getNaturalGain() {
-        return naturalGain;
-    }
-
-    public Glide getNormalizedGainGlide() {
-        return normalizedGainGlide;
-    }
-
     public OscillatorLFO getOscillatorLFO() {
         return oscillatorLFO;
     }
