@@ -16,8 +16,6 @@ public class SettingsView implements Initializable {
 
     @FXML
     public void onActionDelete() {
-
-
         if (alertDialog.showAndWait().get() == ButtonType.OK) {
             for (int i = 0; i < presetsList.getChildren().size(); i++) {
                 CheckBox c = (CheckBox) presetsList.getChildren().get(i);

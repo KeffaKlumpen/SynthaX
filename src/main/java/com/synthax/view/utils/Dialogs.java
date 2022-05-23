@@ -16,10 +16,11 @@ import javafx.stage.Stage;
 public class Dialogs {
 
     static Boolean result;
+    static Boolean okButtonPressed = false;
     static String fileName;
 
     public static String getTextInput(String title, String contextText, String promptText) {
-        result = false;
+        okButtonPressed = false;
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -38,16 +39,15 @@ public class Dialogs {
         Button btnOK = new Button("OK");
         btnCancel.setOnAction(e -> {
             fileName = "";
-            result = true;
             window.close();
         });
         btnOK.setOnAction(e-> {
             fileName = textField.getText();
+            okButtonPressed = true;
             window.close();
         });
         window.setOnCloseRequest(e-> {
             fileName = "";
-            result = true;
             window.close();
         });
 
@@ -74,7 +74,7 @@ public class Dialogs {
         window.setScene(scene);
         window.showAndWait();
         //While loop to prevent from clicking ok with empty filename
-        while (fileName.equals("") && !result) {
+        while (fileName.equals("") && okButtonPressed) {
             window.showAndWait();
         }
 

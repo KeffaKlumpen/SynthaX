@@ -109,7 +109,6 @@ public class SynthaxView implements Initializable {
     @FXML private Button btnSettings;
     @FXML private Label lblNotConnected;
     @FXML private Label lblConnected;
-    @FXML private Button btnSavePreset;
     //endregion Controls below logo
     //endregion FXML variables
 
@@ -258,21 +257,19 @@ public class SynthaxView implements Initializable {
         cmbPresets.getSelectionModel().selectFirst();
     }
 
+    public void updateMidiLabel(boolean visable) {
+        Platform.runLater(() -> {
+            if (visable) {
+                lblConnected.setVisible(true);
+                lblNotConnected.setVisible(false);
+            } else {
+                lblConnected.setVisible(false);
+                lblNotConnected.setVisible(true);
+            }
+        });
+    }
+
     //region onAction  (click to open/collapse)
-    @FXML
-    public void onActionAlert() {
-        Boolean result = Dialogs.getConfirmation("Warning!", "Are you sure?");
-        System.out.println(result);
-    }
-
-    @FXML
-    public void onActionTextInput() {
-        String result = Dialogs.getTextInput("Save Preset", "Enter preset name:", "Preset name");
-        if (!result.equals("")) {
-            System.out.println(result);
-        }
-    }
-
     @FXML
     public void onActionRandomize() {
         synthaxController.randomize(arrSeqStepsOnOff.length);
@@ -410,18 +407,6 @@ public class SynthaxView implements Initializable {
 
     }
 
-    public void updateMidiLabel(boolean visable) {
-        Platform.runLater(() -> {
-            if (visable) {
-                lblConnected.setVisible(true);
-                lblNotConnected.setVisible(false);
-            } else {
-                lblConnected.setVisible(false);
-                lblNotConnected.setVisible(true);
-            }
-        });
-    }
-
     @FXML
     public void onActionNoiseBypass() {
         synthaxController.setNoiseActive();
@@ -465,6 +450,11 @@ public class SynthaxView implements Initializable {
     @FXML
     public void onActionLPBypass() {
         synthaxController.setLPActive();
+    }
+
+    @FXML
+    public void onActionSavePreset() {
+        synthaxController.onSavePreset(cmbPresets.getValue());
     }
     //endregion onAction
 
@@ -787,7 +777,7 @@ public class SynthaxView implements Initializable {
 
     private void initStepSequencerPresetButtons() {
         synthaxController.updateSequencerPresetList();
-        btnSavePreset.setOnAction(actionEvent -> synthaxController.onSavePreset(cmbPresets.getValue()));
+        //btnSavePreset.setOnAction(actionEvent -> synthaxController.onSavePreset(cmbPresets.getValue()));
         cmbPresets.setOnAction(actionEvent -> synthaxController.onSelectPreset(cmbPresets.getValue()));
     }
 
