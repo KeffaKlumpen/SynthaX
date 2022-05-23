@@ -54,7 +54,11 @@ public class SamplePlayerController {
     private void fillSourceMap(String[] sources) {
         sourceMap = new HashMap<>();
         for (String s : sources) {
-            sourceMap.put(s.substring(s.lastIndexOf("\\") + 1, s.lastIndexOf(".")), s);
+            String key = s.substring(s.lastIndexOf("/") + 1, s.lastIndexOf("."));
+            if (key.length() > 10) {
+                key = s.substring(s.lastIndexOf("\\") + 1, s.lastIndexOf("."));
+            }
+            sourceMap.put(key, s);
         }
     }
 
