@@ -146,6 +146,8 @@ public class SamplePlayerView implements Initializable {
         initAvailableSamples();
         syncSequencer.selectedProperty().addListener((v, oldValue, newValue) -> {
             samplePlayerController.stopSequencer();
+            btnSamplePlayerStart.setText("Start");
+            btnSamplePlayerStart.setStyle("-fx-text-fill: #d6d1c9");
             synthaxView.forceStopSequencer();
             if (newValue) {
                 synthaxView.updateSequencerRate(behaviorRate.knobValueProperty().floatValue());
