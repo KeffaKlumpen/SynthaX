@@ -15,6 +15,7 @@ import com.synthax.model.enums.Waveforms;
 import com.synthax.util.HelperMath;
 import com.synthax.util.MidiHelpers;
 
+import com.synthax.view.utils.Dialogs;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -107,7 +108,6 @@ public class SynthaxView implements Initializable {
     @FXML private Button btnSettings;
     @FXML private Label lblNotConnected;
     @FXML private Label lblConnected;
-    @FXML private Button btnSavePreset;
     //endregion Controls below logo
     //endregion FXML variables
 
@@ -252,8 +252,30 @@ public class SynthaxView implements Initializable {
     }
 
     public void setSequencerPresetList(String[] presetNames) {
-        cmbPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));
-        cmbPresets.getSelectionModel().selectFirst();
+        setSequencerPresetList(presetNames, "");
+    }
+
+    public void setSequencerPresetList(String[] presetNames, String chosenPreset) {
+        Platform.runLater(() -> {
+            cmbPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));
+            if (chosenPreset.equals("")) {
+                cmbPresets.getSelectionModel().selectFirst();
+            } else {
+                cmbPresets.getSelectionModel().select(chosenPreset);
+            }
+        });
+    }
+
+    public void updateMidiLabel(boolean visable) {
+        Platform.runLater(() -> {
+            if (visable) {
+                lblConnected.setVisible(true);
+                lblNotConnected.setVisible(false);
+            } else {
+                lblConnected.setVisible(false);
+                lblNotConnected.setVisible(true);
+            }
+        });
     }
 
     //region onAction  (click to open/collapse)
@@ -391,19 +413,6 @@ public class SynthaxView implements Initializable {
             lblConnected.setVisible(false);
             lblNotConnected.setVisible(true);
         }
-
-    }
-
-    public void updateMidiLabel(boolean visable) {
-        Platform.runLater(() -> {
-            if (visable) {
-                lblConnected.setVisible(true);
-                lblNotConnected.setVisible(false);
-            } else {
-                lblConnected.setVisible(false);
-                lblNotConnected.setVisible(true);
-            }
-        });
     }
 
     @FXML
@@ -449,6 +458,11 @@ public class SynthaxView implements Initializable {
     @FXML
     public void onActionLPBypass() {
         synthaxController.setLPActive();
+    }
+
+    @FXML
+    public void onActionSavePreset() {
+        showSavePresetDialog();
     }
     //endregion onAction
 
@@ -771,8 +785,31 @@ public class SynthaxView implements Initializable {
 
     private void initStepSequencerPresetButtons() {
         synthaxController.updateSequencerPresetList();
-        btnSavePreset.setOnAction(actionEvent -> synthaxController.onSavePreset(cmbPresets.getValue()));
-        cmbPresets.setOnAction(actionEvent -> synthaxController.onSelectPreset(cmbPresets.getValue()));
+
+        cmbPresets.setOnAction(actionEvent -> {
+            synthaxController.onSelectPreset(cmbPresets.getValue());
+        });
+    }
+
+    private void showSavePresetDialog() {
+        String currentPresetName = cmbPresets.getValue();
+        // show name selection pop-up
+        String presetName = Dialogs.getTextInput("Preset Name", "Preset Name:", currentPresetName);
+        if(presetName != null && !presetName.equals("")) {
+            synthaxController.onSavePreset(presetName);
+        }
+    }
+
+    public void showPresetSaveConflictPopup(String presetName) {
+        int choice = Dialogs.getConfirmationYesNoCancel("Preset Exists", "Preset already exists, do you want to overwrite?");
+
+        // I wan't a cancel state, give me int (0, 1, 2) instead of boolean.
+        if(choice == Dialogs.YES_OPTION) {
+            synthaxController.savePreset(presetName);
+        }
+        else if(choice == Dialogs.NO_OPTION) {
+            synthaxController.savePresetAsNew(presetName);
+        }
     }
 
     private void initNoise() {

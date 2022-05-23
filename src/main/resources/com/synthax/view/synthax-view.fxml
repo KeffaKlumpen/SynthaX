@@ -609,7 +609,7 @@
                </font>
             </CheckBox>
             <Button layoutX="672.0" layoutY="302.0" mnemonicParsing="false" onAction="#onActionResetKnobs" prefHeight="49.0" prefWidth="44.0" styleClass="resetButton" text="Reset knobs" textAlignment="CENTER" wrapText="true" />
-            <Button fx:id="btnSavePreset" layoutX="378.0" layoutY="8.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" styleClass="saveButton" />
+            <Button layoutX="378.0" layoutY="8.0" mnemonicParsing="false" onAction="#onActionSavePreset" prefHeight="28.0" prefWidth="28.0" styleClass="saveButton" />
             <ComboBox fx:id="cmbPresets" layoutX="223.0" layoutY="8.0" prefHeight="28.0" prefWidth="146.0" promptText="Presets" styleClass="presetsComboBox" />
          </children></AnchorPane>
       <AnchorPane layoutX="875.0" layoutY="12.0" prefHeight="345.0" prefWidth="391.0">

@@ -1,11 +1,9 @@
 package com.synthax.view;
 
+import com.synthax.view.utils.Dialogs;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,11 +14,14 @@ public class SettingsView implements Initializable {
     private SynthaxView synthaxView;
 
 
-
+    // TODO: 2022-05-20 Only pass call to controller,
+    //  then let controller create thread and call on SeqPresetLoader
+    //  and when that thread is done - callBack to update GUI.
     @FXML
     public void onActionDelete() {
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        if (a.showAndWait().get() == ButtonType.OK) {
+        int choice = Dialogs.getConfirmationYesCancel("Remove Preset", "This will remove the selected presets, are you sure?");
+
+        if (choice == Dialogs.YES_OPTION) {
             for (int i = 0; i < presetsList.getChildren().size(); i++) {
                 CheckBox c = (CheckBox) presetsList.getChildren().get(i);
                 if (c.isSelected()) {
@@ -52,7 +53,6 @@ public class SettingsView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
 
 
     }
