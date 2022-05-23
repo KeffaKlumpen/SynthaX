@@ -163,11 +163,6 @@ public class SamplePlayerController {
     }
 
     public void setAllGainValues() {
-        try {
-            Thread.sleep(1200);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         for (Pad p : pads) {
             p.setGain(0.5f);
         }

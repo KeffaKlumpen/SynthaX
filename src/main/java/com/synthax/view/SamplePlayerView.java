@@ -84,6 +84,7 @@ public class SamplePlayerView implements Initializable {
     @FXML private CheckBox syncSequencer;
 
     private KnobBehavior behaviorRate;
+    private boolean firstTimeOpened = true;
 
     private SamplePlayerController samplePlayerController;
     private SynthaxView synthaxView;
@@ -143,7 +144,6 @@ public class SamplePlayerView implements Initializable {
         initPadGain();
         initReverb();
         initAvailableSamples();
-        initPadGainValues();
         syncSequencer.selectedProperty().addListener((v, oldValue, newValue) -> {
             samplePlayerController.stopSequencer();
             synthaxView.forceStopSequencer();
@@ -257,10 +257,6 @@ public class SamplePlayerView implements Initializable {
         });
     }
 
-    private void initPadGainValues() {
-        samplePlayerController.setAllGainValues();
-    }
-
     private void initSamplePlayerGain() {
         sliderSamplePlayerGain.valueProperty().addListener((observableValue, number, t1) -> samplePlayerController.setMasterGain(t1.floatValue()));
     }
@@ -331,6 +327,14 @@ public class SamplePlayerView implements Initializable {
     }
     //endregion Initialize methods
 
+
+
+    public void setAllGainValues() {
+        if (firstTimeOpened) {
+            samplePlayerController.setAllGainValues();
+            firstTimeOpened = false;
+        }
+    }
 
 
 
