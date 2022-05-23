@@ -8,7 +8,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import org.controlsfx.control.ToggleSwitch;
 
 
@@ -55,10 +58,13 @@ public class SamplePlayerView implements Initializable {
     //endregion FXML Sequencer Variables
 
     //region Sequencer Variables (click to open/collapse)
-    ToggleButton[][] sequencerSteps;
+    private ToggleButton[][] sequencerSteps;
+    @FXML private AnchorPane sequencerMainPane = new AnchorPane();
+    private Rectangle[] stepIndicators;
     //endregion Sequencer Variables
 
     // region Pad Settings (click to open/collapse)
+    @FXML private Label lblPadView;
     @FXML private Button knobPadGain;
     @FXML private Button knobPadReverbSize;
     @FXML private Button knobPadReverbTone;
@@ -137,6 +143,17 @@ public class SamplePlayerView implements Initializable {
                 btnSamplePlayerStart.setStyle("-fx-text-fill: #d6d1c9");
             }
         });
+        stepIndicators = new Rectangle[16];
+        double x = 142, y = 45;
+        for (int i = 0; i < stepIndicators.length; i++) {
+            Rectangle r = new Rectangle(x,y,27,10);
+            r.setFill(Color.web("#bfbbb4"));
+            r.setArcHeight(10);
+            r.setArcWidth(10);
+            stepIndicators[i] = r;
+            x += 30d;
+            sequencerMainPane.getChildren().add(r);
+        }
     }
 
     private void initAvailableSamples() {
@@ -212,12 +229,7 @@ public class SamplePlayerView implements Initializable {
                 tb.getStyleClass().add("tglSampleSeq");
                 int finalI = i;
                 int finalJ = j;
-                tb.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent actionEvent) {
-                        samplePlayerController.setSequencerStep(tb.isSelected(), finalJ, finalI);
-                    }
-                });
+                tb.setOnAction(actionEvent -> samplePlayerController.setSequencerStep(tb.isSelected(), finalJ, finalI));
                 sequencerSteps[i][j] = tb;
                 gridPane.add(tb, j, i);
             }
