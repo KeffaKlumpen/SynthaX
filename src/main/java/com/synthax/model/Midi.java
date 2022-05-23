@@ -102,12 +102,8 @@ public class Midi {
         public void run() {
             boolean running = true;
             while (running) {
-                System.out.println("Im running");
                 try {
-                    for (int i = 1; i<=5; i++){
-                        System.out.println(i);
-                        Thread.sleep(1000);
-                    }
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
