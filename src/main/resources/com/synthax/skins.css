@@ -35,6 +35,9 @@
         -fx-body-color: #78736b;
         -fx-background-insets: 0, 0, 0;
 }
+.button:focused {
+    -fx-text-fill: #f78000;
+}
 /*
 .plainButton {
     -fx-background-color: #78736b;

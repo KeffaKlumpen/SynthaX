@@ -17,8 +17,6 @@ import com.synthax.util.MidiHelpers;
 
 import com.synthax.view.utils.Dialogs;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +26,6 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -37,7 +34,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.PopOver;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -805,13 +801,13 @@ public class SynthaxView implements Initializable {
     }
 
     public void showPresetSaveConflictPopup(String presetName) {
-        boolean result = Dialogs.getConfirmation("Preset Exists", "Preset already exists, do you want to overwrite?");
+        int choice = Dialogs.getConfirmationYesNoCancel("Preset Exists", "Preset already exists, do you want to overwrite?");
 
         // I wan't a cancel state, give me int (0, 1, 2) instead of boolean.
-        if(result) {
+        if(choice == Dialogs.YES_OPTION) {
             synthaxController.savePreset(presetName);
         }
-        else {
+        else if(choice == Dialogs.NO_OPTION) {
             synthaxController.savePresetAsNew(presetName);
         }
     }

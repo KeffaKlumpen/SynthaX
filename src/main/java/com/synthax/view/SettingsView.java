@@ -19,9 +19,9 @@ public class SettingsView implements Initializable {
     //  and when that thread is done - callBack to update GUI.
     @FXML
     public void onActionDelete() {
-        boolean confirmation = Dialogs.getConfirmation("Remove Preset", "This will remove the selected presets, are you sure?");
+        int choice = Dialogs.getConfirmationYesCancel("Remove Preset", "This will remove the selected presets, are you sure?");
 
-        if (confirmation) {
+        if (choice == Dialogs.YES_OPTION) {
             for (int i = 0; i < presetsList.getChildren().size(); i++) {
                 CheckBox c = (CheckBox) presetsList.getChildren().get(i);
                 if (c.isSelected()) {
