@@ -54,7 +54,15 @@ public class OscillatorController {
         oscillatorOutput = new Add(ac,1, voiceOutput);
     }
 
+    /**
+     * Stops and removes any old vocies, and then initializes the new voices.
+     * @param newVoiceCount The amount of voices this oscillator should have.
+     */
     public void setVoiceCount(int newVoiceCount) {
+        if(newVoiceCount < 1) {
+            newVoiceCount = 1;
+        }
+
         // clear conncetion
         voiceOutput.clearDependents();
         voiceOutput.clearInputConnections();
@@ -92,7 +100,7 @@ public class OscillatorController {
         }
     }
 
-
+    //region Voice Availability
     public synchronized void notifyAvailableVoice(int voiceIndex, float delay) {
         NotifierThread notifierThread = new NotifierThread(voiceIndex, delay);
         if(!notifierThreadHashMap.containsKey(voiceIndex)) {
@@ -115,34 +123,6 @@ public class OscillatorController {
         }
     }
 
-    class NotifierThread extends Thread {
-        private final int voiceIndex;
-        private final float delay;
-
-        private boolean canceled = false;
-
-        public NotifierThread(int voiceIndex, float delay) {
-            this.voiceIndex = voiceIndex;
-            this.delay = delay;
-        }
-
-        public void cancelNotification() {
-            canceled = true;
-        }
-
-        @Override
-        public void run() {
-            try {
-                sleep((long)delay);
-                if(!canceled) {
-                    setVoiceAvailable(voiceIndex);
-                }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
     private synchronized int getBestVoice() {
         int voiceToSteal = -1;
 
@@ -160,7 +140,9 @@ public class OscillatorController {
 
         return voiceToSteal;
     }
+    //endregion Voice Availability
 
+    //region MIDI-handling
     /**
      * Select a suitable voice and tells it to play the given MIDI-note.
      * @param midiNote Midi-note to be played.
@@ -213,7 +195,9 @@ public class OscillatorController {
             System.err.println("noteOff on a voice that does not exist anymore.");
         }
     }
+    //endregion MIDI-handling
 
+    //region GUI forwarding (click to open/collapse)
     // FIXME: 2022-04-07 Bypassing an Mult Oscillator makes it so no sound reaches the output. (Multiplying with the 0-buffer).
     public void bypassOscillator(boolean onOff) {
         for (int i = 0; i < voiceCount; i++) {
@@ -227,7 +211,6 @@ public class OscillatorController {
         }
     }
 
-    //region GUI forwarding (click to open/collapse)
     public void setOctaveOperand(OctaveOperands octaveOperand) {
         updateOctaveOffset(this.octaveOperand, octaveOperand);
         this.octaveOperand = octaveOperand;
@@ -248,8 +231,12 @@ public class OscillatorController {
     public void setDetuneCent(float detuneCent) {
         this.detuneCent = detuneCent;
 
-        for (OscillatorVoice voice : voices) {
-            voice.updateDetuneValue(detuneCent);
+        // Update the detune for active voices, allowing the detune effects to be applied dynamically.
+        for (int i = 0; i < voiceCount; i++) {
+            // Avoid updating detune on silent voices, better performance and also avoid nulls.
+            if(!voiceAvailability[i]) {
+                voices[i].updateDetuneValue(detuneCent);
+            }
         }
     }
 
@@ -366,4 +353,32 @@ public class OscillatorController {
         }
     }
     //endregion delay-setters
+
+    class NotifierThread extends Thread {
+        private final int voiceIndex;
+        private final float delay;
+
+        private boolean canceled = false;
+
+        public NotifierThread(int voiceIndex, float delay) {
+            this.voiceIndex = voiceIndex;
+            this.delay = delay;
+        }
+
+        public void cancelNotification() {
+            canceled = true;
+        }
+
+        @Override
+        public void run() {
+            try {
+                sleep((long)delay);
+                if(!canceled) {
+                    setVoiceAvailable(voiceIndex);
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }
