@@ -1,4 +1,4 @@
-package com.synthax.controller;
+package com.synthax.model.oscillator;
 
 import net.beadsproject.beads.ugens.*;
 
@@ -7,14 +7,13 @@ import net.beadsproject.beads.ugens.*;
  * @author Joel Eriksson Sinclair
  */
 public class NoiseVoice {
-    private final Noise noiseGenerator;
     private final Gain naturalGain;
     private final Envelope gainEnv;
     private final Gain normalizedGain;
     private final Glide normGainGlide;
 
     public NoiseVoice(){
-        noiseGenerator = new Noise();
+        Noise noiseGenerator = new Noise();
 
         gainEnv = new Envelope();
         naturalGain = new Gain(1, gainEnv);

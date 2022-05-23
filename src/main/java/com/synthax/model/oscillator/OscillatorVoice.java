@@ -1,5 +1,6 @@
-package com.synthax.controller;
+package com.synthax.model.oscillator;
 
+import com.synthax.controller.OscillatorController;
 import com.synthax.model.SynthaxDelay;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.oscillator.OscillatorLFO;

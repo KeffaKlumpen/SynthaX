@@ -2,6 +2,7 @@ package com.synthax.controller;
 
 import com.synthax.model.SynthaxADSR;
 import com.synthax.model.enums.MidiNote;
+import com.synthax.model.oscillator.NoiseVoice;
 import com.synthax.model.oscillator.VoiceNormalizer;
 import com.synthax.util.HelperMath;
 import net.beadsproject.beads.ugens.Gain;
