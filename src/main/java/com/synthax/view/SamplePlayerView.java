@@ -100,10 +100,12 @@ public class SamplePlayerView implements Initializable {
         btnSamplePlayerStart.setOnMousePressed(l -> {
             if (!samplePlayerController.sequencerIsRunning()) {
                 samplePlayerController.startSequencer();
-                //TODO: litta GUI-grejor
+                btnSamplePlayerStart.setText("Stop");
+                btnSamplePlayerStart.setStyle("-fx-text-fill: #f78000");
             } else {
                 samplePlayerController.stopSequencer();
-                //TODO: litta GUI-grejor
+                btnSamplePlayerStart.setText("Start");
+                btnSamplePlayerStart.setStyle("-fx-text-fill: #d6d1c9");
             }
         });
     }
