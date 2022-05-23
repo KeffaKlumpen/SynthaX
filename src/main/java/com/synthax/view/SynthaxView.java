@@ -564,9 +564,9 @@ public class SynthaxView implements Initializable {
         SSStartStop.setText("Start");
         SSStartStop.setStyle("-fx-text-fill: #d6d1c9");
     }
-
-    public Thread getSequencerThread() {
-        return synthaxController.getSequencerThread();
+    
+    public boolean sequencerIsRunning() {
+        return synthaxController.sequencerIsRunning();
     }
 
 
@@ -1059,9 +1059,6 @@ public class SynthaxView implements Initializable {
         });
     }
 
-    public boolean sequencerIsRunning() {
-        return synthaxController.sequencerIsRunning();
-    }
 
 
     //endregion initialize methods
