@@ -800,6 +800,9 @@ public class SynthaxView implements Initializable {
         knobSSRate.setOnMouseDragged(bKnobSSRate);
         bKnobSSRate.knobValueProperty().addListener((v, oldValue, newValue) -> {
             synthaxController.setSeqBPM(newValue.floatValue());
+            if (samplePlayerView.getSyncSelected()) {
+                samplePlayerView.setRate(newValue.floatValue());
+            }
         });
 
         for (int i = 0; i < arrSeqStepsOnOff.length; i++) {
@@ -814,7 +817,21 @@ public class SynthaxView implements Initializable {
             });
         }
         SSStartStop.setOnMousePressed(l -> {
+            boolean synced = samplePlayerView.getSyncSelected();
             if (!synthaxController.sequencerIsRunning()) {
+                if (samplePlayerView.getSequencerIsRunning() && synced) {
+                    samplePlayerView.stopSequencer();
+                }
+
+                try {
+                    Thread.sleep(280);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                if (synced) {
+                    samplePlayerView.startSequencer();
+                }
                 synthaxController.sequencerOn();
                 SSStartStop.setText("Stop");
                 SSStartStop.setStyle("-fx-text-fill: #f78000");
@@ -822,6 +839,9 @@ public class SynthaxView implements Initializable {
                 synthaxController.sequencerOff();
                 SSStartStop.setText("Start");
                 SSStartStop.setStyle("-fx-text-fill: #d6d1c9");
+                if (synced) {
+                    samplePlayerView.stopSequencer();
+                }
                 if (ricky != null) {
                     ricky.setImage(null);
                 }

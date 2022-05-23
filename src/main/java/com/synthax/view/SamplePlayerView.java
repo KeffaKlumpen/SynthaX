@@ -3,8 +3,6 @@ package com.synthax.view;
 import com.synthax.sample_player.controller.SamplePlayerController;
 import com.synthax.view.controls.KnobBehavior;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -129,6 +127,21 @@ public class SamplePlayerView implements Initializable {
         stepIndicators[index].setFill(Color.web("#a6a097"));
     }
 
+    public void setAllGainValues() {
+        if (firstTimeOpened) {
+            samplePlayerController.setAllGainValues();
+            firstTimeOpened = false;
+        }
+    }
+
+    public boolean getSyncSelected() {
+        return syncSequencer.isSelected();
+    }
+
+    public boolean getSequencerIsRunning() {
+        return samplePlayerController.getSequencerIsRunning();
+    }
+
     public Scene getScene() {
         return pad0.getScene();
     }
@@ -166,8 +179,9 @@ public class SamplePlayerView implements Initializable {
         });
 
         btnSamplePlayerStart.setOnMousePressed(l -> {
-            if (!samplePlayerController.sequencerIsRunning()) {
-                boolean synced = syncSequencer.isSelected();
+            boolean synced = syncSequencer.isSelected();
+
+            if (!samplePlayerController.getSequencerIsRunning()) {
                 if (synthaxView.sequencerIsRunning() && synced) {
                     synthaxView.forceStopSequencer();
                     try {
@@ -184,7 +198,7 @@ public class SamplePlayerView implements Initializable {
                 btnSamplePlayerStart.setStyle("-fx-text-fill: #f78000");
             } else {
                 samplePlayerController.stopSequencer();
-                if (syncSequencer.isSelected()) {
+                if (synced) {
                     synthaxView.forceStopSequencer();
                 }
                 btnSamplePlayerStart.setText("Start");
@@ -199,7 +213,7 @@ public class SamplePlayerView implements Initializable {
             r.setArcHeight(10);
             r.setArcWidth(10);
             stepIndicators[i] = r;
-            x += 30d;
+            x += 30.21d;
             sequencerMainPane.getChildren().add(r);
         }
     }
@@ -270,7 +284,12 @@ public class SamplePlayerView implements Initializable {
                 ToggleButton tb = new ToggleButton();
                 tb.setPrefHeight(27);
                 tb.setPrefWidth(27);
-                tb.getStyleClass().add("tglSampleSeq");
+
+                if (j % 4 == 0) {
+                    tb.getStyleClass().add("tglSampleSeqFourths");
+                } else {
+                    tb.getStyleClass().add("tglSampleSeq");
+                }
                 int finalI = i;
                 int finalJ = j;
                 tb.setOnAction(actionEvent -> samplePlayerController.setSequencerStep(tb.isSelected(), finalJ, finalI));
@@ -329,16 +348,15 @@ public class SamplePlayerView implements Initializable {
     }
     //endregion Initialize methods
 
-
-
-    public void setAllGainValues() {
-        if (firstTimeOpened) {
-            samplePlayerController.setAllGainValues();
-            firstTimeOpened = false;
-        }
+    public void stopSequencer() {
+        samplePlayerController.stopSequencer();
+        btnSamplePlayerStart.setText("Start");
+        btnSamplePlayerStart.setStyle("-fx-text-fill: #d6d1c9");
     }
 
-
-
-
+    public void startSequencer() {
+        samplePlayerController.startSequencer();
+        btnSamplePlayerStart.setText("Stop");
+        btnSamplePlayerStart.setStyle("-fx-text-fill: #f78000");
+    }
 }

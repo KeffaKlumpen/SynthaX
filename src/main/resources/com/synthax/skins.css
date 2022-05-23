@@ -318,6 +318,16 @@
     -fx-background-insets: 0, 0, 0;
 }
 
+.tglSampleSeqFourths {
+    -fx-background-color: #78736b95;
+    -fx-padding: 0,3px;
+    -fx-text-fill: #d6d1c9;
+    -fx-font-family: "Handel Gothic";
+    -fx-font-size: 10;
+    -fx-background-insets: 0, 0, 0;
+}
+
+.tglSampleSeqFourths:selected,
 .tglSampleSeq:selected {
     -fx-background-color: #f78000;
 }

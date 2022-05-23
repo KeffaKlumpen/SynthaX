@@ -132,7 +132,7 @@ public class SamplePlayerController {
         sequencer.stop();
     }
 
-    public boolean sequencerIsRunning() {
+    public boolean getSequencerIsRunning() {
         return sequencer.isRunning();
     }
 
