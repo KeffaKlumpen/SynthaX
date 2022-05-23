@@ -430,4 +430,8 @@ public class SynthaxController {
     public boolean midiConnected() {
         return midi.midiConnected();
     }
+
+    public Thread getSequencerThread() {
+        return sequencer.getThread();
+    }
 }

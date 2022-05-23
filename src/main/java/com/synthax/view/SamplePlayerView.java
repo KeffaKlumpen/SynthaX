@@ -70,11 +70,16 @@ public class SamplePlayerView implements Initializable {
     private KnobBehavior behaviorPadReverbSize;
     private KnobBehavior behaviorPadReverbTone;
     private KnobBehavior behaviorPadReverbAmount;
+
     // endregion Pad Settings
 
     @FXML private Slider sliderSamplePlayerGain;
+    @FXML private CheckBox syncSequencer;
+
+    private KnobBehavior behaviorRate;
 
     private SamplePlayerController samplePlayerController;
+    private SynthaxView synthaxView;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -87,23 +92,47 @@ public class SamplePlayerView implements Initializable {
         initReverb();
         initAvailableSamples();
         initPadGainValues();
+        syncSequencer.selectedProperty().addListener((v, oldValue, newValue) -> {
+            samplePlayerController.stopSequencer();
+            synthaxView.forceStopSequencer();
+            if (newValue) {
+                synthaxView.updateSequencerRate(behaviorRate.knobValueProperty().floatValue());
+            }
+        });
     }
     //region Initialize methods (click to open/collapse)
     private void initSamplePlayerSequencer() {
-        KnobBehavior behaviorRate = new KnobBehavior(knobSamplePlayerRate);
-        behaviorRate.setRotation(0.5f);
+        behaviorRate = new KnobBehavior(knobSamplePlayerRate);
         knobSamplePlayerRate.setOnMouseDragged(behaviorRate);
         behaviorRate.knobValueProperty().addListener((v, oldValue, newValue) -> {
             samplePlayerController.setSequencerRate(newValue.floatValue());
+            if (syncSequencer.isSelected()) {
+                synthaxView.updateSequencerRate(newValue.floatValue());
+            }
         });
 
         btnSamplePlayerStart.setOnMousePressed(l -> {
             if (!samplePlayerController.sequencerIsRunning()) {
+                boolean synced = syncSequencer.isSelected();
+                if (synthaxView.sequencerIsRunning() && synced) {
+                    synthaxView.forceStopSequencer();
+                    try {
+                        Thread.sleep(280);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 samplePlayerController.startSequencer();
+                if (synced) {
+                    synthaxView.forceStartSequencer();
+                }
                 btnSamplePlayerStart.setText("Stop");
                 btnSamplePlayerStart.setStyle("-fx-text-fill: #f78000");
             } else {
                 samplePlayerController.stopSequencer();
+                if (syncSequencer.isSelected()) {
+                    synthaxView.forceStopSequencer();
+                }
                 btnSamplePlayerStart.setText("Start");
                 btnSamplePlayerStart.setStyle("-fx-text-fill: #d6d1c9");
             }
@@ -256,5 +285,13 @@ public class SamplePlayerView implements Initializable {
         behaviorPadReverbSize.setRotation(reverbSize);
         behaviorPadReverbTone.setRotation(reverbTone);
         tglBypassReverb.setSelected(reverbActive);
+    }
+
+    public void setSynthaxView(SynthaxView synthaxView) {
+        this.synthaxView = synthaxView;
+    }
+
+    public void setRate(float value) {
+        behaviorRate.setRotation(value);
     }
 }
