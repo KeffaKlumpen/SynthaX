@@ -107,7 +107,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <CheckBox layoutX="678.0" layoutY="279.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" selected="true" styleClass="check-box-big">
+            <CheckBox fx:id="syncSequencer" layoutX="678.0" layoutY="279.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" selected="true" styleClass="check-box-big">
                <font>
                   <Font size="23.0" />
                </font>
@@ -183,6 +183,5 @@
             <Label layoutX="131.0" layoutY="38.0" styleClass="filterLabel" text="Reverb" />
          </children>
       </AnchorPane>
-      <CheckBox fx:id="syncSequencer" layoutX="436.0" layoutY="332.0" mnemonicParsing="false" text="syncSequencer" />
    </children>
 </AnchorPane>
