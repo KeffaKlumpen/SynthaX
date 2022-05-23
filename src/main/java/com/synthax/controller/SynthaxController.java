@@ -326,6 +326,10 @@ public class SynthaxController {
     }
 
     public void onSelectPreset(String presetName) {
+        if(presetName == null || presetName.equals("")) {
+            return;
+        }
+
         Thread loader = new Thread(() -> {
             // If sequencer is playing, stop it and do the loading after
             boolean stopSuccessful = waitForSequencerToStop(250, "CANT LOAD WHILE SEQUENCER IS RUNNING!");

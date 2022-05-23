@@ -17,6 +17,8 @@ import com.synthax.util.MidiHelpers;
 
 import com.synthax.view.utils.Dialogs;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +28,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -255,6 +258,7 @@ public class SynthaxView implements Initializable {
     public void setSequencerPresetList(String[] presetNames) {
         setSequencerPresetList(presetNames, "");
     }
+
     public void setSequencerPresetList(String[] presetNames, String chosenPreset) {
         Platform.runLater(() -> {
             cmbPresets.setItems(FXCollections.observableList(Arrays.stream(presetNames).toList()));
@@ -462,7 +466,7 @@ public class SynthaxView implements Initializable {
 
     @FXML
     public void onActionSavePreset() {
-        synthaxController.onSavePreset(cmbPresets.getValue());
+        showSavePresetDialog();
     }
     //endregion onAction
 
@@ -785,23 +789,29 @@ public class SynthaxView implements Initializable {
 
     private void initStepSequencerPresetButtons() {
         synthaxController.updateSequencerPresetList();
-        /*btnSavePreset.setOnAction(actionEvent -> {
-            String currentPresetName = cmbPresets.getValue();
-            // show name selection pop-up
-            String presetName = JOptionPane.showInputDialog(null, "Preset Name:", currentPresetName);
-            if(presetName != null) {
-                synthaxController.onSavePreset(presetName);
-            }
-        });*/
-        cmbPresets.setOnAction(actionEvent -> synthaxController.onSelectPreset(cmbPresets.getValue()));
+
+        cmbPresets.setOnAction(actionEvent -> {
+            synthaxController.onSelectPreset(cmbPresets.getValue());
+        });
+    }
+
+    private void showSavePresetDialog() {
+        String currentPresetName = cmbPresets.getValue();
+        // show name selection pop-up
+        String presetName = Dialogs.getTextInput("Preset Name", "Preset Name:", currentPresetName);
+        if(presetName != null && !presetName.equals("")) {
+            synthaxController.onSavePreset(presetName);
+        }
     }
 
     public void showPresetSaveConflictPopup(String presetName) {
-        int answer = JOptionPane.showConfirmDialog(null, "Preset already exists, do you want to overwrite?");
-        if(answer == JOptionPane.YES_OPTION) {
+        boolean result = Dialogs.getConfirmation("Preset Exists", "Preset already exists, do you want to overwrite?");
+
+        // I wan't a cancel state, give me int (0, 1, 2) instead of boolean.
+        if(result) {
             synthaxController.savePreset(presetName);
         }
-        else if(answer == JOptionPane.NO_OPTION) {
+        else {
             synthaxController.savePresetAsNew(presetName);
         }
     }

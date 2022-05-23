@@ -1,6 +1,6 @@
 package com.synthax.view;
 
-import com.synthax.MainApplication;
+import com.synthax.view.utils.Dialogs;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -19,8 +19,9 @@ public class SettingsView implements Initializable {
     //  and when that thread is done - callBack to update GUI.
     @FXML
     public void onActionDelete() {
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        if (a.showAndWait().get() == ButtonType.OK) {
+        boolean confirmation = Dialogs.getConfirmation("Remove Preset", "This will remove the selected presets, are you sure?");
+
+        if (confirmation) {
             for (int i = 0; i < presetsList.getChildren().size(); i++) {
                 CheckBox c = (CheckBox) presetsList.getChildren().get(i);
                 if (c.isSelected()) {

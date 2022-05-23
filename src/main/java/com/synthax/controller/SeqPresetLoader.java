@@ -136,7 +136,7 @@ public class SeqPresetLoader {
         }
 
         if(!loadOk) {
-            System.err.println("SeqPresetLoader.loadPreset(String): Preset with matching name not found.");
+            System.err.println("SeqPresetLoader.loadPreset(String): Preset with matching name " + presetName + " not found.");
         }
     }
 
