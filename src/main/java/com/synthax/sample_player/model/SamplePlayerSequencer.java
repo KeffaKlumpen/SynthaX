@@ -87,10 +87,7 @@ public class SamplePlayerSequencer implements Runnable {
                 e.printStackTrace();
             }
             samplePlayerController.setStepIndicatorGray(count);
-            count++;
-            if (count == 16) {
-                count = 0;
-            }
+            count = ++count % 16;
         }
     }
 }
