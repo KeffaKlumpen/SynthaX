@@ -48,13 +48,21 @@ public class VoiceNormalizer extends UGen {
     public void calculateBuffer() {
         float totalGain = 0f;
         float[] currGains = new float[ins];
-        for (int i = 0; i < inouts; i++) {
-            currGains[i] = inGains[i].getGain();
-            totalGain += inGains[i].getGain();
-        }
-        if (totalGain != 0) {
+        if(inGains != null) {
             for (int i = 0; i < inouts; i++) {
-                outGains[i].setValue(currGains[i] / totalGain);
+                if(inGains[i] != null) {
+                    currGains[i] = inGains[i].getGain();
+                    totalGain += inGains[i].getGain();
+                }
+            }
+        }
+        if(outGains != null) {
+            if (totalGain != 0) {
+                for (int i = 0; i < inouts; i++) {
+                    if(outGains[i] != null) {
+                        outGains[i].setValue(currGains[i] / totalGain);
+                    }
+                }
             }
         }
     }

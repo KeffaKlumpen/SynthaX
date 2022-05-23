@@ -7,6 +7,9 @@ import com.synthax.model.enums.MidiNote;
  * @author Luke Eales
  */
 public class MidiHelpers {
+    public static final int MAX_VELOCITY_VALUE = 127;
+    public static final int MIDI_NOTE_COUNT = 128;
+
     public static MidiNote stringToMidi(String code) {
         switch (code) {
             case "a" -> {return MidiNote.C4;}

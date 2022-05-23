@@ -6,10 +6,14 @@ import com.synthax.model.SynthaxADSR;
 import com.synthax.model.enums.CombineMode;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.OctaveOperands;
+import com.synthax.util.MidiHelpers;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
 import net.beadsproject.beads.ugens.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Accepts MIDI-signals and forwards these to be played by an available voice.
@@ -21,84 +25,193 @@ import net.beadsproject.beads.ugens.*;
  * @author Axel Nilsson
  */
 public class OscillatorController {
-    private final OscillatorVoice[] voices;
-    private final int voiceCount = 16;
-    private int nextVoice = 0;
+    private int voiceCount = 3;
+    private OscillatorVoice[] voices;
     private final Gain voiceOutput;
     private final Glide voiceOutputGlide;
-    private UGen oscillatorOutput;
+
+    private boolean[] voiceAvailability;
+    private final HashMap<Integer, NotifierThread> notifierThreadHashMap = new HashMap<>();
+    private final ArrayList<Integer> voiceHistory = new ArrayList<>();
+    private final int[] voicePlayingMidi = new int[MidiHelpers.MIDI_NOTE_COUNT]; //stores voice-index playing note
+
     private OctaveOperands octaveOperand = OctaveOperands.EIGHT;
     private float detuneCent;
-    private final int[] voicePlayingMidi = new int[128]; // each index corresponds to a MIDI-note, stores voice-indexes
+
+    private UGen oscillatorOutput;
 
     /**
      * Setup internal chain structure.
      * @author Joel Eriksson Sinclair
      */
     public OscillatorController() {
-        voiceOutputGlide = new Glide(AudioContext.getDefaultContext(), 0.5f, 50);
-        voiceOutput = new Gain(1, voiceOutputGlide);
+        AudioContext ac = AudioContext.getDefaultContext();
+        voiceOutputGlide = new Glide(ac, 0.5f, 50);
+        voiceOutput = new Gain(ac,1, voiceOutputGlide);
+
+        setVoiceCount(voiceCount);
+
+        oscillatorOutput = new Add(ac,1, voiceOutput);
+    }
+
+    public void setVoiceCount(int newVoiceCount) {
+        // clear conncetion
+        voiceOutput.clearDependents();
+        voiceOutput.clearInputConnections();
+
+        // stop old stuff
+        if(voices != null) {
+            for (int i = 0; i < voiceCount; i++) {
+                voices[i].stopPlay();
+            }
+        }
+        voiceHistory.clear();
+        for (NotifierThread notifierThread : notifierThreadHashMap.values()) {
+            notifierThread.cancelNotification();
+        }
+        notifierThreadHashMap.clear();
+
+        // set new variable
+        voiceCount = newVoiceCount;
 
         VoiceNormalizer voiceGainNormalizer = new VoiceNormalizer(voiceCount);
         voiceOutput.addDependent(voiceGainNormalizer);
 
         // Instantiate voice objects and setup chain.
         voices = new OscillatorVoice[voiceCount];
+        voiceAvailability = new boolean[voiceCount];
         for (int i = 0; i < voiceCount; i++) {
-            OscillatorVoice voice = new OscillatorVoice(Buffer.SINE);
+            OscillatorVoice voice = new OscillatorVoice(Buffer.SINE, this, i);
 
             voiceGainNormalizer.setInGain(voice.getNaturalGain(), i);
             voiceGainNormalizer.setOutGain(voice.getNormalizedGainGlide(), i);
 
             voiceOutput.addInput(voice.getDelay().getOutput());
             voices[i] = voice;
+            voiceAvailability[i] = true;
+        }
+    }
+
+
+    public synchronized void notifyAvailableVoice(int voiceIndex, float delay) {
+        NotifierThread notifierThread = new NotifierThread(voiceIndex, delay);
+        if(!notifierThreadHashMap.containsKey(voiceIndex)) {
+            notifierThreadHashMap.put(voiceIndex, notifierThread);
+            notifierThread.start();
+        }
+    }
+
+    private synchronized void setVoiceUnavailable(int voiceIndex) {
+        voiceAvailability[voiceIndex] = false;
+        voiceHistory.add(voiceIndex);
+    }
+
+    private synchronized void setVoiceAvailable(int voiceIndex) {
+        voiceAvailability[voiceIndex] = true;
+        voiceHistory.remove((Object)voiceIndex);
+        NotifierThread notifierThread = notifierThreadHashMap.remove(voiceIndex);
+        if(notifierThread != null) {
+            notifierThread.cancelNotification();
+        }
+    }
+
+    class NotifierThread extends Thread {
+        private final int voiceIndex;
+        private final float delay;
+
+        private boolean canceled = false;
+
+        public NotifierThread(int voiceIndex, float delay) {
+            this.voiceIndex = voiceIndex;
+            this.delay = delay;
         }
 
-        oscillatorOutput = new Add(1, voiceOutput);
+        public void cancelNotification() {
+            canceled = true;
+        }
+
+        @Override
+        public void run() {
+            try {
+                sleep((long)delay);
+                if(!canceled) {
+                    setVoiceAvailable(voiceIndex);
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private synchronized int getBestVoice() {
+        int voiceToSteal = -1;
+
+        for (int i = 0; i < voiceCount; i++) {
+            if(voiceAvailability[i]) {
+                voiceToSteal = i;
+                break;
+            }
+        }
+
+        // no available, steal the oldest!
+        if(voiceToSteal < 0) {
+            voiceToSteal = voiceHistory.remove(0);
+        }
+
+        return voiceToSteal;
     }
 
     /**
+     * Select a suitable voice and tells it to play the given MIDI-note.
      * @param midiNote Midi-note to be played.
-     * @author Joel Eriksson Sinclair
      */
     public void noteOn(MidiNote midiNote, int velocity) {
-        voicePlayingMidi[midiNote.ordinal()] = nextVoice; // This only allows 1 voice per note-press..
-        float freq = midiNote.getFrequency();
+        // Try to get availableVoice, else get oldestVoice.
+        int voiceIndex = getBestVoice();
 
-        freq = applyOctaveOffset(freq);
-        float realFrequency = freq;
-        freq = applyDetuning(freq);
+        voicePlayingMidi[midiNote.ordinal()] = voiceIndex;
+        float detunedFrequency = midiNote.getFrequency();
 
-        float maxGain = velocity / 127f;
+        detunedFrequency = applyOctaveOffset(detunedFrequency);
+        detunedFrequency = applyDetuning(detunedFrequency);
+
+        float maxGain = velocity / (float) MidiHelpers.MAX_VELOCITY_VALUE;
         float sustainGain = maxGain * SynthaxADSR.getSustainValue();
-        voices[nextVoice].playFreq(freq, maxGain, SynthaxADSR.getAttackValue(), sustainGain, SynthaxADSR.getDecayValue(), realFrequency);
-
-        nextVoice = ++nextVoice % voiceCount;
+        voices[voiceIndex].noteOn(midiNote, detunedFrequency, maxGain, SynthaxADSR.getAttackValue(), sustainGain, SynthaxADSR.getDecayValue());
+        setVoiceUnavailable(voiceIndex);
     }
 
     /**
-     * noteOn for sequencer
+     * Special case with sequencer-step detuning.
+     * Select a suitable voice and tells it to play the given MIDI-note.
+     * @param midiNote Midi-note to be played.
      */
-    public void noteOn(MidiNote midiNote, int velocity, float detuneCent){
-        voicePlayingMidi[midiNote.ordinal()] = nextVoice; // This only allows 1 voice per note-press..
+    public void noteOn(MidiNote midiNote, int velocity, float detuneCent) {
+        // Try to get availableVoice, else get oldestVoice.
+        int voiceIndex = getBestVoice();
+
+        voicePlayingMidi[midiNote.ordinal()] = voiceIndex; // This only allows 1 voice per note-press..
         float freq = midiNote.getFrequency();
 
         freq = applyDetuning(freq, detuneCent);
 
         freq = applyOctaveOffset(freq);
-        float realFrequency = freq;
         freq = applyDetuning(freq);
 
-        float maxGain = velocity / 127f;
+        float maxGain = velocity / (float) MidiHelpers.MAX_VELOCITY_VALUE;
         float sustainGain = maxGain * SynthaxADSR.getSustainValue();
-        voices[nextVoice].playFreq(freq, maxGain, SynthaxADSR.getAttackValue(), sustainGain, SynthaxADSR.getDecayValue(), realFrequency);
-
-        nextVoice = ++nextVoice % voiceCount;
+        voices[voiceIndex].noteOn(midiNote, freq, maxGain, SynthaxADSR.getAttackValue(), sustainGain, SynthaxADSR.getDecayValue());
+        setVoiceUnavailable(voiceIndex);
     }
 
     public void noteOff(MidiNote midiNote) {
         int voiceIndex = voicePlayingMidi[midiNote.ordinal()];
-        voices[voiceIndex].stopPlay(SynthaxADSR.getReleaseValue());
+        if(voiceIndex < voiceCount) {
+            voices[voiceIndex].noteOff(midiNote, SynthaxADSR.getReleaseValue());
+        }
+        else {
+            System.err.println("noteOff on a voice that does not exist anymore.");
+        }
     }
 
     // FIXME: 2022-04-07 Bypassing an Mult Oscillator makes it so no sound reaches the output. (Multiplying with the 0-buffer).
@@ -142,7 +255,6 @@ public class OscillatorController {
 
     public void setGain(float gain) {
         voiceOutputGlide.setValue(gain);
-        System.out.println("OscillatorController.setGain() = " + gain);
     }
     //endregion GUI forwarding
 
@@ -151,12 +263,8 @@ public class OscillatorController {
         UGen newOutput = null;
 
         switch (combineMode){
-            case ADD -> {
-                newOutput = new Add(1, voiceOutput);
-            }
-            case MULT -> {
-                newOutput = new Mult(1, voiceOutput);
-            }
+            case ADD -> newOutput = new Add(1, voiceOutput);
+            case MULT -> newOutput = new Mult(1, voiceOutput);
         }
         if(newOutput != null){
             oscillatorOutput = newOutput;
@@ -177,7 +285,6 @@ public class OscillatorController {
     //endregion CombineMode Output
 
     //region frequency-altering-helpers (click to open/collapse)
-
     private float applyOctaveOffset(float frequency) {
         switch (octaveOperand) {
             case TWO -> {

@@ -15,6 +15,7 @@ import com.synthax.model.enums.Waveforms;
 import com.synthax.util.HelperMath;
 import com.synthax.util.MidiHelpers;
 
+import com.synthax.view.utils.Dialogs;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -108,7 +109,6 @@ public class SynthaxView implements Initializable {
     @FXML private Button btnSettings;
     @FXML private Label lblNotConnected;
     @FXML private Label lblConnected;
-    @FXML private Button btnSavePreset;
     //endregion Controls below logo
     //endregion FXML variables
 
@@ -251,6 +251,7 @@ public class SynthaxView implements Initializable {
 
         });
     }
+
     public void setSequencerPresetList(String[] presetNames) {
         setSequencerPresetList(presetNames, "");
     }
@@ -261,6 +262,18 @@ public class SynthaxView implements Initializable {
                 cmbPresets.getSelectionModel().selectFirst();
             } else {
                 cmbPresets.getSelectionModel().select(chosenPreset);
+            }
+        });
+    }
+
+    public void updateMidiLabel(boolean visable) {
+        Platform.runLater(() -> {
+            if (visable) {
+                lblConnected.setVisible(true);
+                lblNotConnected.setVisible(false);
+            } else {
+                lblConnected.setVisible(false);
+                lblNotConnected.setVisible(true);
             }
         });
     }
@@ -393,27 +406,13 @@ public class SynthaxView implements Initializable {
 
     @FXML
     public void onActionSearchMidiDevice() {
-        if (!synthaxController.midiConnected()) {
-            if (synthaxController.connectMidi()) {
-                lblConnected.setVisible(true);
-                lblNotConnected.setVisible(false);
-            } else {
-                lblConnected.setVisible(false);
-                lblNotConnected.setVisible(true);
-            }
+        if (synthaxController.connectMidi()) {
+            lblConnected.setVisible(true);
+            lblNotConnected.setVisible(false);
+        } else {
+            lblConnected.setVisible(false);
+            lblNotConnected.setVisible(true);
         }
-    }
-
-    public void updateMidiLabel(boolean visable) {
-        Platform.runLater(() -> {
-            if (visable) {
-                lblConnected.setVisible(true);
-                lblNotConnected.setVisible(false);
-            } else {
-                lblConnected.setVisible(false);
-                lblNotConnected.setVisible(true);
-            }
-        });
     }
 
     @FXML
@@ -459,6 +458,11 @@ public class SynthaxView implements Initializable {
     @FXML
     public void onActionLPBypass() {
         synthaxController.setLPActive();
+    }
+
+    @FXML
+    public void onActionSavePreset() {
+        synthaxController.onSavePreset(cmbPresets.getValue());
     }
     //endregion onAction
 
@@ -781,14 +785,14 @@ public class SynthaxView implements Initializable {
 
     private void initStepSequencerPresetButtons() {
         synthaxController.updateSequencerPresetList();
-        btnSavePreset.setOnAction(actionEvent -> {
+        /*btnSavePreset.setOnAction(actionEvent -> {
             String currentPresetName = cmbPresets.getValue();
             // show name selection pop-up
             String presetName = JOptionPane.showInputDialog(null, "Preset Name:", currentPresetName);
             if(presetName != null) {
                 synthaxController.onSavePreset(presetName);
             }
-        });
+        });*/
         cmbPresets.setOnAction(actionEvent -> synthaxController.onSelectPreset(cmbPresets.getValue()));
     }
 

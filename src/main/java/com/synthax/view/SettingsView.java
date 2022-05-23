@@ -1,11 +1,9 @@
 package com.synthax.view;
 
+import com.synthax.MainApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -54,7 +52,6 @@ public class SettingsView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
 
 
     }
