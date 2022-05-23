@@ -88,6 +88,51 @@ public class SamplePlayerView implements Initializable {
     private SamplePlayerController samplePlayerController;
     private SynthaxView synthaxView;
 
+    //region setters and getters (click to open/collapse)
+    public void setSynthaxView(SynthaxView synthaxView) {
+        this.synthaxView = synthaxView;
+    }
+
+    public void setRate(float value) {
+        behaviorRate.setRotation(value);
+    }
+
+    public void setSequencerLabel(String fileName, int padIndex) {
+        switch (padIndex) {
+            case 1 -> lblChannel1.setText("Pad 1: " + fileName);
+            case 2 -> lblChannel2.setText("Pad 2: " + fileName);
+            case 3 -> lblChannel3.setText("Pad 3: " + fileName);
+            case 4 -> lblChannel4.setText("Pad 4: " + fileName);
+            case 5 -> lblChannel5.setText("Pad 5: " + fileName);
+            case 6 -> lblChannel6.setText("Pad 6: " + fileName);
+            case 7 -> lblChannel7.setText("Pad 7: " + fileName);
+            case 8 -> lblChannel8.setText("Pad 8: " + fileName);
+            case 9 -> lblChannel9.setText("Pad 9: " + fileName);
+        }
+    }
+
+    public void setValuesInPadView(String fileName, float gainValue, float reverbAmount, float reverbSize, float reverbTone, boolean reverbActive) {
+        cmbAvailableSamples.getSelectionModel().select(fileName);
+        behaviorPadGain.setRotation(gainValue);
+        behaviorPadReverbAmount.setRotation(reverbAmount);
+        behaviorPadReverbSize.setRotation(reverbSize);
+        behaviorPadReverbTone.setRotation(reverbTone);
+        tglBypassReverb.setSelected(reverbActive);
+    }
+
+    public void setStepIndicatorOrange(int index) {
+        stepIndicators[index].setFill(Color.web("#f78000"));
+    }
+
+    public void setStepIndicatorGray(int index) {
+        stepIndicators[index].setFill(Color.web("#a6a097"));
+    }
+
+    public Scene getScene() {
+        return pad0.getScene();
+    }
+    //endregion setters and getters
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         samplePlayerController = new SamplePlayerController(this);
@@ -147,8 +192,8 @@ public class SamplePlayerView implements Initializable {
         stepIndicators = new Rectangle[16];
         double x = 142, y = 45;
         for (int i = 0; i < stepIndicators.length; i++) {
-            Rectangle r = new Rectangle(x,y,27,10);
-            r.setFill(Color.web("#bfbbb4"));
+            Rectangle r = new Rectangle(x,y,27,12);
+            r.setFill(Color.web("#a6a097"));
             r.setArcHeight(10);
             r.setArcWidth(10);
             stepIndicators[i] = r;
@@ -241,74 +286,53 @@ public class SamplePlayerView implements Initializable {
         pad0.setOnAction(actionEvent -> {
             samplePlayerController.playPad(0);
             samplePlayerController.setCurrentPad(0);
+            lblPadView.setText("Pad 1");
         });
         pad1.setOnAction(actionEvent -> {
             samplePlayerController.playPad(1);
             samplePlayerController.setCurrentPad(1);
+            lblPadView.setText("Pad 2");
         });
         pad2.setOnAction(actionEvent -> {
             samplePlayerController.playPad(2);
             samplePlayerController.setCurrentPad(2);
+            lblPadView.setText("Pad 3");
         });
         pad3.setOnAction(actionEvent -> {
             samplePlayerController.playPad(3);
             samplePlayerController.setCurrentPad(3);
+            lblPadView.setText("Pad 4");
         });
         pad4.setOnAction(actionEvent -> {
             samplePlayerController.playPad(4);
             samplePlayerController.setCurrentPad(4);
+            lblPadView.setText("Pad 5");
         });
         pad5.setOnAction(actionEvent -> {
             samplePlayerController.playPad(5);
             samplePlayerController.setCurrentPad(5);
+            lblPadView.setText("Pad 6");
         });
         pad6.setOnAction(actionEvent -> {
             samplePlayerController.playPad(6);
             samplePlayerController.setCurrentPad(6);
+            lblPadView.setText("Pad 7");
         });
         pad7.setOnAction(actionEvent -> {
             samplePlayerController.playPad(7);
             samplePlayerController.setCurrentPad(7);
+            lblPadView.setText("Pad 8");
         });
         pad8.setOnAction(actionEvent -> {
             samplePlayerController.playPad(8);
             samplePlayerController.setCurrentPad(8);
+            lblPadView.setText("Pad 9");
         });
     }
     //endregion Initialize methods
 
-    public void setSequencerLabel(String fileName, int padIndex) {
-        switch (padIndex) {
-            case 1 -> lblChannel1.setText("Pad 1: " + fileName);
-            case 2 -> lblChannel2.setText("Pad 2: " + fileName);
-            case 3 -> lblChannel3.setText("Pad 3: " + fileName);
-            case 4 -> lblChannel4.setText("Pad 4: " + fileName);
-            case 5 -> lblChannel5.setText("Pad 5: " + fileName);
-            case 6 -> lblChannel6.setText("Pad 6: " + fileName);
-            case 7 -> lblChannel7.setText("Pad 7: " + fileName);
-            case 8 -> lblChannel8.setText("Pad 8: " + fileName);
-            case 9 -> lblChannel9.setText("Pad 9: " + fileName);
-        }
-    }
 
-    public void setValuesInPadView(String fileName, float gainValue, float reverbAmount, float reverbSize, float reverbTone, boolean reverbActive) {
-        cmbAvailableSamples.getSelectionModel().select(fileName);
-        behaviorPadGain.setRotation(gainValue);
-        behaviorPadReverbAmount.setRotation(reverbAmount);
-        behaviorPadReverbSize.setRotation(reverbSize);
-        behaviorPadReverbTone.setRotation(reverbTone);
-        tglBypassReverb.setSelected(reverbActive);
-    }
 
-    public Scene getScene() {
-        return pad0.getScene();
-    }
 
-    public void setSynthaxView(SynthaxView synthaxView) {
-        this.synthaxView = synthaxView;
-    }
 
-    public void setRate(float value) {
-        behaviorRate.setRotation(value);
-    }
 }

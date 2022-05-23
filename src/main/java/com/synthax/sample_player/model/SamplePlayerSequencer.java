@@ -80,13 +80,13 @@ public class SamplePlayerSequencer implements Runnable {
     public void run() {
         while (running) {
             steps[count].checkPads();
-            //TODO: lys lampa
+            samplePlayerController.setStepIndicatorOrange(count);
             try {
                 Thread.sleep(msBetweenBeats);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            //TODO: släck lampan
+            samplePlayerController.setStepIndicatorGray(count);
             count++;
             if (count == 16) {
                 count = 0;

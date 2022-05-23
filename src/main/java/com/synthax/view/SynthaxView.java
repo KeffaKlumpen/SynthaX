@@ -254,7 +254,6 @@ public class SynthaxView implements Initializable {
     public void setSeqButtonGray(int i) {
         Platform.runLater(()-> {
             arrSeqStepsOnOff[i].setStyle("-fx-background-color: #78736b");
-
         });
     }
 
@@ -272,9 +271,11 @@ public class SynthaxView implements Initializable {
             }
         });
     }
+
     public void updateSequencerRate(float value) {
         bKnobSSRate.setRotation(value);
     }
+
     public void updateMidiLabel(boolean visable) {
         Platform.runLater(() -> {
             if (visable) {
