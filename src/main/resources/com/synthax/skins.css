@@ -35,18 +35,10 @@
         -fx-body-color: #78736b;
         -fx-background-insets: 0, 0, 0;
 }
+
 .button:focused {
     -fx-text-fill: #f78000;
 }
-/*
-.plainButton {
-    -fx-background-color: #78736b;
-    -fx-text-fill: #d6d1c9;
-    -fx-font-family: "Handel Gothic";
-    -fx-font-size: 14;
-    -fx-body-color: #78736b;
-    -fx-background-insets: 0, 0, 0;
-}*/
 
 .knob:focused {
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
@@ -215,15 +207,13 @@
     -fx-background-insets: 0, 1, 2;
 }
 
+.toggle-switch .thumb {
+    -fx-background-color: linear-gradient(to bottom, derive(-fx-background, -20%), derive(-fx-base, -30%));
+}
+
 .sampleButton {
     -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
-    /*
-    -fx-background-radius: 3px, 3px, 2px, 1px;
-    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em;
-    -fx-text-fill: -fx-text-base-color;
-    -fx-alignment: CENTER;
-    -fx-content-display: LEFT;*/
 }
 
 .sampleButton:focused {

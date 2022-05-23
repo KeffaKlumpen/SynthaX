@@ -41,6 +41,7 @@ public class SamplePlayerView implements Initializable {
     @FXML private Button pad6;
     @FXML private Button pad7;
     @FXML private Button pad8;
+    private Button[] pads;
     //endregion FXML Pad Buttons
 
     //region FXML Sequencer Variables (click to open/collapse)
@@ -273,6 +274,7 @@ public class SamplePlayerView implements Initializable {
                 tb.setPrefHeight(27);
                 tb.setPrefWidth(27);
                 tb.getStyleClass().add("tglSampleSeq");
+                tb.setFocusTraversable(false);
                 int finalI = i;
                 int finalJ = j;
                 tb.setOnAction(actionEvent -> samplePlayerController.setSequencerStep(tb.isSelected(), finalJ, finalI));
@@ -283,6 +285,22 @@ public class SamplePlayerView implements Initializable {
     }
 
     private void initPadButtons() {
+        pads = new Button[] {pad0,pad1,pad2,pad3,pad4,pad5,pad6,pad7,pad8};
+        for (int i = 0; i < pads.length; i++) {
+            int finalI = i;
+            pads[i].setOnAction(actionEvent -> {
+                samplePlayerController.playPad(finalI);
+                samplePlayerController.setCurrentPad(finalI);
+                lblPadView.setText("Pad " + (finalI +1));
+            });
+            pads[i].focusedProperty().addListener((observableValue, oldValue, newValue) -> {
+                if (newValue) {
+                    samplePlayerController.setCurrentPad(finalI);
+                    lblPadView.setText("Pad " + (finalI+1));
+                }
+            });
+        }
+        /*
         pad0.setOnAction(actionEvent -> {
             samplePlayerController.playPad(0);
             samplePlayerController.setCurrentPad(0);
@@ -328,6 +346,8 @@ public class SamplePlayerView implements Initializable {
             samplePlayerController.setCurrentPad(8);
             lblPadView.setText("Pad 9");
         });
+
+         */
     }
     //endregion Initialize methods
 
