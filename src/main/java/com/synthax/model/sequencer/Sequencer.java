@@ -66,10 +66,23 @@ public class Sequencer implements Runnable {
         this.nSteps = nSteps;
     }
 
+    public SequencerMode getSequencerMode() {
+        return sequencerMode;
+    }
+
+    public int getNSteps() {
+        return nSteps;
+    }
+
     public void setBPM(float rate) {
         float temp = HelperMath.map(rate, 0, 1, 60, 240);
         temp = 60000 / (temp * 4);
         msBetweenBeats = (int)temp;
+    }
+
+    public float getRate() {
+        float bpm = 60000f / (msBetweenBeats * 4f);
+        return HelperMath.map(bpm, 60, 240, 0, 1);
     }
 
     public void setStepMidiNote(int i, MidiNote midiNote) {

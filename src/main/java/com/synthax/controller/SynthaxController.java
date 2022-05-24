@@ -335,10 +335,17 @@ public class SynthaxController {
 
             if(stopSuccessful) {
                 seqPresetLoader.loadPreset(presetName);
+                updateSequencerGUI();
                 updateSequencerStepsGUI();
             }
         });
         loader.start();
+    }
+
+    private void updateSequencerGUI() {
+        synthaxView.setSeqKnobRate(sequencer.getRate());
+        synthaxView.setSequencerMode(sequencer.getSequencerMode());
+        synthaxView.setSequencerNSteps(sequencer.getNSteps());
     }
 
     public void updateSequencerPresetList(String chosenPreset) {
