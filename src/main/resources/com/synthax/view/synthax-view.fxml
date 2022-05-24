@@ -51,9 +51,9 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobNoiseGain" layoutX="30.0" layoutY="85.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ToggleSwitch layoutX="26.0" layoutY="36.0" onMouseClicked="#onActionNoiseBypass" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="33.0" layoutY="63.0" styleClass="smallLabel" text="Gain">
+            <Button fx:id="knobNoiseGain" focusTraversable="false" layoutX="30.0" layoutY="85.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ToggleSwitch focusTraversable="false" layoutX="26.0" layoutY="36.0" onMouseClicked="#onActionNoiseBypass" prefHeight="20.0" prefWidth="30.0" />
+            <Label focusTraversable="false" layoutX="33.0" layoutY="63.0" styleClass="smallLabel" text="Gain">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -61,7 +61,7 @@
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="16.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="57.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="18.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="53.0" />
             <Line endX="59.0" layoutX="18.0" layoutY="20.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="15.0" />
-            <Label layoutX="20.0" layoutY="10.0" styleClass="bigLabel" text="Noise">
+            <Label focusTraversable="false" layoutX="20.0" layoutY="10.0" styleClass="bigLabel" text="Noise">
                <font>
                   <Font name="Handel Gothic" size="17.0" />
                </font>
@@ -79,14 +79,14 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobReverbSize" layoutX="24.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="14.0" layoutY="10.0" styleClass="bigLabel" text="Reverb">
+            <Button fx:id="knobReverbSize" focusTraversable="false" layoutX="24.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="14.0" layoutY="10.0" styleClass="bigLabel" text="Reverb">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <ToggleSwitch layoutX="154.0" layoutY="10.0" onMouseClicked="#onActionReverbBypass" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="28.0" layoutY="47.0" styleClass="smallLabel" text="Size">
+            <ToggleSwitch focusTraversable="false" layoutX="154.0" layoutY="10.0" onMouseClicked="#onActionReverbBypass" prefHeight="20.0" prefWidth="30.0" />
+            <Label focusTraversable="false" layoutX="28.0" layoutY="47.0" styleClass="smallLabel" text="Size">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -96,8 +96,8 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobReverbTone" layoutX="88.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="90.0" layoutY="47.0" styleClass="smallLabel" text="Tone">
+            <Button fx:id="knobReverbTone" focusTraversable="false" layoutX="88.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="90.0" layoutY="47.0" styleClass="smallLabel" text="Tone">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -107,8 +107,8 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobReverbAmount" layoutX="152.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="147.0" layoutY="47.0" styleClass="smallLabel" text="Amount">
+            <Button fx:id="knobReverbAmount" focusTraversable="false" layoutX="152.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="147.0" layoutY="47.0" styleClass="smallLabel" text="Amount">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -123,9 +123,9 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobLFODepth" layoutX="23.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ToggleSwitch layoutX="156.0" layoutY="10.0" onMouseClicked="#onActionLFOBypass" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="23.0" layoutY="47.0" styleClass="smallLabel" text="Depth">
+            <Button fx:id="knobLFODepth" focusTraversable="false" layoutX="23.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ToggleSwitch focusTraversable="false" layoutX="156.0" layoutY="10.0" onMouseClicked="#onActionLFOBypass" prefHeight="20.0" prefWidth="30.0" />
+            <Label focusTraversable="false" layoutX="23.0" layoutY="47.0" styleClass="smallLabel" text="Depth">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -135,8 +135,8 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobLFORate" layoutX="81.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="84.0" layoutY="47.0" styleClass="smallLabel" text="Rate">
+            <Button fx:id="knobLFORate" focusTraversable="false" layoutX="81.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="84.0" layoutY="47.0" styleClass="smallLabel" text="Rate">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -146,8 +146,8 @@
                   <Image url="@../Images/knobStepsWave.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobLFOWaveForm" layoutX="149.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="138.0" layoutY="47.0" styleClass="smallLabel" text="Waveform">
+            <Button fx:id="knobLFOWaveForm" focusTraversable="false" layoutX="149.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="138.0" layoutY="47.0" styleClass="smallLabel" text="Waveform">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -155,7 +155,7 @@
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="79.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="11.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="39.0" />
             <Line endX="121.1051025390625" endY="-7.62939453125E-6" layoutX="12.0" layoutY="20.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <Label layoutX="13.0" layoutY="10.0" styleClass="bigLabel" text="LFO">
+            <Label focusTraversable="false" layoutX="13.0" layoutY="10.0" styleClass="bigLabel" text="LFO">
                <font>
                   <Font size="17.0" />
                </font>
@@ -200,7 +200,7 @@
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="99.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="11.0" layoutY="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="58.0" />
             <Line endX="196.30328369140625" layoutX="11.0" layoutY="22.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <Label layoutX="14.0" layoutY="12.0" styleClass="bigLabel" text="ADSR">
+            <Label focusTraversable="false" layoutX="14.0" layoutY="12.0" styleClass="bigLabel" text="ADSR">
                <font>
                   <Font size="17.0" />
                </font>
@@ -297,11 +297,11 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS0freq" layoutX="67.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css">
+            <Button fx:id="knobSS0freq" focusTraversable="false" layoutX="67.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css">
                <font>
                   <Font size="10.0" />
                </font></Button>
-            <Label layoutX="31.0" layoutY="63.0" styleClass="smallLabel" text="Freq">
+            <Label focusTraversable="false" layoutX="31.0" layoutY="63.0" styleClass="smallLabel" text="Freq">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -311,77 +311,77 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS1freq" layoutX="134.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS1freq" focusTraversable="false" layoutX="134.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="183.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS2freq" layoutX="201.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS2freq" focusTraversable="false" layoutX="201.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="250.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS3freq" layoutX="268.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS3freq" focusTraversable="false" layoutX="268.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="317.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS4freq" layoutX="335.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS4freq" focusTraversable="false" layoutX="335.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="384.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS5freq" layoutX="402.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS5freq" focusTraversable="false" layoutX="402.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="451.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS6freq" layoutX="469.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS6freq" focusTraversable="false" layoutX="469.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="518.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS7freq" layoutX="536.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS0FineTune" layoutX="67.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="19.0" layoutY="102.0" styleClass="smallLabel" text="Detune">
+            <Button fx:id="knobSS7freq" focusTraversable="false" layoutX="536.0" layoutY="53.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS0FineTune" focusTraversable="false" layoutX="67.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="19.0" layoutY="102.0" styleClass="smallLabel" text="Detune">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <Button fx:id="knobSS1FineTune" layoutX="134.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS2FineTune" layoutX="201.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS3FineTune" layoutX="268.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS4FineTune" layoutX="335.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS5FineTune" layoutX="402.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS6FineTune" layoutX="469.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS7FineTune" layoutX="536.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS0Gain" layoutX="67.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="31.0" layoutY="141.0" styleClass="smallLabel" text="Gain">
+            <Button fx:id="knobSS1FineTune" focusTraversable="false" layoutX="134.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS2FineTune" focusTraversable="false" layoutX="201.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS3FineTune" focusTraversable="false" layoutX="268.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS4FineTune" focusTraversable="false" layoutX="335.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS5FineTune" focusTraversable="false" layoutX="402.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS6FineTune" focusTraversable="false" layoutX="469.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS7FineTune" focusTraversable="false" layoutX="536.0" layoutY="93.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS0Gain" focusTraversable="false" layoutX="67.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="31.0" layoutY="141.0" styleClass="smallLabel" text="Gain">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <Button fx:id="knobSS1Gain" layoutX="134.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS2Gain" layoutX="201.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS3Gain" layoutX="268.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS4Gain" layoutX="335.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS5Gain" layoutX="402.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS6Gain" layoutX="469.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS7Gain" layoutX="536.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ToggleButton fx:id="btnStepOnOff0" layoutX="68.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ToggleButton fx:id="btnStepOnOff1" layoutX="135.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ToggleButton fx:id="btnStepOnOff2" layoutX="202.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ToggleButton fx:id="btnStepOnOff3" layoutX="269.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ToggleButton fx:id="btnStepOnOff4" layoutX="336.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ToggleButton fx:id="btnStepOnOff5" layoutX="403.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ToggleButton fx:id="btnStepOnOff6" layoutX="470.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ToggleButton fx:id="btnStepOnOff7" layoutX="537.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <Button fx:id="knobSS1Gain" focusTraversable="false" layoutX="134.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS2Gain" focusTraversable="false" layoutX="201.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS3Gain" focusTraversable="false" layoutX="268.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS4Gain" focusTraversable="false" layoutX="335.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS5Gain" focusTraversable="false" layoutX="402.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS6Gain" focusTraversable="false" layoutX="469.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS7Gain" focusTraversable="false" layoutX="536.0" layoutY="133.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ToggleButton fx:id="btnStepOnOff0" focusTraversable="false" layoutX="68.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <ToggleButton fx:id="btnStepOnOff1" focusTraversable="false" layoutX="135.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <ToggleButton fx:id="btnStepOnOff2" focusTraversable="false" layoutX="202.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <ToggleButton fx:id="btnStepOnOff3" focusTraversable="false" layoutX="269.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <ToggleButton fx:id="btnStepOnOff4" focusTraversable="false" layoutX="336.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <ToggleButton fx:id="btnStepOnOff5" focusTraversable="false" layoutX="403.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <ToggleButton fx:id="btnStepOnOff6" focusTraversable="false" layoutX="470.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <ToggleButton fx:id="btnStepOnOff7" focusTraversable="false" layoutX="537.0" layoutY="174.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="49.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
@@ -467,8 +467,8 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS8freq" layoutX="67.0" layoutY="220.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="31.0" layoutY="230.0" styleClass="smallLabel" text="Freq">
+            <Button fx:id="knobSS8freq" focusTraversable="false" layoutX="67.0" layoutY="220.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="31.0" layoutY="230.0" styleClass="smallLabel" text="Freq">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -478,88 +478,88 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS9freq" layoutX="134.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS9freq" focusTraversable="false" layoutX="134.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="183.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS10freq" layoutX="201.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS10freq" focusTraversable="false" layoutX="201.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="250.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS11freq" layoutX="268.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS11freq" focusTraversable="false" layoutX="268.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="317.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS12freq" layoutX="335.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS12freq" focusTraversable="false" layoutX="335.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="384.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS13freq" layoutX="402.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS13freq" focusTraversable="false" layoutX="402.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="451.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS14freq" layoutX="469.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS14freq" focusTraversable="false" layoutX="469.0" layoutY="221.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="518.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobSS15freq" layoutX="536.0" layoutY="220.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS8FineTune" layoutX="67.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="19.0" layoutY="269.0" styleClass="smallLabel" text="Detune">
+            <Button fx:id="knobSS15freq" focusTraversable="false" layoutX="536.0" layoutY="220.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS8FineTune" focusTraversable="false" layoutX="67.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="19.0" layoutY="269.0" styleClass="smallLabel" text="Detune">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <Button fx:id="knobSS9FineTune" layoutX="134.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS10FineTune" layoutX="201.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS9FineTune" focusTraversable="false" layoutX="134.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS10FineTune" focusTraversable="false" layoutX="201.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Button fx:id="knobSS11FineTune" layoutX="268.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS12FineTune" layoutX="335.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS13FineTune" layoutX="402.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS14FineTune" layoutX="469.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS15FineTune" layoutX="536.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS8Gain" layoutX="67.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="31.0" layoutY="308.0" styleClass="smallLabel" text="Gain">
+            <Button fx:id="knobSS12FineTune" focusTraversable="false" layoutX="335.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS13FineTune" focusTraversable="false" layoutX="402.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS14FineTune" focusTraversable="false" layoutX="469.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS15FineTune" focusTraversable="false" layoutX="536.0" layoutY="260.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS8Gain" focusTraversable="false" layoutX="67.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="31.0" layoutY="308.0" styleClass="smallLabel" text="Gain">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <Button fx:id="knobSS9Gain" layoutX="134.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS10Gain" layoutX="201.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS9Gain" focusTraversable="false" layoutX="134.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS10Gain" focusTraversable="false" layoutX="201.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Button fx:id="knobSS11Gain" layoutX="268.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS12Gain" layoutX="335.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS13Gain" layoutX="402.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS14Gain" layoutX="469.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Button fx:id="knobSS15Gain" layoutX="536.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ToggleButton fx:id="btnStepOnOff8" layoutX="68.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ToggleButton fx:id="btnStepOnOff9" layoutX="135.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ToggleButton fx:id="btnStepOnOff10" layoutX="202.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ToggleButton fx:id="btnStepOnOff11" layoutX="269.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ToggleButton fx:id="btnStepOnOff12" layoutX="336.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ToggleButton fx:id="btnStepOnOff13" layoutX="403.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ToggleButton fx:id="btnStepOnOff14" layoutX="470.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
-            <ToggleButton fx:id="btnStepOnOff15" layoutX="537.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <Button fx:id="knobSS12Gain" focusTraversable="false" layoutX="335.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS13Gain" focusTraversable="false" layoutX="402.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS14Gain" focusTraversable="false" layoutX="469.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobSS15Gain" focusTraversable="false" layoutX="536.0" layoutY="300.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ToggleButton fx:id="btnStepOnOff8" focusTraversable="false" layoutX="68.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <ToggleButton fx:id="btnStepOnOff9" focusTraversable="false" layoutX="135.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <ToggleButton fx:id="btnStepOnOff10" focusTraversable="false" layoutX="202.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <ToggleButton fx:id="btnStepOnOff11" focusTraversable="false" layoutX="269.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <ToggleButton fx:id="btnStepOnOff12" focusTraversable="false" layoutX="336.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <ToggleButton fx:id="btnStepOnOff13" focusTraversable="false" layoutX="403.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <ToggleButton fx:id="btnStepOnOff14" focusTraversable="false" layoutX="470.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
+            <ToggleButton fx:id="btnStepOnOff15" focusTraversable="false" layoutX="537.0" layoutY="341.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="28.0" styleClass="toggleSeq" text="Off" />
             <ImageView fitHeight="88.0" fitWidth="90.0" layoutX="647.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
             <Button fx:id="knobSSRate" layoutX="671.0" layoutY="191.0" maxWidth="41.0" minHeight="38.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="41.0" styleClass="bigKnob" stylesheets="@../skins.css" />
-            <Button id="btnStartStop" fx:id="SSStartStop" layoutX="593.0" layoutY="49.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" styleClass="plainButton" text="Start" textAlignment="CENTER" wrapText="true">
+            <Button id="btnStartStop" fx:id="SSStartStop" focusTraversable="false" layoutX="593.0" layoutY="49.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="123.0" styleClass="plainButton" text="Start" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="39.0" />
                </font></Button>
-            <Label layoutX="674.0" layoutY="162.0" styleClass="filterLabel" text="Rate">
+            <Label focusTraversable="false" layoutX="674.0" layoutY="162.0" styleClass="filterLabel" text="Rate">
                <font>
                   <Font name="Handel Gothic" size="14.0" />
                </font></Label>
@@ -567,7 +567,7 @@
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="11.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="13.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="164.0" />
             <Line endX="408.2060546875" layoutX="13.0" layoutY="21.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <Label layoutX="17.0" layoutY="11.0" styleClass="bigLabel" text="16-Step Sequencer">
+            <Label focusTraversable="false" layoutX="17.0" layoutY="11.0" styleClass="bigLabel" text="16-Step Sequencer">
                <font>
                   <Font size="17.0" />
                </font>
@@ -587,30 +587,30 @@
             <Line endX="-1.0" endY="89.32672119140625" layoutX="385.0" layoutY="260.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
             <Line endX="-1.0" endY="89.32672119140625" layoutX="452.0" layoutY="260.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
             <Line endX="-1.0" endY="89.32672119140625" layoutX="519.0" layoutY="260.0" startX="-1.0" startY="-40.0" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
-            <Spinner fx:id="spinnerSteps" layoutX="591.0" layoutY="184.0" prefHeight="49.0" prefWidth="60.0" />
-            <Label layoutX="600.0" layoutY="162.0" styleClass="filterLabel" text="Steps" />
-            <Label layoutX="629.0" layoutY="100.0" styleClass="filterLabel" text="Mode" />
-            <Spinner fx:id="sequencerMode" layoutX="590.0" layoutY="122.0" prefHeight="25.0" prefWidth="123.0" />
-            <Button layoutX="591.0" layoutY="248.0" mnemonicParsing="false" onAction="#onActionRandomize" prefHeight="25.0" prefWidth="96.0" styleClass="plainButton" text="Randomize" wrapText="true" />
-            <CheckBox fx:id="cBoXRandomFreq" layoutX="594.0" layoutY="294.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" selected="true" text="Freq">
+            <Spinner fx:id="spinnerSteps" focusTraversable="false" layoutX="591.0" layoutY="184.0" prefHeight="49.0" prefWidth="60.0" />
+            <Label focusTraversable="false" layoutX="600.0" layoutY="162.0" styleClass="filterLabel" text="Steps" />
+            <Label focusTraversable="false" layoutX="629.0" layoutY="100.0" styleClass="filterLabel" text="Mode" />
+            <Spinner fx:id="sequencerMode" focusTraversable="false" layoutX="590.0" layoutY="122.0" prefHeight="25.0" prefWidth="123.0" />
+            <Button focusTraversable="false" layoutX="591.0" layoutY="248.0" mnemonicParsing="false" onAction="#onActionRandomize" prefHeight="25.0" prefWidth="96.0" styleClass="plainButton" text="Randomize" wrapText="true" />
+            <CheckBox fx:id="cBoXRandomFreq" focusTraversable="false" layoutX="594.0" layoutY="294.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" selected="true" text="Freq">
                <font>
                   <Font name="Handel Gothic" size="10.0" />
                </font>
             </CheckBox>
-            <Label layoutX="594.0" layoutY="277.0" styleClass="filterLabel" text="Include:" />
-            <CheckBox fx:id="cBoxRandomGain" layoutX="594.0" layoutY="313.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" selected="true" text="Gain">
+            <Label focusTraversable="false" layoutX="594.0" layoutY="277.0" styleClass="filterLabel" text="Include:" />
+            <CheckBox fx:id="cBoxRandomGain" focusTraversable="false" layoutX="594.0" layoutY="313.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" selected="true" text="Gain">
                <font>
                   <Font size="10.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="cBoxRandomOnOff" layoutX="594.0" layoutY="332.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" selected="true" text="On/Off">
+            <CheckBox fx:id="cBoxRandomOnOff" focusTraversable="false" layoutX="594.0" layoutY="332.0" mnemonicParsing="false" prefHeight="11.0" prefWidth="86.0" selected="true" text="On/Off">
                <font>
                   <Font size="10.0" />
                </font>
             </CheckBox>
-            <Button layoutX="672.0" layoutY="302.0" mnemonicParsing="false" onAction="#onActionResetKnobs" prefHeight="49.0" prefWidth="44.0" styleClass="resetButton" text="Reset knobs" textAlignment="CENTER" wrapText="true" />
-            <Button layoutX="378.0" layoutY="8.0" mnemonicParsing="false" onAction="#onActionSavePreset" prefHeight="28.0" prefWidth="28.0" styleClass="saveButton" />
-            <ComboBox fx:id="cmbPresets" layoutX="223.0" layoutY="8.0" prefHeight="28.0" prefWidth="146.0" promptText="Presets" styleClass="presetsComboBox" />
+            <Button focusTraversable="false" layoutX="672.0" layoutY="302.0" mnemonicParsing="false" onAction="#onActionResetKnobs" prefHeight="49.0" prefWidth="44.0" styleClass="resetButton" text="Reset knobs" textAlignment="CENTER" wrapText="true" />
+            <Button focusTraversable="false" layoutX="382.0" layoutY="8.0" mnemonicParsing="false" onAction="#onActionSavePreset" prefHeight="28.0" prefWidth="28.0" styleClass="saveButton" />
+            <ComboBox fx:id="cmbPresets" focusTraversable="false" layoutX="227.0" layoutY="8.0" prefHeight="28.0" prefWidth="146.0" promptText="Presets" styleClass="presetsComboBox" />
          </children></AnchorPane>
       <AnchorPane layoutX="875.0" layoutY="12.0" prefHeight="345.0" prefWidth="391.0">
          <children>
@@ -621,14 +621,14 @@
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="108.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="11.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="63.0" />
             <Line endX="229.8883056640625" layoutX="11.0" layoutY="20.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <Label layoutX="14.0" layoutY="10.0" styleClass="bigLabel" text="Filters">
+            <Label focusTraversable="false" layoutX="14.0" layoutY="10.0" styleClass="bigLabel" text="Filters">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="273.0" layoutY="220.0" styleClass="filterLabel" text="HP" />
-            <ToggleSwitch layoutX="265.0" layoutY="240.0" onMouseClicked="#onActionHPBypass" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="267.0" layoutY="278.0" styleClass="smallLabel" text="Cutoff">
+            <Label focusTraversable="false" layoutX="273.0" layoutY="220.0" styleClass="filterLabel" text="HP" />
+            <ToggleSwitch focusTraversable="false" layoutX="265.0" layoutY="240.0" onMouseClicked="#onActionHPBypass" prefHeight="20.0" prefWidth="30.0" />
+            <Label focusTraversable="false" layoutX="267.0" layoutY="278.0" styleClass="smallLabel" text="Cutoff">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -638,11 +638,11 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobFilterHPCutoff" layoutX="268.0" layoutY="299.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobFilterHPCutoff" focusTraversable="false" layoutX="268.0" layoutY="299.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Line endX="157.3660888671875" endY="-6.0697174072265625" layoutX="162.0" layoutY="233.0" startX="157.3660888671875" startY="100.56625366210938" stroke="#78736b" />
-            <Label layoutX="347.0" layoutY="220.0" styleClass="filterLabel" text="LP" />
-            <ToggleSwitch layoutX="337.0" layoutY="240.0" onMouseClicked="#onActionLPBypass" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="340.0" layoutY="278.0" styleClass="smallLabel" text="Cutoff">
+            <Label focusTraversable="false" layoutX="347.0" layoutY="220.0" styleClass="filterLabel" text="LP" />
+            <ToggleSwitch focusTraversable="false" layoutX="337.0" layoutY="240.0" onMouseClicked="#onActionLPBypass" prefHeight="20.0" prefWidth="30.0" />
+            <Label focusTraversable="false" layoutX="340.0" layoutY="278.0" styleClass="smallLabel" text="Cutoff">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -652,17 +652,17 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobFilterLPCutoff" layoutX="341.0" layoutY="299.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="34.0" layoutY="42.0" styleClass="filterLabel" text="EQ" />
-            <ToggleSwitch layoutX="69.0" layoutY="40.0" onMouseClicked="#onActionEQ1Bypass" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="33.0" layoutY="87.0" styleClass="smallLabel" text="Gain" />
+            <Button fx:id="knobFilterLPCutoff" focusTraversable="false" layoutX="341.0" layoutY="299.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="34.0" layoutY="42.0" styleClass="filterLabel" text="EQ" />
+            <ToggleSwitch focusTraversable="false" layoutX="69.0" layoutY="40.0" onMouseClicked="#onActionEQ1Bypass" prefHeight="20.0" prefWidth="30.0" />
+            <Label focusTraversable="false" layoutX="33.0" layoutY="87.0" styleClass="smallLabel" text="Gain" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="55.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobEQ1Gain" layoutX="73.0" layoutY="78.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="33.0" layoutY="132.0" styleClass="smallLabel" text="Freq">
+            <Button fx:id="knobEQ1Gain" focusTraversable="false" layoutX="73.0" layoutY="78.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="33.0" layoutY="132.0" styleClass="smallLabel" text="Freq">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -672,8 +672,8 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobEQ1Freq" layoutX="73.0" layoutY="124.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="26.0" layoutY="179.0" styleClass="smallLabel" text="Range">
+            <Button fx:id="knobEQ1Freq" focusTraversable="false" layoutX="73.0" layoutY="124.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="26.0" layoutY="179.0" styleClass="smallLabel" text="Range">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -683,18 +683,18 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobEQ1Range" layoutX="73.0" layoutY="170.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobEQ1Range" focusTraversable="false" layoutX="73.0" layoutY="170.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Line endX="-1.0" endY="123.681640625" layoutX="134.0" layoutY="79.0" startX="-1.0" startY="-32.91435623168945" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
-            <Label layoutX="160.0" layoutY="42.0" styleClass="filterLabel" text="EQ" />
-            <ToggleSwitch layoutX="195.0" layoutY="40.0" onMouseClicked="#onActionEQ2Bypass" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="159.0" layoutY="87.0" styleClass="smallLabel" text="Gain" />
+            <Label focusTraversable="false" layoutX="160.0" layoutY="42.0" styleClass="filterLabel" text="EQ" />
+            <ToggleSwitch focusTraversable="false" layoutX="195.0" layoutY="40.0" onMouseClicked="#onActionEQ2Bypass" prefHeight="20.0" prefWidth="30.0" />
+            <Label focusTraversable="false" layoutX="159.0" layoutY="87.0" styleClass="smallLabel" text="Gain" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="181.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobEQ2Gain" layoutX="199.0" layoutY="78.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="159.0" layoutY="132.0" styleClass="smallLabel" text="Freq">
+            <Button fx:id="knobEQ2Gain" focusTraversable="false" layoutX="199.0" layoutY="78.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="159.0" layoutY="132.0" styleClass="smallLabel" text="Freq">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -704,8 +704,8 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobEQ2Freq" layoutX="199.0" layoutY="124.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="152.0" layoutY="179.0" styleClass="smallLabel" text="Range">
+            <Button fx:id="knobEQ2Freq" focusTraversable="false" layoutX="199.0" layoutY="124.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="152.0" layoutY="179.0" styleClass="smallLabel" text="Range">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -715,18 +715,18 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobEQ2Range" layoutX="199.0" layoutY="170.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobEQ2Range" focusTraversable="false" layoutX="199.0" layoutY="170.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
             <Line endX="-1.0" endY="123.681640625" layoutX="262.0" layoutY="79.0" startX="-1.0" startY="-32.91435623168945" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
-            <Label layoutX="288.0" layoutY="42.0" styleClass="filterLabel" text="EQ" />
-            <ToggleSwitch layoutX="322.0" layoutY="40.0" onMouseClicked="#onActionEQ3Bypass" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="286.0" layoutY="87.0" styleClass="smallLabel" text="Gain" />
+            <Label focusTraversable="false" layoutX="288.0" layoutY="42.0" styleClass="filterLabel" text="EQ" />
+            <ToggleSwitch focusTraversable="false" layoutX="322.0" layoutY="40.0" onMouseClicked="#onActionEQ3Bypass" prefHeight="20.0" prefWidth="30.0" />
+            <Label focusTraversable="false" layoutX="286.0" layoutY="87.0" styleClass="smallLabel" text="Gain" />
             <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="308.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobEQ3Gain" layoutX="326.0" layoutY="78.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="286.0" layoutY="132.0" styleClass="smallLabel" text="Freq">
+            <Button fx:id="knobEQ3Gain" focusTraversable="false" layoutX="326.0" layoutY="78.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="286.0" layoutY="132.0" styleClass="smallLabel" text="Freq">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -736,8 +736,8 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobEQ3Freq" layoutX="326.0" layoutY="124.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="279.0" layoutY="179.0" styleClass="smallLabel" text="Range">
+            <Button fx:id="knobEQ3Freq" focusTraversable="false" layoutX="326.0" layoutY="124.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="279.0" layoutY="179.0" styleClass="smallLabel" text="Range">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -747,7 +747,7 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobEQ3Range" layoutX="326.0" layoutY="170.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Button fx:id="knobEQ3Range" focusTraversable="false" layoutX="326.0" layoutY="170.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="875.0" layoutY="242.0" prefHeight="114.0" prefWidth="237.0">
@@ -761,14 +761,14 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobDelayFeedback" layoutX="21.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="13.0" layoutY="9.0" prefHeight="18.0" prefWidth="48.0" styleClass="bigLabel" text="Delay">
+            <Button fx:id="knobDelayFeedback" focusTraversable="false" layoutX="21.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="13.0" layoutY="9.0" prefHeight="18.0" prefWidth="48.0" styleClass="bigLabel" text="Delay">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <ToggleSwitch layoutX="183.0" layoutY="10.0" onMouseClicked="#onActionDelayBypass" prefHeight="20.0" prefWidth="30.0" />
-            <Label layoutX="12.0" layoutY="47.0" styleClass="smallLabel" text="Feedback">
+            <ToggleSwitch focusTraversable="false" layoutX="183.0" layoutY="10.0" onMouseClicked="#onActionDelayBypass" prefHeight="20.0" prefWidth="30.0" />
+            <Label focusTraversable="false" layoutX="12.0" layoutY="47.0" styleClass="smallLabel" text="Feedback">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -778,8 +778,8 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobDelayTime" layoutX="75.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="78.0" layoutY="47.0" styleClass="smallLabel" text="Time">
+            <Button fx:id="knobDelayTime" focusTraversable="false" layoutX="75.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="78.0" layoutY="47.0" styleClass="smallLabel" text="Time">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -789,8 +789,8 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobDelayDecay" layoutX="131.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="130.0" layoutY="47.0" styleClass="smallLabel" text="Decay">
+            <Button fx:id="knobDelayDecay" focusTraversable="false" layoutX="131.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="130.0" layoutY="47.0" styleClass="smallLabel" text="Decay">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -800,8 +800,8 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobDelayLevel" layoutX="186.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="188.0" layoutY="47.0" styleClass="smallLabel" text="Level">
+            <Button fx:id="knobDelayLevel" focusTraversable="false" layoutX="186.0" layoutY="69.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="188.0" layoutY="47.0" styleClass="smallLabel" text="Level">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -814,7 +814,7 @@
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="8.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="72.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="10.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="68.0" />
             <Line endX="62.876708984375" endY="-3.0517578125E-5" layoutX="11.5986328125" layoutY="21.585784912109375" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="15.0" />
-            <Label layoutX="13.0" layoutY="11.0" styleClass="bigLabel" text="Master">
+            <Label focusTraversable="false" layoutX="13.0" layoutY="11.0" styleClass="bigLabel" text="Master">
                <font>
                   <Font size="17.0" />
                </font>
@@ -822,16 +822,16 @@
             <Slider id="masterSlider" fx:id="sliderMasterGain" blockIncrement="0.1" layoutX="25.0" layoutY="33.0" majorTickUnit="0.05" max="1.0" minorTickCount="1" orientation="VERTICAL" prefHeight="155.0" prefWidth="40.0" value="0.5" />
          </children>
       </AnchorPane>
-      <Button id="btnHelp" fx:id="btnHelp" layoutX="62.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionHelp" prefHeight="32.0" prefWidth="55.0" styleClass="plainButton" text="Help">
+      <Button id="btnHelp" fx:id="btnHelp" focusTraversable="false" layoutX="62.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionHelp" prefHeight="32.0" prefWidth="55.0" styleClass="plainButton" text="Help">
          <font>
             <Font size="21.0" />
          </font></Button>
-      <Button fx:id="btnSettings" layoutX="21.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionSettings" prefHeight="32.0" prefWidth="32.0" styleClass="settingsButton" />
+      <Button fx:id="btnSettings" focusTraversable="false" layoutX="21.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionSettings" prefHeight="32.0" prefWidth="32.0" styleClass="settingsButton" />
       <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#d6d1c9" height="32.0" layoutX="126.0" layoutY="141.0" stroke="#78736b" strokeType="INSIDE" width="222.0" />
-      <Label layoutX="138.0" layoutY="149.0" styleClass="filterLabel" text="Mididevice" />
-      <Button layoutX="325.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionSearchMidiDevice" prefHeight="32.0" prefWidth="32.0" styleClass="refreshButton" />
-      <Label fx:id="lblNotConnected" layoutX="217.0" layoutY="149.0" styleClass="filterLabel" text="not connected" />
-      <Label fx:id="lblConnected" layoutX="218.0" layoutY="149.0" styleClass="connectedLabel" text="connected" textFill="#f78000" visible="false" />
-      <Button fx:id="samplePlayerStart" layoutX="370.0" layoutY="141.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="43.0" styleClass="drumButton" />
+      <Label focusTraversable="false" layoutX="138.0" layoutY="149.0" styleClass="filterLabel" text="Mididevice" />
+      <Button focusTraversable="false" layoutX="325.0" layoutY="141.0" mnemonicParsing="false" onAction="#onActionSearchMidiDevice" prefHeight="32.0" prefWidth="32.0" styleClass="refreshButton" />
+      <Label fx:id="lblNotConnected" focusTraversable="false" layoutX="217.0" layoutY="149.0" styleClass="filterLabel" text="not connected" />
+      <Label fx:id="lblConnected" focusTraversable="false" layoutX="218.0" layoutY="149.0" styleClass="connectedLabel" text="connected" textFill="#f78000" visible="false" />
+      <Button fx:id="samplePlayerStart" focusTraversable="false" layoutX="370.0" layoutY="141.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="43.0" styleClass="drumButton" />
    </children>
 </AnchorPane>

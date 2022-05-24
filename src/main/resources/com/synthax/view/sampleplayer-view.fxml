@@ -23,12 +23,12 @@
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="330.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="427.0" />
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="343.0" layoutY="39.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="72.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#d6d1c9" height="20.0" layoutX="345.0" layoutY="41.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="68.0" />
-            <Label layoutX="348.0" layoutY="41.0" styleClass="bigLabel" text="Master">
+            <Label focusTraversable="false" layoutX="348.0" layoutY="41.0" styleClass="bigLabel" text="Master">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Slider id="masterSlider" fx:id="sliderSamplePlayerGain" blockIncrement="0.1" layoutX="361.0" layoutY="79.0" majorTickUnit="0.05" max="1.0" minorTickCount="1" orientation="VERTICAL" prefHeight="228.0" prefWidth="40.0" value="0.5" />
+            <Slider id="masterSlider" fx:id="sliderSamplePlayerGain" blockIncrement="0.1" focusTraversable="false" layoutX="361.0" layoutY="79.0" majorTickUnit="0.05" max="1.0" minorTickCount="1" orientation="VERTICAL" prefHeight="228.0" prefWidth="40.0" value="0.5" />
             <AnchorPane layoutX="26.0" layoutY="15.0" prefHeight="300.0" prefWidth="300.0">
                <children>
                   <Button id="btnSamplePad" fx:id="pad0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" styleClass="sampleButton" text="1" />
@@ -47,7 +47,7 @@
       <AnchorPane fx:id="sequencerMainPane" layoutX="13.0" layoutY="356.0">
          <children>
             <Rectangle arcHeight="30.0" arcWidth="30.0" fill="DODGERBLUE" height="339.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="contentSquare" width="752.0" />
-            <Button id="btnStartStopDrums" fx:id="btnSamplePlayerStart" layoutX="648.0" layoutY="28.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="82.0" text="Start">
+            <Button id="btnStartStopDrums" fx:id="btnSamplePlayerStart" focusTraversable="false" layoutX="648.0" layoutY="28.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="82.0" text="Start">
                <font>
                   <Font size="23.0" />
                </font></Button>
@@ -98,7 +98,7 @@
                 <RowConstraints fillHeight="false" maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
               </rowConstraints>
             </GridPane>
-            <Label layoutX="669.0" layoutY="95.0" styleClass="bigLabel" text="Rate" />
+            <Label focusTraversable="false" layoutX="669.0" layoutY="95.0" styleClass="bigLabel" text="Rate" />
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="16.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="302.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="18.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="225.0" />
             <Line endX="329.578125" layoutX="16.01287841796875" layoutY="21.0" startX="-3.98712158203125" stroke="#bfbbb4" strokeWidth="2.0" />
@@ -107,13 +107,13 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <CheckBox fx:id="syncSequencer" layoutX="678.0" layoutY="244.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" selected="true" styleClass="check-box-big">
+            <CheckBox fx:id="syncSequencer" focusTraversable="false" layoutX="678.0" layoutY="244.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" selected="true" styleClass="check-box-big">
                <font>
                   <Font size="23.0" />
                </font>
             </CheckBox>
-            <Label layoutX="655.0" layoutY="194.0" prefHeight="46.0" prefWidth="72.0" styleClass="filterLabel" text="Sync sequencer" textAlignment="CENTER" wrapText="true" />
-            <Button id="btnStartStopDrums" fx:id="btnSamplePlayerReset" layoutX="648.0" layoutY="281.0" mnemonicParsing="false" onAction="#onActionResetSamplePlayerSeq" prefHeight="40.0" prefWidth="82.0" styleClass="resetButton" text="Reset">
+            <Label focusTraversable="false" layoutX="655.0" layoutY="194.0" prefHeight="46.0" prefWidth="72.0" styleClass="filterLabel" text="Sync sequencer" textAlignment="CENTER" wrapText="true" />
+            <Button id="btnStartStopDrums" fx:id="btnSamplePlayerReset" focusTraversable="false" layoutX="648.0" layoutY="281.0" mnemonicParsing="false" onAction="#onActionResetSamplePlayerSeq" prefHeight="40.0" prefWidth="82.0" styleClass="resetButton" text="Reset">
                <font>
                   <Font size="23.0" />
                </font>
@@ -126,7 +126,7 @@
             <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#f78000" height="24.0" layoutX="14.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="102.0" />
             <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bfbbb4" height="20.0" layoutX="16.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="61.0" />
             <Line endX="115.84246826171875" endY="-7.62939453125E-6" layoutX="16.0" layoutY="20.0" startX="-3.98712158203125" startY="-3.814697265625E-6" stroke="#bfbbb4" strokeWidth="2.0" />
-            <Label fx:id="lblPadView" layoutX="20.0" layoutY="10.0" styleClass="bigLabel" text="Pad 1">
+            <Label fx:id="lblPadView" focusTraversable="false" layoutX="20.0" layoutY="10.0" styleClass="bigLabel" text="Pad 1">
                <font>
                   <Font size="17.0" />
                </font>
@@ -136,9 +136,9 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobPadReverbSize" layoutX="66.0" layoutY="87.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <ToggleSwitch fx:id="tglBypassReverb" layoutX="212.0" layoutY="37.0" prefHeight="15.0" prefWidth="38.0" />
-            <Label layoutX="70.0" layoutY="65.0" styleClass="smallLabel" text="Size">
+            <Button fx:id="knobPadReverbSize" focusTraversable="false" layoutX="66.0" layoutY="87.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <ToggleSwitch fx:id="tglBypassReverb" focusTraversable="false" layoutX="212.0" layoutY="37.0" prefHeight="15.0" prefWidth="38.0" />
+            <Label focusTraversable="false" layoutX="70.0" layoutY="65.0" styleClass="smallLabel" text="Size">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -148,8 +148,8 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobPadReverbTone" layoutX="141.0" layoutY="87.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="143.0" layoutY="65.0" styleClass="smallLabel" text="Tone">
+            <Button fx:id="knobPadReverbTone" focusTraversable="false" layoutX="141.0" layoutY="87.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="143.0" layoutY="65.0" styleClass="smallLabel" text="Tone">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
@@ -159,20 +159,20 @@
                   <Image url="@../Images/KnobBlackSteps.png" />
                </image>
             </ImageView>
-            <Button fx:id="knobPadReverbAmount" layoutX="216.0" layoutY="87.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
-            <Label layoutX="211.0" layoutY="65.0" styleClass="smallLabel" text="Amount">
+            <Button fx:id="knobPadReverbAmount" focusTraversable="false" layoutX="216.0" layoutY="87.0" mnemonicParsing="false" styleClass="knob" stylesheets="@../skins.css" />
+            <Label focusTraversable="false" layoutX="211.0" layoutY="65.0" styleClass="smallLabel" text="Amount">
                <font>
                   <Font name="Arial" size="10.0" />
                </font>
             </Label>
-            <Label layoutX="131.0" layoutY="242.0" styleClass="filterLabel" text="Volume">
+            <Label focusTraversable="false" layoutX="131.0" layoutY="242.0" styleClass="filterLabel" text="Volume">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
             <ComboBox fx:id="cmbAvailableSamples" focusTraversable="false" layoutX="80.0" layoutY="180.0" prefWidth="150.0" styleClass="presetsComboBox" />
             <Line endX="124.5" endY="89.32672119140625" layoutX="155.0" layoutY="44.0" startX="-125.5" startY="89.32672119140625" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
-            <Label layoutX="129.0" layoutY="147.0" prefHeight="20.0" prefWidth="54.0" styleClass="filterLabel" text="Sample">
+            <Label focusTraversable="false" layoutX="129.0" layoutY="147.0" prefHeight="20.0" prefWidth="54.0" styleClass="filterLabel" text="Sample">
                <font>
                   <Font size="17.0" />
                </font>
@@ -184,7 +184,7 @@
             </ImageView>
             <Button fx:id="knobPadGain" focusTraversable="false" layoutX="136.0" layoutY="272.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" styleClass="bigKnob" />
             <Line endX="124.5" endY="89.32672119140625" layoutX="155.0" layoutY="138.0" startX="-125.5" startY="89.32672119140625" stroke="#78736b" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
-            <Label layoutX="131.0" layoutY="38.0" styleClass="filterLabel" text="Reverb" />
+            <Label focusTraversable="false" layoutX="131.0" layoutY="38.0" styleClass="filterLabel" text="Reverb" />
          </children>
       </AnchorPane>
    </children>
