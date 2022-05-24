@@ -7,11 +7,11 @@ package com.synthax.model.enums;
  */
 
 public enum OctaveOperands {
-    TWO("2'", 0.25f, 2),
-    FOUR("4'", 0.5f, 4),
-    EIGHT("8'", 1, 8),
-    SIXTEEN("16'", 2, 16),
-    THIRTYTWO("32'", 4, 32);
+    THIRTYTWO("32'", 0.25f, 32),
+    SIXTEEN("16'", 0.5f, 16),
+    EIGHT("8'", 1f, 8),
+    FOUR("4'", 2f, 4),
+    TWO("2'", 4f, 2);
 
     OctaveOperands(String name, float value, int operandValue) {
         this.name = name;
