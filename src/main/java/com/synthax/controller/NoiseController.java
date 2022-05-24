@@ -15,8 +15,8 @@ public class NoiseController extends VoiceController {
     private float savedGain = MAX_GAIN / 2f;
     private boolean isActive = false;
 
-    public NoiseController() {
-        super();
+    public NoiseController(int voiceCount) {
+        super(voiceCount);
 
         voiceOutputGlide.setValue(0f);
     }

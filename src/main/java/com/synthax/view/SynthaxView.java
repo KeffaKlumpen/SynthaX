@@ -493,6 +493,11 @@ public class SynthaxView implements Initializable {
         System.out.println("SynthaxView.oscCount = " + voiceCount);
         synthaxController.setOscVoiceCount(voiceCount);
     }
+
+
+    public void setOscMonophonic() {
+        synthaxController.setMonophonic();
+    }
     //endregion forwarding from SettingsView
 
     public void updateSeqStep(int i, boolean isOn, int velocity, float detuneCent, MidiNote midiNote) {
@@ -1096,8 +1101,5 @@ public class SynthaxView implements Initializable {
             }
         });
     }
-
-
-
     //endregion initialize methods
 }

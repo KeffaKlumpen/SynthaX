@@ -31,8 +31,8 @@ public class OscillatorController extends VoiceController{
      * Setup internal chain structure.
      * @author Joel Eriksson Sinclair
      */
-    public OscillatorController() {
-        super();
+    public OscillatorController(int voiceCount) {
+        super(voiceCount);
 
         finalOutput = new Add(AudioContext.getDefaultContext(), 1, voiceOutput);
     }

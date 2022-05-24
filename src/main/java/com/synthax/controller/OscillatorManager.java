@@ -28,7 +28,7 @@ public class OscillatorManager {
     private final NoiseController noiseController;
 
     private OscillatorManager() {
-        noiseController = new NoiseController();
+        noiseController = new NoiseController(VoiceController.VOICE_COUNT);
         oscillatorOutput = new Gain(1, 1f);
         finalOutput = new Gain(1, 1f);
         finalOutput.addInput(noiseController.getOutput());

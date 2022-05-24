@@ -29,7 +29,6 @@ public class SynthaxController {
     private final SynthaxView synthaxView;
     private final SeqPresetLoader seqPresetLoader;
 
-    private final Gain masterGain;
     private final Glide masterGainGlide;
     private final SynthaxLFO synthaxLFO;
     private final OscillatorManager oscillatorManager;
@@ -39,7 +38,7 @@ public class SynthaxController {
     private boolean randomFreq = true;
     private boolean randomGain = true;
     private boolean randomOnOff = true;
-    private Midi midi;
+    private final Midi midi;
 
     /**
      * Setup AudioContext, OscillatorManager and defines the chain of effects and sounds
@@ -55,7 +54,7 @@ public class SynthaxController {
         seqPresetLoader = new SeqPresetLoader(sequencer);
 
         masterGainGlide = new Glide(ac, 0.5f, 50);
-        masterGain = new Gain(ac, 1, masterGainGlide);
+        Gain masterGain = new Gain(ac, 1, masterGainGlide);
 
         oscillatorManager = OscillatorManager.getInstance();
         Gain oscCombined = oscillatorManager.getFinalOutput();
@@ -436,6 +435,13 @@ public class SynthaxController {
     }
 
     public void setOscVoiceCount(int voiceCount) {
+        VoiceController.MONOPHONIC_STATUS = false;
+        VoiceController.VOICE_COUNT = voiceCount;
         oscillatorManager.setOscillatorVoiceCount(voiceCount);
+    }
+
+    public void setMonophonic() {
+        VoiceController.MONOPHONIC_STATUS = true;
+        oscillatorManager.setOscillatorVoiceCount(0);
     }
 }

@@ -1,5 +1,6 @@
 package com.synthax.view;
 
+import com.synthax.controller.VoiceController;
 import com.synthax.view.utils.Dialogs;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,7 +45,7 @@ public class SettingsView implements Initializable {
 
     private void setMonophonicState(boolean monophonic) {
         if(monophonic) {
-            synthaxView.setOscVoiceCount(0);
+            synthaxView.setOscMonophonic();
         } else {
             synthaxView.setOscVoiceCount(voiceCountSpinner.getValue());
         }
@@ -59,11 +60,12 @@ public class SettingsView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        toggleMonophonic.setSelected(VoiceController.MONOPHONIC_STATUS);
         toggleMonophonic.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
             setMonophonicState(newValue);
         });
 
-        SpinnerValueFactory<Integer> svf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 64, 8);
+        SpinnerValueFactory<Integer> svf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, VoiceController.MAX_OSC_VOICE_COUNT, VoiceController.VOICE_COUNT);
         voiceCountSpinner.setValueFactory(svf);
         voiceCountSpinner.valueProperty().addListener((observableValue, oldValue, newValue) -> {
             synthaxView.setOscVoiceCount(newValue);

@@ -1,6 +1,7 @@
 package com.synthax.view;
 
 import com.synthax.controller.OscillatorController;
+import com.synthax.controller.VoiceController;
 import com.synthax.view.controls.KnobBehavior;
 import com.synthax.view.controls.KnobBehaviorDetune;
 import com.synthax.view.controls.KnobBehaviorWave;
@@ -44,7 +45,7 @@ public class OscillatorView implements Initializable {
     private final OscillatorController oscillatorController;
 
     public OscillatorView() {
-        oscillatorController = new OscillatorController();
+        oscillatorController = new OscillatorController(VoiceController.VOICE_COUNT);
     }
 
     public OscillatorController getOscillatorController() {

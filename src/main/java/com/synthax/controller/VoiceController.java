@@ -14,7 +14,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class VoiceController {
-    protected int voiceCount = 8;
+    public static final int MAX_OSC_VOICE_COUNT = 16;
+    public static int VOICE_COUNT = 8;
+    public static boolean MONOPHONIC_STATUS = false;
+
+    protected int voiceCount;
     protected Voice[] voices;
     protected final Gain voiceOutput;
     protected final Glide voiceOutputGlide;
@@ -24,7 +28,7 @@ public abstract class VoiceController {
     private final ArrayList<Integer> voiceHistory = new ArrayList<>();
     private final int[] voicePlayingMidi = new int[MidiHelpers.MIDI_NOTE_COUNT]; //stores voice-index playing note
 
-    public VoiceController() {
+    public VoiceController(int voiceCount) {
         AudioContext ac = AudioContext.getDefaultContext();
         voiceOutputGlide = new Glide(ac, 0.5f, 50);
         voiceOutput = new Gain(ac,1, voiceOutputGlide);
