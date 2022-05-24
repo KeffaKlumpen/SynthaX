@@ -1,6 +1,7 @@
 package com.synthax.controller;
 
 import com.synthax.model.enums.MidiNote;
+import com.synthax.model.enums.SequencerMode;
 import com.synthax.model.sequencer.Sequencer;
 import com.synthax.model.sequencer.SequencerStep;
 import com.synthax.util.HelperMath;
@@ -18,6 +19,8 @@ import java.util.Arrays;
  */
 public class SeqPresetLoader {
     private final static String PRESET_FILE_EXTENSION = ".stx";
+    private final static int PRESET_VERSION_ID = 1;
+    private final static int PRESET_UID = 133769420;
 
     private final Sequencer sequencer;
     private File presetRoot = new File("src/main/resources/com/synthax/sequencer_presets");
@@ -166,6 +169,8 @@ public class SeqPresetLoader {
         SequencerStep[] steps = sequencer.getSteps();
 
         try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(saveFile))) {
+            dos.writeInt(PRESET_UID);
+            dos.writeInt(PRESET_VERSION_ID);
             dos.writeInt(steps.length);
             for (SequencerStep step : steps) {
                 dos.writeBoolean(step.isOn());
@@ -173,6 +178,9 @@ public class SeqPresetLoader {
                 dos.writeFloat(step.getDetuneCent());
                 dos.writeInt(step.getMidiNote().ordinal());
             }
+            dos.writeFloat(sequencer.getRate());
+            dos.writeInt(sequencer.getNSteps());
+            dos.writeInt(sequencer.getSequencerMode().ordinal());
             dos.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -184,6 +192,18 @@ public class SeqPresetLoader {
         SequencerStep[] steps = sequencer.getSteps();
 
         try (DataInputStream dis = new DataInputStream(new FileInputStream(loadFile))){
+            int presetUID = dis.readInt();
+            if(presetUID != PRESET_UID) {
+                System.err.println("Not a valid preset.");
+                return;
+            }
+
+            int presetVersion = dis.readInt();
+            if(presetVersion != PRESET_VERSION_ID) {
+                System.err.println("Preset not correct version.");
+                return;
+            }
+
             int stepCount = dis.readInt();
             assert stepCount == steps.length;
 
@@ -194,6 +214,10 @@ public class SeqPresetLoader {
                 step.setDetuneCent(dis.readFloat());
                 step.setMidiNote(MidiNote.values()[dis.readInt()]);
             }
+            sequencer.setBPM(dis.readFloat());
+            sequencer.setNSteps(dis.readInt());
+            sequencer.setSequencerMode(SequencerMode.values()[dis.readInt()]);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

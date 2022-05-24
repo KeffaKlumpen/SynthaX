@@ -510,6 +510,18 @@ public class SynthaxView implements Initializable {
         });
     }
 
+    public void setSeqKnobRate(float rate) {
+        bKnobSSRate.setRotation(rate);
+    }
+
+    public void setSequencerMode(SequencerMode mode) {
+        sequencerMode.getValueFactory().setValue(mode.getName());
+    }
+
+    public void setSequencerNSteps(int nSteps) {
+        spinnerSteps.getValueFactory().setValue(nSteps);
+    }
+
     public void fakeSequencerStartStopClick() {
         System.out.println("clicked.");
         Platform.runLater(() -> {
