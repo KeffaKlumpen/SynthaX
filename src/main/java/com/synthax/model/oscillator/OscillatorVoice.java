@@ -3,6 +3,7 @@ package com.synthax.model.oscillator;
 import com.synthax.controller.OscillatorController;
 import com.synthax.model.SynthaxDelay;
 import com.synthax.model.enums.MidiNote;
+import com.synthax.model.enums.OctaveOperands;
 import com.synthax.model.oscillator.OscillatorLFO;
 import net.beadsproject.beads.core.UGen;
 import net.beadsproject.beads.data.Buffer;
@@ -52,7 +53,6 @@ public class OscillatorVoice extends Voice {
         delay.getEnvelope().addSegment(0f, 10f);
     }
 
-    // SEQUENCER STUPID SHIT
     public void noteOn(MidiNote note, float detunedFrequency, float maxGain, float attackTime, float sustainGain, float decayTime, float seqDetune) {
         super.noteOn(note, detunedFrequency, maxGain, attackTime, sustainGain, decayTime);
 
@@ -74,8 +74,9 @@ public class OscillatorVoice extends Voice {
         wavePlayer.pause(!onOff);
     }
 
-    public void updateDetuneValue(float detuneCent) {
-        float detunedFrequency = applyDetune(currentNote.getFrequency(), detuneCent);
+    public void updateDetuneValue(float detuneCent, OctaveOperands octaveOperand) {
+        float octaveOffsetFrequency = applyOctaveOffset(currentNote.getFrequency(), octaveOperand);
+        float detunedFrequency = applyDetune(octaveOffsetFrequency, detuneCent);
         oscillatorLFO.setPlayedFrequency(detunedFrequency);
     }
 
@@ -95,5 +96,9 @@ public class OscillatorVoice extends Voice {
 
     private float applyDetune(float frequency, float detuneCent) {
         return (float)(frequency * (Math.pow(2, (detuneCent/1200))));
+    }
+
+    private float applyOctaveOffset(float frequency, OctaveOperands octaveOperand) {
+        return frequency * octaveOperand.getValue();
     }
 }

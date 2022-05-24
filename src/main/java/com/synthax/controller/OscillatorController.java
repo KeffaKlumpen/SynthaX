@@ -92,7 +92,7 @@ public class OscillatorController extends VoiceController{
         for (int i = 0; i < voiceCount; i++) {
             // Avoid updating detune on silent voices, better performance and also avoid nulls.
             if(!voiceAvailability[i]) {
-                ((OscillatorVoice)voices[i]).updateDetuneValue(detuneCent);
+                ((OscillatorVoice)voices[i]).updateDetuneValue(detuneCent, octaveOperand);
             }
         }
     }
@@ -143,12 +143,12 @@ public class OscillatorController extends VoiceController{
      * Updates the played frequency if the user is changing the octaveoperand during playback.
      */
     private void updateOctaveOffset(OctaveOperands oldValue, OctaveOperands newValue) {
-        if (oldValue.getOperandValue() > newValue.getOperandValue()) {
+        if (oldValue.getOperandValue() < newValue.getOperandValue()) {
             for (Voice voice : voices) {
                 float freq = ((OscillatorVoice)voice).getOscillatorLFO().getPlayedFrequency();
                 ((OscillatorVoice)voice).getOscillatorLFO().setPlayedFrequency(freq * 0.5f);
             }
-        } else if (oldValue.getOperandValue() < newValue.getOperandValue()) {
+        } else if (oldValue.getOperandValue() > newValue.getOperandValue()) {
             for (Voice voice : voices) {
                 float freq = ((OscillatorVoice)voice).getOscillatorLFO().getPlayedFrequency();
                 ((OscillatorVoice)voice).getOscillatorLFO().setPlayedFrequency(freq * 2);
