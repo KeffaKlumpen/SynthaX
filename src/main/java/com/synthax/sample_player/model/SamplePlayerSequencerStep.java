@@ -22,6 +22,12 @@ public class SamplePlayerSequencerStep {
         sequencer.playSamples(indexes);
     }
 
+    public void clearStep() {
+        for (int i = 0; i < padsActivated.length; i++) {
+            padsActivated[i] = false;
+        }
+    }
+
     public void setPadActive(int pad, boolean active) {
         padsActivated[pad] = active;
     }

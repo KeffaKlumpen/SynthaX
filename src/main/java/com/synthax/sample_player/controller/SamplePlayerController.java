@@ -122,6 +122,10 @@ public class SamplePlayerController {
         sequencer.stop();
     }
 
+    public void clearSequencer() {
+        sequencer.clearSequencer();
+    }
+
     public boolean getSequencerIsRunning() {
         return sequencer.isRunning();
     }

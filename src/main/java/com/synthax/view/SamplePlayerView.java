@@ -386,4 +386,13 @@ public class SamplePlayerView implements Initializable {
         btnSamplePlayerStart.setText("Stop");
         btnSamplePlayerStart.setStyle("-fx-text-fill: #f78000");
     }
+
+    public void clearSequencer() {
+        samplePlayerController.clearSequencer();
+        for (ToggleButton[] step : sequencerSteps) {
+            for (int i = 0; i < sequencerSteps[0].length; i++) {
+                step[i].setSelected(false);
+            }
+        }
+    }
 }
