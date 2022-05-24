@@ -77,20 +77,30 @@ public abstract class VoiceController {
 
     //region MIDI-handling
     public void noteOn(MidiNote midiNote, int velocity) {
+        noteOn(midiNote, velocity, 0f);
+    }
+
+    /**
+     * Handle MIDI,
+     * @param midiNote Note to be played
+     * @param velocity Velocity of the note to be played
+     * @param detuneCent How many cents of detuning to be applied.
+     */
+    public void noteOn(MidiNote midiNote, int velocity, float detuneCent) {
         // Try to get availableVoice, else get oldestVoice.
         int voiceIndex = getBestVoice();
 
         voicePlayingMidi[midiNote.ordinal()] = voiceIndex;
         setVoiceUnavailable(voiceIndex);
 
-        float detunedFrequency = getDetunedFrequency(midiNote.getFrequency());
+        float detunedFrequency = getDetunedFrequency(midiNote.getFrequency(), detuneCent);
 
         float maxGain = velocity / (float) MidiHelpers.MAX_VELOCITY_VALUE;
         float sustainGain = maxGain * SynthaxADSR.getSustainValue();
         voices[voiceIndex].noteOn(midiNote, detunedFrequency, maxGain, SynthaxADSR.getAttackValue(), sustainGain, SynthaxADSR.getDecayValue());
     }
 
-    protected float getDetunedFrequency(float baseFreq) {
+    protected float getDetunedFrequency(float baseFreq, float detuneCent) {
         return baseFreq;
     }
 

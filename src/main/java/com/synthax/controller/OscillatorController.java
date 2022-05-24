@@ -46,21 +46,11 @@ public class OscillatorController extends VoiceController{
     }
 
     @Override
-    protected float getDetunedFrequency(float baseFreq) {
-        float detunedFreq = applyOctaveOffset(baseFreq);
+    protected float getDetunedFrequency(float baseFreq, float detuneCent) {
+        float detunedFreq = applyDetuning(baseFreq, detuneCent);
+        detunedFreq = applyOctaveOffset(detunedFreq);
         detunedFreq = applyDetuning(detunedFreq);
         return detunedFreq;
-    }
-
-    /**
-     * Special case with sequencer-step detuning.
-     * Select a suitable voice and tells it to play the given MIDI-note.
-     * @param midiNote Midi-note to be played.
-     */
-    public void noteOn(MidiNote midiNote, int velocity, float detuneCent) {
-        super.noteOn(midiNote, velocity);
-        // STUPID SEQUENCER DETUNING
-        System.err.println("OscController.noteOnSeq: DETUNING NOT IMPLEMENTED.");
     }
 
     //region GUI forwarding (click to open/collapse)
