@@ -488,7 +488,13 @@ public class SynthaxView implements Initializable {
     public void updateSequencerPresetList() {
         synthaxController.updateSequencerPresetList();
     }
+
+    public void setOscVoiceCount(int voiceCount) {
+        System.out.println("SynthaxView.oscCount = " + voiceCount);
+        synthaxController.setOscVoiceCount(voiceCount);
+    }
     //endregion forwarding from SettingsView
+
     public void updateSeqStep(int i, boolean isOn, int velocity, float detuneCent, MidiNote midiNote) {
         Platform.runLater(() -> {
             arrSeqStepsOnOff[i].setSelected(isOn);

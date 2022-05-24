@@ -434,4 +434,8 @@ public class SynthaxController {
     public Thread getSequencerThread() {
         return sequencer.getThread();
     }
+
+    public void setOscVoiceCount(int voiceCount) {
+        oscillatorManager.setOscillatorVoiceCount(voiceCount);
+    }
 }
