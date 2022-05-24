@@ -40,6 +40,7 @@ public class SamplePlayerController {
 
     private void initPads() {
         String[] sources = getSourceFiles();
+        fillSourceMap(sources);
 
         for (int i = 0; i < padCount; i++) {
             pads[i] = new Pad(sources[i], this, i+1);
@@ -48,15 +49,16 @@ public class SamplePlayerController {
         for (Pad p : pads) {
             masterGain.addInput(p.getPadOutput());
         }
-        fillSourceMap(sources);
     }
 
     private void fillSourceMap(String[] sources) {
+        String os = System.getProperty("os.name");
+
         sourceMap = new HashMap<>();
         for (String s : sources) {
-            String key = s.substring(s.lastIndexOf("/") + 1, s.lastIndexOf("."));
-            if (key.length() > 10) {
-                key = s.substring(s.lastIndexOf("\\") + 1, s.lastIndexOf("."));
+            String key = s.substring(s.lastIndexOf("/") + 2, s.lastIndexOf("."));
+            if (os.contains("Windows")) {
+                key = s.substring(s.lastIndexOf("\\") + 2, s.lastIndexOf("."));
             }
             sourceMap.put(key, s);
         }
@@ -132,6 +134,7 @@ public class SamplePlayerController {
 
     public void setPadSample(String sampleName) {
         currentPad.setSample(sourceMap.get(sampleName));
+        currentPad.setFileName(sampleName);
     }
 
     public void setPadReverbSize(float size) {

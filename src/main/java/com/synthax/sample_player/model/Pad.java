@@ -28,7 +28,7 @@ public class Pad {
     public Pad(String path, SamplePlayerController samplePlayerController, int padIndex) {
         this.padIndex = padIndex;
         this.samplePlayerController = samplePlayerController;
-        setFileName(path);
+        setFileName(subString(path));
         padGain = new Gain(1, 0.0f);
         initPad(path);
         reverb = new SynthaxReverb(padGain);
@@ -59,14 +59,22 @@ public class Pad {
             throw new RuntimeException(e);
         }
         samplePlayer.setSample(sample);
-        setFileName(path);
     }
 
-    public void setFileName(String path) {
-        File file = new File(path);
-        fileName = file.getName();
-        fileName = fileName.substring(0, fileName.lastIndexOf('.'));
-        samplePlayerController.setSequencerLabel(fileName, padIndex);
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+        samplePlayerController.setSequencerLabel(this.fileName, padIndex);
+    }
+
+    private String subString(String fileName) {
+        String os = System.getProperty("os.name");
+        if (os.contains("Windows")) {
+            fileName = fileName.substring(fileName.lastIndexOf("\\") + 2, fileName.lastIndexOf("."));
+        } else {
+            fileName = fileName.substring(fileName.lastIndexOf("/") + 2, fileName.lastIndexOf("."));
+        }
+
+        return fileName;
     }
 
     public void setGain(float gain) {

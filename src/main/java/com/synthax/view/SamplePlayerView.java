@@ -223,7 +223,7 @@ public class SamplePlayerView implements Initializable {
             for (File file : sampleFiles) {
                 String sampleName = file.getName();
                 if (sampleName.endsWith(".wav")) {
-                    sampleName = sampleName.substring(0, sampleName.length() - 4);
+                    sampleName = sampleName.substring(1, sampleName.length() - 4);
                     samples.add(sampleName);
                 }
             }
