@@ -435,13 +435,29 @@ public class SynthaxController {
     }
 
     public void setOscVoiceCount(int voiceCount) {
-        VoiceController.MONOPHONIC_STATUS = false;
-        VoiceController.VOICE_COUNT = voiceCount;
-        oscillatorManager.setOscillatorVoiceCount(voiceCount);
+        Thread voiceChanger = new Thread(() -> {
+            // If sequencer is playing, stop it and do the loading after
+            boolean stopSuccessful = waitForSequencerToStop(250, "CANT LOAD WHILE SEQUENCER IS RUNNING!");
+
+            if(stopSuccessful) {
+                VoiceController.MONOPHONIC_STATUS = false;
+                VoiceController.VOICE_COUNT = voiceCount;
+                oscillatorManager.setOscillatorVoiceCount(voiceCount);
+            }
+        });
+        voiceChanger.start();
     }
 
     public void setMonophonic() {
-        VoiceController.MONOPHONIC_STATUS = true;
-        oscillatorManager.setOscillatorVoiceCount(0);
+        Thread voiceChanger = new Thread(() -> {
+            // If sequencer is playing, stop it and do the loading after
+            boolean stopSuccessful = waitForSequencerToStop(250, "CANT LOAD WHILE SEQUENCER IS RUNNING!");
+
+            if(stopSuccessful) {
+                VoiceController.MONOPHONIC_STATUS = true;
+                oscillatorManager.setOscillatorVoiceCount(0);
+            }
+        });
+        voiceChanger.start();
     }
 }
