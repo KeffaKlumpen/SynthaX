@@ -381,6 +381,11 @@ public class SamplePlayerView implements Initializable {
         btnSamplePlayerStart.setStyle("-fx-text-fill: #d6d1c9");
     }
 
+    @FXML
+    private void onActionResetSamplePlayerSeq() {
+        
+    }
+
     public void startSequencer() {
         samplePlayerController.startSequencer();
         btnSamplePlayerStart.setText("Stop");
