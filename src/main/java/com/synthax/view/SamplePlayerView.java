@@ -168,7 +168,7 @@ public class SamplePlayerView implements Initializable {
             }
         });
     }
-    
+
     //region Initialize methods (click to open/collapse)
     private void initSamplePlayerSequencer() {
         behaviorRate = new KnobBehavior(knobSamplePlayerRate);
