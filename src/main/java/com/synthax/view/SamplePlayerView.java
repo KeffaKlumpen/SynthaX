@@ -168,6 +168,7 @@ public class SamplePlayerView implements Initializable {
             }
         });
     }
+    
     //region Initialize methods (click to open/collapse)
     private void initSamplePlayerSequencer() {
         behaviorRate = new KnobBehavior(knobSamplePlayerRate);
@@ -381,18 +382,14 @@ public class SamplePlayerView implements Initializable {
         btnSamplePlayerStart.setStyle("-fx-text-fill: #d6d1c9");
     }
 
-    @FXML
-    private void onActionResetSamplePlayerSeq() {
-        
-    }
-
     public void startSequencer() {
         samplePlayerController.startSequencer();
         btnSamplePlayerStart.setText("Stop");
         btnSamplePlayerStart.setStyle("-fx-text-fill: #f78000");
     }
 
-    public void clearSequencer() {
+    @FXML
+    private void onActionResetSamplePlayerSeq() {
         samplePlayerController.clearSequencer();
         for (ToggleButton[] step : sequencerSteps) {
             for (int i = 0; i < sequencerSteps[0].length; i++) {
