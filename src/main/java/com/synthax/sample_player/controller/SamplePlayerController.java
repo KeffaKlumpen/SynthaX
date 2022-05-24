@@ -7,8 +7,6 @@ import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.ugens.Gain;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -120,6 +118,10 @@ public class SamplePlayerController {
 
     public void stopSequencer() {
         sequencer.stop();
+    }
+
+    public void clearSequencer() {
+        sequencer.clearSequencer();
     }
 
     public boolean getSequencerIsRunning() {

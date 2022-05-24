@@ -72,6 +72,12 @@ public class SamplePlayerSequencer implements Runnable {
         }
     }
 
+    public void clearSequencer() {
+        for (SamplePlayerSequencerStep step : steps) {
+            step.clearStep();
+        }
+    }
+
     public void setPadActive(boolean active, int step, int pad) {
         steps[step].setPadActive(pad, active);
     }
