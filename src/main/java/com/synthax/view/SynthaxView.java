@@ -1094,9 +1094,10 @@ public class SynthaxView implements Initializable {
     private void initKeyBoardListeners() {
         mainPane.setOnKeyPressed(event -> {
             String code = event.getText().toLowerCase();
-            if (code.equals(" ")) {
+            /*if (code.equals(" ")) {
                 fakeSequencerStartStopClick();
             }
+             */
             if (keyStatus.containsKey(code)) {
                 if (keyStatus.get(code).compareAndSet(false, true)) {
                     MidiNote note = MidiHelpers.stringToMidi(code);

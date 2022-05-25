@@ -3,6 +3,7 @@ package com.synthax.model;
 import com.synthax.controller.OscillatorManager;
 import com.synthax.controller.SynthaxController;
 import com.synthax.model.enums.MidiNote;
+import com.synthax.util.HelperMath;
 
 import javax.sound.midi.*;
 
@@ -83,13 +84,18 @@ public class Midi {
             if (status == ShortMessage.NOTE_OFF) {
                 oscillatorManager.noteOff(MidiNote.values()[data1]);
             } else if (status == ShortMessage.NOTE_ON) {
-                if (data2 > 0) {
-                    oscillatorManager.noteOn(MidiNote.values()[data1], data2);
-                } else {
-                    oscillatorManager.noteOff(MidiNote.values()[data1]);
+                if (data1 >= 21 && data1 <= 108) {
+                    if (data2 > 0) {
+                        oscillatorManager.noteOn(MidiNote.values()[data1], data2);
+                    } else {
+                        oscillatorManager.noteOff(MidiNote.values()[data1]);
+                    }
                 }
             } else if (status == ShortMessage.PITCH_BEND) {
                 //TODO: anropa en egen metod för pitchbend.
+                // manager -> osccontroller ->
+                float detuneCent = HelperMath.map(data2, 0, 127, -200, 200);
+                oscillatorManager.applyPitchBend(detuneCent);
             }
         }
 
