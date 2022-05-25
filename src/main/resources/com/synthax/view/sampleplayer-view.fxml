@@ -107,7 +107,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <CheckBox fx:id="syncSequencer" focusTraversable="false" layoutX="678.0" layoutY="244.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" selected="true" styleClass="check-box-big">
+            <CheckBox fx:id="syncSequencer" focusTraversable="false" layoutX="678.0" layoutY="244.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0" styleClass="check-box-big">
                <font>
                   <Font size="23.0" />
                </font>
