@@ -42,7 +42,6 @@ public class OscillatorLFO {
 
     public void setRate(float rate) {
         rate = convertRate(rate);
-        System.out.println(rate);
         lfo.setFrequency(rate);
     }
 

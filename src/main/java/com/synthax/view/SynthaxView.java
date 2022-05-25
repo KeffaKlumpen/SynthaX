@@ -490,7 +490,6 @@ public class SynthaxView implements Initializable {
     }
 
     public void setOscVoiceCount(int voiceCount) {
-        System.out.println("SynthaxView.oscCount = " + voiceCount);
         synthaxController.setOscVoiceCount(voiceCount);
     }
 
@@ -523,7 +522,6 @@ public class SynthaxView implements Initializable {
     }
 
     public void fakeSequencerStartStopClick() {
-        System.out.println("clicked.");
         Platform.runLater(() -> {
             SSStartStop.onMousePressedProperty().get().handle(new MouseEvent(MouseEvent.MOUSE_PRESSED, 0,
                     0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
@@ -1096,6 +1094,9 @@ public class SynthaxView implements Initializable {
     private void initKeyBoardListeners() {
         mainPane.setOnKeyPressed(event -> {
             String code = event.getText().toLowerCase();
+            if (code.equals(" ")) {
+                fakeSequencerStartStopClick();
+            }
             if (keyStatus.containsKey(code)) {
                 if (keyStatus.get(code).compareAndSet(false, true)) {
                     MidiNote note = MidiHelpers.stringToMidi(code);

@@ -130,7 +130,6 @@ public class Sequencer implements Runnable {
         Thread saver = new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println(Thread.currentThread().getName());
 
                 if(thread != null) {
                     try {
@@ -156,7 +155,6 @@ public class Sequencer implements Runnable {
         Thread loader = new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println(Thread.currentThread().getName());
 
                 if(thread != null) {
                     try {

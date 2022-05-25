@@ -107,14 +107,12 @@ public class SynthaxEQFilters {
     }
 
     public void setEQActive(int i) {
-        //System.out.println("EQActive: " + !eqActive[i]);
         eqActive[i] = !eqActive[i];
         if(eqActive[i]) {
             eqFilters[i].setGain(eqSavedGain[i]);
         }
         else {
             eqSavedGain[i] = eqFilters[i].getGain();
-            //System.out.println("saved: " + eqSavedGain[i]);
             eqFilters[i].setGain(EQ_GAIN_DISABLED);
         }
     }
@@ -122,7 +120,6 @@ public class SynthaxEQFilters {
     public void setEQGain(int i, float newVal) {
         float gain = HelperMath.map(newVal, -50f, 50f, EQ_GAIN_MIN, EQ_GAIN_MAX);
         if(eqActive[i]) {
-            //System.out.println("EQGain: " + gain);
             eqFilters[i].setGain(gain);
         } else {
             eqSavedGain[i] = gain;
@@ -131,13 +128,11 @@ public class SynthaxEQFilters {
 
     public void setEQRange(int i, float newVal) {
         float qVal = HelperMath.map(newVal, 0f, 1f, EQ_RANGE_MIN, EQ_RANGE_MAX);
-        //System.out.println("EQqVal: " + qVal);
         eqFilters[i].setQ(qVal);
     }
 
     public void setEQFrequency(int i, float newVal) {
         float freq = HelperMath.map(newVal, 0f, 1f, EQ_FREQ_MIN, EQ_FREQ_MAX);
-        System.out.println("EQfreq: " + freq);
         eqFilters[i].setFrequency(freq);
     }
 
@@ -165,7 +160,6 @@ public class SynthaxEQFilters {
      * Helper method to set frequency of the HighPass filter.
      */
     private void setHPfreq(float freq) {
-        System.out.println("Setting HP freq: " + freq);
         for (int i = 0; i < FILTER_STACK_COUNT; i++) {
             highPassFilters[i].setFrequency(freq);
         }
@@ -175,7 +169,6 @@ public class SynthaxEQFilters {
      * Helper method to set frequency of the LowPass filter.
      */
     private void setLPfreq(float freq) {
-        System.out.println("Setting LP freq: " + freq);
         for (int i = 0; i < FILTER_STACK_COUNT; i++) {
             lowPassFilters[i].setFrequency(freq);
         }

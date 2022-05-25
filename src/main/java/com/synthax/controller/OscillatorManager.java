@@ -74,12 +74,10 @@ public class OscillatorManager {
         // If we are the first oscillator in the chain
         if(index == 0) {
             oscillatorController.setInput(null);
-            System.out.println("Setting our input to null");
         }
         // If we have previous oscillators in the chain, set our input to the previous output.
         else {
             oscillatorController.setInput(oscillatorControllers.get(index - 1).getOutput());
-            System.out.println("Setting our input to previous osc.getOutput");
         }
 
         // Set oscillators output
@@ -88,12 +86,10 @@ public class OscillatorManager {
         if(index == oscillatorControllers.size() - 1) {
             oscillatorOutput.clearInputConnections();
             oscillatorOutput.addInput(oscOutput);
-            System.out.println("Setting total.Output to our output.");
         }
         // If there are more oscillators in the chain, set their input to our output.
         else {
             oscillatorControllers.get(index + 1).setInput(oscOutput);
-            System.out.println("Setting nextOsc.input to our output.");
         }
     }
 
@@ -101,8 +97,6 @@ public class OscillatorManager {
     public void addOscillator(OscillatorController osc) {
         oscillatorControllers.add(osc);
         setupInOuts(osc);
-
-        System.out.println("Added " + osc + " to Synth!");
     }
 
     /**
@@ -160,7 +154,6 @@ public class OscillatorManager {
         setupInOuts(oscillatorController);
         setupInOuts(nextOsc);
 
-        System.out.println(oscillatorControllers);
     }
 
     public void moveOscillatorUp(OscillatorController oscillatorController) {
@@ -179,8 +172,6 @@ public class OscillatorManager {
 
         setupInOuts(oscillatorController);
         setupInOuts(prevOsc);
-
-        System.out.println(oscillatorControllers);
     }
     //endregion List Managing
 
