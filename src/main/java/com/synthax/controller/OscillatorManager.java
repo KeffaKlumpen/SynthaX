@@ -214,4 +214,10 @@ public class OscillatorManager {
         }
     }
     // endregion Delay-setters
+
+    public void applyPitchBend(float detuneCent) {
+        for (OscillatorController oscillatorController : oscillatorControllers) {
+            oscillatorController.setDetuneCent(detuneCent);
+        }
+    }
 }
