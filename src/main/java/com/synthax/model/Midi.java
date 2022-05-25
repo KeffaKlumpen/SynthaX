@@ -94,7 +94,7 @@ public class Midi {
             } else if (status == ShortMessage.PITCH_BEND) {
                 //TODO: anropa en egen metod för pitchbend.
                 // manager -> osccontroller ->
-                float detuneCent = HelperMath.map(data1, 0, 127, -200, 200);
+                float detuneCent = HelperMath.map(data2, 0, 127, -200, 200);
                 oscillatorManager.applyPitchBend(detuneCent);
             }
         }
