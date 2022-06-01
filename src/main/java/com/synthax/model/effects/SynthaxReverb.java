@@ -1,4 +1,4 @@
-package com.synthax.model;
+package com.synthax.model.effects;
 
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;

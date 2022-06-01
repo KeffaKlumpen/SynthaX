@@ -6,7 +6,6 @@ module com.synthax.synthax_beads {
     requires java.desktop;
 
 
-    exports com.synthax.model;
     exports com.synthax.controller;
     opens com.synthax.controller to javafx.fxml;
     exports com.synthax;
@@ -17,4 +16,6 @@ module com.synthax.synthax_beads {
     opens com.synthax.model.enums to javafx.fxml;
     exports com.synthax.model.oscillator;
     opens com.synthax.model.oscillator to javafx.fxml;
+    exports com.synthax.model.effects;
+    exports com.synthax.model.midi;
 }

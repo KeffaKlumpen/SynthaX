@@ -1,4 +1,4 @@
-package com.synthax.model;
+package com.synthax.model.midi;
 
 import com.synthax.controller.OscillatorManager;
 import com.synthax.controller.SynthaxController;

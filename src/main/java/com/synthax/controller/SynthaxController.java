@@ -1,9 +1,9 @@
 package com.synthax.controller;
 
-import com.synthax.model.SynthaxEQFilters;
-import com.synthax.model.Midi;
-import com.synthax.model.SynthaxLFO;
-import com.synthax.model.SynthaxReverb;
+import com.synthax.model.effects.SynthaxEQFilters;
+import com.synthax.model.midi.Midi;
+import com.synthax.model.effects.SynthaxLFO;
+import com.synthax.model.effects.SynthaxReverb;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.Waveforms;
 import com.synthax.model.sequencer.Sequencer;
@@ -26,6 +26,9 @@ import java.util.Random;
  * @author Viktor Lenberg
  */
 public class SynthaxController {
+
+    public static final float MINIMUM_GLIDE_DURATION = 10f;
+
     private final SynthaxView synthaxView;
     private final SeqPresetLoader seqPresetLoader;
 

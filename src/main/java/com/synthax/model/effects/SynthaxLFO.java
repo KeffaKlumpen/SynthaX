@@ -1,4 +1,4 @@
-package com.synthax.model;
+package com.synthax.model.effects;
 
 import com.synthax.model.enums.Waveforms;
 import com.synthax.util.HelperMath;

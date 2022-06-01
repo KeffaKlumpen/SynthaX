@@ -1,4 +1,4 @@
-package com.synthax.model;
+package com.synthax.model.effects;
 
 import com.synthax.util.HelperMath;
 import net.beadsproject.beads.core.AudioContext;

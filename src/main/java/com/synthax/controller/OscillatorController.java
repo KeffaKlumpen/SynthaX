@@ -19,7 +19,7 @@ import net.beadsproject.beads.ugens.*;
  * @author Luke Eales
  * @author Axel Nilsson
  */
-public class OscillatorController extends VoiceController{
+public class OscillatorController extends VoiceController {
     private Waveforms waveform = Waveforms.SINE;
 
     private OctaveOperands octaveOperand = OctaveOperands.EIGHT;
@@ -113,22 +113,22 @@ public class OscillatorController extends VoiceController{
     //endregion GUI forwarding
 
     //region CombineMode Output (click to open/collapse)
-    public void setOutputType(CombineMode combineMode){
+    public void setOutputType(CombineMode combineMode) {
         UGen newOutput = null;
 
         switch (combineMode){
             case ADD -> newOutput = new Add(1, voiceOutput);
             case MULT -> newOutput = new Mult(1, voiceOutput);
         }
-        if(newOutput != null){
+        if(newOutput != null) {
             finalOutput = newOutput;
             OscillatorManager.getInstance().setupInOuts(this);
         }
     }
 
-    public void setInput(UGen input){
+    public void setInput(UGen input) {
         finalOutput.clearInputConnections();
-        if(input != null){
+        if(input != null) {
             finalOutput.addInput(input);
         }
     }

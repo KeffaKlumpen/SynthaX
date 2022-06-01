@@ -7,7 +7,7 @@ import com.synthax.view.controls.KnobBehaviorWave;
 import com.synthax.MainApplication;
 import com.synthax.controller.OscillatorController;
 import com.synthax.controller.SynthaxController;
-import com.synthax.model.SynthaxADSR;
+import com.synthax.model.effects.SynthaxADSR;
 import com.synthax.view.controls.KnobBehaviorSeqFreq;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.enums.SequencerMode;
@@ -44,7 +44,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 

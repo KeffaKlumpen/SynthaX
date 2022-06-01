@@ -1,6 +1,6 @@
 package com.synthax.sample_player.model;
 
-import com.synthax.model.SynthaxReverb;
+import com.synthax.model.effects.SynthaxReverb;
 import com.synthax.sample_player.controller.SamplePlayerController;
 import net.beadsproject.beads.data.Sample;
 import net.beadsproject.beads.data.audiofile.FileFormatException;
@@ -8,7 +8,6 @@ import net.beadsproject.beads.data.audiofile.OperationUnsupportedException;
 import net.beadsproject.beads.ugens.Gain;
 import net.beadsproject.beads.ugens.SamplePlayer;
 
-import java.io.File;
 import java.io.IOException;
 
 /**

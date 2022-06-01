@@ -1,4 +1,4 @@
-package com.synthax.model;
+package com.synthax.model.effects;
 
 /**
  * Class that handles setting the ADSR values

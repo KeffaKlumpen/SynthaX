@@ -1,6 +1,6 @@
 package com.synthax.controller;
 
-import com.synthax.model.SynthaxADSR;
+import com.synthax.model.effects.SynthaxADSR;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.oscillator.Voice;
 import com.synthax.model.oscillator.VoiceNormalizer;
