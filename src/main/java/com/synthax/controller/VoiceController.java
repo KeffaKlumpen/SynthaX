@@ -4,6 +4,7 @@ import com.synthax.model.effects.SynthaxADSR;
 import com.synthax.model.enums.MidiNote;
 import com.synthax.model.oscillator.Voice;
 import com.synthax.model.oscillator.VoiceNormalizer;
+import com.synthax.util.HelperMath;
 import com.synthax.util.MidiHelpers;
 import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
@@ -91,6 +92,10 @@ public abstract class VoiceController {
      * @param detuneCent How many cents of detuning to be applied.
      */
     public void noteOn(MidiNote midiNote, int velocity, float detuneCent) {
+        if(velocity < 0 || velocity > MidiHelpers.MAX_VELOCITY_VALUE) {
+            velocity = HelperMath.clamp(velocity, 0, MidiHelpers.MAX_VELOCITY_VALUE);
+        }
+
         // Try to get availableVoice, else get oldestVoice.
         int voiceIndex = getBestVoice();
 
