@@ -116,7 +116,7 @@ public class OscillatorController extends VoiceController {
     public void setOutputType(CombineMode combineMode) {
         UGen newOutput = null;
 
-        switch (combineMode){
+        switch (combineMode) {
             case ADD -> newOutput = new Add(1, voiceOutput);
             case MULT -> newOutput = new Mult(1, voiceOutput);
         }
