@@ -9,6 +9,7 @@ Förslag på förändringar/saker att göra i projektet:
 * Resize-funktionalitet på huvudfönstret.
 * Inkorporera trum-maskinen i huvudfönstret. Dynamiskt innehåll i huvudfönstret.
 * Identifiera vad som är prestandakrävande och ifall det går att effektivisera (tex att många voices just nu gör att du inte kan ha så många oscillatorer samtidigt)
+* Undersök om det är möjligt att implementera en global metronom för att undika att trummaskin och sequencer hamnar i osynk.
 
 Användbara resurser kring Java BEADS:
 https://evanxmerz.com/soundsynthjava/Sound_Synth_Java.html#introduction
